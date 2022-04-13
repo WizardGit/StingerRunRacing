@@ -411,9 +411,25 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: playerSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: playerRotationSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1098037229, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098037231, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: m_Radius
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098037232, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: m_RootOrder
@@ -472,6 +488,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3886609801385968105, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: m_Enabled
       value: 0
