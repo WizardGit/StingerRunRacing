@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public Vector3 playerRotationSpeed = new Vector3(0, 100, 0);
+    public float playerRotationSpeed = 100f;
     public float playerSpeed = 10f;
 
     private float movementX;
@@ -52,8 +52,16 @@ public class PlayerController : MonoBehaviour
         //transform.Translate(0, 0, movementY * playerSpeed * Time.deltaTime);
         //transform.Rotate(0, movementX * playerRotationSpeed * Time.deltaTime, 0);
 
-        Quaternion deltaRotation = Quaternion.Euler(movementX * playerRotationSpeed * Time.deltaTime);
+        Vector3 vecRotation = new Vector3(0, playerRotationSpeed, 0);
+        Quaternion deltaRotation = Quaternion.Euler(movementX * vecRotation * Time.deltaTime);
         rb.MoveRotation(rb.rotation * deltaRotation);
         rb.MovePosition(rb.position + transform.forward * playerSpeed * movementY * Time.deltaTime);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("RingTarget"))
+        {
+            other.gameObject.SetActive(false);
+        }
     }
 }
