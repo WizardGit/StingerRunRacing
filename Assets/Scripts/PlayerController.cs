@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     public float playerRotationSpeed = 100f;
     public float playerSpeed = 10f;
+    public float jumpForce = 400f;
 
     private float movementX;
     private float movementY;
@@ -33,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnJump()
     {
-        Vector3 jump = new Vector3(movementX, 400.0f, movementY);        
+        Vector3 jump = new Vector3(movementX, jumpForce, movementY);        
         rb.AddForce(jump);
         m_Animator.Play("Jump01");
     }

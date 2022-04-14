@@ -17,7 +17,7 @@ public class CameraFollow : MonoBehaviour
 
     private bool check = false;
 
-    public void OnFrontView()
+    private void OnFrontView()
     {
         if (lookAt)
         {
@@ -40,7 +40,11 @@ public class CameraFollow : MonoBehaviour
         if (lookAt)
         {
             // Then Calculate camera rotation
+            // I feel like this is a bit clunky though!
             transform.LookAt(target);
+            Vector3 targetRotation = transform.rotation.eulerAngles;
+            Vector3 transformRotation = new Vector3(targetRotation.x-20, targetRotation.y, targetRotation.z);
+            transform.rotation = Quaternion.Euler(transformRotation);
         }
         else
         {

@@ -13,15 +13,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1804.1925
+      value: 1805
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 108.68901
+      value: 108.82
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1537.7465
+      value: 1538
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalRotation.w
@@ -61,7 +61,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d44ccf3ab12b7f741ab5d04724f0a3de, type: 2}
     - target: {fileID: 919132149155446097, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_Name
-      value: SpeedStingerModelPrefab
+      value: SpeedStinger_Model
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
@@ -85,7 +85,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!136 &1098037231
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -96,7 +96,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.7
+  m_Radius: 0.8
   m_Height: 4
   m_Direction: 2
   m_Center: {x: 0, y: 0.7, z: 0}
@@ -132,8 +132,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c973c7b68472c884a9a8ded1a2f36569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRotationSpeed: 100
-  playerSpeed: 20
+  playerRotationSpeed: 200
+  playerSpeed: 10
+  jumpForce: 300
 --- !u!114 &1098037229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,7 +159,63 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b33ae2ed-46f5-4c7d-b13a-0ba02127174a
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 108d408e-d2e0-449f-a117-36ce0c08f2ec
+    m_ActionName: Player/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4275f61c-dbc4-4d4b-8c24-71b27e135821
+    m_ActionName: Player/Fire[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f9f97c76-9212-4cfa-95b8-13c6b4b57249
+    m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a760bab6-a25f-4d81-974b-f06bf911ee5e
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d8a9fb99-2e32-4656-88e1-cf75c1f9890c
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dc4f7de6-8572-46ca-9f72-e07cc6ac0a2c
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d4544b8a-532c-4ed9-9c75-46fbf1bbc863
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c1d4ce4c-dc1e-4574-9082-44abac0a9ce7
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 01cf39a3-4ace-4bc0-9875-e96ae4aec032
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a8d8020f-f620-41bd-bf11-6c0e9f22b86c
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7be30f25-8c6c-4876-bdae-c594f7c4fac8
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 000e13f2-8cc4-49bf-af89-facbd9e62fab
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 570b42ac-a478-4e7a-8d00-3b1b62b29e13
+    m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
