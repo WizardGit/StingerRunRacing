@@ -2,12 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
+    public TextMeshProUGUI countText;
+    public GameObject testText;
+    private float time = 0.0f;
     public float playerRotationSpeed = 100f;
     public float playerSpeed = 10f;
     public float jumpForce = 400f;
+
+    private int checkpointsReached = 0;
 
     private float movementX;
     private float movementY;
@@ -21,6 +28,7 @@ public class PlayerController : MonoBehaviour
     {
         m_Animator = GetComponent<Animation>();
         rb = GetComponent<Rigidbody>();
+        testText.SetActive(false);
     }
 
     private void OnMove(InputValue movementValue)
@@ -41,6 +49,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        time += Time.deltaTime;
+        countText.text = "Count: " + MathF.Round(time,2);
         if (movementX > 0.0f)
             m_Animator.Play("WalkRight");
         else if (movementX < 0.0f)
@@ -57,12 +67,19 @@ public class PlayerController : MonoBehaviour
         Quaternion deltaRotation = Quaternion.Euler(movementX * vecRotation * Time.deltaTime);
         rb.MoveRotation(rb.rotation * deltaRotation);
         rb.MovePosition(rb.position + transform.forward * playerSpeed * movementY * Time.deltaTime);
+
+        if (checkpointsReached == 1)
+        {
+            testText.SetActive(true);
+            Application.Quit();
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("RingTarget"))
         {
             other.gameObject.SetActive(false);
+            checkpointsReached++;
         }
     }
 }
