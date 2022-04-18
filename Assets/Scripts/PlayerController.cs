@@ -1,3 +1,8 @@
+/*
+ * Author: Kaiser Slocum
+ * Date last edited: 4/18/2022
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,58 +12,92 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
-    public TextMeshProUGUI countText;
-    public GameObject testText;
+    // Variables for keeping the time
     private float time = 0.0f;
+    private float countdown = 0.0f;
+    private bool start = false;
+
+    // Movement speeds
     public float playerRotationSpeed = 100f;
     public float playerSpeed = 10f;
-    public float jumpForce = 400f;
+    public float jumpForce = 400f;    
 
+    // How many checkpoints have we hit!
     private int checkpointsReached = 0;
 
+    // Movement variables
     private float movementX;
     private float movementY;
-    Vector3 m_Movement;
-    Vector2 inputDirection;
 
-    Animation m_Animator;
+    // Object variables
+    Animation animator;
     Rigidbody rb;
+
+    // Text variables
+    public TextMeshProUGUI timeText;
+    public TextMeshProUGUI messageText;
 
     void Start()
     {
-        m_Animator = GetComponent<Animation>();
+        animator = GetComponent<Animation>();
         rb = GetComponent<Rigidbody>();
-        testText.SetActive(false);
+
+        timeText.text = "";
     }
 
     private void OnMove(InputValue movementValue)
     {
-        Vector2 movementVector = movementValue.Get<Vector2>();
-        inputDirection = movementVector.normalized;
-
-        movementX = movementVector.x;
-        movementY = movementVector.y;        
+        Vector2 movementXY = movementValue.Get<Vector2>().normalized;
+        movementX = movementXY.x;
+        movementY = movementXY.y;        
     }
 
     private void OnJump()
     {
-        Vector3 jump = new Vector3(movementX, jumpForce, movementY);        
+        Vector3 jump = new Vector3(movementX, jumpForce, movementY);
         rb.AddForce(jump);
-        m_Animator.Play("Jump01");
+        animator.Play("Jump01");
     }
 
     private void FixedUpdate()
     {
-        time += Time.deltaTime;
-        countText.text = "Count: " + MathF.Round(time,2);
-        if (movementX > 0.0f)
-            m_Animator.Play("WalkRight");
-        else if (movementX < 0.0f)
-            m_Animator.Play("WalkLeft");
-        else if (!Mathf.Approximately(movementY, 0f))
-            m_Animator.Play("Run");
+        if (start == false)
+        {
+            countdown += Time.deltaTime;
+            messageText.text = MathF.Round(countdown).ToString();
+            if (countdown >= 3.0f)
+            {
+                start = true;
+                messageText.text = "<size=200%> GO!";
+            }
+        }
         else
-            m_Animator.Play("IdleHappy");
+        {
+            time += Time.deltaTime;
+            timeText.text = "Time: " + MathF.Round(time, 2);
+            move();
+
+            if ((time > 2.0f) && (start == true) && (messageText.text == "<size=200%> GO!") && (messageText.text != ""))
+            {
+                messageText.text = "";
+            }
+            if (checkpointsReached == 1)
+            {
+                messageText.text = "<size=200%> Finished!";
+                Application.Quit();
+            }
+        }        
+    }
+    private void move()
+    {
+        if (movementX > 0.0f)
+            animator.Play("WalkRight");
+        else if (movementX < 0.0f)
+            animator.Play("WalkLeft");
+        else if (!Mathf.Approximately(movementY, 0f))
+            animator.Play("Run");
+        else
+            animator.Play("IdleHappy");
 
         //transform.Translate(0, 0, movementY * playerSpeed * Time.deltaTime);
         //transform.Rotate(0, movementX * playerRotationSpeed * Time.deltaTime, 0);
@@ -67,12 +106,6 @@ public class PlayerController : MonoBehaviour
         Quaternion deltaRotation = Quaternion.Euler(movementX * vecRotation * Time.deltaTime);
         rb.MoveRotation(rb.rotation * deltaRotation);
         rb.MovePosition(rb.position + transform.forward * playerSpeed * movementY * Time.deltaTime);
-
-        if (checkpointsReached == 1)
-        {
-            testText.SetActive(true);
-            Application.Quit();
-        }
     }
     private void OnTriggerEnter(Collider other)
     {
