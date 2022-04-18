@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
 
     // How many checkpoints have we hit!
     private int checkpointsReached = 0;
+    private bool inJump = false;
 
     // Movement variables
     private float movementX;
@@ -54,18 +55,37 @@ public class PlayerController : MonoBehaviour
 
     private void OnJump()
     {
-        Vector3 jump = new Vector3(movementX, jumpForce, movementY);
-        rb.AddForce(jump);
-        animator.Play("Jump01");
+        if ((inJump == false) && (start == true))
+        {
+            inJump = true;
+            Vector3 jump = new Vector3(movementX, jumpForce, movementY);
+            rb.AddForce(jump);
+            animator.Play("Jump01");
+        }
+        else
+        {
+            RaycastHit hit;
+            Ray checkGround = new Ray(transform.position, Vector3.down);
+
+            if ((inJump == true) && (Physics.Raycast(checkGround, out hit, 1f)) && ((hit.collider.tag == "GroundTerrain") || (hit.collider.tag == "Untagged")))
+            {
+                inJump = false;
+            }
+        }        
     }
 
     private void FixedUpdate()
     {
+        if (rb.position.y <= 0)
+        {
+            Vector3 resetPos = new Vector3(1805f, 108.82f, 1538f);
+            rb.MovePosition(resetPos);
+        }
         if (start == false)
         {
             countdown += Time.deltaTime;
-            messageText.text = MathF.Round(countdown).ToString();
-            if (countdown >= 3.0f)
+            messageText.text = (3-MathF.Round(countdown)).ToString();
+            if (countdown >= 0.0f)
             {
                 start = true;
                 messageText.text = "<size=200%> GO!";

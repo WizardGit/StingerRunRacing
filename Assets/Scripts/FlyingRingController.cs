@@ -7,7 +7,6 @@ public class FlyingRingController : MonoBehaviour
     public GameObject bladeLeft;
     public GameObject bladeRight;
     public GameObject glowingRingTarget;
-
     
     void Update()
     {
