@@ -967,6 +967,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1098037231, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098037231, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: m_Radius
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098037231, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: m_Center.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098037231, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
@@ -1030,6 +1042,10 @@ PrefabInstance:
     - target: {fileID: 2947058631821257460, guid: 5e3c1fe5d43ff924e96ca79a9d373a38, type: 3}
       propertyPath: m_Name
       value: PfFakeBoxObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 2947058631821257460, guid: 5e3c1fe5d43ff924e96ca79a9d373a38, type: 3}
+      propertyPath: m_TagString
+      value: FlyingBox
       objectReference: {fileID: 0}
     - target: {fileID: 2950699066329857610, guid: 5e3c1fe5d43ff924e96ca79a9d373a38, type: 3}
       propertyPath: m_RootOrder

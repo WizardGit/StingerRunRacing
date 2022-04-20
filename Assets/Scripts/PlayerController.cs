@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private float time = 0.0f;
     private float countdown = 0.0f;
     private bool start = false;
+    private bool onTerrain = false;
 
     // Movement speeds
     public float playerRotationSpeed = 100f;
@@ -24,11 +25,10 @@ public class PlayerController : MonoBehaviour
 
     // How many checkpoints have we hit!
     private int checkpointsReached = 0;
-    private bool inJump = false;
 
     // Movement variables
     private float movementX;
-    private float movementY;
+    private float movementY;    
 
     // Object variables
     Animation animator;
@@ -42,8 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         animator = GetComponent<Animation>();
         rb = GetComponent<Rigidbody>();
-
-        timeText.text = "";
+        timeText.text = "";        
     }
 
     private void OnMove(InputValue movementValue)
@@ -55,23 +54,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnJump()
     {
-        if ((inJump == false) && (start == true))
-        {
-            inJump = true;
+        if ((onTerrain == true) && (start == true))
+        {            
             Vector3 jump = new Vector3(movementX, jumpForce, movementY);
             rb.AddForce(jump);
             animator.Play("Jump01");
-        }
-        else
-        {
-            RaycastHit hit;
-            Ray checkGround = new Ray(transform.position, Vector3.down);
-
-            if ((inJump == true) && (Physics.Raycast(checkGround, out hit, 1f)) && ((hit.collider.tag == "GroundTerrain") || (hit.collider.tag == "Untagged")))
-            {
-                inJump = false;
-            }
-        }        
+        }     
     }
 
     private void FixedUpdate()
@@ -85,7 +73,7 @@ public class PlayerController : MonoBehaviour
         {
             countdown += Time.deltaTime;
             messageText.text = (3-MathF.Round(countdown)).ToString();
-            if (countdown >= 0.0f)
+            if (countdown >= 2.5f)
             {
                 start = true;
                 messageText.text = "<size=200%> GO!";
@@ -97,7 +85,7 @@ public class PlayerController : MonoBehaviour
             timeText.text = "Time: " + MathF.Round(time, 2);
             move();
 
-            if ((time > 2.0f) && (start == true) && (messageText.text == "<size=200%> GO!") && (messageText.text != ""))
+            if ((time > 3.0f) && (start == true) && (messageText.text == "<size=200%> GO!") && (messageText.text != ""))
             {
                 messageText.text = "";
             }
@@ -106,7 +94,15 @@ public class PlayerController : MonoBehaviour
                 messageText.text = "<size=200%> Finished!";
                 Application.Quit();
             }
-        }        
+        }
+
+        // Keep for later in case we need it!
+        //RaycastHit hit;
+        //Ray checkGround = new Ray(transform.position, Vector3.down);
+        //if ((inJump == true) && (Physics.Raycast(checkGround, out hit, 0.81f)) && ((hit.collider.tag == "GroundTerrain") || (hit.collider.tag == "Untagged")))
+        //{
+            //inJump = false;
+        //}
     }
     private void move()
     {
@@ -119,6 +115,7 @@ public class PlayerController : MonoBehaviour
         else
             animator.Play("IdleHappy");
 
+        // We can use transform instead of rigidbody
         //transform.Translate(0, 0, movementY * playerSpeed * Time.deltaTime);
         //transform.Rotate(0, movementX * playerRotationSpeed * Time.deltaTime, 0);
 
@@ -133,6 +130,27 @@ public class PlayerController : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             checkpointsReached++;
+        }
+        else if (other.gameObject.CompareTag("FlyingBox"))
+        {
+            other.gameObject.SetActive(false);
+            // Do Something like speed boost
+        }
+    }
+
+    // These methods detect if player is on the terrain!
+    private void OnCollisionEnter(Collision theCollision)
+    {
+        if (theCollision.gameObject.name == "Terrain")
+        {
+            onTerrain = true;
+        }
+    }
+    private void OnCollisionExit(Collision theCollision)
+    {
+        if (theCollision.gameObject.name == "Terrain")
+        {
+            onTerrain = false;
         }
     }
 }
