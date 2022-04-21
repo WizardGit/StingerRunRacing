@@ -8,6 +8,7 @@ public class CheckpointsScript : MonoBehaviour
     private List<GameObject> targets;
     public TextMeshProUGUI distanceText;
     public GameObject player;
+    public GameObject invisibleFinishLineTrigger;
     private int currentCheckpointIndex = 0;
 
     // Start is called before the first frame update
@@ -22,7 +23,6 @@ public class CheckpointsScript : MonoBehaviour
             {
                 if (ring.transform.GetChild(j).gameObject.name == "GlowingRingTarget")
                 {
-                    Debug.Log("Adding Target");
                     targets.Add(ring.transform.GetChild(j).gameObject);
                 }
             }
@@ -32,6 +32,7 @@ public class CheckpointsScript : MonoBehaviour
             target.GetComponent<MeshRenderer>().material.color = Color.red;
         }
         targets[0].GetComponent<MeshRenderer>().material.color = Color.green;
+        targets.Add(invisibleFinishLineTrigger);
     }
 
     // Update is called once per frame
@@ -42,7 +43,10 @@ public class CheckpointsScript : MonoBehaviour
         // Update our next checkpoint
         if (targets[currentCheckpointIndex].activeInHierarchy == false)
         {
-            targets[++currentCheckpointIndex].GetComponent<MeshRenderer>().material.color = Color.green;
+            if (currentCheckpointIndex < targets.Count-2)
+            {
+                targets[++currentCheckpointIndex].GetComponent<MeshRenderer>().material.color = Color.green;
+            }
             if (currentCheckpointIndex >= targets.Count)
             {
                 // We are done with the race

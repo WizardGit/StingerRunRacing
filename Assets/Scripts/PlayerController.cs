@@ -17,7 +17,8 @@ public class PlayerController : MonoBehaviour
     private float countdown = 0.0f;
     private bool start = false;
     private bool onTerrain = false;
-    private int numCheckpoints = 6;
+    public int numCheckpoints;
+    private float boostTimer;
 
     // Movement speeds
     public float playerRotationSpeed = 100f;
@@ -72,7 +73,15 @@ public class PlayerController : MonoBehaviour
         {
             rb.MovePosition(resetPos);
         }
-        if (start == false)
+        if ((time - boostTimer) > 20f)
+        {
+            playerSpeed = 10f;
+        }
+        else if ((time - boostTimer) > 2f)
+        {
+            messageText.text = "";
+        }
+            if (start == false)
         {
             countdown += Time.deltaTime;
             messageText.text = (3-MathF.Round(countdown)).ToString();
@@ -91,11 +100,6 @@ public class PlayerController : MonoBehaviour
             if ((time > 3.0f) && (start == true) && (messageText.text == "<size=200%> GO!") && (messageText.text != ""))
             {
                 messageText.text = "";
-            }
-            if (checkpointsReached == numCheckpoints)
-            {
-                messageText.text = "<size=200%> Finished!";
-                Application.Quit();
             }
         }
 
@@ -138,7 +142,16 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.CompareTag("FlyingBox"))
         {
             other.gameObject.SetActive(false);
+            playerSpeed = 20f;
+            messageText.text = "<size=200%> Double Speed!";
+            boostTimer = time;
             // Do Something like speed boost
+        }
+        else if ((other.gameObject.CompareTag("Finish")) && (checkpointsReached == numCheckpoints))
+        {
+            messageText.text = "<size=200%> Finished!";
+            other.gameObject.SetActive(false);
+            Application.Quit();
         }
     }
 
@@ -149,10 +162,14 @@ public class PlayerController : MonoBehaviour
         {
             onTerrain = true;
         }
+        else
+        {
+            onTerrain = true;
+        }
     }
     private void OnCollisionExit(Collision theCollision)
     {
-        if (theCollision.gameObject.name == "Terrain")
+        if ((theCollision.gameObject.name == "Terrain") || (theCollision.gameObject.CompareTag("Untagged")))
         {
             onTerrain = false;
         }
