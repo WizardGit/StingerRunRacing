@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CheckpointsScript : MonoBehaviour
 {
     private List<GameObject> targets;
+    public TextMeshProUGUI distanceText;
+    public GameObject player;
+    private int currentCheckpointIndex = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -27,12 +31,23 @@ public class CheckpointsScript : MonoBehaviour
         {
             target.GetComponent<MeshRenderer>().material.color = Color.red;
         }
-        target[0].GetComponent<MeshRenderer>().material.color = Color.green;
+        targets[0].GetComponent<MeshRenderer>().material.color = Color.green;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        distanceText.text = "Next checkpoint: " + (targets[currentCheckpointIndex].transform.position - player.transform.position).ToString();
+
+        // Update our next checkpoint
+        if (targets[currentCheckpointIndex].activeInHierarchy == false)
+        {
+            targets[++currentCheckpointIndex].GetComponent<MeshRenderer>().material.color = Color.green;
+            if (currentCheckpointIndex >= targets.Count)
+            {
+                // We are done with the race
+                currentCheckpointIndex = 0;
+            }
+        }
     }
 }

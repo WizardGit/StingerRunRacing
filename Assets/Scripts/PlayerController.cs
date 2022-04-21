@@ -39,11 +39,14 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI messageText;
 
+    private Vector3 resetPos;
+
     void Start()
     {
         animator = GetComponent<Animation>();
         rb = GetComponent<Rigidbody>();
-        timeText.text = "";        
+        timeText.text = "";
+        resetPos = new Vector3(1764f, 103.87f, 1570f);
     }
 
     private void OnMove(InputValue movementValue)
@@ -67,7 +70,6 @@ public class PlayerController : MonoBehaviour
     {
         if (rb.position.y <= 0)
         {
-            Vector3 resetPos = new Vector3(1805f, 108.82f, 1538f);
             rb.MovePosition(resetPos);
         }
         if (start == false)
@@ -129,6 +131,7 @@ public class PlayerController : MonoBehaviour
     {
         if ((other.gameObject.CompareTag("RingTarget")) && (other.gameObject.GetComponent<MeshRenderer>().material.color == Color.green))
         {
+            resetPos = other.gameObject.transform.position;
             other.gameObject.SetActive(false);
             checkpointsReached++;
         }
