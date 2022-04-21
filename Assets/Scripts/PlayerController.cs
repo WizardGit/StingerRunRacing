@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private float countdown = 0.0f;
     private bool start = false;
     private bool onTerrain = false;
+    private int numCheckpoints = 6;
 
     // Movement speeds
     public float playerRotationSpeed = 100f;
@@ -89,7 +90,7 @@ public class PlayerController : MonoBehaviour
             {
                 messageText.text = "";
             }
-            if (checkpointsReached == 1)
+            if (checkpointsReached == numCheckpoints)
             {
                 messageText.text = "<size=200%> Finished!";
                 Application.Quit();
@@ -126,7 +127,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("RingTarget"))
+        if ((other.gameObject.CompareTag("RingTarget")) && (other.gameObject.GetComponent<MeshRenderer>().material.color == Color.green))
         {
             other.gameObject.SetActive(false);
             checkpointsReached++;
