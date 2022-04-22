@@ -12,6 +12,7 @@ public class CameraFollow : MonoBehaviour
     public Transform target;
 
     public Vector3 offsetPosition;
+    public Vector3 offsetRotation;
 
     public bool lookAt = true;
 
@@ -43,7 +44,7 @@ public class CameraFollow : MonoBehaviour
             // I feel like this is a bit clunky though!
             transform.LookAt(target);
             Vector3 targetRotation = transform.rotation.eulerAngles;
-            Vector3 transformRotation = new Vector3(targetRotation.x-20, targetRotation.y, targetRotation.z);
+            Vector3 transformRotation = new Vector3(targetRotation.x-offsetRotation.x, targetRotation.y- offsetRotation.y, targetRotation.z- offsetRotation.z);
             transform.rotation = Quaternion.Euler(transformRotation);
         }
         else

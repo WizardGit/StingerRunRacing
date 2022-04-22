@@ -46,8 +46,8 @@ public class PlayerController : MonoBehaviour
     {
         animator = GetComponent<Animation>();
         rb = GetComponent<Rigidbody>();
-        timeText.text = "";
-        resetPos = new Vector3(1764f, 103.87f, 1570f);
+        timeText.text = "Time: 0";
+        resetPos = new Vector3(1737f, 107.79f, 1534f);
     }
 
     private void OnMove(InputValue movementValue)

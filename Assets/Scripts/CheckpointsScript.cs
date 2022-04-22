@@ -38,7 +38,7 @@ public class CheckpointsScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        distanceText.text = "Next checkpoint: " + (targets[currentCheckpointIndex].transform.position - player.transform.position).ToString();
+        distanceText.text = "Next checkpoint: \n" + (targets[currentCheckpointIndex].transform.position - player.transform.position).ToString();
 
         // Update our next checkpoint
         if (targets[currentCheckpointIndex].activeInHierarchy == false)
