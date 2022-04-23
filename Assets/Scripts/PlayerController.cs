@@ -126,10 +126,21 @@ public class PlayerController : MonoBehaviour
         //transform.Translate(0, 0, movementY * playerSpeed * Time.deltaTime);
         //transform.Rotate(0, movementX * playerRotationSpeed * Time.deltaTime, 0);
 
+        //Physics.SphereCast(transform.position, 1f, -(transform.up), out hit, 0.81f)
+
         Vector3 vecRotation = new Vector3(0, playerRotationSpeed, 0);
         Quaternion deltaRotation = Quaternion.Euler(movementX * vecRotation * Time.deltaTime);
         rb.MoveRotation(rb.rotation * deltaRotation);
+
+        //RaycastHit hit;
+        //if (Physics.SphereCast(transform.position, 0.5f, -(transform.up), out hit, yourDistenceToGroundYouWant, yourGroundLayers))
+        //{
+            //transform.rotation = Quaternion.LookRotation(Vector3.Cross(transform.right, hit2.normal)
+        //}
+
         rb.MovePosition(rb.position + transform.forward * playerSpeed * movementY * Time.deltaTime);
+
+        
     }
     private void OnTriggerEnter(Collider other)
     {
