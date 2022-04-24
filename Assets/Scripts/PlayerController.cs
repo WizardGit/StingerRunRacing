@@ -116,13 +116,13 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         // Leftover code I may need - don't touch!
-        //RaycastHit hit;
+        RaycastHit hit;
         //Debug.Log("Trans: " + transform.position);
-        //if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1))
-        //{
-            //Debug.Log(hit.normal);
-            //transform.rotation = Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal));
-       // }
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1))
+        {
+            Debug.Log(hit.normal);
+            //transform.rotation = Quaternion.LookRotation(Vector3.Cross(transform.forward, hit.normal));
+        }
 
         if (rb.position.y <= 0)
         {
