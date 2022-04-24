@@ -28,10 +28,16 @@ public class PlayerController : MonoBehaviour
     private int checkpointsReached = 0;
     // Dictates the name of the player
     public string username = "Kaiser";
+    // These variables hold the animation title for the speedstinger
+    private string animationRun = "Run";
+    private string animationIdle = "IdleHappy";
+    private string animationLeft = "WalkLeft";
+    private string animationRight = "WalkRight";
 
     // Movement variables
     public float playerRotationSpeed = 100f;
-    public float playerSpeed = 10f;
+    public float playerSpeed = 20f;
+    public float speedBoostMultiplier = 1.5f;
     public float jumpForce = 400f;  
 
     // Movement variables
@@ -115,13 +121,22 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // This code is responsible for the "jerk"
+        // However it's vital for keeping the dragon rotated with the terrain
+        //https://answers.unity.com/questions/1347986/rotating-a-player-to-match-terrain-slope.html
+        RaycastHit hit;
+        if (Physics.SphereCast(transform.position, 0.4f, -(transform.up), out hit, 0.1f))
+        {
+            rb.MoveRotation(Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)));
+        }
+
         if (rb.position.y <= 0)
         {
             rb.MovePosition(resetPos);
         }
         if (((time - boostTimer) > 20f) && (boostTimer > 0))
         {
-            playerSpeed = playerSpeed / 2;
+            playerSpeed = playerSpeed / speedBoostMultiplier;
             boostTimer = 0;
         }
         else if ((time - boostTimer) > 2f)
@@ -142,7 +157,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             time += Time.deltaTime;
-            timeText.text = "Time: " + MathF.Round(time, 2);
+            timeText.text = "Time: " + MathF.Round(time, 2);            
             Move();
 
             if ((time > 3.0f) && (start == true) && (messageText.text == "<size=200%> GO!") && (messageText.text != ""))
@@ -154,17 +169,16 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Move()
-    {
-        
+    {        
         // Animations
         if (movementX > 0.0f)
-            animator.Play("WalkRight");
+            animator.Play(animationRight);
         else if (movementX < 0.0f)
-            animator.Play("WalkLeft");
+            animator.Play(animationLeft);
         else if (!Mathf.Approximately(movementY, 0f))
-            animator.Play("Run");
+            animator.Play(animationRun);
         else
-            animator.Play("IdleHappy");
+            animator.Play(animationIdle);
 
         // We can use transform instead of rigidbody
         //transform.Translate(0, 0, movementY * playerSpeed * Time.deltaTime);
@@ -175,11 +189,7 @@ public class PlayerController : MonoBehaviour
         rb.MoveRotation(rb.rotation * deltaRotation);   
         rb.MovePosition(rb.position + transform.forward * playerSpeed * movementY * Time.deltaTime);
 
-        /*RaycastHit hit;
-        if (Physics.SphereCast(transform.position, 0.5f, -(transform.up), out hit, 0.81f))
-        {
-            rb.MoveRotation(Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)));
-        }*/
+        
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -194,7 +204,7 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.CompareTag("FlyingBox"))
         {
             other.gameObject.SetActive(false);
-            playerSpeed = playerSpeed * 2;
+            playerSpeed = playerSpeed * speedBoostMultiplier;
             messageText.text = "<size=200%> Double Speed!";
             boostTimer = time;
             //Maybe do random thing, we could do double jump?
@@ -221,26 +231,36 @@ public class PlayerController : MonoBehaviour
                 SaveGame(save, username);
             }
             Application.Quit();
-        }
+        }        
     }
 
-    // These methods detect if player is on the terrain!
+    // As long as we have a collision, we are "on the terrain"
     private void OnCollisionEnter(Collision theCollision)
     {
-        if (theCollision.gameObject.name == "Terrain")
+        onTerrain = true;
+
+        if (theCollision.gameObject.CompareTag("Water"))
         {
-            onTerrain = true;
-        }
-        else
-        {
-            onTerrain = true;
+            // We are in water, so switch our animations
+            animationRun = "Swim";
+            animationIdle = "SwimIdle";
+            animationLeft = "Swim";
+            animationRight = "Swim";
         }
     }
+    // As long as we have exited a collision, we must be "in the air"
     private void OnCollisionExit(Collision theCollision)
     {
-        if ((theCollision.gameObject.name == "Terrain") || (theCollision.gameObject.CompareTag("Untagged")))
+        onTerrain = false;
+        
+        if (theCollision.gameObject.CompareTag("Water"))
         {
-            onTerrain = false;
+            // We are exiting the water, so switch our animations
+            animationRun = "Run";
+            animationIdle = "IdleHappy";
+            animationLeft = "WalkLeft";
+            animationRight = "WalkRight";
+
         }
     }
 }

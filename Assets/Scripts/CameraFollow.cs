@@ -32,32 +32,38 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
-    private void Update()
-    {        
-        // Get where our camera needs to be
-        transform.position = target.TransformPoint(offsetPosition);
-
-        // If we want to actually look at the object...
+    private void FixedUpdate()
+    {                
+        // If we want to look at our dragon...
         if (lookAt)
         {
-            // Then Calculate camera rotation
-            // I feel like this is a bit clunky though!
-            transform.LookAt(target);
-            Vector3 targetRotation = transform.rotation.eulerAngles;
-            Vector3 transformRotation = new Vector3(targetRotation.x-offsetRotation.x, targetRotation.y- offsetRotation.y, targetRotation.z- offsetRotation.z);
-            transform.rotation = Quaternion.Euler(transformRotation);
+            // Get where our camera needs to be
+            transform.position = target.TransformPoint(offsetPosition);
+
+            // Calculate the angle that our gcamera needs to be at
+            Quaternion lookRotation = Quaternion.LookRotation(target.transform.position - transform.position);
+            // Add in our offset values
+            Vector3 transformRotation = new Vector3(lookRotation.eulerAngles.x - offsetRotation.x, 
+                                                    lookRotation.eulerAngles.y - offsetRotation.y, 
+                                                    lookRotation.eulerAngles.z - offsetRotation.z);
+            // 'Smoothly' rotate towards our target camera point
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transformRotation), 10* Time.deltaTime);
         }
+        // Else if we want to "be" our dragon...
         else
         {
             if (check)
             {
                 // The camera needs to be in our object but rotated by 180 degrees
+                // This is leftover code from when we could use 'tab' to change view
                 Vector3 targetRotation = target.rotation.eulerAngles;
                 Vector3 transformRotation = new Vector3(targetRotation.x, targetRotation.y + 180, targetRotation.z);
                 transform.rotation = Quaternion.Euler(transformRotation);
             }
             else
             {
+                Vector3 offset = new Vector3(0f, 1.5f, 1.5f);
+                transform.position = target.TransformPoint(offset);
                 transform.rotation = target.rotation;
             }            
         }            
