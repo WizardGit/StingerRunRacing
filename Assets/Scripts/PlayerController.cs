@@ -3,34 +3,42 @@
  * Date last edited: 4/18/2022
  */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
-using System;
 
 public class PlayerController : MonoBehaviour
 {
     // Variables for keeping the time
     private float time = 0.0f;
     private float countdown = 0.0f;
-    private bool start = false;
-    private bool onTerrain = false;
-    public int numCheckpoints;
     private float boostTimer;
+    // Dictates if the player is allowed to move
+    private bool start = false;
+    // Dictates if the player is on the Terrain
+    private bool onTerrain = false;
+    // Dictates how many checkpoints there are
+    public int numCheckpoints;
+    // Dictates how many checkpoints the user has hit
+    private int checkpointsReached = 0;
+    // Dictates the name of the player
+    public string username = "Kaiser";
 
-    // Movement speeds
+    // Movement variables
     public float playerRotationSpeed = 100f;
     public float playerSpeed = 10f;
-    public float jumpForce = 400f;    
-
-    // How many checkpoints have we hit!
-    private int checkpointsReached = 0;
+    public float jumpForce = 400f;  
 
     // Movement variables
     private float movementX;
-    private float movementY;    
+    private float movementY;
+    // Dictates the last checkpoint that the player will reset to if it falls out of the map
+    private Vector3 resetPos;
 
     // Object variables
     Animation animator;
@@ -40,7 +48,36 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI messageText;
 
-    private Vector3 resetPos;
+    //Given a save object and a fileName, this method saves the save object to a local file
+    private void SaveGame(Save save, string fileName)
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/" + fileName + ".save");
+        bf.Serialize(file, save);
+        file.Close();
+        Debug.Log("Game Saved");
+    }
+    //Given a fileName, this method checks to see if the file is available.
+    //If not, it returns null.
+    //If so, it returns the save object
+    public Save LoadGame(string fileName)
+    {
+        if (File.Exists(Application.persistentDataPath + "/" + fileName + ".save"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/" + fileName + ".save", FileMode.Open);
+            Save save = (Save)bf.Deserialize(file);
+            file.Close();
+
+            Debug.Log("Game Loaded");
+            return save;
+        }
+        else
+        {
+            Debug.Log("No game saved!");
+        }
+        return null;
+    }
 
     void Start()
     {
@@ -48,6 +85,15 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         timeText.text = "Time: 0";
         resetPos = new Vector3(1737f, 107.79f, 1534f);
+
+
+        Debug.Log("Our file's path is here: " + Application.persistentDataPath);
+        Save save = LoadGame(username); 
+        if (save == null)
+        {
+            save = new Save();
+            SaveGame(save,username);
+        }
     }
 
     private void OnMove(InputValue movementValue)
@@ -69,19 +115,30 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Leftover code I may need - don't touch!
+        //RaycastHit hit;
+        //Debug.Log("Trans: " + transform.position);
+        //if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1))
+        //{
+            //Debug.Log(hit.normal);
+            //transform.rotation = Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal));
+       // }
+
         if (rb.position.y <= 0)
         {
             rb.MovePosition(resetPos);
         }
-        if ((time - boostTimer) > 20f)
+        if (((time - boostTimer) > 20f) && (boostTimer > 0))
         {
-            playerSpeed = 10f;
+            playerSpeed = playerSpeed / 2;
+            boostTimer = 0;
         }
         else if ((time - boostTimer) > 2f)
         {
             messageText.text = "";
         }
-            if (start == false)
+
+        if (start == false)
         {
             countdown += Time.deltaTime;
             messageText.text = (3-MathF.Round(countdown)).ToString();
@@ -89,30 +146,26 @@ public class PlayerController : MonoBehaviour
             {
                 start = true;
                 messageText.text = "<size=200%> GO!";
-            }
+            }            
         }
         else
         {
             time += Time.deltaTime;
             timeText.text = "Time: " + MathF.Round(time, 2);
-            move();
+            Move();
 
             if ((time > 3.0f) && (start == true) && (messageText.text == "<size=200%> GO!") && (messageText.text != ""))
             {
                 messageText.text = "";
             }
+            
         }
-
-        // Keep for later in case we need it!
-        //RaycastHit hit;
-        //Ray checkGround = new Ray(transform.position, Vector3.down);
-        //if ((inJump == true) && (Physics.Raycast(checkGround, out hit, 0.81f)) && ((hit.collider.tag == "GroundTerrain") || (hit.collider.tag == "Untagged")))
-        //{
-            //inJump = false;
-        //}
     }
-    private void move()
+
+    private void Move()
     {
+        
+        // Animations
         if (movementX > 0.0f)
             animator.Play("WalkRight");
         else if (movementX < 0.0f)
@@ -126,42 +179,50 @@ public class PlayerController : MonoBehaviour
         //transform.Translate(0, 0, movementY * playerSpeed * Time.deltaTime);
         //transform.Rotate(0, movementX * playerRotationSpeed * Time.deltaTime, 0);
 
-        //Physics.SphereCast(transform.position, 1f, -(transform.up), out hit, 0.81f)
-
         Vector3 vecRotation = new Vector3(0, playerRotationSpeed, 0);
         Quaternion deltaRotation = Quaternion.Euler(movementX * vecRotation * Time.deltaTime);
-        rb.MoveRotation(rb.rotation * deltaRotation);
-
-        //RaycastHit hit;
-        //if (Physics.SphereCast(transform.position, 0.5f, -(transform.up), out hit, yourDistenceToGroundYouWant, yourGroundLayers))
-        //{
-            //transform.rotation = Quaternion.LookRotation(Vector3.Cross(transform.right, hit2.normal)
-        //}
-
+        rb.MoveRotation(rb.rotation * deltaRotation);   
         rb.MovePosition(rb.position + transform.forward * playerSpeed * movementY * Time.deltaTime);
-
-        
     }
     private void OnTriggerEnter(Collider other)
     {
         if ((other.gameObject.CompareTag("RingTarget")) && (other.gameObject.GetComponent<MeshRenderer>().material.color == Color.green))
         {
+            // Set our reset position to this newest checkpoint
             resetPos = other.gameObject.transform.position;
+            // Get rid of the target
             other.gameObject.SetActive(false);
             checkpointsReached++;
         }
         else if (other.gameObject.CompareTag("FlyingBox"))
         {
             other.gameObject.SetActive(false);
-            playerSpeed = 20f;
+            playerSpeed = playerSpeed * 2;
             messageText.text = "<size=200%> Double Speed!";
             boostTimer = time;
-            // Do Something like speed boost
+            //Maybe do random thing, we could do double jump?
         }
         else if ((other.gameObject.CompareTag("Finish")) && (checkpointsReached == numCheckpoints))
         {
             messageText.text = "<size=200%> Finished!";
             other.gameObject.SetActive(false);
+
+            Save save = LoadGame(username);
+            if (save == null)
+            {
+                Debug.Log("ERROR loading user's information file.  It should have already been created!");
+            }
+            else
+            {
+                Debug.Log("Your time: " + time.ToString());
+                Debug.Log("Best time: " + save.levelOneTime.ToString());
+                if (time < save.levelOneTime)
+                {
+                    save.levelOneTime = time;
+                }                
+                Debug.Log("Best time: " + save.levelOneTime.ToString());
+                SaveGame(save, username);
+            }
             Application.Quit();
         }
     }

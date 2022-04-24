@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6456533825510206943}
   - component: {fileID: 6112444406943927626}
   - component: {fileID: 1846256382577939484}
+  - component: {fileID: 4042984269376658274}
   m_Layer: 0
   m_Name: TowerTop01
   m_TagString: Untagged
@@ -83,6 +84,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4042984269376658274
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734505444326012200}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 48387202cfc2cd54981ea0e7c4e841f9, type: 2}
 --- !u!1 &2513027216226058728
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,6 +107,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8769862148237546425}
+  - component: {fileID: 3576739278779161126}
   m_Layer: 0
   m_Name: Tower01
   m_TagString: Untagged
@@ -116,6 +132,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &3576739278779161126
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2513027216226058728}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &3268608932144888701
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,6 +157,7 @@ GameObject:
   - component: {fileID: 7392209970048197879}
   - component: {fileID: 1708167363671785842}
   - component: {fileID: 1580550863424099764}
+  - component: {fileID: 1202713274836667843}
   m_Layer: 0
   m_Name: TowerBottom01
   m_TagString: Untagged
@@ -199,3 +230,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1202713274836667843
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3268608932144888701}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 5c44fac009318e04eb1383a048c1ace7, type: 2}
