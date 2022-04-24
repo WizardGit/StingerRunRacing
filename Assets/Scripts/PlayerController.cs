@@ -115,15 +115,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Leftover code I may need - don't touch!
-        RaycastHit hit;
-        //Debug.Log("Trans: " + transform.position);
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1))
-        {
-            Debug.Log(hit.normal);
-            //transform.rotation = Quaternion.LookRotation(Vector3.Cross(transform.forward, hit.normal));
-        }
-
         if (rb.position.y <= 0)
         {
             rb.MovePosition(resetPos);
@@ -183,6 +174,12 @@ public class PlayerController : MonoBehaviour
         Quaternion deltaRotation = Quaternion.Euler(movementX * vecRotation * Time.deltaTime);
         rb.MoveRotation(rb.rotation * deltaRotation);   
         rb.MovePosition(rb.position + transform.forward * playerSpeed * movementY * Time.deltaTime);
+
+        /*RaycastHit hit;
+        if (Physics.SphereCast(transform.position, 0.5f, -(transform.up), out hit, 0.81f))
+        {
+            rb.MoveRotation(Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)));
+        }*/
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -247,3 +244,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
+
