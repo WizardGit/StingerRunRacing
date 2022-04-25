@@ -47,7 +47,7 @@ public class CameraFollow : MonoBehaviour
                                                     lookRotation.eulerAngles.y - offsetRotation.y, 
                                                     lookRotation.eulerAngles.z - offsetRotation.z);
             // 'Smoothly' rotate towards our target camera point
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transformRotation), 10* Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transformRotation), 20* Time.deltaTime);
         }
         // Else if we want to "be" our dragon...
         else

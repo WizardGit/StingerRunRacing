@@ -13,15 +13,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1805
+      value: 1737
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 108.82
+      value: 107.79
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1538
+      value: 1534
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalRotation.w
@@ -33,11 +33,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -96,10 +96,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.8
-  m_Height: 4
+  m_Radius: 0.9
+  m_Height: 3
   m_Direction: 2
-  m_Center: {x: 0, y: 0.7, z: 0}
+  m_Center: {x: 0, y: 0.7, z: 0.6}
 --- !u!111 &1098037230
 Animation:
   m_ObjectHideFlags: 0
@@ -116,6 +116,8 @@ Animation:
   - {fileID: 7400000, guid: 9a15f54e95b35dc40939d3e65671da1b, type: 2}
   - {fileID: 7400000, guid: 19e94d7a794b3904b880f6701501ebe6, type: 2}
   - {fileID: 7400000, guid: f4c9c809d1b0f5445b61a7698cca5450, type: 2}
+  - {fileID: 7400000, guid: ccee1f2c436d3004ba56c139d1bfe6b3, type: 2}
+  - {fileID: 7400000, guid: 316cdf7b54009f6469d45258f97e8544, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -132,9 +134,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c973c7b68472c884a9a8ded1a2f36569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numCheckpoints: 6
+  username: Kaiser
   playerRotationSpeed: 200
-  playerSpeed: 10
+  playerSpeed: 20
+  speedBoostMultiplier: 1.5
   jumpForce: 300
+  timeText: {fileID: 0}
+  messageText: {fileID: 0}
 --- !u!114 &1098037229
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -125,7 +125,10 @@ public class PlayerController : MonoBehaviour
         // However it's vital for keeping the dragon rotated with the terrain
         //https://answers.unity.com/questions/1347986/rotating-a-player-to-match-terrain-slope.html
         RaycastHit hit;
-        if (Physics.SphereCast(transform.position, 0.4f, -(transform.up), out hit, 0.1f))
+        // The two numbers below can be modified to make things smoother?
+        float maxDistCast = 0.1f;
+        float radius = 0.4f;
+        if (Physics.SphereCast(transform.position, radius, -(transform.up), out hit, maxDistCast))
         {
             rb.MoveRotation(Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)));
         }
@@ -184,12 +187,20 @@ public class PlayerController : MonoBehaviour
         //transform.Translate(0, 0, movementY * playerSpeed * Time.deltaTime);
         //transform.Rotate(0, movementX * playerRotationSpeed * Time.deltaTime, 0);
 
+        // Move our rigid body's rotation
         Vector3 vecRotation = new Vector3(0, playerRotationSpeed, 0);
         Quaternion deltaRotation = Quaternion.Euler(movementX * vecRotation * Time.deltaTime);
-        rb.MoveRotation(rb.rotation * deltaRotation);   
-        rb.MovePosition(rb.position + transform.forward * playerSpeed * movementY * Time.deltaTime);
+        rb.MoveRotation(rb.rotation * deltaRotation);
 
-        
+        // If the player is backing up, they shouldn't be able to go all that fast!
+        if (movementY < 0)
+        {
+            rb.MovePosition(rb.position + transform.forward * (playerSpeed/2) * movementY * Time.deltaTime);
+        }
+        else
+        {
+            rb.MovePosition(rb.position + transform.forward * playerSpeed * movementY * Time.deltaTime);
+        }        
     }
     private void OnTriggerEnter(Collider other)
     {
