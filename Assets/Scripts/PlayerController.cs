@@ -18,12 +18,13 @@ public class PlayerController : MonoBehaviour
     private float time = 0.0f;
     private float countdown = 0.0f;
     private float boostTimer;
+    public float boostTimeLength = 10f;
     // Dictates if the player is allowed to move
     private bool start = false;
     // Dictates if the player is on the Terrain
     private bool onTerrain = false;
     // Dictates how many checkpoints there are
-    public int numCheckpoints;
+    public int numCheckpoints = 6;
     // Dictates how many checkpoints the user has hit
     private int checkpointsReached = 0;
     // Dictates the name of the player
@@ -137,12 +138,12 @@ public class PlayerController : MonoBehaviour
         {
             rb.MovePosition(resetPos);
         }
-        if (((time - boostTimer) > 20f) && (boostTimer > 0))
+        if (((time - boostTimer) > boostTimeLength) && (boostTimer > 0))
         {
             playerSpeed = playerSpeed / speedBoostMultiplier;
             boostTimer = 0;
         }
-        else if ((time - boostTimer) > 2f)
+        else if (((time - boostTimer) > 2f) && (boostTimer > 0))
         {
             messageText.text = "";
         }
@@ -222,6 +223,7 @@ public class PlayerController : MonoBehaviour
         }
         else if ((other.gameObject.CompareTag("Finish")) && (checkpointsReached == numCheckpoints))
         {
+            Debug.Log("HERE");
             messageText.text = "<size=200%> Finished!";
             other.gameObject.SetActive(false);
 
