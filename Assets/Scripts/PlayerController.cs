@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI messageText;
 
+    Quaternion thingy;
+
     //Given a save object and a fileName, this method saves the save object to a local file
     private void SaveGame(Save save, string fileName)
     {
@@ -101,6 +103,7 @@ public class PlayerController : MonoBehaviour
             save = new Save();
             SaveGame(save,username);
         }
+        thingy = rb.rotation;
     }
 
     private void OnMove(InputValue movementValue)
@@ -122,17 +125,18 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // This code is responsible for the "jerk"
-        // However it's vital for keeping the dragon rotated with the terrain
-        //https://answers.unity.com/questions/1347986/rotating-a-player-to-match-terrain-slope.html
+        // This code is vital for keeping the dragon rotated with the terrain
+        // Inspired by https://answers.unity.com/questions/1347986/rotating-a-player-to-match-terrain-slope.html (but HEAVILY modified!)
         RaycastHit hit;
-        // The two numbers below can be modified to make things smoother?
+        // The two numbers below can be modified to make things smoother
         float maxDistCast = 0.1f;
-        float radius = 0.4f;
+        float radius = 0.5f;
         if (Physics.SphereCast(transform.position, radius, -(transform.up), out hit, maxDistCast))
         {
-            rb.MoveRotation(Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)));
+            //rb.MoveRotation(Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)));
+            rb.MoveRotation(Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)), 5 * Time.deltaTime));            
         }
+        //Debug.Log(Vector3.Angle(hit.normal, transform.forward).ToString());
 
         if (rb.position.y <= 0)
         {
