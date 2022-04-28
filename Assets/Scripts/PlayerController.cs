@@ -1,6 +1,5 @@
 /*
  * Author: Kaiser Slocum
- * Date last edited: 4/18/2022
  */
 
 using System;
@@ -46,6 +45,8 @@ public class PlayerController : MonoBehaviour
     private float movementY;
     // Dictates the last checkpoint that the player will reset to if it falls out of the map
     private Vector3 resetPos;
+    private UserSave usersave;
+    private LeaderboardSave ledsave;
 
     // Object variables
     Animation animator;
@@ -53,40 +54,7 @@ public class PlayerController : MonoBehaviour
 
     // Text variables
     public TextMeshProUGUI timeText;
-    public TextMeshProUGUI messageText;
-
-    Quaternion thingy;
-
-    //Given a save object and a fileName, this method saves the save object to a local file
-    private void SaveGame(Save save, string fileName)
-    {
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/" + fileName + ".save");
-        bf.Serialize(file, save);
-        file.Close();
-        Debug.Log("Game Saved");
-    }
-    //Given a fileName, this method checks to see if the file is available.
-    //If not, it returns null.
-    //If so, it returns the save object
-    public Save LoadGame(string fileName)
-    {
-        if (File.Exists(Application.persistentDataPath + "/" + fileName + ".save"))
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/" + fileName + ".save", FileMode.Open);
-            Save save = (Save)bf.Deserialize(file);
-            file.Close();
-
-            Debug.Log("Game Loaded");
-            return save;
-        }
-        else
-        {
-            Debug.Log("No game saved!");
-        }
-        return null;
-    }
+    public TextMeshProUGUI messageText;    
 
     void Start()
     {
@@ -95,15 +63,9 @@ public class PlayerController : MonoBehaviour
         timeText.text = "Time: 0";
         resetPos = new Vector3(1737f, 107.79f, 1534f);
 
-
-        Debug.Log("Our file's path is here: " + Application.persistentDataPath);
-        Save save = LoadGame(username); 
-        if (save == null)
-        {
-            save = new Save();
-            SaveGame(save,username);
-        }
-        thingy = rb.rotation;
+        // Load/Create a new file for this user!
+        usersave = new UserSave(username);
+        ledsave = new LeaderboardSave();
     }
 
     private void OnMove(InputValue movementValue)
@@ -128,7 +90,6 @@ public class PlayerController : MonoBehaviour
         // This code is vital for keeping the dragon rotated with the terrain
         // Inspired by https://answers.unity.com/questions/1347986/rotating-a-player-to-match-terrain-slope.html (but HEAVILY modified!)
         RaycastHit hit;
-        // The two numbers below can be modified to make things smoother
         float maxDistCast = 0.1f;
         float radius = 0.5f;
         if (Physics.SphereCast(transform.position, radius, -(transform.up), out hit, maxDistCast))
@@ -230,23 +191,18 @@ public class PlayerController : MonoBehaviour
             Debug.Log("HERE");
             messageText.text = "<size=200%> Finished!";
             other.gameObject.SetActive(false);
-
-            Save save = LoadGame(username);
-            if (save == null)
+            
+            
+            Debug.Log("Your time: " + time.ToString());
+            Debug.Log("Your Best time: " + usersave.levelOneTime.ToString());
+            if ((time < usersave.levelOneTime) || (usersave.levelOneTime < 0))
             {
-                Debug.Log("ERROR loading user's information file.  It should have already been created!");
+                usersave.levelOneTime = time;
+                usersave.SaveGame();                
             }
-            else
-            {
-                Debug.Log("Your time: " + time.ToString());
-                Debug.Log("Best time: " + save.levelOneTime.ToString());
-                if (time < save.levelOneTime)
-                {
-                    save.levelOneTime = time;
-                }                
-                Debug.Log("Best time: " + save.levelOneTime.ToString());
-                SaveGame(save, username);
-            }
+            ledsave.SaveTime(1, username, time);
+            Debug.Log("Your Best time now: " + usersave.levelOneTime.ToString());            
+            
             Application.Quit();
         }        
     }
