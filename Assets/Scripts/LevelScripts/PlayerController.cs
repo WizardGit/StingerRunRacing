@@ -57,11 +57,15 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI messageText;
     public GameObject ledBoard;
+    public GameObject camera;
+    private CameraFollow cf;
 
     void Start()
     {
         animator = GetComponent<Animation>();
         rb = GetComponent<Rigidbody>();
+        cf = camera.GetComponent<CameraFollow>();
+
         string theName = NameTransfer.theName;
         if (theName == null)
         {
@@ -121,7 +125,7 @@ public class PlayerController : MonoBehaviour
 
         if (rb.position.y <= 0)
         {
-            rb.MovePosition(resetPos);
+                OnRespawn();
         }
         if (((time - boostTimer) > boostTimeLength) && (boostTimer > 0))
         {
@@ -260,6 +264,29 @@ public class PlayerController : MonoBehaviour
             animationLeft = "WalkLeft";
             animationRight = "WalkRight";
 
+        }
+    }
+    // Some extra Key Bindings
+    private void OnRespawn()
+    {
+        rb.MovePosition(resetPos);
+    }
+    private void OnLookAt()
+    {
+        CameraFollow cf = camera.GetComponent<CameraFollow>();        
+        cf.lookAt = !cf.lookAt;
+    }
+    private void OnFrontView()
+    {        
+        if (cf.lookAt == true)
+        {
+            // If we're looking at the object, we need to get in front of it (so we'll reverse our z offset
+            cf.offsetPosition.z = cf.offsetPosition.z * -1.0f;
+        }
+        else
+        {
+            // We need to signal to Update method to rotate by 180 degrees
+            cf.check = !cf.check;
         }
     }
 }

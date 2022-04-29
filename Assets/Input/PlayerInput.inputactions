@@ -15,6 +15,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "f9f97c76-9212-4cfa-95b8-13c6b4b57249",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Look",
                     "type": "Value",
                     "id": "108d408e-d2e0-449f-a117-36ce0c08f2ec",
@@ -33,9 +42,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Jump",
+                    "name": "LookAt",
                     "type": "Button",
-                    "id": "f9f97c76-9212-4cfa-95b8-13c6b4b57249",
+                    "id": "50d4b718-f9ac-47b8-af2f-87e1e087d247",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Respawn",
+                    "type": "Button",
+                    "id": "ee858714-a492-48a6-8148-3ef22f494d7d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "FrontView",
+                    "type": "Button",
+                    "id": "a590221c-e114-4f62-9031-25bb2216d4f8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -271,6 +298,39 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d75129d1-666a-49d7-a9d5-2a528f65e836",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "LookAt",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8cc5d982-ddca-4ee2-b5a7-281b6bcd9991",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Respawn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8e9b2c2e-8db6-4635-810b-181c0a39457b",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "FrontView",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
