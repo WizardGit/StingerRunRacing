@@ -27,7 +27,7 @@ public class UserSave
         username = user;
         
         dataFile = Application.persistentDataPath + "/" + username + ".save";
-        Debug.Log("Data file stored at: " + dataFile);
+        //Debug.Log("Data file stored at: " + dataFile);
         if (File.Exists(dataFile))
         {
             LoadGame();

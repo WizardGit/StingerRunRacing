@@ -2,6 +2,7 @@
  * Author: Kaiser Slocum
  */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -17,21 +18,19 @@ public class LeaderboardSave
     public float[] level2times;
     public string[] level3users;
     public float[] level3times;
-    private string dataFile;
+    private string dataFile = "";
 
-    public LeaderboardSave()
+    public LeaderboardSave(string altDatapath="")
     {
         dataFile = Application.persistentDataPath + "/leaderboard.save";
-        Debug.Log("Data file stored at: " + dataFile);
+        //Debug.Log("Data file stored at: " + dataFile);
         //File.Delete(dataFile);
         if (File.Exists(dataFile))
         {
-            Debug.Log("THE BIG LOAD");
             LoadGame();
         }
         else
         {
-            Debug.Log("The BIG SAVE");
             level1users = new string[] { "Person1", "Person2", "Person3", "Person4", "Person5", "Person6" };
             level2users = new string[] { "Person1", "Person2", "Person3", "Person4", "Person5", "Person6" };
             level3users = new string[] { "Person1", "Person2", "Person3", "Person4", "Person5", "Person6" };
@@ -44,7 +43,7 @@ public class LeaderboardSave
     }
 
     // Saves our class/variables to a local file
-    public void SaveGame()
+    private void SaveGame()
     {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(dataFile);
@@ -53,7 +52,7 @@ public class LeaderboardSave
         Debug.Log("Leaderboard information saved");
     }
     //Loads the variables in the file at 'username' if possible
-    public void LoadGame()
+    private void LoadGame()
     {
         if (File.Exists(dataFile))
         {
@@ -73,6 +72,18 @@ public class LeaderboardSave
         {
             Debug.Log("No file for this user!");
         }
+    }
+
+    public void resetLeaderboard()
+    {
+        level1users = new string[] { "Person1", "Person2", "Person3", "Person4", "Person5", "Person6" };
+        level2users = new string[] { "Person1", "Person2", "Person3", "Person4", "Person5", "Person6" };
+        level3users = new string[] { "Person1", "Person2", "Person3", "Person4", "Person5", "Person6" };
+        level1times = new float[] { -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f };
+        level2times = new float[] { -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f };
+        level3times = new float[] { -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f };
+
+        SaveGame();
     }
 
     private void rotateDownUsers(ref string[] users, int index)
@@ -113,17 +124,14 @@ public class LeaderboardSave
     }
     private bool SaveTimesUsers(ref float[] times, ref string[] users, float time, string username)
     {
-        //Debug.Log("Users before" + users[0] + users[1] + users[2] + users[3] + users[4] + users[5]);
         for (int i = 0; i < times.Length; i++)
         {
             if ((time < times[i]) || (times[i] < 0))
             {
                 rotateDownTimes(ref times, i);
                 rotateDownUsers(ref users, i);
-                times[i] = time;
+                times[i] = MathF.Round(time,5);
                 users[i] = username;
-                //Debug.Log("Users after" + users[0] + users[1] + users[2] + users[3] + users[4] + users[5]);
-                //Debug.Log("Times" + times[0].ToString() + times[1].ToString() + times[5].ToString());
                 return true;
             }
         }
@@ -148,7 +156,36 @@ public class LeaderboardSave
         }
         else
         {
-            Debug.Log("INVALID level!");
+            Debug.Log("ERROR: Invalid Level!");
         }      
     }
+    private string getLevelLed(ref float[] leveltimes, ref string[] levelusers)
+    {
+        string led = "";
+        for (int i = 0; i < levelusers.Length; i++)
+        {
+            led += (i+1).ToString() + " " + levelusers[i] + ": " + leveltimes[i] + "\n";
+        }
+        return led;
+    }
+    public string getLeaderboard(int level)
+    {
+        if (level == 1)
+        {
+            return getLevelLed(ref level1times, ref level1users);
+        }
+        else if (level == 2)
+        {
+            return getLevelLed(ref level2times, ref level2users);
+        }
+        else if (level == 3)
+        {
+            return getLevelLed(ref level3times, ref level3users);
+        }
+        else
+        {
+            Debug.Log("ERROR: Invalid Level!");
+            return "";
+        }
+    }    
 }

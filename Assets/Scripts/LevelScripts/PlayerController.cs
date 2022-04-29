@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public float boostTimeLength = 10f;
     // Dictates if the player is allowed to move
     private bool start = false;
+    private bool gameOver = false;
     // Dictates if the player is on the Terrain
     private bool onTerrain = false;
     // Dictates how many checkpoints there are
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour
     // Dictates how many checkpoints the user has hit
     private int checkpointsReached = 0;
     // Dictates the name of the player
-    public string username = "Kaiser";
+    public string username = "Guest";
     // These variables hold the animation title for the speedstinger
     private string animationRun = "Run";
     private string animationIdle = "IdleHappy";
@@ -54,13 +55,31 @@ public class PlayerController : MonoBehaviour
 
     // Text variables
     public TextMeshProUGUI timeText;
-    public TextMeshProUGUI messageText;    
+    public TextMeshProUGUI messageText;
+    public GameObject ledBoard;
 
     void Start()
     {
         animator = GetComponent<Animation>();
         rb = GetComponent<Rigidbody>();
+        string theName = NameTransfer.theName;
+        if (theName == null)
+        {
+            Debug.Log("ERROR: no username!");
+        }
+        else if (theName == "Guest")
+        {
+
+        }
+        else
+        {
+            username = theName;
+            Debug.Log("Username is " + username);
+        }        
+
         timeText.text = "Time: 0";
+        ledBoard.SetActive(false);
+
         resetPos = new Vector3(1737f, 107.79f, 1534f);
 
         // Load/Create a new file for this user!
@@ -87,17 +106,18 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // This code is vital for keeping the dragon rotated with the terrain
-        // Inspired by https://answers.unity.com/questions/1347986/rotating-a-player-to-match-terrain-slope.html (but HEAVILY modified!)
-        RaycastHit hit;
-        float maxDistCast = 0.1f;
-        float radius = 0.5f;
-        if (Physics.SphereCast(transform.position, radius, -(transform.up), out hit, maxDistCast))
+        if (gameOver == false)
         {
-            //rb.MoveRotation(Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)));
-            rb.MoveRotation(Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)), 5 * Time.deltaTime));            
-        }
-        //Debug.Log(Vector3.Angle(hit.normal, transform.forward).ToString());
+            // This code is vital for keeping the dragon rotated with the terrain
+            RaycastHit hit;
+            float maxDistCast = 0.1f;
+            float radius = 0.2f;
+            if (Physics.SphereCast(transform.position, radius, -(transform.up), out hit, maxDistCast))
+            {
+                //rb.MoveRotation(Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)));
+                //Debug.Log(Vector3.Angle(hit.normal, transform.forward).ToString());
+                rb.MoveRotation(Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)), 10 * Time.deltaTime));
+            }
 
         if (rb.position.y <= 0)
         {
@@ -132,8 +152,8 @@ public class PlayerController : MonoBehaviour
             if ((time > 3.0f) && (start == true) && (messageText.text == "<size=200%> GO!") && (messageText.text != ""))
             {
                 messageText.text = "";
-            }
-            
+            }            
+        }
         }
     }
 
@@ -188,10 +208,11 @@ public class PlayerController : MonoBehaviour
         }
         else if ((other.gameObject.CompareTag("Finish")) && (checkpointsReached == numCheckpoints))
         {
-            Debug.Log("HERE");
-            messageText.text = "<size=200%> Finished!";
-            other.gameObject.SetActive(false);
-            
+            gameOver = true;
+            animator.Play(animationIdle);
+            messageText.text = "";
+            timeText.text = "";            
+            other.gameObject.SetActive(false);            
             
             Debug.Log("Your time: " + time.ToString());
             Debug.Log("Your Best time: " + usersave.levelOneTime.ToString());
@@ -201,9 +222,14 @@ public class PlayerController : MonoBehaviour
                 usersave.SaveGame();                
             }
             ledsave.SaveTime(1, username, time);
-            Debug.Log("Your Best time now: " + usersave.levelOneTime.ToString());            
-            
-            Application.Quit();
+            Debug.Log("Your Best time now: " + usersave.levelOneTime.ToString());
+
+            GameObject text1 = ledBoard.transform.GetChild(0).gameObject;
+            GameObject text2 = ledBoard.transform.GetChild(1).gameObject;
+            text1.GetComponent<TextMeshProUGUI>().text = username + ": " + MathF.Round(time, 3);
+            text2.GetComponent<TextMeshProUGUI>().text = ledsave.getLeaderboard(1);
+
+            ledBoard.SetActive(true);
         }        
     }
 
@@ -237,4 +263,3 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
-

@@ -1,3 +1,7 @@
+/*
+ * Author: Kaiser Slocum
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,12 +36,14 @@ public class CheckpointsScript : MonoBehaviour
             target.GetComponent<MeshRenderer>().material.color = Color.red;
         }
         targets[0].GetComponent<MeshRenderer>().material.color = Color.green;
-        targets.Add(invisibleFinishLineTrigger);
+        targets.Add(invisibleFinishLineTrigger);  
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (invisibleFinishLineTrigger.activeSelf == true)
+        { 
         distanceText.text = "Next checkpoint: \n" + (targets[currentCheckpointIndex].transform.position - player.transform.position).ToString();
 
         // Update our next checkpoint
@@ -52,6 +58,11 @@ public class CheckpointsScript : MonoBehaviour
                 // We are done with the race
                 currentCheckpointIndex = 0;
             }
+        }
+        }
+        else
+        {
+            distanceText.text = "";
         }
     }
 }
