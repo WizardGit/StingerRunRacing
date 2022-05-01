@@ -1,5 +1,8 @@
 /*
  * Author: Kaiser Slocum
+ * Last Modified: 5/1/2022
+ * The Arrow pointing angle code is something I am VERY proud of.
+ * Took forever to do!
  */
 
 using System.Collections;
@@ -8,12 +11,15 @@ using UnityEngine;
 using TMPro;
 
 public class CheckpointsScript : MonoBehaviour
-{
-    private List<GameObject> targets;
+{    
     public TextMeshProUGUI distanceText;
     public GameObject player;
     public GameObject invisibleFinishLineTrigger;
-    private int currentCheckpointIndex = 0;
+    public GameObject arrow;
+
+    // Private variables: list of our target game objects and current checkpoint reached
+    private List<GameObject> targets;
+    private int currentCheckpointIndex = 0;    
 
     // Start is called before the first frame update
     void Start()
@@ -43,22 +49,41 @@ public class CheckpointsScript : MonoBehaviour
     void Update()
     {
         if (invisibleFinishLineTrigger.activeSelf == true)
-        { 
-        distanceText.text = "Next checkpoint: \n" + (targets[currentCheckpointIndex].transform.position - player.transform.position).ToString();
-
-        // Update our next checkpoint
-        if (targets[currentCheckpointIndex].activeInHierarchy == false)
         {
-            if (currentCheckpointIndex < targets.Count-2)
+            // DisVec represents the vector between the player and the next checkpoing
+            Vector3 disVec = targets[currentCheckpointIndex].transform.position - player.transform.position;
+            distanceText.text = "Next checkpoint: \n" + disVec.ToString();
+            // Look angle will represent the angle that our arrow needs to point to from our objective straight world line
+            Vector3 lookAngleVec = Quaternion.LookRotation(disVec).eulerAngles;
+            float c = -lookAngleVec.z;
+            lookAngleVec.z = -lookAngleVec.y;
+            lookAngleVec.y = c;
+
+            // We want to cancel the angle that our player dragon is facing
+            // This will mean our arrow is always pointing the same direction according to the world 
+            Vector3 playerAngle = -(player.transform.localRotation.eulerAngles);
+            Vector3 frontDir = new Vector3(90, 0, 0);
+
+            // Add all these angles together! (Magic!!!)
+            arrow.transform.rotation = Quaternion.Euler(playerAngle + frontDir + lookAngleVec);            
+
+            // Update our next checkpoint
+            if (targets[currentCheckpointIndex].activeInHierarchy == false)
             {
-                targets[++currentCheckpointIndex].GetComponent<MeshRenderer>().material.color = Color.green;
+                if (currentCheckpointIndex < targets.Count-2)
+                {
+                    targets[++currentCheckpointIndex].GetComponent<MeshRenderer>().material.color = Color.green;
+                }
+                else if (currentCheckpointIndex == (targets.Count - 1))
+                {
+                    currentCheckpointIndex++;
+                }
+                else if (currentCheckpointIndex >= targets.Count)
+                {
+                    // We are done with the race
+                    currentCheckpointIndex = 0;
+                }
             }
-            if (currentCheckpointIndex >= targets.Count)
-            {
-                // We are done with the race
-                currentCheckpointIndex = 0;
-            }
-        }
         }
         else
         {

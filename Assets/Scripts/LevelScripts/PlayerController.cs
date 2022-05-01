@@ -27,6 +27,11 @@ public class PlayerController : MonoBehaviour
     public int numCheckpoints = 6;
     // Dictates how many checkpoints the user has hit
     private int checkpointsReached = 0;
+    // Leaderboard parent object
+    public GameObject ledBoard;
+    // Camera Variables
+    public GameObject mainCamera;
+    private CameraFollow cf;
     // Dictates the name of the player
     public string username = "Guest";
     // These variables hold the animation title for the speedstinger
@@ -55,16 +60,13 @@ public class PlayerController : MonoBehaviour
 
     // Text variables
     public TextMeshProUGUI timeText;
-    public TextMeshProUGUI messageText;
-    public GameObject ledBoard;
-    public GameObject camera;
-    private CameraFollow cf;
+    public TextMeshProUGUI messageText;    
 
     void Start()
     {
         animator = GetComponent<Animation>();
         rb = GetComponent<Rigidbody>();
-        cf = camera.GetComponent<CameraFollow>();
+        cf = mainCamera.GetComponent<CameraFollow>();
 
         string theName = NameTransfer.theName;
         if (theName == null)
@@ -273,7 +275,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnLookAt()
     {
-        CameraFollow cf = camera.GetComponent<CameraFollow>();        
+        CameraFollow cf = mainCamera.GetComponent<CameraFollow>();        
         cf.lookAt = !cf.lookAt;
     }
     private void OnFrontView()
