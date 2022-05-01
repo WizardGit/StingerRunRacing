@@ -5,6 +5,7 @@
  * Took forever to do!
  */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,7 +53,8 @@ public class CheckpointsScript : MonoBehaviour
         {
             // DisVec represents the vector between the player and the next checkpoing
             Vector3 disVec = targets[currentCheckpointIndex].transform.position - player.transform.position;
-            distanceText.text = "Next checkpoint: \n" + disVec.ToString();
+            float thing = MathF.Abs(disVec.x) + MathF.Abs(disVec.y) + MathF.Abs(disVec.z);
+            distanceText.text = "Next: " + MathF.Round(thing,2).ToString();
             // Look angle will represent the angle that our arrow needs to point to from our objective straight world line
             Vector3 lookAngleVec = Quaternion.LookRotation(disVec).eulerAngles;
             float c = -lookAngleVec.z;
@@ -74,7 +76,7 @@ public class CheckpointsScript : MonoBehaviour
                 {
                     targets[++currentCheckpointIndex].GetComponent<MeshRenderer>().material.color = Color.green;
                 }
-                else if (currentCheckpointIndex == (targets.Count - 1))
+                else if (currentCheckpointIndex == (targets.Count - 2))
                 {
                     currentCheckpointIndex++;
                 }

@@ -152,7 +152,9 @@ public class PlayerController : MonoBehaviour
         else
         {
             time += Time.deltaTime;
-            timeText.text = "Time: " + MathF.Round(time, 2);            
+            float minutes = MathF.Truncate(time / 60);
+            float seconds = MathF.Round(time - (minutes * 60),2);
+            timeText.text = "Time: " + minutes + "." + seconds;            
             Move();
 
             if ((time > 3.0f) && (start == true) && (messageText.text == "<size=200%> GO!") && (messageText.text != ""))
