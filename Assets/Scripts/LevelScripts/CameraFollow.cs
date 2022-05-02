@@ -9,13 +9,30 @@ using UnityEngine.InputSystem;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target;
+    public GameObject models;
+    private Transform target;
 
     public Vector3 offsetPosition;
     public Vector3 offsetRotation;
 
     public bool lookAt = true;
     public bool check = false;
+
+    private void Start()
+    {
+        
+        string theName = NameTransfer.theName;
+        if (theName == null)
+            Debug.Log("ERROR: no username!");
+       
+        UserSave user = new UserSave(theName);
+        if (user.model == "speedstinger")
+            target = models.transform.GetChild(0).gameObject.transform;
+        else if (user.model == "dreadstrider")
+            target = models.transform.GetChild(1).gameObject.transform;
+        else
+            Debug.Log("No recognizable dragon");
+    }
 
     private void FixedUpdate()
     {

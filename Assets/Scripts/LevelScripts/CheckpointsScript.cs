@@ -14,18 +14,24 @@ using TMPro;
 public class CheckpointsScript : MonoBehaviour
 {    
     public TextMeshProUGUI distanceText;
-    public GameObject player;
+
+    public GameObject models;
+    private GameObject player;
+
+
     public GameObject invisibleFinishLineTrigger;
     public GameObject arrow;
 
     // Private variables: list of our target game objects and current checkpoint reached
     private List<GameObject> targets;
+    private List<GameObject> minimapTargets;
     private int currentCheckpointIndex = 0;    
 
     // Start is called before the first frame update
     void Start()
     {
         targets = new List<GameObject>();
+        minimapTargets = new List<GameObject>();
 
         for (int i = 0; i < gameObject.transform.childCount; i++)
         {
@@ -36,14 +42,38 @@ public class CheckpointsScript : MonoBehaviour
                 {
                     targets.Add(ring.transform.GetChild(j).gameObject);
                 }
+                else if (ring.transform.GetChild(j).gameObject.name == "Cube")
+                {
+                    minimapTargets.Add(ring.transform.GetChild(j).gameObject);
+                }
             }
         }
         foreach (GameObject target in targets)
         {
             target.GetComponent<MeshRenderer>().material.color = Color.red;
         }
+        foreach (GameObject minimapTarget in minimapTargets)
+        {
+            minimapTarget.GetComponent<MeshRenderer>().material.color = Color.red;
+        }
         targets[0].GetComponent<MeshRenderer>().material.color = Color.green;
-        targets.Add(invisibleFinishLineTrigger);  
+        minimapTargets[0].GetComponent<MeshRenderer>().material.color = Color.green;
+        targets.Add(invisibleFinishLineTrigger);
+
+
+
+        //Now figure out the correct model!
+        string theName = NameTransfer.theName;
+        if (theName == null)
+            Debug.Log("ERROR: no username!");
+
+        UserSave user = new UserSave(theName);
+        if (user.model == "speedstinger")
+            player = models.transform.GetChild(0).gameObject;
+        else if (user.model == "dreadstrider")
+            player = models.transform.GetChild(1).gameObject;
+        else
+            Debug.Log("No recognizable dragon");
     }
 
     // Update is called once per frame
@@ -75,6 +105,8 @@ public class CheckpointsScript : MonoBehaviour
                 if (currentCheckpointIndex < targets.Count-2)
                 {
                     targets[++currentCheckpointIndex].GetComponent<MeshRenderer>().material.color = Color.green;
+                    minimapTargets[currentCheckpointIndex].GetComponent<MeshRenderer>().material.color = Color.green;
+                    minimapTargets[currentCheckpointIndex - 1].SetActive(false);
                 }
                 else if (currentCheckpointIndex == (targets.Count - 2))
                 {

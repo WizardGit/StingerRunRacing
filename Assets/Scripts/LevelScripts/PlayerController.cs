@@ -19,8 +19,8 @@ public class PlayerController : MonoBehaviour
     private float boostTimer;
     public float boostTimeLength = 10f;
     // Dictates if the player is allowed to move
-    private bool start = false;
-    private bool gameOver = false;
+    private bool isPause = true;
+    private bool isStart = true;
     // Dictates if the player is on the Terrain
     private bool onTerrain = false;
     // Dictates how many checkpoints there are
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     public GameObject mainCamera;
     private CameraFollow cf;
     // Dictates the name of the player
-    public string username = "Guest";
+    public string username;
     // These variables hold the animation title for the speedstinger
     private string animationRun = "Run";
     private string animationIdle = "IdleHappy";
@@ -60,7 +60,11 @@ public class PlayerController : MonoBehaviour
 
     // Text variables
     public TextMeshProUGUI timeText;
-    public TextMeshProUGUI messageText;    
+    public TextMeshProUGUI messageText;
+
+    // Variables for raycasting
+    public float maxDistCast = 0.1f;
+    public float radius = 0.2f;
 
     void Start()
     {
@@ -73,10 +77,6 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("ERROR: no username!");
         }
-        else if (theName == "Guest")
-        {
-
-        }
         else
         {
             username = theName;
@@ -84,50 +84,38 @@ public class PlayerController : MonoBehaviour
         }        
 
         timeText.text = "Time: 0";
-        ledBoard.SetActive(false);
-
         resetPos = new Vector3(1737f, 107.79f, 1534f);
 
         // Load/Create a new file for this user!
         usersave = new UserSave(username);
         ledsave = new LeaderboardSave();
-    }
+        ledBoard.SetActive(false);
 
-    private void OnMove(InputValue movementValue)
-    {
-        Vector2 movementXY = movementValue.Get<Vector2>().normalized;
-        movementX = movementXY.x;
-        movementY = movementXY.y;        
-    }
-
-    private void OnJump()
-    {
-        if ((onTerrain == true) && (start == true))
-        {            
-            Vector3 jump = new Vector3(movementX, jumpForce, movementY);
-            rb.AddForce(jump);
-            animator.Play("Jump01");
-        }     
-    }
+        if (usersave.model != gameObject.name)
+        {
+            gameObject.SetActive(false);
+        }
+        //usersave.model = "dreadstrider";
+        //usersave.SaveGame();
+    }    
 
     private void FixedUpdate()
     {
-        if (gameOver == false)
+        // This code is vital for keeping the dragon rotated with the terrain
+        RaycastHit hit;        
+        Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1f);
+        //Debug.Log(hit.normal.ToString());
+
+        if (Physics.SphereCast(transform.position, radius, -(transform.up), out hit, maxDistCast))
         {
-            // This code is vital for keeping the dragon rotated with the terrain
-            RaycastHit hit;
-            float maxDistCast = 0.1f;
-            float radius = 0.2f;
-            if (Physics.SphereCast(transform.position, radius, -(transform.up), out hit, maxDistCast))
-            {
-                //rb.MoveRotation(Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)));
-                //Debug.Log(Vector3.Angle(hit.normal, transform.forward).ToString());
-                rb.MoveRotation(Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)), 10 * Time.deltaTime));
-            }
+            //rb.MoveRotation(Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)));
+            //Debug.Log(hit.normal.ToString());
+            rb.MoveRotation(Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)), 10 * Time.deltaTime));
+        }
 
         if (rb.position.y <= 0)
         {
-                OnRespawn();
+            OnRespawn();
         }
         if (((time - boostTimer) > boostTimeLength) && (boostTimer > 0))
         {
@@ -139,17 +127,22 @@ public class PlayerController : MonoBehaviour
             messageText.text = "";
         }
 
-        if (start == false)
+        if (isStart == true)
         {
             countdown += Time.deltaTime;
-            messageText.text = (3-MathF.Round(countdown)).ToString();
-            if (countdown >= 2.5f)
+            messageText.text = (3-MathF.Truncate(countdown)).ToString();
+            if (isPause == false)
             {
-                start = true;
+                isPause = true;
+            }
+            if (countdown >= 3f)
+            {
+                isStart = false;
+                isPause = false;
                 messageText.text = "<size=200%> GO!";
             }            
         }
-        else
+        else if (isPause == false)
         {
             time += Time.deltaTime;
             float minutes = MathF.Truncate(time / 60);
@@ -157,12 +150,11 @@ public class PlayerController : MonoBehaviour
             timeText.text = "Time: " + minutes + "." + seconds;            
             Move();
 
-            if ((time > 3.0f) && (start == true) && (messageText.text == "<size=200%> GO!") && (messageText.text != ""))
+            if ((messageText.text == "<size=200%> GO!") && (time > 3))
             {
                 messageText.text = "";
             }            
-        }
-        }
+        }        
     }
 
     private void Move()
@@ -206,6 +198,10 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
             checkpointsReached++;
         }
+        else if (other.gameObject.CompareTag("Water"))
+        {
+            Debug.Log("Water");
+        }
         else if (other.gameObject.CompareTag("FlyingBox"))
         {
             other.gameObject.SetActive(false);
@@ -216,7 +212,7 @@ public class PlayerController : MonoBehaviour
         }
         else if ((other.gameObject.CompareTag("Finish")) && (checkpointsReached == numCheckpoints))
         {
-            gameOver = true;
+            isPause = true;
             animator.Play(animationIdle);
             messageText.text = "";
             timeText.text = "";            
@@ -239,6 +235,10 @@ public class PlayerController : MonoBehaviour
 
             ledBoard.SetActive(true);
         }        
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log("Exit water");
     }
 
     // As long as we have a collision, we are "on the terrain"
@@ -268,9 +268,26 @@ public class PlayerController : MonoBehaviour
             animationLeft = "WalkLeft";
             animationRight = "WalkRight";
 
+            transform.Translate(0,1,0);
         }
     }
     // Some extra Key Bindings
+    private void OnMove(InputValue movementValue)
+    {
+        Vector2 movementXY = movementValue.Get<Vector2>().normalized;
+        movementX = movementXY.x;
+        movementY = movementXY.y;
+    }
+
+    private void OnJump()
+    {
+        if ((onTerrain == true) && (isPause == false))
+        {
+            Vector3 jump = new Vector3(movementX, jumpForce, movementY);
+            rb.AddForce(jump);
+            animator.Play("Jump01");
+        }
+    }
     private void OnRespawn()
     {
         rb.MovePosition(resetPos);
@@ -291,6 +308,21 @@ public class PlayerController : MonoBehaviour
         {
             // We need to signal to Update method to rotate by 180 degrees
             cf.check = !cf.check;
+        }
+    }
+    private void OnPause()
+    {
+        // Note sure how to handle when a user releases a key so this is my workaround! User pushes once to get the pause menu, then pushes again to get out of it
+        isPause = !isPause;
+        animator.Stop();
+        if (isPause == true)
+        {
+            messageText.text = "Paused!";
+            //Do Stuff
+        }
+        else
+        {
+            messageText.text = "";
         }
     }
 }
