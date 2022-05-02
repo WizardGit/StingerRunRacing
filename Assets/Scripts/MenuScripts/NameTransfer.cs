@@ -15,6 +15,6 @@ public class NameTransfer : MonoBehaviour
     public void StoreName()
     {
         theName = inputField.GetComponent<TMPro.TextMeshProUGUI>().text;
-        textDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = "Welcome to the game " + theName;
+        textDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = "Welcome " + theName;
     }
 }
