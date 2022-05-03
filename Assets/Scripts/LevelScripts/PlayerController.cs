@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private int checkpointsReached = 0;
     // Leaderboard parent object
     public GameObject ledBoard;
+    public GameObject pauseMenu;
     // Camera Variables
     public GameObject mainCamera;
     private CameraFollow cf;
@@ -154,7 +155,11 @@ public class PlayerController : MonoBehaviour
             {
                 messageText.text = "";
             }            
-        }        
+        }  
+        else if (isPause == true)
+        {
+            isPause = PauseMenu.isPaused;
+        }
     }
 
     private void Move()
@@ -315,14 +320,14 @@ public class PlayerController : MonoBehaviour
         // Note sure how to handle when a user releases a key so this is my workaround! User pushes once to get the pause menu, then pushes again to get out of it
         isPause = !isPause;
         animator.Stop();
+        PauseMenu men = pauseMenu.GetComponent<PauseMenu>();
         if (isPause == true)
-        {
-            messageText.text = "Paused!";
-            //Do Stuff
+        {            
+            men.PauseGame();
         }
         else
         {
-            messageText.text = "";
+            men.ResumeGame();
         }
     }
 }
