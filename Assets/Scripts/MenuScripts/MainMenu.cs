@@ -8,9 +8,31 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
-        //load the next level in the queue when we press the New Game button
-        //We can call SceneManager.LoadScene("nameOfLevel");
         SceneManager.LoadScene("LevelOne");
+    }
+
+    public void PlayGame2()
+    {
+        SceneManager.LoadScene("LevelTwo");
+    }
+
+    /*
+    public void PlayGame3()
+    {
+        SceneManager.LoadScene("LevelThree");
+    }
+    */
+
+    /*
+    public void PlayTutorial()
+    {
+        SceneManager.LoadScene("To")
+    }
+    */
+
+    public void PlayFreeRoam()
+    {
+        SceneManager.LoadScene("FreeRoam");
     }
 
     public void QuitGame()
