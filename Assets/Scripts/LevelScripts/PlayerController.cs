@@ -158,7 +158,8 @@ public class PlayerController : MonoBehaviour
         }  
         else if (isPause == true)
         {
-            isPause = PauseMenu.isPaused;
+            if (checkpointsReached != numCheckpoints)
+                isPause = PauseMenu.isPaused;
         }
     }
 

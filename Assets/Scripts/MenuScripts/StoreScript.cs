@@ -18,6 +18,8 @@ public class StoreScript : MonoBehaviour
     {
         username = NameTransfer.theName;
         user = new UserSave(username);
+        user.coins = 10;
+        user.SaveGame();
 
         for (int i = 0; i < gameObject.transform.childCount; i++)
         {
@@ -26,11 +28,11 @@ public class StoreScript : MonoBehaviour
             else if (gameObject.transform.GetChild(i).gameObject.name == "Text")
                 text = gameObject.transform.GetChild(1).gameObject;
         }
-        displayStats();
-        displaySkins();
+        DisplayStats();
+        DisplaySkins();
     }
 
-    private void displayStats()
+    private void DisplayStats()
     {
         for (int i = 0; i < text.transform.childCount; i++)
         {
@@ -42,7 +44,7 @@ public class StoreScript : MonoBehaviour
                 text.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = "User: " + user.username.ToString();
         }
     }
-    private void displaySkins()
+    private void DisplaySkins()
     {
         for (int i = 0; i < skins.transform.childCount; i++)
         {
@@ -70,13 +72,39 @@ public class StoreScript : MonoBehaviour
     }
     /* TODO:
      * 1. Organize the interface! It's a mess
-     * 2. Hook up the buttons so that when a user clicks on it, the store does the correct thing
-     * (i.e. if the button already says "using" don't do anything, if the button says "buy" try to purchase it, if the button says "switch" call the switchSkin method)
-     * 3. If there's a better way that having three buttons per dragon, try that instead!
-     * 4. Any methods hear haven't totally been thoroughly tested, so feel free to change to get stuff working! 
-     * 
+     * 2. If there's a better way that having three buttons per dragon, try that instead!
+     * 3. Any methods hear haven't totally been thoroughly tested, so feel free to change to get stuff working!      * 
      */
 
+    public void HandleSpeedButton(int indexSkinNumber)
+    {
+        HandleButton("speedstinger", indexSkinNumber, ref user.speedSkins);
+    }
+    public void HandleDreadButton(int indexSkinNumber)
+    {
+        HandleButton("dreadstrider", indexSkinNumber, ref user.dreadSkins);
+    }
+
+    private void HandleButton(string model, int indexSkinNumber, ref string[] skinsArray)
+    {
+        Debug.Log(skinsArray[indexSkinNumber]);
+        if (skinsArray[indexSkinNumber] == "Buy")
+        {
+            Buy(10, model, indexSkinNumber);
+        }
+        else if (skinsArray[indexSkinNumber] == "Switch")
+        {
+            SwitchSkin(model, indexSkinNumber);
+        }
+        else if (skinsArray[indexSkinNumber] == "Using")
+        {
+            Debug.Log("You already have this skin and are using it!");
+        }
+        else
+        {
+            Debug.Log("Unrecognized skin state!");
+        }
+    }
     // Call this to switch to the skin at indexSkinNumber
     private void SwitchSkin(string dragonModel, int indexSkinNumber)
     {
@@ -95,17 +123,17 @@ public class StoreScript : MonoBehaviour
         }
 
         //Double check we can switch!
-        if (theArray[indexSkinNumber] == "switch")
+        if (theArray[indexSkinNumber] == "Switch")
         {
             for (int i = 0; i < theArray.Length; i++)
             {
                 if (i == indexSkinNumber)
                 {
-                    theArray[indexSkinNumber] = "using";
+                    theArray[indexSkinNumber] = "Using";
                 }
-                else if (theArray[i] == "using")
+                else if (theArray[i] == "Using")
                 {
-                    theArray[i] = "switch";
+                    theArray[i] = "Switch";
                 }
             }
         }
@@ -113,6 +141,7 @@ public class StoreScript : MonoBehaviour
         {
             Debug.Log("user is already using or has not acquired this skin!");
         }
+        DisplaySkins();
     }
 
     // Sample of what to do when a user buys something!
@@ -122,18 +151,18 @@ public class StoreScript : MonoBehaviour
         {
             if (dragonModel == "speedstinger")
             {
-                user.speedSkins[indexSkinNumber] = "switch";
+                user.speedSkins[indexSkinNumber] = "Switch";
             }
             else if (dragonModel == "dreadstrider")
             {
-                user.dreadSkins[indexSkinNumber] = "switch";
+                user.dreadSkins[indexSkinNumber] = "Switch";
             }
             // Complete the transaction and save what was done!
             user.coins -= purchaseAmount;
             user.SaveGame();
             // Refresh the screen
-            displayStats();
-            displaySkins();
+            DisplayStats();
+            DisplaySkins();
         }
         else
         {

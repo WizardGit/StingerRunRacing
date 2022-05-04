@@ -32,15 +32,14 @@ public class UserSave
     public UserSave(string user)
     {
         username = user;
-        dreadSkins = new string[3] {"Buy", "Switch", "Using"};
-        speedSkins = new string[3] { "Switch", "Using", "Buy" };
+        dreadSkins = new string[3] { "Using", "Buy", "Buy" };
+        speedSkins = new string[3] { "Using", "Buy", "Buy" };
 
         dataFile = Application.persistentDataPath + "/" + username + ".save";
         //Debug.Log("Data file stored at: " + dataFile);
         File.Delete(dataFile);
         if (File.Exists(dataFile))
-        {
-            
+        {            
             LoadGame();
         }
         else
