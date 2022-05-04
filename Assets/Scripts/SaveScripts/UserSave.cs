@@ -18,22 +18,34 @@ public class UserSave
     public float levelTwoTime = -1f;
     public float levelThreeTime = -1f;
     public string model = "speedstinger";
-    public string skin = "normal";
+
+    public string[] dreadSkins;
+    public int currDreadSkin = 0;
+
+    public string[] speedSkins;
+    public int currSpeedSkin = 0;
+
+
     public string username = "nouser";
     public string dataFile = "";
 
     public UserSave(string user)
     {
         username = user;
-        
+        dreadSkins = new string[3] {"Buy", "Switch", "Using"};
+        speedSkins = new string[3] { "Switch", "Using", "Buy" };
+
         dataFile = Application.persistentDataPath + "/" + username + ".save";
         //Debug.Log("Data file stored at: " + dataFile);
+        File.Delete(dataFile);
         if (File.Exists(dataFile))
         {
+            
             LoadGame();
         }
         else
         {
+            
             SaveGame();
         }
     }
@@ -65,7 +77,13 @@ public class UserSave
             levelTwoTime = user.levelTwoTime;
             levelThreeTime = user.levelThreeTime;
             model = user.model;
-            skin = user.skin;
+
+            dreadSkins = user.dreadSkins;
+            currDreadSkin = user.currDreadSkin;
+
+            speedSkins = user.speedSkins;
+            currSpeedSkin = user.currSpeedSkin;
+
             username = user.username;
             Debug.Log("User information Loaded");
         }
