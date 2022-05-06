@@ -1,5 +1,6 @@
 /*
  * Author: Kaiser Slocum
+ * Last Modified: 5/6/2022
  */
 
 using System.Collections;
@@ -17,13 +18,6 @@ public class UserSave
     public float levelOneTime = -1f;
     public float levelTwoTime = -1f;
     public float levelThreeTime = -1f;
-    public string model = "speedstinger";
-
-    public string[] dreadSkins;
-    public int currDreadSkin = 0;
-
-    public string[] speedSkins;
-    public int currSpeedSkin = 0;   
 
     public List<Dragon> dragons;
 
@@ -34,23 +28,9 @@ public class UserSave
     {
         username = user;
 
-        Speedstinger speed = new Speedstinger();
-        Dreadstrider dread = new Dreadstrider();
-        dragons = new List<Dragon>();
-        for (int i = 0; i < 3; i++)
-        {
-            speed.AddSkin("Buy");
-            dread.AddSkin("Buy");
-        }
-        speed.SetSkin(0, "Using");
-        dread.SetSkin(0, "Using");
-        dragons.Add(speed);
-        dragons.Add(dread);
-
-
         dataFile = Application.persistentDataPath + "/" + username + ".save";
         //Debug.Log("Data file stored at: " + dataFile);
-        //File.Delete(dataFile);
+        File.Delete(dataFile);
         if (File.Exists(dataFile))
         {            
             LoadGame();
@@ -64,6 +44,21 @@ public class UserSave
     // Saves our class/variables to a local file
     public void SaveGame()
     {
+        Speedstinger speed = new Speedstinger();
+        Dreadstrider dread = new Dreadstrider();
+        dragons = new List<Dragon>();
+        for (int i = 0; i < 3; i++)
+        {
+            speed.AddSkin("Buy");
+            speed.AddSkinPrice(i * 10 + 10);
+            dread.AddSkin("Buy");
+            dread.AddSkinPrice(i * 10 + 20);
+        }
+        speed.SetSkin(0, "Using");
+        dread.SetSkin(0, "Using");
+        dragons.Add(speed);
+        dragons.Add(dread);
+
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(dataFile);
         bf.Serialize(file, this);
@@ -87,14 +82,7 @@ public class UserSave
             levelOneTime = user.levelOneTime;
             levelTwoTime = user.levelTwoTime;
             levelThreeTime = user.levelThreeTime;
-            model = user.model;
             dragons = user.dragons;
-
-            dreadSkins = user.dreadSkins;
-            currDreadSkin = user.currDreadSkin;
-
-            speedSkins = user.speedSkins;
-            currSpeedSkin = user.currSpeedSkin;
 
             username = user.username;
             Debug.Log("User information Loaded");

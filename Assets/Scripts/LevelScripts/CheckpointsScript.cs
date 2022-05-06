@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/1/2022
+ * Last Modified: 5/6/2022
  * The Arrow pointing angle code is something I am VERY proud of.
  * Took forever to do!
  */
@@ -17,7 +17,6 @@ public class CheckpointsScript : MonoBehaviour
 
     public GameObject models;
     private GameObject player;
-
 
     public GameObject invisibleFinishLineTrigger;
     public GameObject arrow;
@@ -60,20 +59,14 @@ public class CheckpointsScript : MonoBehaviour
         minimapTargets[0].GetComponent<MeshRenderer>().material.color = Color.green;
         targets.Add(invisibleFinishLineTrigger);
 
-
-
-        //Now figure out the correct model!
-        string theName = NameTransfer.theName;
-        if (theName == null)
-            Debug.Log("ERROR: no username!");
-
-        UserSave user = new UserSave(theName);
-        if (user.model == "speedstinger")
-            player = models.transform.GetChild(0).gameObject;
-        else if (user.model == "dreadstrider")
-            player = models.transform.GetChild(1).gameObject;
-        else
-            Debug.Log("No recognizable dragon");
+        // Get our player!
+        for (int i = 0; i < models.transform.childCount; i++)
+        {
+            if (models.transform.GetChild(i).gameObject.activeSelf == true)
+            {
+                player = models.transform.GetChild(i).gameObject;
+            }
+        }
     }
 
     // Update is called once per frame

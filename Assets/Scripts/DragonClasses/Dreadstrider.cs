@@ -1,5 +1,6 @@
 /*
  * Author: Kaiser Slocum
+ * Last Modified: 5/6/2022
  */
 
 [System.Serializable]
@@ -11,10 +12,7 @@ public class Dreadstrider : Dragon
         speedForce = 15f;
         turnSpeed = 200f;
 
-        inUse = false;
+        inUse = true;
         name = "Dreadstrider";
-
-        maxDistCast = 0.1f;
-        radius = 0.2f;
     }
 }

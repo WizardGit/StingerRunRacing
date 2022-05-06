@@ -1,5 +1,6 @@
 /*
  * Author: Kaiser Slocum
+ * Last Modified: 5/6/2022
  */
 
 using System;
@@ -16,7 +17,8 @@ public abstract class Dragon
     protected float jumpForce;
     protected float speedForce;
     protected float turnSpeed;
-    protected List<string> skins = new List<string>();
+    protected List<string> skins;
+    protected List<int> skinsPrices;
 
     // Variable for user
     protected bool inUse;
@@ -36,7 +38,9 @@ public abstract class Dragon
         name = "Dragon";
 
         maxDistCast = 0.1f;
-        radius = 0.2f;
+        radius = 0.3f;
+        skins = new List<string>();
+        skinsPrices = new List<int>();                
     }
 
     public float GetSpeedForce() => speedForce;
@@ -76,8 +80,49 @@ public abstract class Dragon
         return skins.Count;
     }
 
+    public void AddSkinPrice(int price)
+    {
+        skinsPrices.Add(price);
+    }
+    public void SetSkinPrice(int index, int price)
+    {
+        if ((index < skinsPrices.Count) && (index >= 0))
+        {
+            skinsPrices[index] = price;
+        }
+        else
+        {
+            Debug.Log("Index is outside the bounds of the list for ChangeSkin!");
+            throw new IndexOutOfRangeException();
+        }
+    }
+    public int GetSkinPrice(int index)
+    {
+        if ((index < skinsPrices.Count) && (index >= 0))
+        {
+            return skinsPrices[index];
+        }
+        else
+        {
+            Debug.Log("Index is outside the bounds of the list for GetSkin!");
+            throw new IndexOutOfRangeException();
+        }
+    }
+    public int GetSkinsPricesLength()
+    {
+        return skinsPrices.Count;
+    }
+
     public void ChangeUse(bool theVar)
     {
         inUse = theVar;
     }
+    public bool GetUse()
+    {
+        return inUse;
+    }
+    public string GetName() => name;
+
+    public float GetMaxDistCast() => maxDistCast;
+    public float GetRadius() => radius;
 }

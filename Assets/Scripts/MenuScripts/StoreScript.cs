@@ -1,3 +1,8 @@
+/*
+ * Author: Kaiser Slocum
+ * Last Modified: 5/6/2022
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -84,18 +89,18 @@ public class StoreScript : MonoBehaviour
 
     public void HandleSpeedButton(int indexSkinNumber)
     {
-        HandleButton("speedstinger", indexSkinNumber, speedDerg);
+        HandleButton(indexSkinNumber, speedDerg);
     }
     public void HandleDreadButton(int indexSkinNumber)
     {
-        HandleButton("dreadstrider", indexSkinNumber, dreadDerg);
+        HandleButton(indexSkinNumber, dreadDerg);
     }
 
-    private void HandleButton(string model, int indexSkinNumber, Dragon derg)
+    private void HandleButton(int indexSkinNumber, Dragon derg)
     {
         if (derg.GetSkin(indexSkinNumber) == "Buy")
         {
-            Buy(10, derg, indexSkinNumber);
+            Buy(derg.GetSkinPrice(indexSkinNumber), derg, indexSkinNumber);
         }
         else if (derg.GetSkin(indexSkinNumber) == "Switch")
         {

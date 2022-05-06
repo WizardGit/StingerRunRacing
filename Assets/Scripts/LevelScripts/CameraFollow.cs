@@ -1,5 +1,5 @@
 /* Created by Kaiser Slocum
- * Last Edited on 4/14/2022 by Kaiser Slocum
+ * Last Edited on 5/6/2022 by Kaiser Slocum
  * Purpose: To constantly modify the camera's positioning on the object
  */
 using System.Collections;
@@ -20,18 +20,14 @@ public class CameraFollow : MonoBehaviour
 
     private void Start()
     {
-        
-        string theName = NameTransfer.theName;
-        if (theName == null)
-            Debug.Log("ERROR: no username!");
-       
-        UserSave user = new UserSave(theName);
-        if (user.model == "speedstinger")
-            target = models.transform.GetChild(0).gameObject.transform;
-        else if (user.model == "dreadstrider")
-            target = models.transform.GetChild(1).gameObject.transform;
-        else
-            Debug.Log("No recognizable dragon");
+        // Get our target
+        for (int i = 0; i < models.transform.childCount; i++)
+        {
+            if (models.transform.GetChild(i).gameObject.activeSelf == true)
+            {
+                target = models.transform.GetChild(i).gameObject.transform;
+            }
+        }
     }
 
     private void FixedUpdate()

@@ -1,5 +1,6 @@
 /*
  * Author: Kaiser Slocum
+ * Last Modified: 5/6/2022
  */
 
 [System.Serializable]
@@ -13,8 +14,5 @@ public class Speedstinger : Dragon
 
         inUse = false;
         name = "Speedstinger";
-
-        maxDistCast = 0.1f;
-        radius = 0.2f;
     }
 }

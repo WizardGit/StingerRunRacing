@@ -1,5 +1,6 @@
 /*
  * Author: Kaiser Slocum
+ * Last Modified: 5/6/2022
  */
 
 using System;
@@ -42,10 +43,10 @@ public class PlayerController : MonoBehaviour
     private string animationRight = "WalkRight";
 
     // Movement variables
-    public float playerRotationSpeed = 100f;
-    public float playerSpeed = 20f;
-    public float speedBoostMultiplier = 1.5f;
-    public float jumpForce = 400f;  
+    private float playerRotationSpeed;
+    private float playerSpeed;
+    private float speedBoostMultiplier = 1.5f;
+    private float jumpForce;  
 
     // Movement variables
     private float movementX;
@@ -64,8 +65,8 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI messageText;
 
     // Variables for raycasting
-    public float maxDistCast = 0.1f;
-    public float radius = 0.2f;
+    private float maxDistCast = 0.1f;
+    private float radius = 0.2f;
 
     void Start()
     {
@@ -92,12 +93,25 @@ public class PlayerController : MonoBehaviour
         ledsave = new LeaderboardSave();
         ledBoard.SetActive(false);
 
-        if (usersave.model != gameObject.name)
+        int modelToUse = 0;
+        for (int i = 0; i < usersave.dragons.Count; i++)
         {
-            gameObject.SetActive(false);
+            if (usersave.dragons[i].GetUse() == true)
+            {
+                modelToUse = i;
+                if (usersave.dragons[modelToUse].GetName() == gameObject.name)
+                    gameObject.SetActive(true);
+                else
+                    gameObject.SetActive(false);
+            }
         }
-        //usersave.model = "dreadstrider";
-        //usersave.SaveGame();
+
+        playerRotationSpeed = usersave.dragons[modelToUse].GetTurnSpeed();
+        playerSpeed = usersave.dragons[modelToUse].GetSpeedForce();
+        speedBoostMultiplier = 1.5f;
+        jumpForce = usersave.dragons[modelToUse].GetJumpForce();
+        maxDistCast = usersave.dragons[modelToUse].GetMaxDistCast();
+        radius = usersave.dragons[modelToUse].GetRadius();
     }    
 
     private void FixedUpdate()
