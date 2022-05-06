@@ -23,8 +23,9 @@ public class UserSave
     public int currDreadSkin = 0;
 
     public string[] speedSkins;
-    public int currSpeedSkin = 0;
+    public int currSpeedSkin = 0;   
 
+    public List<Dragon> dragons;
 
     public string username = "nouser";
     public string dataFile = "";
@@ -32,19 +33,30 @@ public class UserSave
     public UserSave(string user)
     {
         username = user;
-        dreadSkins = new string[3] { "Using", "Buy", "Buy" };
-        speedSkins = new string[3] { "Using", "Buy", "Buy" };
+
+        Speedstinger speed = new Speedstinger();
+        Dreadstrider dread = new Dreadstrider();
+        dragons = new List<Dragon>();
+        for (int i = 0; i < 3; i++)
+        {
+            speed.AddSkin("Buy");
+            dread.AddSkin("Buy");
+        }
+        speed.SetSkin(0, "Using");
+        dread.SetSkin(0, "Using");
+        dragons.Add(speed);
+        dragons.Add(dread);
+
 
         dataFile = Application.persistentDataPath + "/" + username + ".save";
         //Debug.Log("Data file stored at: " + dataFile);
-        File.Delete(dataFile);
+        //File.Delete(dataFile);
         if (File.Exists(dataFile))
         {            
             LoadGame();
         }
         else
-        {
-            
+        {            
             SaveGame();
         }
     }
@@ -76,6 +88,7 @@ public class UserSave
             levelTwoTime = user.levelTwoTime;
             levelThreeTime = user.levelThreeTime;
             model = user.model;
+            dragons = user.dragons;
 
             dreadSkins = user.dreadSkins;
             currDreadSkin = user.currDreadSkin;
@@ -85,6 +98,7 @@ public class UserSave
 
             username = user.username;
             Debug.Log("User information Loaded");
+            Debug.Log("Dragons 0: " + dragons[1].GetSpeedForce());
         }
         else
         {

@@ -13,12 +13,18 @@ public class StoreScript : MonoBehaviour
     private GameObject skins;
     private GameObject text;
 
+    private Dragon speedDerg;
+    private Dragon dreadDerg;
+
     // Start is called before the first frame update
     void Start()
     {
         username = NameTransfer.theName;
         user = new UserSave(username);
         user.coins = 10;
+
+        speedDerg = user.dragons[0];
+        dreadDerg = user.dragons[1];
         user.SaveGame();
 
         for (int i = 0; i < gameObject.transform.childCount; i++)
@@ -59,11 +65,11 @@ public class StoreScript : MonoBehaviour
                 {                    
                     if (child.name == "Speedstinger")
                     {
-                        childOfChild.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = user.speedSkins[buttonCounter++];
+                        childOfChild.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = speedDerg.GetSkin(buttonCounter++);
                     }
                     else if (child.name == "Dreadstrider")
                     {
-                        childOfChild.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = user.dreadSkins[buttonCounter++];
+                        childOfChild.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = dreadDerg.GetSkin(buttonCounter++);
                     }
                     
                 }
@@ -78,25 +84,24 @@ public class StoreScript : MonoBehaviour
 
     public void HandleSpeedButton(int indexSkinNumber)
     {
-        HandleButton("speedstinger", indexSkinNumber, ref user.speedSkins);
+        HandleButton("speedstinger", indexSkinNumber, speedDerg);
     }
     public void HandleDreadButton(int indexSkinNumber)
     {
-        HandleButton("dreadstrider", indexSkinNumber, ref user.dreadSkins);
+        HandleButton("dreadstrider", indexSkinNumber, dreadDerg);
     }
 
-    private void HandleButton(string model, int indexSkinNumber, ref string[] skinsArray)
+    private void HandleButton(string model, int indexSkinNumber, Dragon derg)
     {
-        Debug.Log(skinsArray[indexSkinNumber]);
-        if (skinsArray[indexSkinNumber] == "Buy")
+        if (derg.GetSkin(indexSkinNumber) == "Buy")
         {
-            Buy(10, model, indexSkinNumber);
+            Buy(10, derg, indexSkinNumber);
         }
-        else if (skinsArray[indexSkinNumber] == "Switch")
+        else if (derg.GetSkin(indexSkinNumber) == "Switch")
         {
-            SwitchSkin(model, indexSkinNumber);
+            SwitchSkin(derg, indexSkinNumber);
         }
-        else if (skinsArray[indexSkinNumber] == "Using")
+        else if (derg.GetSkin(indexSkinNumber) == "Using")
         {
             Debug.Log("You already have this skin and are using it!");
         }
@@ -106,34 +111,20 @@ public class StoreScript : MonoBehaviour
         }
     }
     // Call this to switch to the skin at indexSkinNumber
-    private void SwitchSkin(string dragonModel, int indexSkinNumber)
+    private void SwitchSkin(Dragon derg, int indexSkinNumber)
     {
-        string[] theArray;
-        if (dragonModel == "speedstinger")
-        {
-            theArray = user.speedSkins;
-        }
-        else if (dragonModel == "dreadstrider")
-        {
-            theArray = user.dreadSkins;
-        }
-        else
-        {
-            return;
-        }
-
         //Double check we can switch!
-        if (theArray[indexSkinNumber] == "Switch")
+        if (derg.GetSkin(indexSkinNumber) == "Switch")
         {
-            for (int i = 0; i < theArray.Length; i++)
+            for (int i = 0; i < derg.GetSkinsLength(); i++)
             {
                 if (i == indexSkinNumber)
                 {
-                    theArray[indexSkinNumber] = "Using";
+                    derg.SetSkin(indexSkinNumber, "Using");
                 }
-                else if (theArray[i] == "Using")
+                else if (derg.GetSkin(i) == "Using")
                 {
-                    theArray[i] = "Switch";
+                    derg.SetSkin(i, "Switch");
                 }
             }
         }
@@ -145,18 +136,12 @@ public class StoreScript : MonoBehaviour
     }
 
     // Sample of what to do when a user buys something!
-    private void Buy(int purchaseAmount, string dragonModel, int indexSkinNumber)
+    private void Buy(int purchaseAmount, Dragon derg, int indexSkinNumber)
     {
         if (user.coins >= purchaseAmount)
         {
-            if (dragonModel == "speedstinger")
-            {
-                user.speedSkins[indexSkinNumber] = "Switch";
-            }
-            else if (dragonModel == "dreadstrider")
-            {
-                user.dreadSkins[indexSkinNumber] = "Switch";
-            }
+            derg.SetSkin(indexSkinNumber, "Switch");
+
             // Complete the transaction and save what was done!
             user.coins -= purchaseAmount;
             user.SaveGame();
