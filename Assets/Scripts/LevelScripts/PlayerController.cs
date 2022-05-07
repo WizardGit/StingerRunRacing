@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
         int modelToUse = 0;
         for (int i = 0; i < usersave.dragons.Count; i++)
         {
-            if (usersave.dragons[i].GetUse() == true)
+            if (usersave.dragons[i].GetUse() == "Using")
             {
                 modelToUse = i;
                 if (usersave.dragons[modelToUse].GetName() == gameObject.name)

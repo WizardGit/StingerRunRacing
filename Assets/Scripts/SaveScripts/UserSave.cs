@@ -36,29 +36,29 @@ public class UserSave
             LoadGame();
         }
         else
-        {            
+        {
+            Speedstinger speed = new Speedstinger();
+            Dreadstrider dread = new Dreadstrider();
+            dragons = new List<Dragon>();
+            for (int i = 0; i < 3; i++)
+            {
+                speed.AddSkin("Buy");
+                speed.AddSkinPrice(i * 10 + 10);
+                dread.AddSkin("Buy");
+                dread.AddSkinPrice(i * 10 + 20);
+            }
+            speed.SetSkin(0, "Using");
+            dread.SetSkin(0, "Using");
+            dragons.Add(speed);
+            dragons.Add(dread);
+
             SaveGame();
         }
     }
 
     // Saves our class/variables to a local file
     public void SaveGame()
-    {
-        Speedstinger speed = new Speedstinger();
-        Dreadstrider dread = new Dreadstrider();
-        dragons = new List<Dragon>();
-        for (int i = 0; i < 3; i++)
-        {
-            speed.AddSkin("Buy");
-            speed.AddSkinPrice(i * 10 + 10);
-            dread.AddSkin("Buy");
-            dread.AddSkinPrice(i * 10 + 20);
-        }
-        speed.SetSkin(0, "Using");
-        dread.SetSkin(0, "Using");
-        dragons.Add(speed);
-        dragons.Add(dread);
-
+    {      
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(dataFile);
         bf.Serialize(file, this);

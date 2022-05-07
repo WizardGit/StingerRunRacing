@@ -12,7 +12,7 @@ public class Dreadstrider : Dragon
         speedForce = 15f;
         turnSpeed = 200f;
 
-        inUse = true;
+        inUse = "Buy";
         name = "Dreadstrider";
     }
 }

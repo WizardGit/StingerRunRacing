@@ -19,9 +19,10 @@ public abstract class Dragon
     protected float turnSpeed;
     protected List<string> skins;
     protected List<int> skinsPrices;
+    protected int purchasePrice;
 
     // Variable for user
-    protected bool inUse;
+    protected string inUse;
     protected string name;
 
     // Variables for raycasting
@@ -34,13 +35,14 @@ public abstract class Dragon
         speedForce = 10f;
         turnSpeed = 200f;
 
-        inUse = false;
         name = "Dragon";
 
         maxDistCast = 0.1f;
         radius = 0.3f;
         skins = new List<string>();
-        skinsPrices = new List<int>();                
+        skinsPrices = new List<int>();
+        inUse = "Buy";
+        purchasePrice = 1000;
     }
 
     public float GetSpeedForce() => speedForce;
@@ -108,16 +110,17 @@ public abstract class Dragon
             throw new IndexOutOfRangeException();
         }
     }
+    public int GetPurchasePrice() => purchasePrice;
     public int GetSkinsPricesLength()
     {
         return skinsPrices.Count;
     }
 
-    public void ChangeUse(bool theVar)
+    public void ChangeUse(string theVar)
     {
         inUse = theVar;
     }
-    public bool GetUse()
+    public string GetUse()
     {
         return inUse;
     }

@@ -12,7 +12,7 @@ public class Speedstinger : Dragon
         speedForce = 20f;
         turnSpeed = 200f;
 
-        inUse = false;
+        inUse = "Using";
         name = "Speedstinger";
     }
 }

@@ -20,10 +20,11 @@ public class CameraFollow : MonoBehaviour
 
     private void Start()
     {
+        UserSave usersave = new UserSave(NameTransfer.theName);
         // Get our target
-        for (int i = 0; i < models.transform.childCount; i++)
+        for (int i = 0; i < usersave.dragons.Count; i++)
         {
-            if (models.transform.GetChild(i).gameObject.activeSelf == true)
+            if (usersave.dragons[i].GetUse() == "Using")
             {
                 target = models.transform.GetChild(i).gameObject.transform;
             }

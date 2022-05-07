@@ -16,10 +16,8 @@ public class PlayerFreeRoamController : MonoBehaviour
 {
     // Variables for keeping the time
     private float time = 0.0f;
-    private float countdown = 0.0f;
     // Dictates if the player is allowed to move
-    private bool isPause = true;
-    private bool isStart = true;
+    private bool isPause = false;
     // Dictates if the player is on the Terrain
     private bool onTerrain = false;
     // Leaderboard parent object
@@ -76,7 +74,7 @@ public class PlayerFreeRoamController : MonoBehaviour
             Debug.Log("Username is " + username);
         }        
 
-        resetPos = new Vector3(1737f, 107.79f, 1534f);
+        resetPos = new Vector3(577f, 8f, 193f);
 
         // Load/Create a new file for this user!
         usersave = new UserSave(username);
@@ -86,7 +84,7 @@ public class PlayerFreeRoamController : MonoBehaviour
         int modelToUse = 0;
         for (int i = 0; i < usersave.dragons.Count; i++)
         {
-            if (usersave.dragons[i].GetUse() == true)
+            if (usersave.dragons[i].GetUse() == "Using")
             {
                 modelToUse = i;
                 if (usersave.dragons[modelToUse].GetName() == gameObject.name)
@@ -121,31 +119,15 @@ public class PlayerFreeRoamController : MonoBehaviour
         {
             OnRespawn();
         }
-
-        if (isStart == true)
+        if (PauseMenu.isPaused == false)
         {
-            countdown += Time.deltaTime;
-            messageText.text = (3-MathF.Truncate(countdown)).ToString();
-            if (isPause == false)
-            {
-                isPause = true;
-            }
-            if (countdown >= 3f)
-            {
-                isStart = false;
-                isPause = false;
-                messageText.text = "<size=200%> GO!";
-            }            
+            isPause = false;
         }
-        else if (isPause == false)
+
+        if (isPause == false)
         {
             time += Time.deltaTime;          
-            Move();
-
-            if ((messageText.text == "<size=200%> GO!") && (time > 3))
-            {
-                messageText.text = "";
-            }            
+            Move();           
         }  
     }
 
