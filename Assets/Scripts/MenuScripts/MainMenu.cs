@@ -15,13 +15,16 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("LevelTwo");
     }
-
-    /*
+    
     public void PlayGame3()
     {
         SceneManager.LoadScene("LevelThree");
+    }    
+
+    public void PlayStore()
+    {
+        SceneManager.LoadScene("Store");
     }
-    */
 
     /*
     public void PlayTutorial()

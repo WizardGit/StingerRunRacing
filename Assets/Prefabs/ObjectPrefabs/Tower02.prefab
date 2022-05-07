@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 5730630373840722851}
   - component: {fileID: 5730630373840722848}
   - component: {fileID: 5730630373840722849}
-  - component: {fileID: 8704564652499872420}
+  - component: {fileID: 3494406781282353384}
   m_Layer: 0
   m_Name: TowerBottom02
   m_TagString: Untagged
@@ -117,8 +117,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8704564652499872420
-MeshCollider:
+--- !u!65 &3494406781282353384
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -127,10 +127,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 0fa6274d04284f14e82b2f7e73d63d0d, type: 2}
+  serializedVersion: 2
+  m_Size: {x: 2.344466, y: 3.39465, z: 2.383546}
+  m_Center: {x: 0, y: 0, z: 0.0000001788139}
 --- !u!1 &5730630373866476867
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +141,7 @@ GameObject:
   - component: {fileID: 5730630373866476868}
   - component: {fileID: 5730630373866476869}
   - component: {fileID: 5730630373866476866}
-  - component: {fileID: 660142355941648263}
+  - component: {fileID: 3987131680106242049}
   m_Layer: 0
   m_Name: TowerTop02
   m_TagString: Untagged
@@ -215,8 +214,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &660142355941648263
-MeshCollider:
+--- !u!65 &3987131680106242049
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -225,7 +224,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 65df66f9bfb72194e85d0ebcc7a17554, type: 2}
+  serializedVersion: 2
+  m_Size: {x: 1.853395, y: 4.427854, z: 2.341854}
+  m_Center: {x: 0.00000008940697, y: 0, z: 0.0000001192093}

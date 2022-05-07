@@ -12,22 +12,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
-public class PlayerController : MonoBehaviour
+public class PlayerFreeRoamController : MonoBehaviour
 {
     // Variables for keeping the time
     private float time = 0.0f;
     private float countdown = 0.0f;
-    private float boostTimer;
-    public float boostTimeLength = 10f;
     // Dictates if the player is allowed to move
     private bool isPause = true;
     private bool isStart = true;
     // Dictates if the player is on the Terrain
     private bool onTerrain = false;
-    // Dictates how many checkpoints there are
-    public int numCheckpoints = 6;
-    // Dictates how many checkpoints the user has hit
-    private int checkpointsReached = 0;
     // Leaderboard parent object
     public GameObject ledBoard;
     public GameObject pauseMenu;
@@ -45,7 +39,6 @@ public class PlayerController : MonoBehaviour
     // Movement variables
     private float playerRotationSpeed;
     private float playerSpeed;
-    private float speedBoostMultiplier = 1.5f;
     private float jumpForce;  
 
     // Movement variables
@@ -60,8 +53,6 @@ public class PlayerController : MonoBehaviour
     Animation animator;
     Rigidbody rb;
 
-    // Text variables
-    public TextMeshProUGUI timeText;
     public TextMeshProUGUI messageText;
 
     // Variables for raycasting
@@ -85,7 +76,6 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Username is " + username);
         }        
 
-        timeText.text = "Time: 0";
         resetPos = new Vector3(1737f, 107.79f, 1534f);
 
         // Load/Create a new file for this user!
@@ -108,7 +98,6 @@ public class PlayerController : MonoBehaviour
 
         playerRotationSpeed = usersave.dragons[modelToUse].GetTurnSpeed();
         playerSpeed = usersave.dragons[modelToUse].GetSpeedForce();
-        speedBoostMultiplier = 1.5f;
         jumpForce = usersave.dragons[modelToUse].GetJumpForce();
         maxDistCast = usersave.dragons[modelToUse].GetMaxDistCast();
         radius = usersave.dragons[modelToUse].GetRadius();
@@ -132,15 +121,6 @@ public class PlayerController : MonoBehaviour
         {
             OnRespawn();
         }
-        if (((time - boostTimer) > boostTimeLength) && (boostTimer > 0))
-        {
-            playerSpeed = playerSpeed / speedBoostMultiplier;
-            boostTimer = 0;
-        }
-        else if (((time - boostTimer) > 2f) && (boostTimer > 0))
-        {
-            messageText.text = "";
-        }
 
         if (isStart == true)
         {
@@ -159,10 +139,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (isPause == false)
         {
-            time += Time.deltaTime;
-            float minutes = MathF.Truncate(time / 60);
-            float seconds = MathF.Round(time - (minutes * 60),2);
-            timeText.text = "Time: " + minutes + "." + seconds;            
+            time += Time.deltaTime;          
             Move();
 
             if ((messageText.text == "<size=200%> GO!") && (time > 3))
@@ -170,11 +147,6 @@ public class PlayerController : MonoBehaviour
                 messageText.text = "";
             }            
         }  
-        else if (isPause == true)
-        {
-            if (checkpointsReached != numCheckpoints)
-                isPause = PauseMenu.isPaused;
-        }
     }
 
     private void Move()
@@ -210,44 +182,17 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if ((other.gameObject.CompareTag("RingTarget")) && (other.gameObject.GetComponent<MeshRenderer>().material.color == Color.green))
-        {
-            // Set our reset position to this newest checkpoint
-            resetPos = other.gameObject.transform.position;
-            // Get rid of the target
-            other.gameObject.SetActive(false);
-            checkpointsReached++;
-        }
-        else if (other.gameObject.CompareTag("Water"))
+        if (other.gameObject.CompareTag("Water"))
         {
             Debug.Log("Water");
         }
-        else if (other.gameObject.CompareTag("FlyingBox"))
-        {
-            other.gameObject.SetActive(false);
-            playerSpeed = playerSpeed * speedBoostMultiplier;
-            messageText.text = "<size=200%> Double Speed!";
-            boostTimer = time;
-            //Maybe do random thing, we could do double jump?
-        }
-        else if ((other.gameObject.CompareTag("Finish")) && (checkpointsReached == numCheckpoints))
+        else if (other.gameObject.CompareTag("Finish"))
         {
             isPause = true;
             animator.Play(animationIdle);
-            messageText.text = "";
-            timeText.text = "";            
-            other.gameObject.SetActive(false);            
+            messageText.text = "";       
+            other.gameObject.SetActive(false);  
             
-            Debug.Log("Your time: " + time.ToString());
-            Debug.Log("Your Best time: " + usersave.levelOneTime.ToString());
-            if ((time < usersave.levelOneTime) || (usersave.levelOneTime < 0))
-            {
-                usersave.levelOneTime = time;
-                usersave.SaveGame();                
-            }
-            ledsave.SaveTime(1, username, time);
-            Debug.Log("Your Best time now: " + usersave.levelOneTime.ToString());
-
             GameObject text1 = ledBoard.transform.GetChild(0).gameObject;
             GameObject text2 = ledBoard.transform.GetChild(1).gameObject;
             text1.GetComponent<TextMeshProUGUI>().text = username + ": " + MathF.Round(time, 3);
@@ -255,10 +200,6 @@ public class PlayerController : MonoBehaviour
 
             ledBoard.SetActive(true);
         }        
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        Debug.Log("Exit water");
     }
 
     // As long as we have a collision, we are "on the terrain"
