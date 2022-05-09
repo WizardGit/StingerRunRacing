@@ -1,3 +1,8 @@
+/*
+ * Authors: Sofi Vinas
+ * Last Modified: 5/8/2022
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,10 +31,15 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Store");
     }
 
+    public void Credits()
+    {
+        SceneManager.LoadScene("Credits");
+    }
+
     /*
     public void PlayTutorial()
     {
-        SceneManager.LoadScene("To")
+        SceneManager.LoadScene("Tutorial")
     }
     */
 

@@ -1,3 +1,8 @@
+/*
+ * Authors: Sofi Vinas
+ * Last Modified: 5/8/2022
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

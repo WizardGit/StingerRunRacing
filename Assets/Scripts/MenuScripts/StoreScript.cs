@@ -1,6 +1,6 @@
 /*
- * Author: Kaiser Slocum
- * Last Modified: 5/6/2022
+ * Authors: Kaiser Slocum, Sofi Vinas
+ * Last Modified: 5/8/2022
  */
 
 using System.Collections;
@@ -9,6 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class StoreScript : MonoBehaviour
 {
@@ -273,5 +274,10 @@ public class StoreScript : MonoBehaviour
         {
             Debug.Log("Not enough money!");
         }
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }
