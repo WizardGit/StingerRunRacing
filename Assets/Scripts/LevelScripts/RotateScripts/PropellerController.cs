@@ -6,7 +6,7 @@ public class PropellerController : MonoBehaviour
 {
     public GameObject boxPropeller;
 
-    void Update()
+    void FixedUpdate()
     {
         boxPropeller.transform.Rotate(new Vector3(0, 200, 0) * Time.deltaTime);
     }
