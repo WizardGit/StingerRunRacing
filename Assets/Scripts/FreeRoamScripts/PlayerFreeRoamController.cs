@@ -57,6 +57,9 @@ public class PlayerFreeRoamController : MonoBehaviour
     private float maxDistCast = 0.1f;
     private float radius = 0.2f;
 
+    //Gem variables
+    private int gemCount;
+
     void Start()
     {
         animator = GetComponent<Animation>();
@@ -181,7 +184,11 @@ public class PlayerFreeRoamController : MonoBehaviour
             text2.GetComponent<TextMeshProUGUI>().text = ledsave.getLeaderboard(1);
 
             ledBoard.SetActive(true);
-        }        
+        }
+        else if (other.gameObject.CompareTag("GemPickup"))
+        {
+            Debug.Log("Gem picked up!");
+        }
     }
 
     // As long as we have a collision, we are "on the terrain"
