@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/6/2022
+ * Last Modified: 5/10/2022
  */
 
 using System;
@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private float countdown = 0.0f;
     private float boostTimer;
     public float boostTimeLength = 10f;
+    public List<Material> materials;
     // Dictates if the player is allowed to move
     private bool isPause = true;
     private bool isStart = true;
@@ -59,6 +60,7 @@ public class PlayerController : MonoBehaviour
     // Object variables
     Animation animator;
     Rigidbody rb;
+    AudioSource audioRoar;
 
     // Text variables
     public TextMeshProUGUI timeText;
@@ -70,41 +72,51 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animation>();
-        rb = GetComponent<Rigidbody>();
-        cf = mainCamera.GetComponent<CameraFollow>();
-
         string theName = NameTransfer.theName;
-        if (theName == null)
-        {
-            Debug.Log("ERROR: no username!");
-        }
-        else
+        if (theName != null)
         {
             username = theName;
-            Debug.Log("Username is " + username);
-        }        
-
-        timeText.text = "Time: 0";
-        resetPos = new Vector3(1737f, 107.79f, 1534f);
+            Debug.Log("Username is " + username);            
+        }
+        else
+            Debug.Log("ERROR: no username!");
 
         // Load/Create a new file for this user!
         usersave = new UserSave(username);
         ledsave = new LeaderboardSave();
         ledBoard.SetActive(false);
 
+        // Load the correct dragon!
         int modelToUse = 0;
         for (int i = 0; i < usersave.dragons.Count; i++)
         {
             if (usersave.dragons[i].GetUse() == "Using")
             {
+                Debug.Log("thething: " + usersave.dragons[i].GetUse());
                 modelToUse = i;
                 if (usersave.dragons[modelToUse].GetName() == gameObject.name)
                     gameObject.SetActive(true);
                 else
                     gameObject.SetActive(false);
             }
-        }
+        }       
+        
+        // Load the correct skin!
+        for (int i = 0; i < usersave.dragons[modelToUse].GetSkinsLength(); i++)
+        {
+            if (usersave.dragons[modelToUse].GetSkin(i) == "Using")
+            {
+                gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().material = materials[i];
+            }
+        }        
+
+        animator = GetComponent<Animation>();
+        rb = GetComponent<Rigidbody>();
+        cf = mainCamera.GetComponent<CameraFollow>();
+        audioRoar = GetComponent<AudioSource>();               
+
+        timeText.text = "Time: 0";
+        resetPos = new Vector3(1737f, 107.79f, 1534f);       
 
         playerRotationSpeed = usersave.dragons[modelToUse].GetTurnSpeed();
         playerSpeed = usersave.dragons[modelToUse].GetSpeedForce();
@@ -216,7 +228,7 @@ public class PlayerController : MonoBehaviour
             resetPos = other.gameObject.transform.position;
             // Get rid of the target
             other.gameObject.SetActive(false);
-            checkpointsReached++;
+            checkpointsReached++;            
         }
         else if (other.gameObject.CompareTag("Water"))
         {
@@ -228,6 +240,7 @@ public class PlayerController : MonoBehaviour
             playerSpeed = playerSpeed * speedBoostMultiplier;
             messageText.text = "<size=200%> Double Speed!";
             boostTimer = time;
+            audioRoar.Play();
             //Maybe do random thing, we could do double jump?
         }
         else if ((other.gameObject.CompareTag("Finish")) && (checkpointsReached == numCheckpoints))
@@ -243,7 +256,7 @@ public class PlayerController : MonoBehaviour
             if ((time < usersave.levelOneTime) || (usersave.levelOneTime < 0))
             {
                 usersave.levelOneTime = time;
-                usersave.SaveGame();                
+                usersave.SaveUser();
             }
             ledsave.SaveTime(1, username, time);
             Debug.Log("Your Best time now: " + usersave.levelOneTime.ToString());
@@ -344,5 +357,9 @@ public class PlayerController : MonoBehaviour
         {
             men.ResumeGame();
         }
+    }
+    private void OnRoar()
+    {
+        audioRoar.Play();
     }
 }

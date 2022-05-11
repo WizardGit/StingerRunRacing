@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/6/2022
+ * Last Modified: 5/10/2022
  * The Arrow pointing angle code is something I am VERY proud of.
  * Took forever to do!
  */
@@ -24,11 +24,15 @@ public class CheckpointsScript : MonoBehaviour
     // Private variables: list of our target game objects and current checkpoint reached
     private List<GameObject> targets;
     private List<GameObject> minimapTargets;
-    private int currentCheckpointIndex = 0;    
+    private int currentCheckpointIndex = 0;   
+    
+    private AudioSource audioBleep;
 
     // Start is called before the first frame update
     void Start()
     {
+        audioBleep = gameObject.GetComponent<AudioSource>();
+
         targets = new List<GameObject>();
         minimapTargets = new List<GameObject>();
 
@@ -95,6 +99,7 @@ public class CheckpointsScript : MonoBehaviour
             // Update our next checkpoint
             if (targets[currentCheckpointIndex].activeInHierarchy == false)
             {
+                audioBleep.Play();
                 if (currentCheckpointIndex < targets.Count-2)
                 {
                     targets[++currentCheckpointIndex].GetComponent<MeshRenderer>().material.color = Color.green;

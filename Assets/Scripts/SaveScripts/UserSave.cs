@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/6/2022
+ * Last Modified: 5/10/2022
  */
 
 using System.Collections;
@@ -30,10 +30,10 @@ public class UserSave
 
         dataFile = Application.persistentDataPath + "/" + username + ".save";
         //Debug.Log("Data file stored at: " + dataFile);
-        File.Delete(dataFile);
+        //DeleteUser();
         if (File.Exists(dataFile))
         {            
-            LoadGame();
+            LoadUser();
         }
         else
         {
@@ -52,12 +52,12 @@ public class UserSave
             dragons.Add(speed);
             dragons.Add(dread);
 
-            SaveGame();
+            SaveUser();
         }
     }
 
     // Saves our class/variables to a local file
-    public void SaveGame()
+    public void SaveUser()
     {      
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(dataFile);
@@ -66,7 +66,7 @@ public class UserSave
         Debug.Log("User information saved");
     }
     //Loads the variables in the file at 'username' if possible
-    public void LoadGame()
+    public void LoadUser()
     {
         if (File.Exists(dataFile))
         {
@@ -74,7 +74,6 @@ public class UserSave
             FileStream file = File.Open(dataFile, FileMode.Open);
             UserSave user = (UserSave)bf.Deserialize(file);
             file.Close();
-
             
             coins = user.coins;
             trophies = user.trophies;
@@ -86,11 +85,14 @@ public class UserSave
 
             username = user.username;
             Debug.Log("User information Loaded");
-            Debug.Log("Dragons 0: " + dragons[1].GetSpeedForce());
         }
         else
         {
             Debug.Log("No file for this user!");
         }
+    }
+    public void DeleteUser()
+    {
+        File.Delete(dataFile);
     }
 }
