@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.07885865, g: 0.10205843, b: 0.10391127, a: 1}
+  m_IndirectSpecularColor: {r: 0.07885883, g: 0.10205858, b: 0.10391117, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1710,6 +1710,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 560a2016c882d974c9dba3b3c5ddce80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  materials:
+  - {fileID: 2100000, guid: d44ccf3ab12b7f741ab5d04724f0a3de, type: 2}
+  - {fileID: 2100000, guid: db8ac3a1036038e43921c91c5a2bd9f8, type: 2}
+  - {fileID: 2100000, guid: 38263236a7fbade4c868631d9f805901, type: 2}
   ledBoard: {fileID: 281253773}
   pauseMenu: {fileID: 1542984895}
   mainCamera: {fileID: 1769826862}
@@ -4071,6 +4075,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 560a2016c882d974c9dba3b3c5ddce80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  materials:
+  - {fileID: 2100000, guid: 02b65df4f41dccd4eb0caf94f3438d72, type: 2}
+  - {fileID: 2100000, guid: 7714971ba2d71d543b4c1f2c45484b1d, type: 2}
+  - {fileID: 2100000, guid: 2e72078103a06e846a6a424d6ed02b3d, type: 2}
   ledBoard: {fileID: 281253773}
   pauseMenu: {fileID: 1542984895}
   mainCamera: {fileID: 1769826862}

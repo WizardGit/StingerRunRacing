@@ -16,6 +16,7 @@ public class PlayerFreeRoamController : MonoBehaviour
 {
     // Variables for keeping the time
     private float time = 0.0f;
+    public List<Material> materials;
     // Dictates if the player is allowed to move
     private bool isPause = false;
     // Dictates if the player is on the Terrain
@@ -50,6 +51,7 @@ public class PlayerFreeRoamController : MonoBehaviour
     // Object variables
     Animation animator;
     Rigidbody rb;
+    AudioSource audioRoar;
 
     public TextMeshProUGUI messageText;
 
@@ -62,28 +64,21 @@ public class PlayerFreeRoamController : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animation>();
-        rb = GetComponent<Rigidbody>();
-        cf = mainCamera.GetComponent<CameraFollow>();
-
         string theName = NameTransfer.theName;
-        if (theName == null)
-        {
-            Debug.Log("ERROR: no username!");
-        }
-        else
+        if (theName != null)
         {
             username = theName;
             Debug.Log("Username is " + username);
-        }        
-
-        resetPos = new Vector3(577f, 8f, 193f);
+        }
+        else
+            Debug.Log("ERROR: no username!");
 
         // Load/Create a new file for this user!
         usersave = new UserSave(username);
         ledsave = new LeaderboardSave();
         ledBoard.SetActive(false);
 
+        // Load the correct dragon!
         int modelToUse = 0;
         for (int i = 0; i < usersave.dragons.Count; i++)
         {
@@ -97,12 +92,29 @@ public class PlayerFreeRoamController : MonoBehaviour
             }
         }
 
+        // Load the correct skin!
+        for (int i = 0; i < usersave.dragons[modelToUse].GetSkinsLength(); i++)
+        {
+            if (usersave.dragons[modelToUse].GetSkin(i) == "Using")
+            {
+                gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().material = materials[i];
+            }
+        }
+
+        animator = GetComponent<Animation>();
+        rb = GetComponent<Rigidbody>();
+        cf = mainCamera.GetComponent<CameraFollow>();
+        audioRoar = GetComponent<AudioSource>();
+
+        resetPos = new Vector3(1737f, 107.79f, 1534f);
+
         playerRotationSpeed = usersave.dragons[modelToUse].GetTurnSpeed();
         playerSpeed = usersave.dragons[modelToUse].GetSpeedForce();
         jumpForce = usersave.dragons[modelToUse].GetJumpForce();
         maxDistCast = usersave.dragons[modelToUse].GetMaxDistCast();
         radius = usersave.dragons[modelToUse].GetRadius();
-    }    
+
+    }
 
     private void FixedUpdate()
     {

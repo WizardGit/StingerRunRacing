@@ -94,7 +94,6 @@ public class PlayerController : MonoBehaviour
         {
             if (usersave.dragons[i].GetUse() == "Using")
             {
-                Debug.Log("thething: " + usersave.dragons[i].GetUse());
                 modelToUse = i;
                 if (usersave.dragons[modelToUse].GetName() == gameObject.name)
                     gameObject.SetActive(true);
