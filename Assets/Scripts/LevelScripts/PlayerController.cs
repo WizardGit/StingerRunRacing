@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
 
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private float boostTimer;
     public float boostTimeLength = 10f;
     public List<Material> materials;
+    public Image speedBar;
     // Dictates if the player is allowed to move
     private bool isPause = true;
     private bool isStart = true;
@@ -124,6 +126,8 @@ public class PlayerController : MonoBehaviour
         jumpForce = usersave.dragons[modelToUse].GetJumpForce();
         maxDistCast = usersave.dragons[modelToUse].GetMaxDistCast();
         radius = usersave.dragons[modelToUse].GetRadius();
+
+        speedBar.fillAmount = 0.2f;
     }    
 
     private void FixedUpdate()
@@ -201,12 +205,17 @@ public class PlayerController : MonoBehaviour
         else
             animator.Play(animationIdle);
 
-        // We can use transform instead of rigidbody
-        //transform.Translate(0, 0, movementY * playerSpeed * Time.deltaTime);
-        //transform.Rotate(0, movementX * playerRotationSpeed * Time.deltaTime, 0);
+        if (!Mathf.Approximately(movementY, 0f))
+            speedBar.fillAmount = 1f;
+        else
+            speedBar.fillAmount = 0.2f;
 
-        // Move our rigid body's rotation
-        Vector3 vecRotation = new Vector3(0, playerRotationSpeed, 0);
+            // We can use transform instead of rigidbody
+            //transform.Translate(0, 0, movementY * playerSpeed * Time.deltaTime);
+            //transform.Rotate(0, movementX * playerRotationSpeed * Time.deltaTime, 0);
+
+            // Move our rigid body's rotation
+            Vector3 vecRotation = new Vector3(0, playerRotationSpeed, 0);
         Quaternion deltaRotation = Quaternion.Euler(movementX * vecRotation * Time.deltaTime);
         rb.MoveRotation(rb.rotation * deltaRotation);
 
@@ -346,11 +355,13 @@ public class PlayerController : MonoBehaviour
     private void OnPause()
     {
         // Note sure how to handle when a user releases a key so this is my workaround! User pushes once to get the pause menu, then pushes again to get out of it
+        Debug.Log("pause");
         isPause = !isPause;
         animator.Stop();
         PauseMenu men = pauseMenu.GetComponent<PauseMenu>();
         if (isPause == true)
-        {            
+        {
+            Debug.Log("True");
             men.PauseGame();
         }
         else
