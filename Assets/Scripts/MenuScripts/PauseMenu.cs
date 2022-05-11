@@ -22,9 +22,9 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame()
     {
+        isPaused = true;
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
-        isPaused = true;
     }
 
     public void ResumeGame()

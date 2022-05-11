@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     public List<Material> materials;
     public Image speedBar;
     // Dictates if the player is allowed to move
-    private bool isPause = true;
+    private bool isPause = false;
     private bool isStart = true;
     // Dictates if the player is on the Terrain
     private bool onTerrain = false;
@@ -239,10 +239,6 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
             checkpointsReached++;            
         }
-        else if (other.gameObject.CompareTag("Water"))
-        {
-            Debug.Log("Water");
-        }
         else if (other.gameObject.CompareTag("FlyingBox"))
         {
             other.gameObject.SetActive(false);
@@ -277,10 +273,6 @@ public class PlayerController : MonoBehaviour
 
             ledBoard.SetActive(true);
         }        
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        Debug.Log("Exit water");
     }
 
     // As long as we have a collision, we are "on the terrain"
