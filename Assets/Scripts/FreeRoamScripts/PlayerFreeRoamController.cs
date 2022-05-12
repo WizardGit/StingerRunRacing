@@ -78,18 +78,11 @@ public class PlayerFreeRoamController : MonoBehaviour
         ledsave = new LeaderboardSave();
         ledBoard.SetActive(false);
 
-        // Load the correct dragon!
         int modelToUse = 0;
         for (int i = 0; i < usersave.dragons.Count; i++)
         {
-            if (usersave.dragons[i].GetUse() == "Using")
-            {
+            if (usersave.dragons[i].GetName() == gameObject.name)
                 modelToUse = i;
-                if (usersave.dragons[modelToUse].GetName() == gameObject.name)
-                    gameObject.SetActive(true);
-                else
-                    gameObject.SetActive(false);
-            }
         }
 
         // Load the correct skin!
@@ -256,21 +249,13 @@ public class PlayerFreeRoamController : MonoBehaviour
     }
     private void OnLookAt()
     {
-        CameraFollow cf = mainCamera.GetComponent<CameraFollow>();        
         cf.lookAt = !cf.lookAt;
     }
     private void OnFrontView()
-    {        
-        if (cf.lookAt == true)
-        {
-            // If we're looking at the object, we need to get in front of it (so we'll reverse our z offset
-            cf.offsetPosition.z = cf.offsetPosition.z * -1.0f;
-        }
-        else
-        {
-            // We need to signal to Update method to rotate by 180 degrees
-            cf.check = !cf.check;
-        }
+    {
+        // If we're looking at the object, we need to get in front of it (so we'll reverse our z offset
+        cf.lookForward = !cf.lookForward;
+        cf.offsetPosition.z = cf.offsetPosition.z * -1.0f;
     }
     private void OnPause()
     {
@@ -286,5 +271,9 @@ public class PlayerFreeRoamController : MonoBehaviour
         {
             men.ResumeGame();
         }
+    }
+    private void OnRoar()
+    {
+        audioRoar.Play();
     }
 }

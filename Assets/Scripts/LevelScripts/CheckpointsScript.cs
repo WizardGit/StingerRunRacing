@@ -64,17 +64,24 @@ public class CheckpointsScript : MonoBehaviour
         targets.Add(invisibleFinishLineTrigger);
 
         // Get our player!
-        for (int i = 0; i < models.transform.childCount; i++)
+        UserSave usersave = new UserSave(NameTransfer.theName);
+        for (int i = 0; i < usersave.dragons.Count; i++)
         {
-            if (models.transform.GetChild(i).gameObject.activeSelf == true)
+            if (usersave.dragons[i].GetUse() == "Using")
             {
-                player = models.transform.GetChild(i).gameObject;
+                for (int j = 0; j < models.transform.childCount; j++)
+                {
+                    if (j == i)
+                    {
+                        player = models.transform.GetChild(j).gameObject;
+                    }
+                }
             }
-        }
+        }        
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (invisibleFinishLineTrigger.activeSelf == true)
         {

@@ -51,18 +51,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Respawn",
+                    "name": "FrontView",
                     "type": "Button",
-                    "id": "ee858714-a492-48a6-8148-3ef22f494d7d",
+                    "id": "a590221c-e114-4f62-9031-25bb2216d4f8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "FrontView",
+                    "name": "Respawn",
                     "type": "Button",
-                    "id": "a590221c-e114-4f62-9031-25bb2216d4f8",
+                    "id": "ee858714-a492-48a6-8148-3ef22f494d7d",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -343,17 +343,6 @@
                 },
                 {
                     "name": "",
-                    "id": "8e9b2c2e-8db6-4635-810b-181c0a39457b",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "FrontView",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "0db0792a-68e0-455a-81b2-9f893b1b3329",
                     "path": "<Keyboard>/p",
                     "interactions": "",
@@ -371,6 +360,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Roar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8e9b2c2e-8db6-4635-810b-181c0a39457b",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "FrontView",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

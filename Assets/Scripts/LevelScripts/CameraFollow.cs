@@ -16,7 +16,7 @@ public class CameraFollow : MonoBehaviour
     public Vector3 offsetRotation;
 
     public bool lookAt = true;
-    public bool check = false;
+    public bool lookForward = true;
 
     private void Start()
     {
@@ -34,7 +34,7 @@ public class CameraFollow : MonoBehaviour
     private void FixedUpdate()
     {
         // If we want to look at our dragon...
-        if ((lookAt == true) && (check == false))
+        if (lookAt == true)
         {
             // Get where our camera needs to be
             transform.position = target.TransformPoint(offsetPosition);
@@ -49,20 +49,13 @@ public class CameraFollow : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transformRotation), 30 * Time.deltaTime);
         }
         // Else if we want to "be" our dragon...
-        else if ((lookAt == true) && (check == true))
-        {
-            // The camera needs to be in our object but rotated by 180 degrees
-            Vector3 targetRotation = target.rotation.eulerAngles;
-            Vector3 transformRotation = new Vector3(targetRotation.x, targetRotation.y + 180, targetRotation.z);
-            transform.rotation = Quaternion.Euler(transformRotation);
-        }
-        else if ((lookAt == false) && (check == false))
+        else if ((lookAt == false) && (lookForward == true))
         {
             Vector3 offset = new Vector3(0f, 1.5f, 1.5f);
             transform.position = target.TransformPoint(offset);
             transform.rotation = target.rotation;
         }
-        else if ((lookAt == false) && (check == true))
+        else if ((lookAt == false) && (lookForward == false))
         {
             Vector3 offset = new Vector3(0f, 1.5f, -1.5f);
             transform.position = target.TransformPoint(offset);

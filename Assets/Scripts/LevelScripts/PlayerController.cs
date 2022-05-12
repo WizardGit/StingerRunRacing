@@ -92,14 +92,8 @@ public class PlayerController : MonoBehaviour
         int modelToUse = 0;
         for (int i = 0; i < usersave.dragons.Count; i++)
         {
-            if (usersave.dragons[i].GetUse() == "Using")
-            {
-                modelToUse = i;
-                if (usersave.dragons[modelToUse].GetName() == gameObject.name)
-                    gameObject.SetActive(true);
-                else
-                    gameObject.SetActive(false);
-            }
+            if (usersave.dragons[i].GetName() == gameObject.name)
+                modelToUse = i;            
         }       
         
         // Load the correct skin!
@@ -326,22 +320,14 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(resetPos);
     }
     private void OnLookAt()
-    {
-        CameraFollow cf = mainCamera.GetComponent<CameraFollow>();        
+    {       
         cf.lookAt = !cf.lookAt;
     }
     private void OnFrontView()
-    {        
-        if (cf.lookAt == true)
-        {
-            // If we're looking at the object, we need to get in front of it (so we'll reverse our z offset
-            cf.offsetPosition.z = cf.offsetPosition.z * -1.0f;
-        }
-        else
-        {
-            // We need to signal to Update method to rotate by 180 degrees
-            cf.check = !cf.check;
-        }
+    {
+        // If we're looking at the object, we need to get in front of it (so we'll reverse our z offset
+        cf.lookForward = !cf.lookForward;
+        cf.offsetPosition.z = cf.offsetPosition.z * -1.0f;
     }
     private void OnPause()
     {
