@@ -2957,7 +2957,7 @@ MonoBehaviour:
   offsetPosition: {x: 0, y: 3, z: -5}
   offsetRotation: {x: 18, y: 0, z: 0}
   lookAt: 1
-  check: 0
+  lookForward: 1
 --- !u!1001 &978217194
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7497,6 +7497,14 @@ PrefabInstance:
       propertyPath: materials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: 38263236a7fbade4c868631d9f805901, type: 2}
+    - target: {fileID: 1098037231, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098037232, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: m_RootOrder
       value: 0
