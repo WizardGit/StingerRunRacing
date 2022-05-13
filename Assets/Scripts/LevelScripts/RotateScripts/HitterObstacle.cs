@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HitterObstacle : MonoBehaviour
 {
-    void Update()
+    void FixedUpdate()
     {
         transform.Rotate(new Vector3(200, 0, 0) * Time.deltaTime);
     }

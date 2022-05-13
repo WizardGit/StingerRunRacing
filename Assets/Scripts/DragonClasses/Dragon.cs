@@ -37,7 +37,7 @@ public abstract class Dragon
 
         name = "Dragon";
 
-        maxDistCast = 0.1f;
+        maxDistCast = 0.09f;
         radius = 0.3f;
         skins = new List<string>();
         skinsPrices = new List<int>();

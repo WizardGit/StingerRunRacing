@@ -12,6 +12,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -134,7 +135,7 @@ public class PlayerController : MonoBehaviour
         {
             //rb.MoveRotation(Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)));
             //Debug.Log(hit.normal.ToString());
-            rb.MoveRotation(Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)), 10 * Time.deltaTime));
+            rb.MoveRotation(Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)), 4 * Time.deltaTime));
         }
 
         if (rb.position.y <= 0)
@@ -247,22 +248,37 @@ public class PlayerController : MonoBehaviour
             animator.Play(animationIdle);
             messageText.text = "";
             timeText.text = "";            
-            other.gameObject.SetActive(false);            
-            
-            Debug.Log("Your time: " + time.ToString());
-            Debug.Log("Your Best time: " + usersave.levelOneTime.ToString());
-            if ((time < usersave.levelOneTime) || (usersave.levelOneTime < 0))
-            {
-                usersave.levelOneTime = time;
-                usersave.SaveUser();
-            }
-            ledsave.SaveTime(1, username, time);
-            Debug.Log("Your Best time now: " + usersave.levelOneTime.ToString());
+            other.gameObject.SetActive(false);
 
-            GameObject text1 = ledBoard.transform.GetChild(0).gameObject;
-            GameObject text2 = ledBoard.transform.GetChild(1).gameObject;
-            text1.GetComponent<TextMeshProUGUI>().text = username + ": " + MathF.Round(time, 3);
-            text2.GetComponent<TextMeshProUGUI>().text = ledsave.getLeaderboard(1);
+            string sName = SceneManager.GetActiveScene().name;
+            int levelNum = 0;
+            if (sName == "LevelOne")
+            {
+                levelNum = 1;
+                if ((time < usersave.levelOneTime) || (usersave.levelOneTime < 0))
+                    usersave.levelOneTime = time;
+            }
+            else if (sName == "LevelTwo")
+            {
+                levelNum = 2;
+                if ((time < usersave.levelTwoTime) || (usersave.levelTwoTime < 0))
+                    usersave.levelTwoTime = time;
+            }
+            else if (sName == "LevelThree")
+            {
+                levelNum = 3;
+                if ((time < usersave.levelThreeTime) || (usersave.levelThreeTime < 0))
+                    usersave.levelThreeTime = time;
+            }
+            else
+            {
+                Debug.Log("Scene name unrecognized in player controller!");
+            }
+
+            usersave.SaveUser();
+            ledsave.SaveTime(levelNum, username, time);
+            ledBoard.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = username + ": " + MathF.Round(time, 3);
+            ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = ledsave.getLeaderboard(levelNum);
 
             ledBoard.SetActive(true);
         }        

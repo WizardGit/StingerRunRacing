@@ -8,7 +8,7 @@ public class FlyingRingController : MonoBehaviour
     public GameObject bladeRight;
     public GameObject glowingRingTarget;
     
-    void Update()
+    void FixedUpdate()
     {
         bladeLeft.transform.Rotate(new Vector3(0, 200, 0) * Time.deltaTime);
         bladeRight.transform.Rotate(new Vector3(0, 200, 0) * Time.deltaTime);
