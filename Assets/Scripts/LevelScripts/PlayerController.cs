@@ -287,8 +287,10 @@ public class PlayerController : MonoBehaviour
     // As long as we have a collision, we are "on the terrain"
     private void OnCollisionEnter(Collision theCollision)
     {
-        onTerrain = true;
-
+        if (theCollision.gameObject.CompareTag("GroundTerrain"))
+        {
+            onTerrain = true;
+        }
         if (theCollision.gameObject.CompareTag("Water"))
         {
             // We are in water, so switch our animations
@@ -301,8 +303,10 @@ public class PlayerController : MonoBehaviour
     // As long as we have exited a collision, we must be "in the air"
     private void OnCollisionExit(Collision theCollision)
     {
-        onTerrain = false;
-        
+        if (theCollision.gameObject.CompareTag("GroundTerrain"))
+        {
+            onTerrain = false;
+        }
         if (theCollision.gameObject.CompareTag("Water"))
         {
             // We are exiting the water, so switch our animations
@@ -310,8 +314,6 @@ public class PlayerController : MonoBehaviour
             animationIdle = "IdleHappy";
             animationLeft = "WalkLeft";
             animationRight = "WalkRight";
-
-            transform.Translate(0,1,0);
         }
     }
     // Some extra Key Bindings

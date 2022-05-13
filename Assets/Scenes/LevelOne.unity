@@ -6831,8 +6831,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.9999993, y: -0.02, z: 1.9999988}
-  m_Center: {x: -0.00000032782555, y: -0.0105, z: 0.00000032782555}
+  m_Size: {x: 2, y: -0.02, z: 2}
+  m_Center: {x: 0, y: -0.0104, z: 0}
 --- !u!1001 &1981907179
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7356,6 +7356,10 @@ PrefabInstance:
       propertyPath: m_Interpolate
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1098037232, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -7405,6 +7409,10 @@ PrefabInstance:
       value: Speedstinger
       objectReference: {fileID: 0}
     - target: {fileID: 927310294293949534, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7359038251215008461, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
