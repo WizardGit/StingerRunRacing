@@ -51,7 +51,9 @@ public class PlayerFreeRoamController : MonoBehaviour
     // Object variables
     Animation animator;
     Rigidbody rb;
+    AudioSource[] sounds;
     AudioSource audioRoar;
+    AudioSource gemCollectSound;
 
     public TextMeshProUGUI messageText;
 
@@ -97,7 +99,9 @@ public class PlayerFreeRoamController : MonoBehaviour
         animator = GetComponent<Animation>();
         rb = GetComponent<Rigidbody>();
         cf = mainCamera.GetComponent<CameraFollow>();
-        audioRoar = GetComponent<AudioSource>();
+        sounds = GetComponents<AudioSource>();
+        audioRoar = sounds[0];
+        gemCollectSound = sounds[1];
 
         resetPos = new Vector3(1737f, 107.79f, 1534f);
 
@@ -193,6 +197,8 @@ public class PlayerFreeRoamController : MonoBehaviour
         else if (other.gameObject.CompareTag("GemPickup"))
         {
             Debug.Log("Gem picked up!");
+            other.gameObject.SetActive(false);
+            gemCollectSound.Play();
         }
     }
 
