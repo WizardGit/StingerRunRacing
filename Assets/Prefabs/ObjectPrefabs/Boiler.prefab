@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6344475721045535371}
   - component: {fileID: 3131025681979585584}
   - component: {fileID: 7883562068638064890}
-  - component: {fileID: 2080561701613382913}
+  - component: {fileID: 378142457153648531}
   m_Layer: 0
   m_Name: Boiler
   m_TagString: Untagged
@@ -84,8 +84,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2080561701613382913
-BoxCollider:
+--- !u!136 &378142457153648531
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -94,6 +94,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 5, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 1.3
+  m_Height: 5
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.9, z: 0}
