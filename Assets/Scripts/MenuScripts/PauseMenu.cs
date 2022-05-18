@@ -45,4 +45,9 @@ public class PauseMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void GoToStore()
+    {
+        SceneManager.LoadScene("Store");
+    }
 }
