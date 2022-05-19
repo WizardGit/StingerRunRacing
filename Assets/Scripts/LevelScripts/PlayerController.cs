@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/10/2022
+ * Last Modified: 5/19/2022
  */
 
 using System;
@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     private bool isPause = false;
     private bool isStart = true;
     // Dictates if the player is on the Terrain
-    private bool onTerrain = false;
+    private bool onTerrain = true;
     // Dictates how many checkpoints there are
     public int numCheckpoints = 6;
     // Dictates how many checkpoints the user has hit
@@ -61,9 +61,9 @@ public class PlayerController : MonoBehaviour
     private LeaderboardSave ledsave;
 
     // Object variables
-    Animation animator;
-    Rigidbody rb;
-    AudioSource audioRoar;
+    private Animation animator;
+    private Rigidbody rb;
+    private AudioSource audioRoar;
 
     // Text variables
     public TextMeshProUGUI timeText;

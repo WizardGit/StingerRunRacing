@@ -2444,7 +2444,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 2
+  m_CollisionDetection: 1
 --- !u!136 &-1849046538120446977
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2524,7 +2524,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boostTimeLength: 10
-  numCheckpoints: 7
+  materials:
+  - {fileID: 2100000, guid: 02b65df4f41dccd4eb0caf94f3438d72, type: 2}
+  - {fileID: 2100000, guid: 7714971ba2d71d543b4c1f2c45484b1d, type: 2}
+  - {fileID: 2100000, guid: 2e72078103a06e846a6a424d6ed02b3d, type: 2}
+  speedBar: {fileID: 0}
+  numCheckpoints: 3
   ledBoard: {fileID: 0}
   pauseMenu: {fileID: 0}
   mainCamera: {fileID: 0}

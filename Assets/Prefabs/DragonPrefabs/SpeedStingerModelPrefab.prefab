@@ -184,7 +184,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 50.274628
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalPosition.z
@@ -228,7 +228,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d44ccf3ab12b7f741ab5d04724f0a3de, type: 2}
     - target: {fileID: 919132149155446097, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_Name
-      value: SpeedStingerModelPrefab
+      value: Speedstinger
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
@@ -257,7 +261,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 2
+  m_CollisionDetection: 1
 --- !u!136 &1098037231
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -269,7 +273,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.6
-  m_Height: 3.2
+  m_Height: 3.4
   m_Direction: 2
   m_Center: {x: 0, y: 0.6, z: 0.4}
 --- !u!82 &-704433511390161126
@@ -403,7 +407,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boostTimeLength: 10
-  numCheckpoints: 7
+  materials:
+  - {fileID: 2100000, guid: d44ccf3ab12b7f741ab5d04724f0a3de, type: 2}
+  - {fileID: 2100000, guid: db8ac3a1036038e43921c91c5a2bd9f8, type: 2}
+  - {fileID: 2100000, guid: 38263236a7fbade4c868631d9f805901, type: 2}
+  speedBar: {fileID: 0}
+  numCheckpoints: 3
   ledBoard: {fileID: 0}
   pauseMenu: {fileID: 0}
   mainCamera: {fileID: 0}
