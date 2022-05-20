@@ -17,14 +17,14 @@ public class WaypointTrip : MonoBehaviour
     private float time = 0.0f;
     private bool start = false;
 
-    int m_CurrentWaypointIndex;
+    private int m_CurrentWaypointIndex = 0;
 
     void Start()
     {
         animator = GetComponent<Animation>();
-        navMeshAgent.SetDestination(waypoints[0].position);
-        Debug.Log(waypoints[0].position.ToString());
-        Debug.Log(navMeshAgent.name + navMeshAgent.remainingDistance.ToString());
+        navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
+        //Debug.Log(waypoints[0].position.ToString());
+        //Debug.Log(navMeshAgent.name + navMeshAgent.remainingDistance.ToString());
         navMeshAgent.isStopped = true;
     }
 
@@ -45,10 +45,11 @@ public class WaypointTrip : MonoBehaviour
 
         if (navMeshAgent.isStopped == false)
         {
-            Move();
+            Move();            
         }
         else if (navMeshAgent.isStopped == true)
         {
+            Debug.Log(navMeshAgent.name + ": " + navMeshAgent.isStopped.ToString());
             if ((time >= 3.0f) && (start == false))
             {
                 start = true;
@@ -59,9 +60,11 @@ public class WaypointTrip : MonoBehaviour
 
     void Move()
     {
-        if ((navMeshAgent.remainingDistance != 0) && (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance))
+        //Debug.Log(navMeshAgent.remainingDistance.ToString());
+        if ((navMeshAgent.pathPending == false) && (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance))
         {
-            Debug.Log(m_CurrentWaypointIndex.ToString());
+            Debug.Log(navMeshAgent.name + ": " + m_CurrentWaypointIndex.ToString());
+            //Debug.Log(navMeshAgent.remainingDistance.ToString());
             if (m_CurrentWaypointIndex == waypoints.Length-1)
             {
                 navMeshAgent.isStopped = true;
