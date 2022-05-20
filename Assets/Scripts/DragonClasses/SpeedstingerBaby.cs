@@ -11,6 +11,7 @@ public class SpeedstingerBaby : Speedstinger
         jumpForce = 700f;
         speedForce = 25f;
         turnSpeed = 200f;
+        accelForce = 7f;
 
         inUse = "Buy";
         name = "SpeedstingerBaby";

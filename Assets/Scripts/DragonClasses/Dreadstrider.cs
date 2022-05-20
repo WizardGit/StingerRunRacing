@@ -11,6 +11,7 @@ public class Dreadstrider : Dragon
         jumpForce = 1500f;
         speedForce = 15f;
         turnSpeed = 200f;
+        accelForce = 15f;
 
         inUse = "Buy";
         name = "Dreadstrider";

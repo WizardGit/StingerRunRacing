@@ -49,6 +49,8 @@ public class PlayerController : MonoBehaviour
     // Movement variables
     private float playerRotationSpeed;
     private float playerSpeed;
+    private float playerAcceleration;
+    private float playerMaxSpeed;
     private float speedBoostMultiplier = 1.5f;
     private float jumpForce;  
 
@@ -115,11 +117,12 @@ public class PlayerController : MonoBehaviour
         resetPos = new Vector3(1737f, 107.79f, 1534f);       
 
         playerRotationSpeed = usersave.dragons[modelToUse].GetTurnSpeed();
-        playerSpeed = usersave.dragons[modelToUse].GetSpeedForce();
+        playerMaxSpeed = usersave.dragons[modelToUse].GetSpeedForce();
         speedBoostMultiplier = 1.5f;
         jumpForce = usersave.dragons[modelToUse].GetJumpForce();
         maxDistCast = usersave.dragons[modelToUse].GetMaxDistCast();
         radius = usersave.dragons[modelToUse].GetRadius();
+        playerAcceleration = usersave.dragons[modelToUse].GetAccelForce();
 
         speedBar.fillAmount = 0.2f;
     }    
@@ -199,10 +202,19 @@ public class PlayerController : MonoBehaviour
         else
             animator.Play(animationIdle);
 
+        if ((!Mathf.Approximately(movementY, 0f) || !Mathf.Approximately(movementX, 0f)) && (playerSpeed < playerMaxSpeed))
+        {
+            playerSpeed += playerAcceleration * Time.deltaTime;
+        }
+        else if (Mathf.Approximately(movementY, 0f) && Mathf.Approximately(movementX, 0f))
+        {
+            playerSpeed = 0f;
+        }
+
         if (!Mathf.Approximately(movementY, 0f))
-            speedBar.fillAmount = 1f;
+            speedBar.fillAmount = playerSpeed/playerMaxSpeed;
         else
-            speedBar.fillAmount = 0.2f;
+            speedBar.fillAmount = 0.1f;
 
             // We can use transform instead of rigidbody
             //transform.Translate(0, 0, movementY * playerSpeed * Time.deltaTime);
@@ -287,10 +299,6 @@ public class PlayerController : MonoBehaviour
     // As long as we have a collision, we are "on the terrain"
     private void OnCollisionEnter(Collision theCollision)
     {
-        if (theCollision.gameObject.CompareTag("GroundTerrain"))
-        {
-            onTerrain = true;
-        }
         if (theCollision.gameObject.CompareTag("Water"))
         {
             // We are in water, so switch our animations
@@ -299,14 +307,12 @@ public class PlayerController : MonoBehaviour
             animationLeft = "Swim";
             animationRight = "Swim";
         }
+        else
+            onTerrain = true;
     }
     // As long as we have exited a collision, we must be "in the air"
     private void OnCollisionExit(Collision theCollision)
     {
-        if (theCollision.gameObject.CompareTag("GroundTerrain"))
-        {
-            onTerrain = false;
-        }
         if (theCollision.gameObject.CompareTag("Water"))
         {
             // We are exiting the water, so switch our animations
@@ -315,6 +321,8 @@ public class PlayerController : MonoBehaviour
             animationLeft = "WalkLeft";
             animationRight = "WalkRight";
         }
+        else
+            onTerrain = true;
     }
     // Some extra Key Bindings
     private void OnMove(InputValue movementValue)

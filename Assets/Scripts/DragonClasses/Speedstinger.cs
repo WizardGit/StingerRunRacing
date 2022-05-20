@@ -9,8 +9,9 @@ public class Speedstinger : Dragon
     public Speedstinger()
     {
         jumpForce = 1000f;
-        speedForce = 20f;
+        speedForce = 30f;
         turnSpeed = 200f;
+        accelForce = 10f;
 
         inUse = "Using";
         name = "Speedstinger";

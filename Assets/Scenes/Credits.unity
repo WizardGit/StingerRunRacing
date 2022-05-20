@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2962,7 +2962,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 118, y: 7}
-  m_SizeDelta: {x: 533.0789, y: 294.7908}
+  m_SizeDelta: {x: 533, y: 294.7908}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1931340379
 MonoBehaviour:
@@ -2984,7 +2984,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Kaiser's Bio and Contributions
+  m_text: "Kaiser's Bio and Contributions:\nKaiser is a graduate of the University
+    of Oregon with a Bachelor's in Computer Science as well as a small business owner
+    and author.  \nKaiser is responsible for the idea behind Stinger Run racing. 
+    He also created the characters and their movement and fit them to all the levels.\nBecause
+    of his experience with C#, Kaiser was also responsible for writing the majority
+    of the scripts."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3011,8 +3016,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

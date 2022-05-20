@@ -17,6 +17,7 @@ public abstract class Dragon
     protected float jumpForce;
     protected float speedForce;
     protected float turnSpeed;
+    protected float accelForce;
     protected List<string> skins;
     protected List<int> skinsPrices;
     protected int purchasePrice;
@@ -34,6 +35,7 @@ public abstract class Dragon
         jumpForce = 1000f;
         speedForce = 10f;
         turnSpeed = 200f;
+        accelForce = 5f;
 
         name = "Dragon";
 
@@ -48,6 +50,7 @@ public abstract class Dragon
     public float GetSpeedForce() => speedForce;
     public float GetJumpForce() => jumpForce;
     public float GetTurnSpeed() => turnSpeed;
+    public float GetAccelForce() => accelForce;
 
     public void AddSkin(string skin)
     {
