@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1278799920114754538}
   - component: {fileID: 587356849959161884}
   - component: {fileID: 453870906839263679}
-  - component: {fileID: 5206400211922975192}
+  - component: {fileID: 1170451050}
   m_Layer: 0
   m_Name: GlowWormBarrel
   m_TagString: Untagged
@@ -84,8 +84,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5206400211922975192
-BoxCollider:
+--- !u!136 &1170451050
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -94,6 +94,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5344462, y: 0.625511, z: 0.5240168}
-  m_Center: {x: -0.001179725, y: 0.3099129, z: -0.01096261}
+  m_Radius: 0.3
+  m_Height: 0.7
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.3, z: 0}

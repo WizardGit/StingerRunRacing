@@ -61,6 +61,7 @@ public class WaypointTrip : MonoBehaviour
     {
         if ((navMeshAgent.remainingDistance != 0) && (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance))
         {
+            Debug.Log(m_CurrentWaypointIndex.ToString());
             if (m_CurrentWaypointIndex == waypoints.Length-1)
             {
                 navMeshAgent.isStopped = true;

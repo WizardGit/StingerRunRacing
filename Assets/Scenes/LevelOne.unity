@@ -2728,24 +2728,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6a94547270d2884ab703f86e71e1ded, type: 3}
---- !u!1 &744892296 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5012736715348395468, guid: 8d299ef051d7a624989e05e6854b10ab, type: 3}
-  m_PrefabInstance: {fileID: 1353639223}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &744892300
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 744892296}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 17, y: 15, z: 15}
-  m_Center: {x: 0, y: 7, z: -2}
 --- !u!4 &787826618 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6344475721045535371, guid: 17710a5d49a67b64fb5c566018a350b7, type: 3}
@@ -2808,11 +2790,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0dd5c1a52732afa409eec7b8e32e9b3a, type: 3}
---- !u!1 &883932791 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7889354273798902136, guid: ccaf1c24f885c1448b8f6d7558afaef0, type: 3}
-  m_PrefabInstance: {fileID: 1326123952}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &896888952
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2943,10 +2920,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquadPortalBase
       objectReference: {fileID: 0}
-    - target: {fileID: 6398513221222259176, guid: a1bcb1b891294ce4fa1138fe7e9d2001, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: d56905539ad3638449ef4fe42f53cf7c, type: 2}
     - target: {fileID: 7240531224518780243, guid: a1bcb1b891294ce4fa1138fe7e9d2001, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -4081,20 +4054,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1278799920114754538, guid: ccaf1c24f885c1448b8f6d7558afaef0, type: 3}
   m_PrefabInstance: {fileID: 1326123952}
   m_PrefabAsset: {fileID: 0}
---- !u!136 &1170451050
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 883932791}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.3
-  m_Height: 0.7
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!1 &1175306739
 GameObject:
   m_ObjectHideFlags: 0
@@ -4769,8 +4728,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: GlowWormBarrel
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5206400211922975192, guid: ccaf1c24f885c1448b8f6d7558afaef0, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccaf1c24f885c1448b8f6d7558afaef0, type: 3}
 --- !u!1 &1340198712
 GameObject:
@@ -4942,8 +4900,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: LargeHouse
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 11657816, guid: 8d299ef051d7a624989e05e6854b10ab, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d299ef051d7a624989e05e6854b10ab, type: 3}
 --- !u!1 &1377349205
 GameObject:
