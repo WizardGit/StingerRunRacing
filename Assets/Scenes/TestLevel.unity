@@ -3987,6 +3987,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
+      propertyPath: ledBoard
+      value: 
+      objectReference: {fileID: 1668455301}
+    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
       propertyPath: waypoints.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -4017,11 +4021,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 546526961447761636, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
   m_PrefabInstance: {fileID: 1144480725}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1148030951 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6688917618666246721, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-  m_PrefabInstance: {fileID: 121634681}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1174224088
 GameObject:
@@ -5020,6 +5019,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Speedstinger
       objectReference: {fileID: 0}
+    - target: {fileID: 927310294293949534, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
 --- !u!1 &1436630229
@@ -5758,6 +5761,10 @@ PrefabInstance:
       propertyPath: m_StoppingDistance
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
+      propertyPath: ledBoard
+      value: 
+      objectReference: {fileID: 1668455301}
     - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
       propertyPath: waypoints.Array.size
       value: 4
@@ -7010,22 +7017,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6463938099181318433, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
   m_PrefabInstance: {fileID: 121634681}
   m_PrefabAsset: {fileID: 0}
---- !u!208 &1942273227
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1148030951}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 2}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.8, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!1 &1952184424
 GameObject:
   m_ObjectHideFlags: 0
@@ -7375,6 +7366,10 @@ PrefabInstance:
       propertyPath: m_StoppingDistance
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
+      propertyPath: ledBoard
+      value: 
+      objectReference: {fileID: 1668455301}
     - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
       propertyPath: waypoints.Array.size
       value: 4

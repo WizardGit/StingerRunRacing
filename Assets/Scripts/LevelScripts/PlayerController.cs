@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     // Variables for keeping the time
     private float time = 0.0f;
     private float countdown = 0.0f;
-    private float boostTimer;
+    private float boostTimer = 0.0f;
     public float boostTimeLength = 10f;
     public List<Material> materials;
     public Image speedBar;
@@ -77,6 +77,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        //gameObject.transform.GetChild(4).gameObject.SetActive(fire);
+
         string theName = NameTransfer.theName;
         if (theName != null)
         {
@@ -145,11 +147,6 @@ public class PlayerController : MonoBehaviour
         {
             OnRespawn();
         }
-        if (((time - boostTimer) > boostTimeLength) && (boostTimer > 0))
-        {
-            playerSpeed = playerSpeed / speedBoostMultiplier;
-            boostTimer = 0;
-        }
         else if (((time - boostTimer) > 2f) && (boostTimer > 0))
         {
             messageText.text = "";
@@ -200,11 +197,19 @@ public class PlayerController : MonoBehaviour
         else if (!Mathf.Approximately(movementY, 0f))
             animator.Play(animationRun);
         else
-            animator.Play(animationIdle);
+        {
+            if (animator.IsPlaying("FlyAttackAdd") == false)
+                animator.Play(animationIdle);
+        }
 
         if ((!Mathf.Approximately(movementY, 0f) || !Mathf.Approximately(movementX, 0f)) && (playerSpeed < playerMaxSpeed))
         {
-            playerSpeed += playerAcceleration * Time.deltaTime;
+            playerSpeed += playerAcceleration * Time.deltaTime;            
+
+            if (((time - boostTimer) > boostTimeLength) && (boostTimer > 0))
+                boostTimer = 0;
+            else if (((time - boostTimer) < boostTimeLength) && (boostTimer > 0))
+                playerSpeed = playerSpeed * speedBoostMultiplier;
         }
         else if (Mathf.Approximately(movementY, 0f) && Mathf.Approximately(movementX, 0f))
         {
@@ -248,11 +253,9 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.CompareTag("FlyingBox"))
         {
             other.gameObject.SetActive(false);
-            playerSpeed = playerSpeed * speedBoostMultiplier;
             messageText.text = "<size=200%> Double Speed!";
             boostTimer = time;
             audioRoar.Play();
-            //Maybe do random thing, we could do double jump?
         }
         else if ((other.gameObject.CompareTag("Finish")) && (checkpointsReached == numCheckpoints))
         {
@@ -375,5 +378,15 @@ public class PlayerController : MonoBehaviour
     private void OnRoar()
     {
         audioRoar.Play();
+    }
+
+    private void OnFire()
+    {
+        if (Mathf.Approximately(movementY, 0f) && Mathf.Approximately(movementX, 0f) && (animator.IsPlaying("FlyAttackAdd") == false))
+        {
+            animator.Play("FlyAttackAdd");
+            gameObject.transform.GetChild(4).gameObject.GetComponent<ParticleSystem>().Play();
+            OnRoar();
+        }
     }
 }
