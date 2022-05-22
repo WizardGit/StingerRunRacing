@@ -2531,7 +2531,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 7714971ba2d71d543b4c1f2c45484b1d, type: 2}
   - {fileID: 2100000, guid: 2e72078103a06e846a6a424d6ed02b3d, type: 2}
   speedBar: {fileID: 0}
-  numCheckpoints: 4
+  checkpointsReached: 0
+  disToCheckpoint: 0
+  checkpoints: {fileID: 0}
+  distanceText: {fileID: 0}
+  finishLine: {fileID: 0}
   ledBoard: {fileID: 0}
   pauseMenu: {fileID: 0}
   mainCamera: {fileID: 0}
@@ -3107,7 +3111,7 @@ PrefabInstance:
     - target: {fileID: 8351531718471762867, guid: ed5b8d862f7dd3046b624b1880993bb6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 00891ad71d3fbfc4eb3db10a9acc43a6, type: 2}
+      objectReference: {fileID: 2100000, guid: 812ac253a226436439c7e30c849270ab, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed5b8d862f7dd3046b624b1880993bb6, type: 3}
 --- !u!4 &632581744 stripped

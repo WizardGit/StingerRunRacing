@@ -27,6 +27,12 @@ public class WaypointTrip : MonoBehaviour
 
     private int m_CurrentWaypointIndex = 0;
 
+    public int checkpointsReached = 0;
+    public float disToCheckpoint = 0.0f;
+    public GameObject checkpoints;
+    public GameObject finishLine;
+
+
     void Start()
     {
         animator = GetComponent<Animation>();
@@ -39,6 +45,7 @@ public class WaypointTrip : MonoBehaviour
     void FixedUpdate()
     {
         time += Time.deltaTime;
+        CalcNextCheckpoint();
 
         //Debug.Log(navMeshAgent.name + navMeshAgent.velocity.ToString());
         //Debug.Log(navMeshAgent.name + navMeshAgent.remainingDistance.ToString());
@@ -114,4 +121,28 @@ public class WaypointTrip : MonoBehaviour
             navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
         }
     }
+
+    private void CalcNextCheckpoint()
+    {
+
+        if (checkpointsReached == checkpoints.transform.childCount)
+        {
+            Vector3 disVec = finishLine.transform.GetChild(3).gameObject.transform.position - gameObject.transform.position;
+            disToCheckpoint = MathF.Abs(disVec.x) + MathF.Abs(disVec.y) + MathF.Abs(disVec.z);
+        }
+        else if (checkpointsReached > checkpoints.transform.childCount)
+        {
+            return;
+        }
+        else
+        {
+            Vector3 disVec = checkpoints.transform.GetChild(checkpointsReached).transform.position - gameObject.transform.position;
+            disToCheckpoint = MathF.Abs(disVec.x) + MathF.Abs(disVec.y) + MathF.Abs(disVec.z);
+        }           
+
+        if ((disToCheckpoint < 12) && (checkpointsReached < checkpoints.transform.childCount))
+        {
+            checkpointsReached++;
+        }
+    }    
 }

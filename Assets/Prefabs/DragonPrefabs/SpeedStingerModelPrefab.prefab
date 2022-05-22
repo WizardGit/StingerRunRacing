@@ -180,15 +180,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -420
+      value: -423.36304
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 51.1
+      value: 50.274628
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 190
+      value: 192.75256
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalRotation.w
@@ -417,7 +417,12 @@ MonoBehaviour:
   - {fileID: 2100000, guid: db8ac3a1036038e43921c91c5a2bd9f8, type: 2}
   - {fileID: 2100000, guid: 38263236a7fbade4c868631d9f805901, type: 2}
   speedBar: {fileID: 0}
-  numCheckpoints: 4
+  numCheckpoints: 7
+  checkpointsReached: 0
+  disToCheckpoint: 0
+  checkpoints: {fileID: 0}
+  distanceText: {fileID: 0}
+  finishLine: {fileID: 0}
   ledBoard: {fileID: 0}
   pauseMenu: {fileID: 0}
   mainCamera: {fileID: 0}

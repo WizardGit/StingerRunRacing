@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/19/2022
+ * Last Modified: 5/22/2022
  */
 
 using System;
@@ -29,9 +29,13 @@ public class PlayerController : MonoBehaviour
     // Dictates if the player is on the Terrain
     private bool onTerrain = true;
     // Dictates how many checkpoints there are
-    public int numCheckpoints = 6;
+    private int numCheckpoints;
     // Dictates how many checkpoints the user has hit
-    private int checkpointsReached = 0;
+    public int checkpointsReached = 0;
+    public float disToCheckpoint = 0.0f;
+    public GameObject checkpoints;
+    public TextMeshProUGUI distanceText;
+    public GameObject finishLine;
     // Leaderboard parent object
     public GameObject ledBoard;
     public GameObject pauseMenu;
@@ -77,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        //gameObject.transform.GetChild(4).gameObject.SetActive(fire);
+        numCheckpoints = checkpoints.transform.childCount;
 
         string theName = NameTransfer.theName;
         if (theName != null)
@@ -131,6 +135,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        CalcNextCheckpoint();
         // This code is vital for keeping the dragon rotated with the terrain
         RaycastHit hit;        
         Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1f);
@@ -189,18 +194,22 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {        
-        // Animations
-        if (movementX > 0.0f)
-            animator.Play(animationRight);
-        else if (movementX < 0.0f)
-            animator.Play(animationLeft);
-        else if (!Mathf.Approximately(movementY, 0f))
-            animator.Play(animationRun);
-        else
+        // Animations - but only play if we're on ground
+        if (onTerrain == true)
         {
-            if (animator.IsPlaying("FlyAttackAdd") == false)
-                animator.Play(animationIdle);
-        }
+            if (movementX > 0.0f)
+                animator.Play(animationRight);
+            else if (movementX < 0.0f)
+                animator.Play(animationLeft);
+            else if ((!Mathf.Approximately(movementY, 0f) || !Mathf.Approximately(movementX, 0f)) && (onTerrain == true))
+                animator.Play(animationRun);
+            else
+            {
+                // The shoot-fireball animation should not be interrupted by animationIdle
+                if (animator.IsPlaying("FlyAttackAdd") == false)
+                    animator.Play(animationIdle);
+            }
+        }        
 
         if ((!Mathf.Approximately(movementY, 0f) || !Mathf.Approximately(movementX, 0f)) && (playerSpeed < playerMaxSpeed))
         {
@@ -221,12 +230,12 @@ public class PlayerController : MonoBehaviour
         else
             speedBar.fillAmount = 0.1f;
 
-            // We can use transform instead of rigidbody
-            //transform.Translate(0, 0, movementY * playerSpeed * Time.deltaTime);
-            //transform.Rotate(0, movementX * playerRotationSpeed * Time.deltaTime, 0);
+        // We can use transform instead of rigidbody
+        //transform.Translate(0, 0, movementY * playerSpeed * Time.deltaTime);
+        //transform.Rotate(0, movementX * playerRotationSpeed * Time.deltaTime, 0);
 
-            // Move our rigid body's rotation
-            Vector3 vecRotation = new Vector3(0, playerRotationSpeed, 0);
+        // Move our rigid body's rotation
+        Vector3 vecRotation = new Vector3(0, playerRotationSpeed, 0);
         Quaternion deltaRotation = Quaternion.Euler(movementX * vecRotation * Time.deltaTime);
         rb.MoveRotation(rb.rotation * deltaRotation);
 
@@ -259,6 +268,7 @@ public class PlayerController : MonoBehaviour
         }
         else if ((other.gameObject.CompareTag("Finish")) && (checkpointsReached == numCheckpoints))
         {
+            Debug.Log("finish!");
             isPause = true;
             animator.Play(animationIdle);
             messageText.text = "";
@@ -302,6 +312,7 @@ public class PlayerController : MonoBehaviour
     // As long as we have a collision, we are "on the terrain"
     private void OnCollisionEnter(Collision theCollision)
     {
+        onTerrain = true;
         if (theCollision.gameObject.CompareTag("Water"))
         {
             // We are in water, so switch our animations
@@ -309,9 +320,7 @@ public class PlayerController : MonoBehaviour
             animationIdle = "SwimIdle";
             animationLeft = "Swim";
             animationRight = "Swim";
-        }
-        else
-            onTerrain = true;
+        }       
     }
     // As long as we have exited a collision, we must be "in the air"
     private void OnCollisionExit(Collision theCollision)
@@ -324,8 +333,6 @@ public class PlayerController : MonoBehaviour
             animationLeft = "WalkLeft";
             animationRight = "WalkRight";
         }
-        else
-            onTerrain = true;
     }
     // Some extra Key Bindings
     private void OnMove(InputValue movementValue)
@@ -334,14 +341,14 @@ public class PlayerController : MonoBehaviour
         movementX = movementXY.x;
         movementY = movementXY.y;
     }
-
     private void OnJump()
     {
         if ((onTerrain == true) && (isPause == false))
         {
             Vector3 jump = new Vector3(movementX, jumpForce, movementY);
             rb.AddForce(jump);
-            animator.Play("Jump01");
+            onTerrain = false;
+            animator.Play("Jump01");            
         }
     }
     private void OnRespawn()
@@ -379,7 +386,6 @@ public class PlayerController : MonoBehaviour
     {
         audioRoar.Play();
     }
-
     private void OnFire()
     {
         if (Mathf.Approximately(movementY, 0f) && Mathf.Approximately(movementX, 0f) && (animator.IsPlaying("FlyAttackAdd") == false))
@@ -387,6 +393,32 @@ public class PlayerController : MonoBehaviour
             animator.Play("FlyAttackAdd");
             gameObject.transform.GetChild(4).gameObject.GetComponent<ParticleSystem>().Play();
             OnRoar();
+        }
+    }
+
+    private void CalcNextCheckpoint()
+    {
+        if ((finishLine.transform.GetChild(3).gameObject.activeSelf == true) && (checkpointsReached == numCheckpoints))
+        {
+            Vector3 disVec = finishLine.transform.GetChild(3).transform.position - gameObject.transform.position;
+            disToCheckpoint = MathF.Abs(disVec.x) + MathF.Abs(disVec.y) + MathF.Abs(disVec.z);
+            distanceText.text = "Next: " + MathF.Round(disToCheckpoint, 2).ToString();
+        }
+        else if ((finishLine.transform.GetChild(3).gameObject.activeSelf == false))
+        {
+            distanceText.text = "Next: 0";
+        }
+        else
+        {
+            for (int i = 0; i < checkpoints.transform.childCount; i++)
+            {
+                if (checkpoints.transform.GetChild(i).transform.GetChild(4).GetComponent<MeshRenderer>().material.color == Color.green)
+                {
+                    Vector3 disVec = checkpoints.transform.GetChild(i).transform.position - gameObject.transform.position;
+                    disToCheckpoint = MathF.Abs(disVec.x) + MathF.Abs(disVec.y) + MathF.Abs(disVec.z);
+                    distanceText.text = "Next: " + MathF.Round(disToCheckpoint, 2).ToString();
+                }
+            }
         }
     }
 }

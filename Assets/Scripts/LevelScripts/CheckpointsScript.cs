@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/10/2022
+ * Last Modified: 5/22/2022
  * The Arrow pointing angle code is something I am VERY proud of.
  * Took forever to do!
  */
@@ -13,8 +13,6 @@ using TMPro;
 
 public class CheckpointsScript : MonoBehaviour
 {    
-    public TextMeshProUGUI distanceText;
-
     public GameObject models;
     private GameObject player;
 
@@ -85,10 +83,8 @@ public class CheckpointsScript : MonoBehaviour
     {
         if (invisibleFinishLineTrigger.activeSelf == true)
         {
-            // DisVec represents the vector between the player and the next checkpoing
+            // DisVec represents the vector between the player and the next checkpoint
             Vector3 disVec = targets[currentCheckpointIndex].transform.position - player.transform.position;
-            float thing = MathF.Abs(disVec.x) + MathF.Abs(disVec.y) + MathF.Abs(disVec.z);
-            distanceText.text = "Next: " + MathF.Round(thing,2).ToString();
             // Look angle will represent the angle that our arrow needs to point to from our objective straight world line
             Vector3 lookAngleVec = Quaternion.LookRotation(disVec).eulerAngles;
             float c = -lookAngleVec.z;
@@ -123,10 +119,6 @@ public class CheckpointsScript : MonoBehaviour
                     currentCheckpointIndex = 0;
                 }
             }
-        }
-        else
-        {
-            distanceText.text = "";
         }
     }
 }
