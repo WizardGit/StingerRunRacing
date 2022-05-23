@@ -367,14 +367,12 @@ public class PlayerController : MonoBehaviour
     }
     private void OnPause()
     {
-        // Note sure how to handle when a user releases a key so this is my workaround! User pushes once to get the pause menu, then pushes again to get out of it
-        Debug.Log("pause");
+        // Note sure how to handle when a user releases a key so this is my workaround! User pushes once to get the pause menu, then pushes again to get out of it        
         isPause = !isPause;
         animator.Stop();
         PauseMenu men = pauseMenu.GetComponent<PauseMenu>();
         if (isPause == true)
         {
-            Debug.Log("True");
             men.PauseGame();
         }
         else

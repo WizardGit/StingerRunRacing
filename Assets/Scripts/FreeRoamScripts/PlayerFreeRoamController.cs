@@ -9,14 +9,17 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerFreeRoamController : MonoBehaviour
 {
     // Variables for keeping the time
     private float time = 0.0f;
     public List<Material> materials;
+    public Image speedBar;
     // Dictates if the player is allowed to move
     private bool isPause = false;
     // Dictates if the player is on the Terrain
@@ -38,6 +41,8 @@ public class PlayerFreeRoamController : MonoBehaviour
     // Movement variables
     private float playerRotationSpeed;
     private float playerSpeed;
+    private float playerAcceleration;
+    private float playerMaxSpeed;
     private float jumpForce;  
 
     // Movement variables
@@ -51,9 +56,8 @@ public class PlayerFreeRoamController : MonoBehaviour
     // Object variables
     Animation animator;
     Rigidbody rb;
-    AudioSource[] sounds;
-    AudioSource audioRoar;
-    AudioSource gemCollectSound;
+    public AudioSource audioRoar;
+    public AudioSource gemCollectSound;
 
     public TextMeshProUGUI messageText;
 
@@ -99,18 +103,17 @@ public class PlayerFreeRoamController : MonoBehaviour
         animator = GetComponent<Animation>();
         rb = GetComponent<Rigidbody>();
         cf = mainCamera.GetComponent<CameraFollow>();
-        sounds = GetComponents<AudioSource>();
-        audioRoar = sounds[0];
-        gemCollectSound = sounds[1];
 
-        resetPos = new Vector3(1737f, 107.79f, 1534f);
+        resetPos = new Vector3(572.21f, 8.4f, 190.72f);
 
         playerRotationSpeed = usersave.dragons[modelToUse].GetTurnSpeed();
-        playerSpeed = usersave.dragons[modelToUse].GetSpeedForce();
+        playerMaxSpeed = usersave.dragons[modelToUse].GetSpeedForce();
         jumpForce = usersave.dragons[modelToUse].GetJumpForce();
         maxDistCast = usersave.dragons[modelToUse].GetMaxDistCast();
         radius = usersave.dragons[modelToUse].GetRadius();
+        playerAcceleration = usersave.dragons[modelToUse].GetAccelForce();
 
+        speedBar.fillAmount = 0.2f;
     }
 
     private void FixedUpdate()
@@ -131,11 +134,6 @@ public class PlayerFreeRoamController : MonoBehaviour
         {
             OnRespawn();
         }
-        if (PauseMenu.isPaused == false)
-        {
-            isPause = false;
-        }
-
         if (isPause == false)
         {
             time += Time.deltaTime;          
@@ -144,16 +142,37 @@ public class PlayerFreeRoamController : MonoBehaviour
     }
 
     private void Move()
-    {        
-        // Animations
-        if (movementX > 0.0f)
-            animator.Play(animationRight);
-        else if (movementX < 0.0f)
-            animator.Play(animationLeft);
-        else if (!Mathf.Approximately(movementY, 0f))
-            animator.Play(animationRun);
+    {
+        // Animations - but only play if we're on ground
+        if (onTerrain == true)
+        {
+            if (movementX > 0.0f)
+                animator.Play(animationRight);
+            else if (movementX < 0.0f)
+                animator.Play(animationLeft);
+            else if ((!Mathf.Approximately(movementY, 0f) || !Mathf.Approximately(movementX, 0f)) && (onTerrain == true))
+                animator.Play(animationRun);
+            else
+            {
+                // The shoot-fireball animation should not be interrupted by animationIdle
+                if (animator.IsPlaying("FlyAttackAdd") == false)
+                    animator.Play(animationIdle);
+            }
+        }
+
+        if ((!Mathf.Approximately(movementY, 0f) || !Mathf.Approximately(movementX, 0f)) && (playerSpeed < playerMaxSpeed))
+        {
+            playerSpeed += playerAcceleration * Time.deltaTime;
+        }
+        else if (Mathf.Approximately(movementY, 0f) && Mathf.Approximately(movementX, 0f))
+        {
+            playerSpeed = 0f;
+        }
+
+        if (!Mathf.Approximately(movementY, 0f))
+            speedBar.fillAmount = playerSpeed / playerMaxSpeed;
         else
-            animator.Play(animationIdle);
+            speedBar.fillAmount = 0.1f;
 
         // We can use transform instead of rigidbody
         //transform.Translate(0, 0, movementY * playerSpeed * Time.deltaTime);
@@ -206,7 +225,6 @@ public class PlayerFreeRoamController : MonoBehaviour
     private void OnCollisionEnter(Collision theCollision)
     {
         onTerrain = true;
-
         if (theCollision.gameObject.CompareTag("Water"))
         {
             // We are in water, so switch our animations
@@ -219,8 +237,6 @@ public class PlayerFreeRoamController : MonoBehaviour
     // As long as we have exited a collision, we must be "in the air"
     private void OnCollisionExit(Collision theCollision)
     {
-        onTerrain = false;
-        
         if (theCollision.gameObject.CompareTag("Water"))
         {
             // We are exiting the water, so switch our animations
@@ -228,8 +244,6 @@ public class PlayerFreeRoamController : MonoBehaviour
             animationIdle = "IdleHappy";
             animationLeft = "WalkLeft";
             animationRight = "WalkRight";
-
-            transform.Translate(0,1,0);
         }
     }
     // Some extra Key Bindings
@@ -246,6 +260,7 @@ public class PlayerFreeRoamController : MonoBehaviour
         {
             Vector3 jump = new Vector3(movementX, jumpForce, movementY);
             rb.AddForce(jump);
+            onTerrain = false;
             animator.Play("Jump01");
         }
     }
@@ -281,5 +296,14 @@ public class PlayerFreeRoamController : MonoBehaviour
     private void OnRoar()
     {
         audioRoar.Play();
+    }
+    private void OnFire()
+    {
+        if (Mathf.Approximately(movementY, 0f) && Mathf.Approximately(movementX, 0f) && (animator.IsPlaying("FlyAttackAdd") == false))
+        {
+            animator.Play("FlyAttackAdd");
+            gameObject.transform.GetChild(4).gameObject.GetComponent<ParticleSystem>().Play();
+            OnRoar();
+        }
     }
 }

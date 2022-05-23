@@ -20,6 +20,7 @@ public class WaypointTrip : MonoBehaviour
     public NavMeshAgent navMeshAgent;
     public Transform[] waypoints;
     private Animation animator;
+    public AudioSource audioFootsteps;
     private float pastX = 0.0f;
     private float time = 0.0f;
     private bool start = false;
@@ -37,8 +38,6 @@ public class WaypointTrip : MonoBehaviour
     {
         animator = GetComponent<Animation>();
         navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
-        //Debug.Log(waypoints[0].position.ToString());
-        //Debug.Log(navMeshAgent.name + navMeshAgent.remainingDistance.ToString());
         navMeshAgent.isStopped = true;
     }
 
@@ -47,15 +46,20 @@ public class WaypointTrip : MonoBehaviour
         time += Time.deltaTime;
         CalcNextCheckpoint();
 
-        //Debug.Log(navMeshAgent.name + navMeshAgent.velocity.ToString());
-        //Debug.Log(navMeshAgent.name + navMeshAgent.remainingDistance.ToString());
-
         float movementX = navMeshAgent.velocity.x;
         float movementY = navMeshAgent.velocity.y;
         if ((movementX != 0) && (navMeshAgent.isStopped == false))
+        {
             animator.Play("Run");
+            if (audioFootsteps.isPlaying == false)
+                audioFootsteps.Play();
+        }
         else
+        {
             animator.Play("IdleHappy");
+            if (audioFootsteps.isPlaying == true)
+                audioFootsteps.Pause();
+        }
         pastX = movementX;
 
         if (navMeshAgent.isStopped == false)
