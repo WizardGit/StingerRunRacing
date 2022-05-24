@@ -23,7 +23,7 @@ public class MainMenu : MonoBehaviour
     
     public void PlayGame3()
     {
-        SceneManager.LoadScene("LevelThree");
+        SceneManager.LoadScene("LevelThreeCanvas");
     }    
 
     public void PlayStore()

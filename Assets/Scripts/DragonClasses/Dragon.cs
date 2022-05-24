@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/10/2022
+ * Last Modified: 5/24/2022
  */
 
 using System;
@@ -18,8 +18,12 @@ public abstract class Dragon
     protected float speedForce;
     protected float turnSpeed;
     protected float accelForce;
+
+    // Lists of skins available
     protected List<string> skins;
     protected List<int> skinsPrices;
+
+    // Price to buy the dragon
     protected int purchasePrice;
 
     // Variable for user
@@ -32,6 +36,7 @@ public abstract class Dragon
 
     public Dragon()
     {
+        // Default stats
         jumpForce = 1000f;
         speedForce = 10f;
         turnSpeed = 200f;
@@ -52,10 +57,24 @@ public abstract class Dragon
     public float GetTurnSpeed() => turnSpeed;
     public float GetAccelForce() => accelForce;
 
+    public int GetPurchasePrice() => purchasePrice;
+    public string GetName() => name;
+    public float GetMaxDistCast() => maxDistCast;
+    public float GetRadius() => radius;
+    public int GetSkinsPricesLength() => skinsPrices.Count;
+    public string GetUse() => inUse;
+
+    public void ChangeUse(string theVar)
+    {
+        inUse = theVar;
+    }   
+
+    // Add another skin to the dragon skin list
     public void AddSkin(string skin)
     {
         skins.Add(skin);
     }
+    // set the usage status of the skin at index in the dragon skin list 
     public void SetSkin(int index, string status)
     {
         if ((index < skins.Count) && (index >= 0))
@@ -68,6 +87,7 @@ public abstract class Dragon
             throw new IndexOutOfRangeException();
         }
     }
+    // Get the skin at index from the dragon skin list
     public string GetSkin(int index)
     {
         if ((index < skins.Count) && (index >= 0))
@@ -80,15 +100,17 @@ public abstract class Dragon
             throw new IndexOutOfRangeException();
         }
     }
+    // Get the number of possible dragon skins
     public int GetSkinsLength()
     {
         return skins.Count;
     }
-
+    // Add the price of the corresponding skin in the dragon skin list
     public void AddSkinPrice(int price)
     {
         skinsPrices.Add(price);
     }
+    // Change the skin's price at the index
     public void SetSkinPrice(int index, int price)
     {
         if ((index < skinsPrices.Count) && (index >= 0))
@@ -101,6 +123,7 @@ public abstract class Dragon
             throw new IndexOutOfRangeException();
         }
     }
+    // Get the skin's price at the specified index
     public int GetSkinPrice(int index)
     {
         if ((index < skinsPrices.Count) && (index >= 0))
@@ -112,23 +135,5 @@ public abstract class Dragon
             Debug.Log("Index is outside the bounds of the list for GetSkin!");
             throw new IndexOutOfRangeException();
         }
-    }
-    public int GetPurchasePrice() => purchasePrice;
-    public int GetSkinsPricesLength()
-    {
-        return skinsPrices.Count;
-    }
-
-    public void ChangeUse(string theVar)
-    {
-        inUse = theVar;
-    }
-    public string GetUse()
-    {
-        return inUse;
-    }
-    public string GetName() => name;
-
-    public float GetMaxDistCast() => maxDistCast;
-    public float GetRadius() => radius;
+    }    
 }

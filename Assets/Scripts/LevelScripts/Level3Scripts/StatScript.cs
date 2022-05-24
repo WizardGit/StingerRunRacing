@@ -20,4 +20,9 @@ public class StatScript : MonoBehaviour
     {
         SceneManager.LoadScene("Menu");
     }
+    public void HandleContinueButton()
+    {
+        Debug.Log("here");
+        SceneManager.LoadScene("LevelThree");
+    }
 }
