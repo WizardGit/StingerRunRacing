@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
     // Movement variables
     private float movementX;
     private float movementY;
+    private float movementYBefore;
     // Dictates the last checkpoint that the player will reset to if it falls out of the map
     private Vector3 resetPos;
     private UserSave usersave;
@@ -201,7 +202,7 @@ public class PlayerController : MonoBehaviour
                 animator.Play(animationRight);
             else if (movementX < 0.0f)
                 animator.Play(animationLeft);
-            else if ((!Mathf.Approximately(movementY, 0f) || !Mathf.Approximately(movementX, 0f)) && (onTerrain == true))
+            else if ((!Mathf.Approximately(movementY, 0f) || !Mathf.Approximately(movementX, 0f) || (playerSpeed > 0)) && (onTerrain == true))
                 animator.Play(animationRun);
             else
             {
@@ -221,15 +222,16 @@ public class PlayerController : MonoBehaviour
             else if (((time - boostTimer) < boostTimeLength) && (boostTimer > 0))
                 playerSpeed = playerSpeed * speedBoostMultiplier;
         }
-        else if (Mathf.Approximately(movementY, 0f))
+        else if (Mathf.Approximately(movementY, 0f) && (playerSpeed > 0))
         {
-            playerSpeed = 0f;
+            playerSpeed -= playerAcceleration * Time.deltaTime;
+            if (playerSpeed < 0)
+                playerSpeed = 0;
         }
 
-        if (!Mathf.Approximately(movementY, 0f))
-            speedBar.fillAmount = playerSpeed/playerMaxSpeed;
-        else
-            speedBar.fillAmount = 0.1f;
+        speedBar.fillAmount = playerSpeed/playerMaxSpeed;
+        if (speedBar.fillAmount == 0)
+            speedBar.fillAmount = 0.1f;            
 
         // We can use transform instead of rigidbody
         //transform.Translate(0, 0, movementY * playerSpeed * Time.deltaTime);
@@ -243,11 +245,11 @@ public class PlayerController : MonoBehaviour
         // If the player is backing up, they shouldn't be able to go all that fast!
         if (movementY < 0)
         {
-            rb.MovePosition(rb.position + transform.forward * (playerSpeed/2) * movementY * Time.deltaTime);
+            rb.MovePosition(rb.position + transform.forward * (playerSpeed/2) * movementYBefore * Time.deltaTime);
         }
         else
         {
-            rb.MovePosition(rb.position + transform.forward * playerSpeed * movementY * Time.deltaTime);
+            rb.MovePosition(rb.position + transform.forward * playerSpeed * movementYBefore * Time.deltaTime);
         }        
     }
     private void OnTriggerEnter(Collider other)
@@ -343,6 +345,8 @@ public class PlayerController : MonoBehaviour
         Vector2 movementXY = movementValue.Get<Vector2>().normalized;
         movementX = movementXY.x;
         movementY = movementXY.y;
+        if (movementY > 0)
+            movementYBefore = movementY;
     }
     private void OnJump()
     {

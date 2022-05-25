@@ -25,6 +25,9 @@ public class StoreScript : MonoBehaviour
     private Dragon speedDerg;
     private Dragon dreadDerg;
 
+    public List<Material> dreadMaterials;
+    public List<Material> speedMaterials;
+
     void Start()
     {
         username = NameTransfer.theName;
@@ -43,6 +46,7 @@ public class StoreScript : MonoBehaviour
         DisplayStats();
         DisplaySkins();
         DisplayUses();
+        LoadDragonsSkin();
     }
 
     private void DisplayStats()
@@ -196,6 +200,7 @@ public class StoreScript : MonoBehaviour
         }
         DisplayUses();
         user.SaveUser();
+        LoadDragonsSkin();
     }
     // Call this to switch to the skin at indexSkinNumber
     private void SwitchSkin(Dragon derg, int indexSkinNumber)
@@ -221,6 +226,7 @@ public class StoreScript : MonoBehaviour
         }
         DisplaySkins();
         user.SaveUser();
+        LoadDragonsSkin();
     }
 
     private void BuyDerg(int purchaseAmount, Dragon derg)
@@ -278,5 +284,48 @@ public class StoreScript : MonoBehaviour
         }
         //int num = -1;
         //int.TryParse(s, out num);        
+    }
+
+    private void LoadDragonsSkin()
+    {
+        int modelToUse = 0;
+        string nameToUse = "";
+        for (int i = 0; i < user.dragons.Count; i++)
+        {
+            if (user.dragons[i].GetUse() == "Using")
+            {
+                modelToUse = i;
+                nameToUse = user.dragons[i].GetName();
+            }
+        }
+        for (int i = 0; i < gameObject.transform.GetChild(6).gameObject.transform.childCount; i++)
+        {
+            if (i == modelToUse)
+            {
+                gameObject.transform.GetChild(6).gameObject.transform.GetChild(i).gameObject.SetActive(true);
+            }
+            else
+            {
+                gameObject.transform.GetChild(6).gameObject.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+        
+
+        // Load the correct skin!
+        for (int i = 0; i < user.dragons[modelToUse].GetSkinsLength(); i++)
+        {
+            if (user.dragons[modelToUse].GetSkin(i) == "Using")
+            {
+                if (nameToUse == "Speedstinger")
+                {
+                    gameObject.transform.GetChild(6).gameObject.transform.GetChild(modelToUse).gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().material = speedMaterials[i];
+                }
+                else if (nameToUse == "Dreadstrider")
+                {
+                    gameObject.transform.GetChild(6).gameObject.transform.GetChild(modelToUse).gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().material = dreadMaterials[i];
+                }
+                
+            }
+        }
     }
 }
