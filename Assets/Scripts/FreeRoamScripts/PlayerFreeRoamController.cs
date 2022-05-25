@@ -18,6 +18,7 @@ public class PlayerFreeRoamController : MonoBehaviour
 {
     // Variables for keeping the time
     private float time = 0.0f;
+    private float gemTimer = 0.0f;
     public List<Material> materials;
     public Image speedBar;
     // Dictates if the player is allowed to move
@@ -39,11 +40,11 @@ public class PlayerFreeRoamController : MonoBehaviour
     private string animationRight = "WalkRight";
 
     // Movement variables
-    private float playerRotationSpeed;
-    private float playerSpeed;
-    private float playerAcceleration;
-    private float playerMaxSpeed;
-    private float jumpForce;  
+    private float playerRotationSpeed = 200f;
+    private float playerSpeed = 0;
+    private float playerAcceleration = 0;
+    private float playerMaxSpeed = 0;
+    private float jumpForce = 1000;
 
     // Movement variables
     private float movementX;
@@ -139,6 +140,10 @@ public class PlayerFreeRoamController : MonoBehaviour
             time += Time.deltaTime;          
             Move();           
         }  
+        if ((time - gemTimer) > 3)
+        {
+            messageText.text = "";
+        }
     }
 
     private void Move()
@@ -160,11 +165,11 @@ public class PlayerFreeRoamController : MonoBehaviour
             }
         }
 
-        if ((!Mathf.Approximately(movementY, 0f) || !Mathf.Approximately(movementX, 0f)) && (playerSpeed < playerMaxSpeed))
+        if (!Mathf.Approximately(movementY, 0f) && (playerSpeed < playerMaxSpeed))
         {
             playerSpeed += playerAcceleration * Time.deltaTime;
         }
-        else if (Mathf.Approximately(movementY, 0f) && Mathf.Approximately(movementX, 0f))
+        else if (Mathf.Approximately(movementY, 0f))
         {
             playerSpeed = 0f;
         }
@@ -218,6 +223,10 @@ public class PlayerFreeRoamController : MonoBehaviour
             Debug.Log("Gem picked up!");
             other.gameObject.SetActive(false);
             gemCollectSound.Play();
+            usersave.trophies += 10;
+            usersave.SaveUser();
+            messageText.text = "You just earned 10 trophies for collecting this gem!";
+            gemTimer = time;
         }
     }
 

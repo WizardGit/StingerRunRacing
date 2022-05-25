@@ -1,6 +1,6 @@
 /*
  * Authors: Kaiser Slocum, Sofi Vinas
- * Last Modified: 5/10/2022
+ * Last Modified: 5/25/2022
  */
 
 using System;
@@ -270,10 +270,13 @@ public class StoreScript : MonoBehaviour
     public void HandleGreed()
     {        
         string s = coinsField.text;
-        int num = -1;
-        int.TryParse(s, out num);
-        user.coins += num;
-        user.SaveUser();
-        DisplayStats();
+        if (s == "coins")
+        {
+            user.coins += 2000;
+            user.SaveUser();
+            DisplayStats();
+        }
+        //int num = -1;
+        //int.TryParse(s, out num);        
     }
 }

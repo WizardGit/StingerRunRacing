@@ -51,12 +51,12 @@ public class PlayerController : MonoBehaviour
     private string animationRight = "WalkRight";
 
     // Movement variables
-    private float playerRotationSpeed;
-    private float playerSpeed;
-    private float playerAcceleration;
-    private float playerMaxSpeed;
+    private float playerRotationSpeed = 200f;
+    private float playerSpeed = 0;
+    private float playerAcceleration = 0;
+    private float playerMaxSpeed = 0;
     private float speedBoostMultiplier = 1.5f;
-    private float jumpForce;  
+    private float jumpForce = 1000;  
 
     // Movement variables
     private float movementX;
@@ -211,16 +211,17 @@ public class PlayerController : MonoBehaviour
             }
         }        
 
-        if ((!Mathf.Approximately(movementY, 0f) || !Mathf.Approximately(movementX, 0f)) && (playerSpeed < playerMaxSpeed))
+        if (!Mathf.Approximately(movementY, 0f) && (playerSpeed < playerMaxSpeed))
         {
-            playerSpeed += playerAcceleration * Time.deltaTime;            
+
+            playerSpeed += playerAcceleration * Time.deltaTime;
 
             if (((time - boostTimer) > boostTimeLength) && (boostTimer > 0))
                 boostTimer = 0;
             else if (((time - boostTimer) < boostTimeLength) && (boostTimer > 0))
                 playerSpeed = playerSpeed * speedBoostMultiplier;
         }
-        else if (Mathf.Approximately(movementY, 0f) && Mathf.Approximately(movementX, 0f))
+        else if (Mathf.Approximately(movementY, 0f))
         {
             playerSpeed = 0f;
         }
@@ -300,10 +301,12 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Scene name unrecognized in player controller!");
             }
 
+            usersave.coins += 10;
             usersave.SaveUser();
             ledsave.SaveTime(levelNum, username, time);
             ledBoard.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = username + ": " + MathF.Round(time, 3);
-            ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = ledsave.getLeaderboard(levelNum);
+            ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = ledsave.getLeaderboard(levelNum);            
+            ledBoard.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = "You just won 10 Coins!";
 
             ledBoard.SetActive(true);
         }        
