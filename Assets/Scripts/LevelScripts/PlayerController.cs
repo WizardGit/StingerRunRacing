@@ -59,9 +59,9 @@ public class PlayerController : MonoBehaviour
     private float jumpForce = 1000;  
 
     // Movement variables
-    private float movementX;
-    private float movementY;
-    private float movementYBefore;
+    private float movementX = 0.0f;
+    private float movementY = 0.0f;
+    private float movementYBefore = 0.0f;
     // Dictates the last checkpoint that the player will reset to if it falls out of the map
     private Vector3 resetPos;
     private UserSave usersave;
@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
         radius = usersave.dragons[modelToUse].GetRadius();
         playerAcceleration = usersave.dragons[modelToUse].GetAccelForce();
 
-        speedBar.fillAmount = 0.2f;
+        speedBar.fillAmount = 0.1f;
     }    
 
     private void FixedUpdate()
@@ -224,7 +224,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (Mathf.Approximately(movementY, 0f) && (playerSpeed > 0))
         {
-            playerSpeed -= playerAcceleration * Time.deltaTime;
+            playerSpeed -= (playerAcceleration*2) * Time.deltaTime;
             if (playerSpeed < 0)
                 playerSpeed = 0;
         }
@@ -243,6 +243,9 @@ public class PlayerController : MonoBehaviour
         rb.MoveRotation(rb.rotation * deltaRotation);
 
         // If the player is backing up, they shouldn't be able to go all that fast!
+
+        messageText.text = movementY.ToString() + " " + movementYBefore.ToString() + " " + playerSpeed.ToString();
+
         if (movementY < 0)
         {
             rb.MovePosition(rb.position + transform.forward * (playerSpeed/2) * movementYBefore * Time.deltaTime);
@@ -345,7 +348,7 @@ public class PlayerController : MonoBehaviour
         Vector2 movementXY = movementValue.Get<Vector2>().normalized;
         movementX = movementXY.x;
         movementY = movementXY.y;
-        if (movementY > 0)
+        if (!Mathf.Approximately(movementY, 0f))
             movementYBefore = movementY;
     }
     private void OnJump()
