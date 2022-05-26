@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -284,7 +284,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 239033478}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.155365}
+  m_LocalPosition: {x: 0, y: 0, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -293,8 +293,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -274.7541, y: 53.0637}
-  m_SizeDelta: {x: 215.0619, y: 209.0322}
+  m_AnchoredPosition: {x: -257.2384, y: 50.6086}
+  m_SizeDelta: {x: 178.9821, y: 192.2697}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &239033480
 MonoBehaviour:
@@ -811,8 +811,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 109.35634, y: 6.3187733}
-  m_SizeDelta: {x: 483.3494, y: 298.522}
+  m_AnchoredPosition: {x: 81, y: 36}
+  m_SizeDelta: {x: 418.1346, y: 247.9074}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &533134479
 MonoBehaviour:
@@ -861,8 +861,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1362,8 +1362,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.00012589}
-  m_SizeDelta: {x: 831, y: 373}
+  m_AnchoredPosition: {x: 0, y: 0.000035524}
+  m_SizeDelta: {x: 699, y: 393}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &626697440
 MonoBehaviour:
@@ -1759,7 +1759,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 981692520}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.155365}
+  m_LocalPosition: {x: 0, y: 0, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1768,8 +1768,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 107.9191, y: 17.134573}
-  m_SizeDelta: {x: 498.4749, y: 276.8903}
+  m_AnchoredPosition: {x: 104, y: 26}
+  m_SizeDelta: {x: 455.2081, y: 272.7199}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &981692522
 MonoBehaviour:
@@ -1791,7 +1791,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sofi Bio and Contributions
+  m_text: 'Sofi Bio and Contributions
+
+
+    Sofi is a graduate of the University
+    of Oregon with a Bachelor''s in Computer Science as well as a student athlete
+    at the University of Maryland. Sofi is responsible for the assets of the game
+    as well as any menus you see- main, pause, options, etc. Sofi implemented most
+    of the button rerouting for the game, allowing player''s to jump from scene to
+    scene and from level to level. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1818,8 +1826,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1894,7 +1902,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1024652656}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.155365}
+  m_LocalPosition: {x: 0, y: 0, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1903,8 +1911,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -268.04794, y: 50.83017}
-  m_SizeDelta: {x: 214.5407, y: 213.4993}
+  m_AnchoredPosition: {x: -263, y: 51}
+  m_SizeDelta: {x: 166.303, y: 168.7802}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1024652658
 MonoBehaviour:
@@ -2239,7 +2247,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1344646987}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.155365}
+  m_LocalPosition: {x: 0, y: 0, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2248,8 +2256,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -269.42624, y: 35.684875}
-  m_SizeDelta: {x: 199.1475, y: 244.6303}
+  m_AnchoredPosition: {x: -254.9222, y: 43.1963}
+  m_SizeDelta: {x: 173.0163, y: 213.7026}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1344646989
 MonoBehaviour:
@@ -2316,7 +2324,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1388105814}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.155365}
+  m_LocalPosition: {x: 0, y: 0, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2326,8 +2334,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -273.26816, y: -100.83658}
-  m_SizeDelta: {x: 202.1003, y: 50.8327}
+  m_AnchoredPosition: {x: -264, y: -94}
+  m_SizeDelta: {x: 164.2239, y: 38.1133}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1388105816
 MonoBehaviour:
@@ -2961,8 +2969,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 118, y: 7}
-  m_SizeDelta: {x: 533, y: 294.7908}
+  m_AnchoredPosition: {x: 103, y: 7}
+  m_SizeDelta: {x: 471.7937, y: 300.545}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1931340379
 MonoBehaviour:
@@ -2984,7 +2992,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Kaiser's Bio and Contributions:\nKaiser is a graduate of the University
+  m_text: "Kaiser's Bio and Contributions:\n\nKaiser is a graduate of the University
     of Oregon with a Bachelor's in Computer Science as well as a small business owner
     and author.  \nKaiser is responsible for the idea behind Stinger Run racing. 
     He also created the characters and their movement and fit them to all the levels.\nBecause
@@ -3127,7 +3135,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978426690}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.155365}
+  m_LocalPosition: {x: 0, y: 0, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3137,8 +3145,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -268.78793, y: -129.1895}
-  m_SizeDelta: {x: 187.0608, y: 47.5385}
+  m_AnchoredPosition: {x: -258, y: -109}
+  m_SizeDelta: {x: 167.4775, y: 36.1917}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1978426692
 MonoBehaviour:
@@ -3408,7 +3416,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2038290427}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.155365}
+  m_LocalPosition: {x: 0, y: 0, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3418,8 +3426,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -267.09897, y: -99.06885}
-  m_SizeDelta: {x: 200.4387, y: 49.2972}
+  m_AnchoredPosition: {x: -260, y: -82}
+  m_SizeDelta: {x: 168.2961, y: 37.9778}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2038290429
 MonoBehaviour:
