@@ -244,7 +244,7 @@ public class PlayerController : MonoBehaviour
 
         // If the player is backing up, they shouldn't be able to go all that fast!
 
-        messageText.text = movementY.ToString() + " " + movementYBefore.ToString() + " " + playerSpeed.ToString();
+        messageText.text = playerSpeed.ToString() + " " + playerMaxSpeed.ToString() + " " + playerAcceleration.ToString() + " " + Time.deltaTime.ToString();
 
         if (movementY < 0)
         {

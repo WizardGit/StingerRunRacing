@@ -16,10 +16,20 @@ public class NameTransfer : MonoBehaviour
     //the object we'll display in the game
     public GameObject textDisplay;
 
+    void Start()
+    {
+        textDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = "Current User: " + theName;
+    }
+
     //storing name in a button
     public void StoreName()
     {
         theName = inputField.GetComponent<TMPro.TextMeshProUGUI>().text;
         textDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = "Welcome " + theName;
+    }
+    public void ResetName()
+    {
+        UserSave user = new UserSave(theName);
+        user.DeleteUser();
     }
 }

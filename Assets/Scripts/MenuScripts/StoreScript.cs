@@ -231,11 +231,11 @@ public class StoreScript : MonoBehaviour
 
     private void BuyDerg(int purchaseAmount, Dragon derg)
     {
-        if (user.coins >= purchaseAmount)
+        if (user.trophies >= purchaseAmount)
         {
             derg.ChangeUse("Switch");
             // Complete the transaction and save what was done!
-            user.coins -= purchaseAmount;
+            user.trophies -= purchaseAmount;
             user.SaveUser();
             // Refresh the screen
             DisplayStats();
@@ -278,10 +278,15 @@ public class StoreScript : MonoBehaviour
         string s = coinsField.text;
         if (s == "coins")
         {
-            user.coins += 2000;
+            user.coins += 200;
             user.SaveUser();
-            DisplayStats();
         }
+        else if (s == "trophies")
+        {
+            user.trophies += 200;
+            user.SaveUser();            
+        }
+        DisplayStats();
         //int num = -1;
         //int.TryParse(s, out num);        
     }

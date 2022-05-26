@@ -49,7 +49,7 @@ public abstract class Dragon
         skins = new List<string>();
         skinsPrices = new List<int>();
         inUse = "Buy";
-        purchasePrice = 1000;
+        purchasePrice = 50;
     }
 
     public float GetSpeedForce() => speedForce;
