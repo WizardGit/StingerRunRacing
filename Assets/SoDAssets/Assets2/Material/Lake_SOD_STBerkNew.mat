@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Lake_SOD_STBerkNew
+  m_Shader: {fileID: 4800000, guid: 1cac2e0bcc34e4b3cbb4bd85982eba83, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FoamTexture:
+        m_Texture: {fileID: 2800000, guid: b67d1ef0563636b45b5ae39466aa5934, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Fresnel:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LargeWavesTexture:
+        m_Texture: {fileID: 2800000, guid: 78d8b2682e08c7a4c90985454172d889, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReflectionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReflectiveColor:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RefractionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SmallWavesTexture:
+        m_Texture: {fileID: 2800000, guid: d7703e23289ca1b4192e01de21a51c21, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Cutoff: 0.5
+    - _Density: 2.92
+    - _DepthTransparency: 0.37
+    - _DistanceTilingFade: -2.03
+    - _Distortion: 0.3
+    - _EnableCustomFog: 0
+    - _EnableReflections: 0
+    - _Fade: 2.73
+    - _FoamBlend: 11.76
+    - _FoamContrast: 0.27
+    - _FoamDistFade: -3.5
+    - _FoamDistFalloff: 20.1
+    - _FoamIntensity: 1.29
+    - _FoamSpeed: -100
+    - _FoamTiling: 4000
+    - _FoamVisibility: 0.491
+    - _FogDistance: 1000
+    - _FogFade: 6.46
+    - _Gloss: 0.3
+    - _LargeWavesSpeed: 10
+    - _LargeWavesTiling: 100
+    - _LightWrapping: 2
+    - _LongTilingDistance: 200
+    - _OffsetSmallBigSmall: 1
+    - _OffsetSmallBigSmallBig: 0
+    - _ReflDistort: 0.44
+    - _ReflectionIntensity: 0.586
+    - _RefrDistort: 0.4
+    - _Refraction: 0.637
+    - _RefractionDistance: 10
+    - _RefractionFalloff: -0.88
+    - _ShoreFade: 0.47
+    - _ShoreTransparency: 1.76
+    - _SmallWavesSpeed: 10
+    - _SmallWavesTiling: 1000
+    - _Specular: 0.44
+    - _UnderwaterMode: 0
+    - _WaveScale: 0.063
+    m_Colors:
+    - WaveSpeed: {r: 19, g: 9, b: -16, a: -7}
+    - _Color: {r: 0, g: 0.7529412, b: 1, a: 1}
+    - _DeepWaterColor: {r: 0.07379974, g: 0.4472812, b: 0.6691177, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FoamColor: {r: 0.7941176, g: 0.7941176, b: 0.7941176, a: 1}
+    - _FogColor: {r: 0.8014706, g: 0.8014706, b: 0.8014706, a: 1}
+    - _HorizonColor: {r: 0.172, g: 0.463, b: 0.435, a: 1}
+    - _MainColor: {r: 0.1397059, g: 0.7864099, b: 1, a: 1}
+    - _RefrColor: {r: 0.34, g: 0.85, b: 0.92, a: 1}
+    - _SpecularColor: {r: 0.8911116, g: 0.9385276, b: 0.9852941, a: 1}
+  m_BuildTextureStacks: []

@@ -68,7 +68,6 @@ public class WaypointTrip : MonoBehaviour
         }
         else if (navMeshAgent.isStopped == true)
         {
-            Debug.Log(navMeshAgent.name + ": " + navMeshAgent.isStopped.ToString());
             if ((time >= 3.0f) && (start == false))
             {
                 start = true;
