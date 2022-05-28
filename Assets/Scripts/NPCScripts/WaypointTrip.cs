@@ -22,7 +22,8 @@ public class WaypointTrip : MonoBehaviour
     private Animation animator;
     public AudioSource audioFootsteps;
     private float pastX = 0.0f;
-    private float time = 0.0f;
+    public float time = 0.0f;
+    public string username;
     private bool start = false;
     public GameObject ledBoard;
 
@@ -39,6 +40,7 @@ public class WaypointTrip : MonoBehaviour
         animator = GetComponent<Animation>();
         navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
         navMeshAgent.isStopped = true;
+        username = gameObject.name;
     }
 
     void FixedUpdate()
@@ -116,7 +118,7 @@ public class WaypointTrip : MonoBehaviour
 
                 usersave.SaveUser();
                 ledsave.SaveTime(levelNum, navMeshAgent.name, time);
-                ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = ledsave.getLeaderboard(levelNum);
+                ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = ledsave.GetLeaderboard(levelNum);
 
                 navMeshAgent.isStopped = true;
             }
@@ -143,7 +145,7 @@ public class WaypointTrip : MonoBehaviour
             disToCheckpoint = MathF.Abs(disVec.x) + MathF.Abs(disVec.y) + MathF.Abs(disVec.z);
         }           
 
-        if ((disToCheckpoint < 12) && (checkpointsReached < checkpoints.transform.childCount))
+        if ((disToCheckpoint < 12) && (checkpointsReached <= checkpoints.transform.childCount))
         {
             checkpointsReached++;
         }

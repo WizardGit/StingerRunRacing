@@ -17,7 +17,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     // Variables for keeping the time
-    private float time = 0.0f;
+    public float time = 0.0f;
     private float countdown = 0.0f;
     private float boostTimer = 0.0f;
     public float boostTimeLength = 10f;
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     public GameObject mainCamera;
     private CameraFollow cf;
     // Dictates the name of the player
-    private string username;
+    public string username;
     // These variables hold the animation title for the speedstinger
     private string animationRun = "Run";
     private string animationIdle = "IdleHappy";
@@ -137,6 +137,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         CalcNextCheckpoint();
+        Debug.Log("IsPause: " + isPause.ToString());
         // This code is vital for keeping the dragon rotated with the terrain
         RaycastHit hit;        
         Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1f);
@@ -188,7 +189,7 @@ public class PlayerController : MonoBehaviour
         }  
         else if (isPause == true)
         {
-            if (checkpointsReached != numCheckpoints)
+            if (checkpointsReached < numCheckpoints)
                 isPause = PauseMenu.isPaused;
         }
     }
@@ -274,11 +275,10 @@ public class PlayerController : MonoBehaviour
         }
         else if ((other.gameObject.CompareTag("Finish")) && (checkpointsReached == numCheckpoints))
         {
-            Debug.Log("finish!");
+            checkpointsReached++;
             isPause = true;
             animator.Play(animationIdle);
-            messageText.text = "";
-            timeText.text = "";            
+            messageText.text = "";      
             other.gameObject.SetActive(false);
 
             string sName = SceneManager.GetActiveScene().name;
@@ -306,12 +306,10 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Scene name unrecognized in player controller!");
             }
 
-            usersave.coins += 10;
             usersave.SaveUser();
             ledsave.SaveTime(levelNum, username, time);
             ledBoard.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = username + ": " + MathF.Round(time, 3);
-            ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = ledsave.getLeaderboard(levelNum);            
-            ledBoard.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = "You just won 10 Coins!";
+            ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = ledsave.GetLeaderboard(levelNum); 
 
             ledBoard.SetActive(true);
         }        
@@ -377,17 +375,17 @@ public class PlayerController : MonoBehaviour
     }
     private void OnPause()
     {
-        // Note sure how to handle when a user releases a key so this is my workaround! User pushes once to get the pause menu, then pushes again to get out of it        
-        isPause = !isPause;
-        animator.Stop();
-        PauseMenu men = pauseMenu.GetComponent<PauseMenu>();
-        if (isPause == true)
+        // Note sure how to handle when a user releases a key so this is my workaround! User pushes once to get the pause menu, then pushes again to get out of it
+        // 
+        if (ledBoard.activeSelf == false)
         {
-            men.PauseGame();
-        }
-        else
-        {
-            men.ResumeGame();
+            isPause = !isPause;
+            animator.Stop();
+            PauseMenu men = pauseMenu.GetComponent<PauseMenu>();
+            if (isPause == true)
+                men.PauseGame();
+            else
+                men.ResumeGame();
         }
     }
     private void OnRoar()

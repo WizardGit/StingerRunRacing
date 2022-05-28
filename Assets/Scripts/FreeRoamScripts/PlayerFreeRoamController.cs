@@ -214,7 +214,7 @@ public class PlayerFreeRoamController : MonoBehaviour
             GameObject text1 = ledBoard.transform.GetChild(0).gameObject;
             GameObject text2 = ledBoard.transform.GetChild(1).gameObject;
             text1.GetComponent<TextMeshProUGUI>().text = username + ": " + MathF.Round(time, 3);
-            text2.GetComponent<TextMeshProUGUI>().text = ledsave.getLeaderboard(1);
+            text2.GetComponent<TextMeshProUGUI>().text = ledsave.GetLeaderboard(1);
 
             ledBoard.SetActive(true);
         }

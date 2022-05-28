@@ -24,7 +24,6 @@ public class LeaderboardSave
     {
         dataFile = Application.persistentDataPath + "/leaderboard.save";
         //Debug.Log("Data file stored at: " + dataFile);
-        //File.Delete(dataFile);
         if (File.Exists(dataFile))
         {
             LoadGame();
@@ -34,9 +33,9 @@ public class LeaderboardSave
             level1users = new string[] { "Sofi V.", "Kaiser S.", "Jordan W.", "Sonic", "Eric Wills", "Person6" };
             level2users = new string[] { "Sofi V.", "Kaiser S.", "Jordan W.", "Sonic", "Eric Wills", "Person6" };
             level3users = new string[] { "Sofi V.", "Kaiser S.", "Jordan W.", "Sonic", "Eric Wills", "Person6" };
-            level1times = new float[] { -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f };
-            level2times = new float[] { -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f };
-            level3times = new float[] { -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f };
+            level1times = new float[] { 50f, 60f, 70f, 80f, 90f, -1.0f };
+            level2times = new float[] { 50f, 60f, 70f, 80f, 90f, -1.0f };
+            level3times = new float[] { 50f, 60f, 70f, 80f, 90f, -1.0f };
 
             SaveGame();
         }        
@@ -74,7 +73,7 @@ public class LeaderboardSave
         }
     }
 
-    public void resetLeaderboard()
+    public void ResetLeaderboard()
     {
         level1users = new string[] { "Sofi V.", "Kaiser S.", "Jordan W.", "Sonic", "Eric Wills", "Person6" };
         level2users = new string[] { "Sofi V.", "Kaiser S.", "Jordan W.", "Sonic", "Eric Wills", "Person6" };
@@ -86,7 +85,7 @@ public class LeaderboardSave
         SaveGame();
     }
 
-    private void rotateDownUsers(ref string[] users, int index)
+    private void RotateDownUsers(ref string[] users, int index)
     {
         for (int i = (users.Length - 1); i > index; i--)
         {
@@ -104,7 +103,7 @@ public class LeaderboardSave
             }
         }        
     }
-    private void rotateDownTimes(ref float[] times, int index)
+    private void RotateDownTimes(ref float[] times, int index)
     {
         for (int i = (times.Length - 1); i > index; i--)
         {
@@ -128,8 +127,8 @@ public class LeaderboardSave
         {
             if ((time < times[i]) || (times[i] < 0))
             {
-                rotateDownTimes(ref times, i);
-                rotateDownUsers(ref users, i);
+                RotateDownTimes(ref times, i);
+                RotateDownUsers(ref users, i);
                 times[i] = MathF.Round(time,5);
                 users[i] = username;
                 return true;
@@ -159,7 +158,7 @@ public class LeaderboardSave
             Debug.Log("ERROR: Invalid Level!");
         }      
     }
-    private string getLevelLed(ref float[] leveltimes, ref string[] levelusers)
+    private string GetLevelLed(ref float[] leveltimes, ref string[] levelusers)
     {
         string led = "";
         for (int i = 0; i < levelusers.Length; i++)
@@ -168,19 +167,19 @@ public class LeaderboardSave
         }
         return led;
     }
-    public string getLeaderboard(int level)
+    public string GetLeaderboard(int level)
     {
         if (level == 1)
         {
-            return getLevelLed(ref level1times, ref level1users);
+            return GetLevelLed(ref level1times, ref level1users);
         }
         else if (level == 2)
         {
-            return getLevelLed(ref level2times, ref level2users);
+            return GetLevelLed(ref level2times, ref level2users);
         }
         else if (level == 3)
         {
-            return getLevelLed(ref level3times, ref level3users);
+            return GetLevelLed(ref level3times, ref level3users);
         }
         else
         {

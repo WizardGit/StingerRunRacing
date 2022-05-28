@@ -32,4 +32,9 @@ public class NameTransfer : MonoBehaviour
         UserSave user = new UserSave(theName);
         user.DeleteUser();
     }
+    public void ResetLeaderboard()
+    {
+        LeaderboardSave ledSave = new LeaderboardSave();
+        ledSave.ResetLeaderboard();
+    }
 }
