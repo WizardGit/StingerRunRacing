@@ -1,29 +1,52 @@
 /*
- * Authors: Sofi Vinas
- * Last Modified: 5/8/2022
+ * Authors: Sofi Vinas, Kaiser Slocum
+ * Last Modified: 5/29/2022
  */
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.Video;
 
 public class MainMenu : MonoBehaviour
 {
+    public AudioSource clickSound;
+    public GameObject loadingSystem;
+    private float timer = 0.0f;
+    private string sceneToLoad = "nothing";
+    private bool runTimer = false;
+
+    private void FixedUpdate()
+    {
+        if (runTimer == true)
+            timer += Time.deltaTime;
+        if (timer >= 3.0f)
+            SceneManager.LoadScene(sceneToLoad);
+    }
+
     public void PlayGame()
     {
-        SceneManager.LoadScene("LevelOne");
+        loadingSystem.SetActive(true);
+        clickSound.Play();
+        runTimer = true;
+        sceneToLoad = "LevelOne";
     }
 
     public void PlayGame2()
     {
-        SceneManager.LoadScene("LevelTwo");
+        loadingSystem.SetActive(true);
+        clickSound.Play();
+        runTimer = true;
+        sceneToLoad = "LevelTwo";
     }
     
     public void PlayGame3()
     {
-        SceneManager.LoadScene("LevelThreeCanvas");
+        loadingSystem.SetActive(true);
+        clickSound.Play();
+        runTimer = true;
+        sceneToLoad = "LevelThreeCanvas";
     }    
 
     public void PlayStore()

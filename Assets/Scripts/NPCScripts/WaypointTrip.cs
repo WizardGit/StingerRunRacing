@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/19/2022
+ * Last Modified: 5/29/2022
  */
 
 using System;
@@ -18,27 +18,28 @@ using UnityEngine.SceneManagement;
 public class WaypointTrip : MonoBehaviour
 {
     public NavMeshAgent navMeshAgent;
-    public Transform[] waypoints;
+    public GameObject waypoints;
     private Animation animator;
     public AudioSource audioFootsteps;
     private float pastX = 0.0f;
-    public float time = 0.0f;
-    public string username;
+    [HideInInspector] public float time = 0.0f;
+    [HideInInspector] public string username;
     private bool start = false;
     public GameObject ledBoard;
 
     private int m_CurrentWaypointIndex = 0;
 
-    public int checkpointsReached = 0;
-    public float disToCheckpoint = 0.0f;
+    [HideInInspector] public int checkpointsReached = 0;
+    [HideInInspector] public float disToCheckpoint = 0.0f;
     public GameObject checkpoints;
     public GameObject finishLine;
+
 
 
     void Start()
     {
         animator = GetComponent<Animation>();
-        navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
+        navMeshAgent.SetDestination(waypoints.transform.GetChild(m_CurrentWaypointIndex).transform.position);
         navMeshAgent.isStopped = true;
         username = gameObject.name;
     }
@@ -85,7 +86,7 @@ public class WaypointTrip : MonoBehaviour
         {
             //Debug.Log(navMeshAgent.name + ": " + m_CurrentWaypointIndex.ToString());
             //Debug.Log(navMeshAgent.remainingDistance.ToString());
-            if (m_CurrentWaypointIndex == waypoints.Length-1)
+            if (m_CurrentWaypointIndex == waypoints.transform.childCount-1)
             {
                 // We are done!
                 UserSave usersave = new UserSave(navMeshAgent.name);
@@ -122,8 +123,8 @@ public class WaypointTrip : MonoBehaviour
 
                 navMeshAgent.isStopped = true;
             }
-            m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
-            navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
+            m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.transform.childCount;
+            navMeshAgent.SetDestination(waypoints.transform.GetChild(m_CurrentWaypointIndex).transform.position);
         }
     }
 

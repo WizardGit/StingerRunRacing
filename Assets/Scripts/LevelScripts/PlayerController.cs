@@ -212,17 +212,20 @@ public class PlayerController : MonoBehaviour
             }
         }        
 
-        if (!Mathf.Approximately(movementY, 0f) && (playerSpeed < playerMaxSpeed))
+        if (!Mathf.Approximately(movementY, 0f) && (playerSpeed <= playerMaxSpeed))
         {
-
-            playerSpeed += playerAcceleration * Time.deltaTime;
+            if ((playerSpeed + (playerAcceleration * Time.deltaTime)) > playerMaxSpeed)
+                playerSpeed = playerMaxSpeed;
+            else
+                playerSpeed += playerAcceleration * Time.deltaTime;
 
             if (((time - boostTimer) > boostTimeLength) && (boostTimer > 0))
+            {
                 boostTimer = 0;
-            else if (((time - boostTimer) < boostTimeLength) && (boostTimer > 0))
-                playerSpeed = playerSpeed * speedBoostMultiplier;
+                playerMaxSpeed = playerMaxSpeed / speedBoostMultiplier;
+            }                
         }
-        else if (Mathf.Approximately(movementY, 0f) && (playerSpeed > 0))
+        else if ((Mathf.Approximately(movementY, 0f) && (playerSpeed > 0)) || (playerSpeed > playerMaxSpeed))
         {
             playerSpeed -= (playerAcceleration*2) * Time.deltaTime;
             if (playerSpeed < 0)
@@ -265,6 +268,7 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
             messageText.text = "<size=200%> Double Speed!";
             boostTimer = time;
+            playerMaxSpeed = playerMaxSpeed * speedBoostMultiplier;
             audioRoar.Play();
         }
         else if ((other.gameObject.CompareTag("Finish")) && (checkpointsReached == numCheckpoints))

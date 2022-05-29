@@ -1,3 +1,8 @@
+/*
+ * Author: Kaiser Slocum
+ * Last Modified: 5/29/2022
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
