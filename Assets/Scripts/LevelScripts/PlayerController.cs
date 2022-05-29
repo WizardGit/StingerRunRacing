@@ -17,12 +17,12 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     // Variables for keeping the time
-    public float time = 0.0f;
     private float countdown = 0.0f;
     private float boostTimer = 0.0f;
     public float boostTimeLength = 10f;
     public List<Material> materials;
     public Image speedBar;
+    public TextMeshProUGUI speedText;
     // Dictates if the player is allowed to move
     private bool isPause = false;
     private bool isStart = true;
@@ -30,9 +30,13 @@ public class PlayerController : MonoBehaviour
     private bool onTerrain = true;
     // Dictates how many checkpoints there are
     private int numCheckpoints;
+
+    // Dictates the name of the player
+    [HideInInspector] public string username;
+    [HideInInspector] public float time = 0.0f;
     // Dictates how many checkpoints the user has hit
-    public int checkpointsReached = 0;
-    public float disToCheckpoint = 0.0f;
+    [HideInInspector] public int checkpointsReached = 0;
+    [HideInInspector] public float disToCheckpoint = 0.0f;
     public GameObject checkpoints;
     public TextMeshProUGUI distanceText;
     public GameObject finishLine;
@@ -41,9 +45,7 @@ public class PlayerController : MonoBehaviour
     public GameObject pauseMenu;
     // Camera Variables
     public GameObject mainCamera;
-    private CameraFollow cf;
-    // Dictates the name of the player
-    public string username;
+    private CameraFollow cf;    
     // These variables hold the animation title for the speedstinger
     private string animationRun = "Run";
     private string animationIdle = "IdleHappy";
@@ -74,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
     // Text variables
     public TextMeshProUGUI timeText;
-    public TextMeshProUGUI messageText;
+    public TextMeshProUGUI messageText;    
 
     // Variables for raycasting
     private float maxDistCast = 0.1f;
@@ -121,6 +123,7 @@ public class PlayerController : MonoBehaviour
         audioRoar = GetComponent<AudioSource>();               
 
         timeText.text = "Time: 0";
+        speedText.text = "0 mph";
         resetPos = new Vector3(1737f, 107.79f, 1534f);       
 
         playerRotationSpeed = usersave.dragons[modelToUse].GetTurnSpeed();
@@ -131,22 +134,18 @@ public class PlayerController : MonoBehaviour
         radius = usersave.dragons[modelToUse].GetRadius();
         playerAcceleration = usersave.dragons[modelToUse].GetAccelForce();
 
-        speedBar.fillAmount = 0.1f;
+        speedBar.fillAmount = 0f;
     }    
 
     private void FixedUpdate()
     {
         CalcNextCheckpoint();
-        Debug.Log("IsPause: " + isPause.ToString());
         // This code is vital for keeping the dragon rotated with the terrain
         RaycastHit hit;        
         Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1f);
-        //Debug.Log(hit.normal.ToString());
 
         if (Physics.SphereCast(transform.position, radius, -(transform.up), out hit, maxDistCast))
         {
-            //rb.MoveRotation(Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)));
-            //Debug.Log(hit.normal.ToString());
             rb.MoveRotation(Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)), 4 * Time.deltaTime));
         }
 
@@ -231,8 +230,7 @@ public class PlayerController : MonoBehaviour
         }
 
         speedBar.fillAmount = playerSpeed/playerMaxSpeed;
-        if (speedBar.fillAmount == 0)
-            speedBar.fillAmount = 0.1f;            
+        speedText.text = MathF.Round(playerSpeed, 2).ToString() + " mph";
 
         // We can use transform instead of rigidbody
         //transform.Translate(0, 0, movementY * playerSpeed * Time.deltaTime);
@@ -248,13 +246,9 @@ public class PlayerController : MonoBehaviour
         messageText.text = playerSpeed.ToString() + " " + playerMaxSpeed.ToString() + " " + playerAcceleration.ToString() + " " + Time.deltaTime.ToString();
 
         if (movementY < 0)
-        {
             rb.MovePosition(rb.position + transform.forward * (playerSpeed/2) * movementYBefore * Time.deltaTime);
-        }
         else
-        {
             rb.MovePosition(rb.position + transform.forward * playerSpeed * movementYBefore * Time.deltaTime);
-        }        
     }
     private void OnTriggerEnter(Collider other)
     {

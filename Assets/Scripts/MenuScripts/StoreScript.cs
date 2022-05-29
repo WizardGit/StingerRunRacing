@@ -17,6 +17,8 @@ public class StoreScript : MonoBehaviour
 {
     public UserSave user;
     public InputField coinsField;
+    public AudioSource coinsAudio;
+    public AudioSource evilLaugh;
     private string username;
 
     private GameObject skins;
@@ -240,6 +242,7 @@ public class StoreScript : MonoBehaviour
             // Refresh the screen
             DisplayStats();
             DisplaySkins();
+            coinsAudio.Play();
         }
         else
         {
@@ -261,6 +264,7 @@ public class StoreScript : MonoBehaviour
             // Refresh the screen
             DisplayStats();
             DisplaySkins();
+            coinsAudio.Play();
         }
         else
         {
@@ -280,11 +284,13 @@ public class StoreScript : MonoBehaviour
         {
             user.coins += 200;
             user.SaveUser();
+            evilLaugh.Play();
         }
         else if (s == "trophies")
         {
             user.trophies += 200;
-            user.SaveUser();            
+            user.SaveUser();
+            evilLaugh.Play();
         }
         DisplayStats();
         //int num = -1;

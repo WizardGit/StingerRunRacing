@@ -1,12 +1,13 @@
 /*
- * Authors: Sofi Vinas
- * Last Modified: 5/8/2022
+ * Authors: Sofi Vinas, Kaiser Slocum
+ * Last Modified: 5/28/2022
  */
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class NameTransfer : MonoBehaviour
 {
@@ -18,7 +19,10 @@ public class NameTransfer : MonoBehaviour
 
     void Start()
     {
-        textDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = "Current User: " + theName;
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Menu"))
+        {
+            textDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = "Current User: " + theName;
+        }            
     }
 
     //storing name in a button
