@@ -48,24 +48,11 @@ public class PlacementScript : MonoBehaviour
         if ((player.checkpointsReached == (checkpoints.transform.childCount + 1)) && (stuff[0] != 1))
         {
             UserSave usersave = new UserSave(NameTransfer.theName);
+            int numCoins = (npcRacers.transform.childCount + 2 - rankCounter) * 10;
+            usersave.coins += numCoins;
+            coinsWin.text = "You just won " + numCoins + " Coins!";
 
-            if (rankCounter == 1)
-            {
-                usersave.coins += 30;
-                coinsWin.text = "You just won 30 Coins!";
-            }
-            else if (rankCounter == 2)
-            {
-                usersave.coins += 20;
-                coinsWin.text = "You just won 20 Coins!";
-            }
-            else
-            {
-                usersave.coins += 10;
-                coinsWin.text = "You just won 10 Coins!";
-            }
-
-            raceBoard.text += "\n" + (rankCounter++).ToString() + " " + player.username + ": " + player.time.ToString();
+            raceBoard.text += "\n" + (rankCounter++).ToString() + ". " + player.username + ": " + MathF.Round(player.time, 2).ToString();
             stuff[0] = 1;
         }
 
@@ -75,7 +62,7 @@ public class PlacementScript : MonoBehaviour
 
             if ((racer.checkpointsReached == (checkpoints.transform.childCount + 1)) && (stuff[i+1] != 1))
             {
-                raceBoard.text += "\n" + (rankCounter++).ToString() + ": " + racer.username + " " + racer.time.ToString();
+                raceBoard.text += "\n" + (rankCounter++).ToString() + ". " + racer.username + ": " + MathF.Round(racer.time, 2).ToString();
                 stuff[i+1] = 1;
             }
 

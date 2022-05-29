@@ -19,6 +19,7 @@ public class StoreScript : MonoBehaviour
     public InputField coinsField;
     public AudioSource coinsAudio;
     public AudioSource evilLaugh;
+    public ParticleSystem particleBlast;
     private string username;
 
     private GameObject skins;
@@ -243,6 +244,7 @@ public class StoreScript : MonoBehaviour
             DisplayStats();
             DisplaySkins();
             coinsAudio.Play();
+            particleBlast.Play();
         }
         else
         {
