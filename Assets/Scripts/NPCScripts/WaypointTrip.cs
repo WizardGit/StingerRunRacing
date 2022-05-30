@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/29/2022
+ * Last Modified: 5/30/2022
  */
 
 using System;
@@ -33,8 +33,6 @@ public class WaypointTrip : MonoBehaviour
     [HideInInspector] public float disToCheckpoint = 0.0f;
     public GameObject checkpoints;
     public GameObject finishLine;
-
-
 
     void Start()
     {
