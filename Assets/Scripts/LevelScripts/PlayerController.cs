@@ -88,10 +88,7 @@ public class PlayerController : MonoBehaviour
 
         string theName = NameTransfer.theName;
         if (theName != null)
-        {
             username = theName;
-            Debug.Log("Username is " + username);            
-        }
         else
             Debug.Log("ERROR: no username!");
 
@@ -182,9 +179,7 @@ public class PlayerController : MonoBehaviour
             Move();
 
             if ((messageText.text == "<size=200%> GO!") && (time > 3))
-            {
                 messageText.text = "";
-            }            
         }  
         else if (isPause == true)
         {
@@ -214,11 +209,13 @@ public class PlayerController : MonoBehaviour
 
         if (!Mathf.Approximately(movementY, 0f) && (playerSpeed <= playerMaxSpeed))
         {
+            // Check our player speed to see if we can add on more
             if ((playerSpeed + (playerAcceleration * Time.deltaTime)) > playerMaxSpeed)
                 playerSpeed = playerMaxSpeed;
             else
                 playerSpeed += playerAcceleration * Time.deltaTime;
 
+            // If our boost time is done, reset our max speed
             if (((time - boostTimer) > boostTimeLength) && (boostTimer > 0))
             {
                 boostTimer = 0;

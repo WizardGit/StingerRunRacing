@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/30/2022
+ * Last Modified: 5/31/2022
  */
 
 using System;
@@ -17,22 +17,24 @@ using UnityEngine.SceneManagement;
 
 public class WaypointTrip : MonoBehaviour
 {
+    // Game Objects needed from inspector
     public NavMeshAgent navMeshAgent;
-    public GameObject waypoints;
-    private Animation animator;
+    public GameObject waypoints;    
     public AudioSource audioFootsteps;
-    private float pastX = 0.0f;
-    [HideInInspector] public float time = 0.0f;
-    [HideInInspector] public string username;
-    private bool start = false;
-    public GameObject ledBoard;
-
-    private int m_CurrentWaypointIndex = 0;
-
-    [HideInInspector] public int checkpointsReached = 0;
-    [HideInInspector] public float disToCheckpoint = 0.0f;
     public GameObject checkpoints;
     public GameObject finishLine;
+    public GameObject ledBoard;
+
+    // Variables needed just for the script
+    private Animation animator;
+    private bool start = false;
+    private int m_CurrentWaypointIndex = 0;
+
+    // Public game objects that inspector should ignore
+    [HideInInspector] public float time = 0.0f;
+    [HideInInspector] public string username;
+    [HideInInspector] public int checkpointsReached = 0;
+    [HideInInspector] public float disToCheckpoint = 0.0f;
 
     void Start()
     {
@@ -47,9 +49,7 @@ public class WaypointTrip : MonoBehaviour
         time += Time.deltaTime;
         CalcNextCheckpoint();
 
-        float movementX = navMeshAgent.velocity.x;
-        float movementY = navMeshAgent.velocity.y;
-        if ((movementX != 0) && (navMeshAgent.isStopped == false))
+        if ((navMeshAgent.velocity.x != 0) && (navMeshAgent.isStopped == false))
         {
             animator.Play("Run");
             if (audioFootsteps.isPlaying == false)
@@ -61,7 +61,6 @@ public class WaypointTrip : MonoBehaviour
             if (audioFootsteps.isPlaying == true)
                 audioFootsteps.Pause();
         }
-        pastX = movementX;
 
         if (navMeshAgent.isStopped == false)
         {
@@ -79,14 +78,10 @@ public class WaypointTrip : MonoBehaviour
 
     void Move()
     {
-        //Debug.Log(navMeshAgent.remainingDistance.ToString());
         if ((navMeshAgent.pathPending == false) && (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance))
         {
-            //Debug.Log(navMeshAgent.name + ": " + m_CurrentWaypointIndex.ToString());
-            //Debug.Log(navMeshAgent.remainingDistance.ToString());
             if (m_CurrentWaypointIndex == waypoints.transform.childCount-1)
             {
-                // We are done!
                 UserSave usersave = new UserSave(navMeshAgent.name);
                 LeaderboardSave ledsave = new LeaderboardSave();
 
@@ -134,20 +129,13 @@ public class WaypointTrip : MonoBehaviour
             Vector3 disVec = finishLine.transform.GetChild(3).gameObject.transform.position - gameObject.transform.position;
             disToCheckpoint = MathF.Abs(disVec.x) + MathF.Abs(disVec.y) + MathF.Abs(disVec.z);
         }
-        else if (checkpointsReached > checkpoints.transform.childCount)
-        {
-            return;
-        }
-        else
+        else if (checkpointsReached < checkpoints.transform.childCount)
         {
             Vector3 disVec = checkpoints.transform.GetChild(checkpointsReached).transform.position - gameObject.transform.position;
             disToCheckpoint = MathF.Abs(disVec.x) + MathF.Abs(disVec.y) + MathF.Abs(disVec.z);
         }           
 
-        if ((disToCheckpoint < 12) && (checkpointsReached <= checkpoints.transform.childCount))
-        {
-            Debug.Log("Checkpoints Reached: " + checkpointsReached);
+        if ((checkpointsReached <= checkpoints.transform.childCount) && (disToCheckpoint < 12))
             checkpointsReached++;
-        }
     }    
 }

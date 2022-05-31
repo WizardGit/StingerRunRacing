@@ -80,6 +80,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayFreeRoam()
     {
+        clickSound.Play();
         SceneManager.LoadScene("FreeRoam");
     }
 
