@@ -78,9 +78,9 @@ public class LeaderboardSave
         level1users = new string[] { "Sofi V.", "Kaiser S.", "Jordan W.", "Sonic", "Eric Wills", "Person6" };
         level2users = new string[] { "Sofi V.", "Kaiser S.", "Jordan W.", "Sonic", "Eric Wills", "Person6" };
         level3users = new string[] { "Sofi V.", "Kaiser S.", "Jordan W.", "Sonic", "Eric Wills", "Person6" };
-        level1times = new float[] { 50f, 60f, 70f, 80f, 90f, -1.0f };
-        level2times = new float[] { 50f, 60f, 70f, 80f, 90f, -1.0f };
-        level3times = new float[] { 50f, 60f, 70f, 80f, 90f, -1.0f };
+        level1times = new float[] { 70f, 80f, 90f, 100f, 140f, -1.0f };
+        level2times = new float[] { 30f, 40f, 50f, 60f, 80f, -1.0f };
+        level3times = new float[] { 70f, 80f, 90f, 100f, 140f, -1.0f };
 
         SaveGame();
     }

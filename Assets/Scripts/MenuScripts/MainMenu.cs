@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Video;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
@@ -16,6 +16,18 @@ public class MainMenu : MonoBehaviour
     private float timer = 0.0f;
     private string sceneToLoad = "nothing";
     private bool runTimer = false;
+
+    public TextMeshProUGUI level1display;
+    public TextMeshProUGUI level2display;
+    public TextMeshProUGUI level3display;
+
+    private void Start()
+    {
+        LeaderboardSave ledsave = new LeaderboardSave();
+        level1display.text = ledsave.GetLeaderboard(1);
+        level2display.text = ledsave.GetLeaderboard(2);
+        level3display.text = ledsave.GetLeaderboard(3);
+    }
 
     private void FixedUpdate()
     {

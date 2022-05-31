@@ -146,6 +146,7 @@ public class WaypointTrip : MonoBehaviour
 
         if ((disToCheckpoint < 12) && (checkpointsReached <= checkpoints.transform.childCount))
         {
+            Debug.Log("Checkpoints Reached: " + checkpointsReached);
             checkpointsReached++;
         }
     }    
