@@ -245,9 +245,6 @@ public class PlayerController : MonoBehaviour
         rb.MoveRotation(rb.rotation * deltaRotation);
 
         // If the player is backing up, they shouldn't be able to go all that fast!
-
-        messageText.text = playerSpeed.ToString() + " " + playerMaxSpeed.ToString() + " " + playerAcceleration.ToString() + " " + Time.deltaTime.ToString();
-
         if (movementY < 0)
             rb.MovePosition(rb.position + transform.forward * (playerSpeed/2) * movementYBefore * Time.deltaTime);
         else

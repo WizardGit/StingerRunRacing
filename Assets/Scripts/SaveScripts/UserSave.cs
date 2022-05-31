@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/10/2022
+ * Last Modified: 5/30/2022
  */
 
 using System.Collections;
@@ -29,8 +29,6 @@ public class UserSave
         username = user;
 
         dataFile = Application.persistentDataPath + "/" + username + ".save";
-        //Debug.Log("Data file stored at: " + dataFile);
-        //DeleteUser();
         if (File.Exists(dataFile))
         {            
             LoadUser();
@@ -63,7 +61,6 @@ public class UserSave
         FileStream file = File.Create(dataFile);
         bf.Serialize(file, this);
         file.Close();
-        Debug.Log("User information saved");
     }
     //Loads the variables in the file at 'username' if possible
     public void LoadUser()
@@ -84,12 +81,9 @@ public class UserSave
             dragons = user.dragons;
 
             username = user.username;
-            Debug.Log("User information Loaded");
         }
         else
-        {
             Debug.Log("No file for this user!");
-        }
     }
     public void DeleteUser()
     {

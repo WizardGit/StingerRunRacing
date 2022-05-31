@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/6/2022
+ * Last Modified: 5/30/2022
  */
 
 using System;
@@ -21,6 +21,7 @@ public class PlayerFreeRoamController : MonoBehaviour
     private float gemTimer = 0.0f;
     public List<Material> materials;
     public Image speedBar;
+    public TextMeshProUGUI speedText;
     // Dictates if the player is allowed to move
     private bool isPause = false;
     // Dictates if the player is on the Terrain
@@ -49,6 +50,7 @@ public class PlayerFreeRoamController : MonoBehaviour
     // Movement variables
     private float movementX;
     private float movementY;
+    private float movementYBefore = 0.0f;
     // Dictates the last checkpoint that the player will reset to if it falls out of the map
     private Vector3 resetPos;
     private UserSave usersave;
@@ -105,6 +107,7 @@ public class PlayerFreeRoamController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         cf = mainCamera.GetComponent<CameraFollow>();
 
+        speedText.text = "0 mph";
         resetPos = new Vector3(572.21f, 8.4f, 190.72f);
 
         playerRotationSpeed = usersave.dragons[modelToUse].GetTurnSpeed();
@@ -122,12 +125,9 @@ public class PlayerFreeRoamController : MonoBehaviour
         // This code is vital for keeping the dragon rotated with the terrain
         RaycastHit hit;        
         Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1f);
-        //Debug.Log(hit.normal.ToString());
 
         if (Physics.SphereCast(transform.position, radius, -(transform.up), out hit, maxDistCast))
         {
-            //rb.MoveRotation(Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)));
-            //Debug.Log(hit.normal.ToString());
             rb.MoveRotation(Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)), 10 * Time.deltaTime));
         }
 
@@ -155,7 +155,7 @@ public class PlayerFreeRoamController : MonoBehaviour
                 animator.Play(animationRight);
             else if (movementX < 0.0f)
                 animator.Play(animationLeft);
-            else if ((!Mathf.Approximately(movementY, 0f) || !Mathf.Approximately(movementX, 0f)) && (onTerrain == true))
+            else if ((!Mathf.Approximately(movementY, 0f) || !Mathf.Approximately(movementX, 0f) || (playerSpeed > 0)) && (onTerrain == true))
                 animator.Play(animationRun);
             else
             {
@@ -165,23 +165,22 @@ public class PlayerFreeRoamController : MonoBehaviour
             }
         }
 
-        if (!Mathf.Approximately(movementY, 0f) && (playerSpeed < playerMaxSpeed))
+        if (!Mathf.Approximately(movementY, 0f) && (playerSpeed <= playerMaxSpeed))
         {
-            playerSpeed += playerAcceleration * Time.deltaTime;
+            if ((playerSpeed + (playerAcceleration * Time.deltaTime)) > playerMaxSpeed)
+                playerSpeed = playerMaxSpeed;
+            else
+                playerSpeed += playerAcceleration * Time.deltaTime;
         }
-        else if (Mathf.Approximately(movementY, 0f))
+        else if ((Mathf.Approximately(movementY, 0f) && (playerSpeed > 0)) || (playerSpeed > playerMaxSpeed))
         {
-            playerSpeed = 0f;
+            playerSpeed -= (playerAcceleration * 2) * Time.deltaTime;
+            if (playerSpeed < 0)
+                playerSpeed = 0;
         }
 
-        if (!Mathf.Approximately(movementY, 0f))
-            speedBar.fillAmount = playerSpeed / playerMaxSpeed;
-        else
-            speedBar.fillAmount = 0.1f;
-
-        // We can use transform instead of rigidbody
-        //transform.Translate(0, 0, movementY * playerSpeed * Time.deltaTime);
-        //transform.Rotate(0, movementX * playerRotationSpeed * Time.deltaTime, 0);
+        speedBar.fillAmount = playerSpeed / playerMaxSpeed;
+        speedText.text = MathF.Round(playerSpeed, 2).ToString() + " mph";
 
         // Move our rigid body's rotation
         Vector3 vecRotation = new Vector3(0, playerRotationSpeed, 0);
@@ -190,35 +189,13 @@ public class PlayerFreeRoamController : MonoBehaviour
 
         // If the player is backing up, they shouldn't be able to go all that fast!
         if (movementY < 0)
-        {
-            rb.MovePosition(rb.position + transform.forward * (playerSpeed/2) * movementY * Time.deltaTime);
-        }
+            rb.MovePosition(rb.position + transform.forward * (playerSpeed / 2) * movementYBefore * Time.deltaTime);
         else
-        {
-            rb.MovePosition(rb.position + transform.forward * playerSpeed * movementY * Time.deltaTime);
-        }        
+            rb.MovePosition(rb.position + transform.forward * playerSpeed * movementYBefore * Time.deltaTime);
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Water"))
-        {
-            Debug.Log("Water");
-        }
-        else if (other.gameObject.CompareTag("Finish"))
-        {
-            isPause = true;
-            animator.Play(animationIdle);
-            messageText.text = "";       
-            other.gameObject.SetActive(false);  
-            
-            GameObject text1 = ledBoard.transform.GetChild(0).gameObject;
-            GameObject text2 = ledBoard.transform.GetChild(1).gameObject;
-            text1.GetComponent<TextMeshProUGUI>().text = username + ": " + MathF.Round(time, 3);
-            text2.GetComponent<TextMeshProUGUI>().text = ledsave.GetLeaderboard(1);
-
-            ledBoard.SetActive(true);
-        }
-        else if (other.gameObject.CompareTag("GemPickup"))
+        if (other.gameObject.CompareTag("GemPickup"))
         {
             Debug.Log("Gem picked up!");
             other.gameObject.SetActive(false);
@@ -261,6 +238,8 @@ public class PlayerFreeRoamController : MonoBehaviour
         Vector2 movementXY = movementValue.Get<Vector2>().normalized;
         movementX = movementXY.x;
         movementY = movementXY.y;
+        if (!Mathf.Approximately(movementY, 0f))
+            movementYBefore = movementY;
     }
 
     private void OnJump()
@@ -290,16 +269,16 @@ public class PlayerFreeRoamController : MonoBehaviour
     private void OnPause()
     {
         // Note sure how to handle when a user releases a key so this is my workaround! User pushes once to get the pause menu, then pushes again to get out of it
-        isPause = !isPause;
-        animator.Stop();
-        PauseMenu men = pauseMenu.GetComponent<PauseMenu>();
-        if (isPause == true)
-        {            
-            men.PauseGame();
-        }
-        else
+        // 
+        if (ledBoard.activeSelf == false)
         {
-            men.ResumeGame();
+            isPause = !isPause;
+            animator.Stop();
+            PauseMenu men = pauseMenu.GetComponent<PauseMenu>();
+            if (isPause == true)
+                men.PauseGame();
+            else
+                men.ResumeGame();
         }
     }
     private void OnRoar()
