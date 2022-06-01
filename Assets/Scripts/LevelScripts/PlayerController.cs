@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/22/2022
+ * Last Modified: 5/31/2022
  */
 
 using System;
@@ -299,7 +299,7 @@ public class PlayerController : MonoBehaviour
             }
 
             usersave.SaveUser();
-            ledsave.SaveTime(levelNum, username, time);
+            ledsave.SaveTime(levelNum, username, MathF.Round(time,2));
             ledBoard.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = username + ": " + MathF.Round(time, 3);
             ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = ledsave.GetLeaderboard(levelNum); 
 

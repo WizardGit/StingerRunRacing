@@ -46,7 +46,10 @@ public class WaypointTrip : MonoBehaviour
 
     void FixedUpdate()
     {
-        time += Time.deltaTime;
+        if (m_CurrentWaypointIndex < waypoints.transform.childCount - 1)
+        {
+            time += Time.deltaTime;
+        }
         CalcNextCheckpoint();
 
         if ((navMeshAgent.velocity.x != 0) && (navMeshAgent.isStopped == false))
@@ -111,7 +114,7 @@ public class WaypointTrip : MonoBehaviour
                 }
 
                 usersave.SaveUser();
-                ledsave.SaveTime(levelNum, navMeshAgent.name, time);
+                ledsave.SaveTime(levelNum, navMeshAgent.name, MathF.Round(time,3));
                 ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = ledsave.GetLeaderboard(levelNum);
 
                 navMeshAgent.isStopped = true;

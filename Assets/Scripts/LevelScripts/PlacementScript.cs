@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/22/2022
+ * Last Modified: 5/31/2022
  */
 
 using System;
@@ -52,8 +52,9 @@ public class PlacementScript : MonoBehaviour
             usersave.coins += numCoins;
             coinsWin.text = "You just won " + numCoins + " Coins!";
 
-            raceBoard.text += "\n" + (rankCounter++).ToString() + ". " + player.username + ": " + MathF.Round(player.time, 2).ToString();
+            raceBoard.text += "\n" + (rankCounter++).ToString() + ". " + player.username + ": " + MathF.Round(player.time, 3).ToString();
             stuff[0] = 1;
+            usersave.SaveUser();
         }
 
         for (int i = 0; i < npcRacers.transform.childCount; i++)
@@ -62,7 +63,7 @@ public class PlacementScript : MonoBehaviour
 
             if ((racer.checkpointsReached == (checkpoints.transform.childCount + 1)) && (stuff[i+1] != 1))
             {
-                raceBoard.text += "\n" + (rankCounter++).ToString() + ". " + racer.username + ": " + MathF.Round(racer.time, 2).ToString();
+                raceBoard.text += "\n" + (rankCounter++).ToString() + ". " + racer.username + ": " + MathF.Round(racer.time, 3).ToString();
                 stuff[i+1] = 1;
             }
 
