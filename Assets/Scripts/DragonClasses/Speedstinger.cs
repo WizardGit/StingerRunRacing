@@ -1,6 +1,6 @@
-/*
- * Author: Kaiser Slocum
- * Last Modified: 5/6/2022
+/* Author: Kaiser Slocum
+ * Last Modified: 6/1/2022
+ * Purpose: Describes main attributes of the speedstinger class of dragon
  */
 
 [System.Serializable]
@@ -15,5 +15,8 @@ public class Speedstinger : Dragon
 
         inUse = "Using";
         name = "Speedstinger";
+
+        yLookFrom = 1.5f;
+        zLookFrom = 1.5f;
     }
 }

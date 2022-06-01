@@ -8019,12 +8019,12 @@ Terrain:
   m_Enabled: 1
   serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: 566ac57af5d17fa4fa1a50a75d261f56, type: 2}
-  m_TreeDistance: 4000
-  m_TreeBillboardDistance: 492
+  m_TreeDistance: 2023
+  m_TreeBillboardDistance: 98
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 250
-  m_DetailObjectDensity: 1
+  m_DetailObjectDistance: 119
+  m_DetailObjectDensity: 0.5
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
   m_HeightmapMaximumLOD: 0
@@ -8070,7 +8070,7 @@ RectTransform:
   m_GameObject: {fileID: 1001315467}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.43229166, y: 0.43229166, z: 0.43229166}
+  m_LocalScale: {x: 0.42148006, y: 0.48227534, z: 0.43229166}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1575951235}
@@ -8082,7 +8082,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0}
   m_SizeDelta: {x: 1090, y: 489.84338}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1001315469
@@ -11065,6 +11065,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   models: {fileID: 232174648}
+  mainCamera: {fileID: 216405728}
   invisibleFinishLineTrigger: {fileID: 202915335}
   arrow: {fileID: 59384065}
 --- !u!82 &1414149164
@@ -11419,6 +11420,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1368883099, guid: ea2233595f40d404b822b230b318a570, type: 3}
+      propertyPath: checkpoints
+      value: 
+      objectReference: {fileID: 1414149162}
+    - target: {fileID: 1368883099, guid: ea2233595f40d404b822b230b318a570, type: 3}
+      propertyPath: dragonPlayers
+      value: 
+      objectReference: {fileID: 232174648}
     - target: {fileID: 6565118308283061666, guid: ea2233595f40d404b822b230b318a570, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -11477,7 +11486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6565118308519520046, guid: ea2233595f40d404b822b230b318a570, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -284.37
+      value: -284.04
       objectReference: {fileID: 0}
     - target: {fileID: 6565118308519520050, guid: ea2233595f40d404b822b230b318a570, type: 3}
       propertyPath: checkpoints

@@ -14,6 +14,7 @@ using TMPro;
 public class CheckpointsScript : MonoBehaviour
 {    
     public GameObject models;
+    public GameObject mainCamera;
     private GameObject player;
 
     public GameObject invisibleFinishLineTrigger;
@@ -94,7 +95,15 @@ public class CheckpointsScript : MonoBehaviour
             // We want to cancel the angle that our player dragon is facing
             // This will mean our arrow is always pointing the same direction according to the world 
             Vector3 playerAngle = -(player.transform.localRotation.eulerAngles);
-            Vector3 frontDir = new Vector3(90, 0, 0);
+
+            bool thingy = mainCamera.GetComponent<CameraFollow>().lookForward;
+
+            // If our camera turns around, we need our arrow to also turn around
+            float yDir = 0;
+            if (mainCamera.GetComponent<CameraFollow>().lookForward == false)
+                yDir = 180;
+
+            Vector3 frontDir = new Vector3(90, yDir, 0);
 
             // Add all these angles together! (Magic!!!)
             arrow.transform.rotation = Quaternion.Euler(playerAngle + frontDir + lookAngleVec);            

@@ -1391,12 +1391,12 @@ Terrain:
   m_Enabled: 1
   serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: 05fd069acd89840fbad1c492e2dacf9a, type: 2}
-  m_TreeDistance: 5000
+  m_TreeDistance: 2267
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50
   m_DetailObjectDistance: 80
-  m_DetailObjectDensity: 1
+  m_DetailObjectDensity: 0.76
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
   m_HeightmapMaximumLOD: 0
@@ -1798,7 +1798,7 @@ RectTransform:
   m_GameObject: {fileID: 359316295}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.43229166, y: 0.43229166, z: 0.43229166}
+  m_LocalScale: {x: 0.42148006, y: 0.48092446, z: 0.43229166}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 278905902}
@@ -2451,7 +2451,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a15dc4a8583174e44b60432dd7cc88a6, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 167b216da869fe542970c29881f57fae, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.3
   m_Pitch: 1
@@ -9868,7 +9868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}

@@ -1,6 +1,6 @@
-/*
- * Author: Kaiser Slocum
- * Last Modified: 5/6/2022
+/* Author: Kaiser Slocum
+ * Last Modified: 6/1/2022
+ * Purpose: Describes main attributes of the dreadstrider class of dragon
  */
 
 [System.Serializable]
@@ -15,5 +15,8 @@ public class Dreadstrider : Dragon
 
         inUse = "Buy";
         name = "Dreadstrider";
+
+        yLookFrom = 1.6f;
+        zLookFrom = 2.6f;
     }
 }

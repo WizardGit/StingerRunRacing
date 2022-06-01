@@ -1,6 +1,6 @@
-/*
- * Author: Kaiser Slocum
- * Last Modified: 5/29/2022
+/* Author: Kaiser Slocum
+ * Last Modified: 6/1/2022
+ * Purpose: Describes main attributes of the titan speedstinger class of dragon
  */
 
 [System.Serializable]
@@ -15,5 +15,8 @@ public class SpeedstingerTitan : Speedstinger
 
         inUse = "Buy";
         name = "SpeedstingerTitan";
+
+        yLookFrom = 1.6f;
+        zLookFrom = 1.5f;
     }
 }

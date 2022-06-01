@@ -1,6 +1,6 @@
-/*
- * Author: Kaiser Slocum
- * Last Modified: 5/24/2022
+/* Author: Kaiser Slocum
+ * Last Modified: 6/1/2022
+ * Purpose: Describes attributes of the dragon class
  */
 
 using System;
@@ -34,6 +34,10 @@ public abstract class Dragon
     protected float maxDistCast;
     protected float radius;
 
+    // Variables for camera look
+    protected float yLookFrom;
+    protected float zLookFrom;
+
     public Dragon()
     {
         // Default stats
@@ -50,12 +54,18 @@ public abstract class Dragon
         skinsPrices = new List<int>();
         inUse = "Buy";
         purchasePrice = 300;
+
+        yLookFrom = 0.0f;
+        zLookFrom = 0.0f;
     }
 
     public float GetSpeedForce() => speedForce;
     public float GetJumpForce() => jumpForce;
     public float GetTurnSpeed() => turnSpeed;
     public float GetAccelForce() => accelForce;
+
+    public float GetYLookFrom() => yLookFrom;
+    public float GetZLookFrom() => zLookFrom;
 
     public int GetPurchasePrice() => purchasePrice;
     public string GetName() => name;
