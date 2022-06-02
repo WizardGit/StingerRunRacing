@@ -1,6 +1,7 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/31/2022
+ * Last Modified: 6/2/2022
+ * Purpose: Save a copy of best times and users for each level
  */
 
 using System;
@@ -25,20 +26,9 @@ public class LeaderboardSave
     {
         dataFile = Application.persistentDataPath + "/leaderboard.save";
         if (File.Exists(dataFile))
-        {
             LoadGame();
-        }
         else
-        {
-            level1users = new string[] { "Sofi V.", "Kaiser S.", "Jordan W.", "Sonic", "Eric Wills", "Person6" };
-            level2users = new string[] { "Sofi V.", "Kaiser S.", "Jordan W.", "Sonic", "Eric Wills", "Person6" };
-            level3users = new string[] { "Sofi V.", "Kaiser S.", "Jordan W.", "Sonic", "Eric Wills", "Person6" };
-            level1times = new float[] { 50f, 60f, 70f, 80f, 90f, -1.0f };
-            level2times = new float[] { 50f, 60f, 70f, 80f, 90f, -1.0f };
-            level3times = new float[] { 50f, 60f, 70f, 80f, 90f, -1.0f };
-
-            SaveGame();
-        }        
+            ResetLeaderboard();
     }
 
     // Saves our class/variables to a local file
@@ -78,8 +68,8 @@ public class LeaderboardSave
         level1users = new string[] { "Sofi V.", "Kaiser S.", "Jordan W.", "Sonic", "Eric Wills", "Person6" };
         level2users = new string[] { "Sofi V.", "Kaiser S.", "Jordan W.", "Sonic", "Eric Wills", "Person6" };
         level3users = new string[] { "Sofi V.", "Kaiser S.", "Jordan W.", "Sonic", "Eric Wills", "Person6" };
-        level1times = new float[] { 70f, 80f, 90f, 100f, 140f, -1.0f };
-        level2times = new float[] { 30f, 40f, 50f,  60f,  80f, -1.0f };
+        level1times = new float[] { 90f, 100f, 110f, 120f, 140f, 160f };
+        level2times = new float[] { 50f, 60f, 70f,  80f,  90f, 100f };
         level3times = new float[] { 70f, 80f, 90f, 100f, 140f, -1.0f };
 
         SaveGame();

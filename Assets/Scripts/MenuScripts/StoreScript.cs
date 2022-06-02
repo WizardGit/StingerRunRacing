@@ -1,12 +1,12 @@
 /*
  * Authors: Kaiser Slocum, Sofi Vinas
- * Last Modified: 5/25/2022
+ * Last Modified: 6/2/2022
+ * Purpose: Allow users to purchase new skins and acquire a different dragon racer
  */
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,29 +15,25 @@ using UnityEngine.SceneManagement;
 
 public class StoreScript : MonoBehaviour
 {
+    // Various objects needed for canvas
     public UserSave user;
     public InputField coinsField;
     public AudioSource coinsAudio;
     public AudioSource evilLaugh;
     public ParticleSystem particleBlast;
-    private string username;
+    public TextMeshProUGUI dragonStatsText;
 
+    // Variable representing children of canvas element
     private GameObject skins;
     private GameObject text;
 
-    private Dragon speedDerg;
-    private Dragon dreadDerg;
-
+    // Lists of skins for dragons
     public List<Material> dreadMaterials;
     public List<Material> speedMaterials;
 
     void Start()
     {
-        username = NameTransfer.theName;
-        user = new UserSave(username);
-
-        speedDerg = user.dragons[0];
-        dreadDerg = user.dragons[1];
+        user = new UserSave(NameTransfer.theName);
 
         for (int i = 0; i < gameObject.transform.childCount; i++)
         {
@@ -63,9 +59,19 @@ public class StoreScript : MonoBehaviour
             else if (text.transform.GetChild(i).gameObject.name == "User")
                 text.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = "User: " + user.username.ToString();
             else
-                Debug.Log("Unknown Child in Text object!");
+            {
+                Dragon derg = user.dragons[user.IndexOfDragonInUse()];
+                text.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = 
+                    "Dragon STATS:" +
+                    "\nJump Power: " + derg.GetJumpForce() + 
+                    "\nSpeed: " + derg.GetSpeedForce() + 
+                    "\nAcceleration: " + derg.GetAccelForce() + 
+                    "\nTurn Rate: " + derg.GetTurnSpeed();
+            }
+                
         }
     }
+    // Displays the skin uses and prices for the dragons
     private void DisplaySkins()
     {
         for (int i = 0; i < skins.transform.childCount; i++)
@@ -78,25 +84,16 @@ public class StoreScript : MonoBehaviour
                 GameObject childOfChild = child.transform.GetChild(j).gameObject;                
 
                 if (childOfChild.name == "Button")
-                {                    
-                    if (child.name == "Speedstinger")
-                    {
-                        childOfChild.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = speedDerg.GetSkin(buttonCounter);
-                        if (speedDerg.GetSkin(buttonCounter) == "Buy")
-                            childOfChild.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text += " " + speedDerg.GetSkinPrice(buttonCounter).ToString();
-                        buttonCounter++;
-                    }
-                    else if (child.name == "Dreadstrider")
-                    {
-                        childOfChild.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = dreadDerg.GetSkin(buttonCounter);
-                        if (dreadDerg.GetSkin(buttonCounter) == "Buy")
-                            childOfChild.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text += " " + dreadDerg.GetSkinPrice(buttonCounter).ToString();
-                        buttonCounter++;
-                    }                    
+                {
+                    childOfChild.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = user.dragons[i].GetSkin(buttonCounter);
+                    if (user.dragons[i].GetSkin(buttonCounter) == "Buy")
+                        childOfChild.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text += " " + user.dragons[i].GetSkinPrice(buttonCounter).ToString();
+                    buttonCounter++;
                 }
             }
         }
     }
+    // Displays the use and price of the dragons
     private void DisplayUses()
     {
         for (int i = 0; i < skins.transform.childCount; i++)
@@ -109,140 +106,48 @@ public class StoreScript : MonoBehaviour
 
                 if (childOfChild.name == "UseDerg")
                 {
-                    if (child.name == "Speedstinger")
-                    {
-                        childOfChild.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = speedDerg.GetUse();
-                        if (speedDerg.GetUse() == "Buy")
-                            childOfChild.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text += " " + speedDerg.GetPurchasePrice().ToString();
-                    }
-                    else if (child.name == "Dreadstrider")
-                    {
-                        childOfChild.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = dreadDerg.GetUse();
-                        if (dreadDerg.GetUse() == "Buy")
-                            childOfChild.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text += " " + dreadDerg.GetPurchasePrice().ToString();
-                    }
+                    childOfChild.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = user.dragons[i].GetUse();
+                    if (user.dragons[i].GetUse() == "Buy")
+                        childOfChild.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text += " " + user.dragons[i].GetPurchasePrice().ToString();
                 }
             }
         }
-    }   
+    }
 
-    public void HandleSpeedDergButton()
+    // Handles a dragon button
+    public void HandleDergButton(int i)
     {
-        HandleDergButton(speedDerg);
-    }
-    public void HandleDreadDergButton()
-    {
-        HandleDergButton(dreadDerg);
-    }
-    private void HandleDergButton(Dragon derg)
-    {
-        if (derg.GetUse() == "Buy")
-        {
-            BuyDerg(derg.GetPurchasePrice(), derg);
-        }
-        else if (derg.GetUse() == "Switch")
-        {
-            SwitchDerg(speedDerg, dreadDerg);
-        }
-        else if (derg.GetUse() == "Using")
-        {
+        string dergUse = user.dragons[i].GetUse();
+        if (dergUse == "Buy")
+            BuyDerg(i);
+        else if (dergUse == "Switch")
+            SwitchDerg(i);
+        else if (dergUse == "Using")
             Debug.Log("You already have this skin and are using it!");
-        }
         else
-        {
             Debug.Log("Unrecognized skin state!");
-        }
     }
-
-    public void HandleSpeedButton(int indexSkinNumber)
+    // Switches to the dragon (at dragonIndex)
+    private void SwitchDerg(int dragonIndex)
     {
-        HandleButton(indexSkinNumber, speedDerg);
-    }
-    public void HandleDreadButton(int indexSkinNumber)
-    {
-        HandleButton(indexSkinNumber, dreadDerg);
-    }
-    private void HandleButton(int indexSkinNumber, Dragon derg)
-    {
-
-        Debug.Log("Handle");
-        if (derg.GetSkin(indexSkinNumber) == "Buy")
-        {
-            Buy(derg.GetSkinPrice(indexSkinNumber), derg, indexSkinNumber);
-        }
-        else if (derg.GetSkin(indexSkinNumber) == "Switch")
-        {
-            SwitchSkin(derg, indexSkinNumber);
-        }
-        else if (derg.GetSkin(indexSkinNumber) == "Using")
-        {
-            Debug.Log("You already have this skin and are using it!");
-        }
-        else
-        {
-            Debug.Log("Unrecognized skin state!");
-        }
-    }
-    
-    private void SwitchDerg(Dragon derg1, Dragon derg2)
-    {
-        Debug.Log("Switch");
-        if ((derg1.GetUse() == "Buy") || (derg2.GetUse() == "Buy"))
-        {
-            Debug.Log("ERROR! Can't switch when one dragon still needs to be bought!");
-        }
-        else if (derg1.GetUse() == "Switch")
-        {
-            derg1.ChangeUse("Using");
-            derg2.ChangeUse("Switch");
-        }
-        else if (derg2.GetUse() == "Switch")
-        {
-            derg1.ChangeUse("Switch");
-            derg2.ChangeUse("Using");
-        }
+        user.UseDragon(dragonIndex);
         DisplayUses();
-        user.SaveUser();
+        DisplayStats();
         LoadDragonsSkin();
     }
-    // Call this to switch to the skin at indexSkinNumber
-    private void SwitchSkin(Dragon derg, int indexSkinNumber)
+    // Buys the dragon (at dragonIndex)
+    private void BuyDerg(int dragonIndex)
     {
-        //Double check we can switch!
-        if (derg.GetSkin(indexSkinNumber) == "Switch")
+        if (user.trophies >= user.dragons[dragonIndex].GetPurchasePrice())
         {
-            for (int i = 0; i < derg.GetSkinsLength(); i++)
-            {
-                if (i == indexSkinNumber)
-                {
-                    derg.SetSkin(indexSkinNumber, "Using");
-                }
-                else if (derg.GetSkin(i) == "Using")
-                {
-                    derg.SetSkin(i, "Switch");
-                }
-            }
-        }
-        else
-        {
-            Debug.Log("user is already using or has not acquired this skin!");
-        }
-        DisplaySkins();
-        user.SaveUser();
-        LoadDragonsSkin();
-    }
-
-    private void BuyDerg(int purchaseAmount, Dragon derg)
-    {
-        if (user.trophies >= purchaseAmount)
-        {
-            derg.ChangeUse("Switch");
+            user.dragons[dragonIndex].ChangeUse("Switch");
             // Complete the transaction and save what was done!
-            user.trophies -= purchaseAmount;
+            user.trophies -= user.dragons[dragonIndex].GetPurchasePrice();
             user.SaveUser();
             // Refresh the screen
             DisplayStats();
             DisplaySkins();
+            DisplayUses();
             coinsAudio.Play();
             particleBlast.Play();
         }
@@ -250,18 +155,55 @@ public class StoreScript : MonoBehaviour
         {
             Debug.Log("Not enough money!");
         }
-        DisplayUses();
-        user.SaveUser();
     }
-    // Sample of what to do when a user buys something!
-    private void Buy(int purchaseAmount, Dragon derg, int indexSkinNumber)
+
+    // Handles a skin button
+    public void HandleSkinButton(int purchaseNumber)
     {
-        if (user.coins >= purchaseAmount)
+        int dragonIndex = (int)MathF.Round(purchaseNumber / 10,0);
+        int skinIndex = purchaseNumber % 10;
+        string skinUse = user.dragons[dragonIndex].GetSkin(skinIndex);        
+
+        if (skinUse == "Buy")
+            BuySkin(dragonIndex, skinIndex);
+        else if (skinUse == "Switch")
+            SwitchSkin(dragonIndex, skinIndex);
+        else if (skinUse == "Using")
+            Debug.Log("You already have this skin and are using it!");
+        else
+            Debug.Log("Unrecognized skin state!");
+    }    
+    // Switches dragon (at dragonIndex)'s skin to that at skinIndex
+    private void SwitchSkin(int dragonIndex, int skinIndex)
+    {
+        Dragon derg = user.dragons[dragonIndex];
+        //Double check we can switch!
+        if (derg.GetSkin(skinIndex) == "Switch")
         {
-            derg.SetSkin(indexSkinNumber, "Switch");
+            derg.SetSkin(skinIndex, "Using");
+
+            for (int i = 0; i < derg.GetSkinsLength(); i++)
+            {
+                if ((derg.GetSkin(i) == "Using") && (i != skinIndex))
+                    derg.SetSkin(i, "Switch");
+            }
+
+            user.SaveUser();
+            DisplaySkins();
+            LoadDragonsSkin();
+        }
+        else
+            Debug.Log("user is already using or has not acquired this skin!");
+    }
+    // Buys dragon (at dragonIndex)'s skin at skinIndex
+    private void BuySkin(int dragonIndex, int skinIndex)
+    {
+        if (user.coins >= user.dragons[dragonIndex].GetSkinPrice(skinIndex))
+        {
+            user.dragons[dragonIndex].SetSkin(skinIndex, "Switch");
 
             // Complete the transaction and save what was done!
-            user.coins -= purchaseAmount;
+            user.coins -= user.dragons[dragonIndex].GetSkinPrice(skinIndex);
             user.SaveUser();
             // Refresh the screen
             DisplayStats();
@@ -269,9 +211,7 @@ public class StoreScript : MonoBehaviour
             coinsAudio.Play();
         }
         else
-        {
             Debug.Log("Not enough money!");
-        }
     }
 
     public void GoToMainMenu()
@@ -279,6 +219,7 @@ public class StoreScript : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
+    // Handles the cheat codes
     public void HandleGreed()
     {        
         string s = coinsField.text;
@@ -294,11 +235,10 @@ public class StoreScript : MonoBehaviour
             user.SaveUser();
             evilLaugh.Play();
         }
-        DisplayStats();
-        //int num = -1;
-        //int.TryParse(s, out num);        
+        DisplayStats();      
     }
 
+    // Places the correct dragon and its correct skin on the canvas
     private void LoadDragonsSkin()
     {
         int modelToUse = 0;

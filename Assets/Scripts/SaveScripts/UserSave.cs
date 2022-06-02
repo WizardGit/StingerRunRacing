@@ -1,6 +1,7 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/30/2022
+ * Last Modified: 6/2/2022
+ * Purpose: Saves users' information
  */
 
 using System.Collections;
@@ -41,9 +42,9 @@ public class UserSave
             for (int i = 0; i < 3; i++)
             {
                 speed.AddSkin("Buy");
-                speed.AddSkinPrice(i * 10 + 10);
+                speed.AddSkinPrice(i * 100);
                 dread.AddSkin("Buy");
-                dread.AddSkinPrice(i * 10 + 20);
+                dread.AddSkinPrice(i * 110);
             }
             speed.SetSkin(0, "Using");
             dread.SetSkin(0, "Using");
@@ -88,5 +89,36 @@ public class UserSave
     public void DeleteUser()
     {
         File.Delete(dataFile);
+    }
+
+    // Returns a reference to the dragon that is currently in use
+    public int IndexOfDragonInUse()
+    {
+        for (int i = 0; i < dragons.Count; i++)
+        {
+            if (dragons[i].GetUse() == "Using")
+                return i;
+        }
+        return -1;
+    }
+    public int IndexOfDragon(Dragon derg)
+    {
+        for (int i = 0; i < dragons.Count; i++)
+        {
+            if (dragons[i] == derg)
+                return i;
+        }
+        return -1;
+    }
+    public void UseDragon(int dragonIndex)
+    {
+        dragons[dragonIndex].ChangeUse("Using");
+
+        for (int i = 0; i < dragons.Count; i++)
+        {
+            if ((dragons[i].GetUse() == "Using") && (i != dragonIndex))
+                dragons[i].ChangeUse("Switch");            
+        }
+        SaveUser();
     }
 }

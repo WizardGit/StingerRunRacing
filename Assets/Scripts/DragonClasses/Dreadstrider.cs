@@ -1,6 +1,6 @@
 /* Author: Kaiser Slocum
- * Last Modified: 6/1/2022
- * Purpose: Describes main attributes of the dreadstrider class of dragon
+ * Last Modified: 6/2/2022
+ * Purpose: Changes main attributes of the dragon class to describe the specifics of a dreadstrider
  */
 
 [System.Serializable]
@@ -8,10 +8,10 @@ public class Dreadstrider : Dragon
 {
     public Dreadstrider()
     {
-        jumpForce = 1500f;
-        speedForce = 15f;
-        turnSpeed = 200f;
-        accelForce = 15f;
+        jumpForce = 1000f;
+        speedForce = 20f;
+        turnSpeed = 180f;
+        accelForce = 13f;
 
         inUse = "Buy";
         name = "Dreadstrider";
