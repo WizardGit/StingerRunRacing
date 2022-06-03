@@ -29,7 +29,6 @@ public class StatScript : MonoBehaviour
     }
     public void HandleContinueButton()
     {
-        Debug.Log("here");
         SceneManager.LoadScene("LevelThree");
         clickSound.Play();
     }

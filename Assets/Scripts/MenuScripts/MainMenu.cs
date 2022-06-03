@@ -21,8 +21,18 @@ public class MainMenu : MonoBehaviour
     public TextMeshProUGUI level2display;
     public TextMeshProUGUI level3display;
 
+    private AudioSource[] allAudioSources;
+    public AudioSource backgroundMusic;
+
     private void Start()
     {
+        allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+        foreach (AudioSource audioS in allAudioSources)
+        {
+            audioS.Stop();
+        }
+        backgroundMusic.Play();
+
         LeaderboardSave ledsave = new LeaderboardSave();
         level1display.text = ledsave.GetLeaderboard(1);
         level2display.text = ledsave.GetLeaderboard(2);
@@ -58,7 +68,7 @@ public class MainMenu : MonoBehaviour
         loadingSystem.SetActive(true);
         clickSound.Play();
         runTimer = true;
-        sceneToLoad = "LevelThreeCanvas";
+        sceneToLoad = "LevelThree";
     }    
 
     public void PlayStore()

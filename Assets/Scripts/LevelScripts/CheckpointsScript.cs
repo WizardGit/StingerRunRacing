@@ -121,6 +121,7 @@ public class CheckpointsScript : MonoBehaviour
                 else if (currentCheckpointIndex == (targets.Count - 2))
                 {
                     currentCheckpointIndex++;
+                    minimapTargets[currentCheckpointIndex - 1].SetActive(false);
                 }
                 else if (currentCheckpointIndex >= targets.Count)
                 {

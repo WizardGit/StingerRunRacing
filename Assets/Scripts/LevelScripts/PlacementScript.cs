@@ -56,23 +56,25 @@ public class PlacementScript : MonoBehaviour
             stuff[0] = 1;
             usersave.SaveUser();
         }
-
-        for (int i = 0; i < npcRacers.transform.childCount; i++)
+        else
         {
-            WaypointTrip racer = npcRacers.transform.GetChild(i).gameObject.GetComponent<WaypointTrip>();
-
-            if ((racer.checkpointsReached == (checkpoints.transform.childCount + 1)) && (stuff[i+1] != 1))
+            for (int i = 0; i < npcRacers.transform.childCount; i++)
             {
-                raceBoard.text += "\n" + (rankCounter++).ToString() + ". " + racer.username + ": " + MathF.Round(racer.time, 3).ToString();
-                stuff[i+1] = 1;
-            }
+                WaypointTrip racer = npcRacers.transform.GetChild(i).gameObject.GetComponent<WaypointTrip>();
 
-            if ((racer.checkpointsReached > player.checkpointsReached) 
-            || ((racer.checkpointsReached == player.checkpointsReached) && (racer.disToCheckpoint < player.disToCheckpoint)))
-            {
-                placement++;
+                if ((racer.checkpointsReached == (checkpoints.transform.childCount + 1)) && (stuff[i + 1] != 1))
+                {
+                    raceBoard.text += "\n" + (rankCounter++).ToString() + ". " + racer.username + ": " + MathF.Round(racer.time, 3).ToString();
+                    stuff[i + 1] = 1;
+                }
+
+                if ((racer.checkpointsReached > player.checkpointsReached)
+                || ((racer.checkpointsReached == player.checkpointsReached) && (racer.disToCheckpoint < player.disToCheckpoint)))
+                {
+                    placement++;
+                }
             }
-        }
+        }        
         gameObject.GetComponent<TextMeshProUGUI>().text = "Ranking: " + placement.ToString();
     }
 }

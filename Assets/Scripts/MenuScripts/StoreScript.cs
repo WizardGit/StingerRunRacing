@@ -22,16 +22,19 @@ public class StoreScript : MonoBehaviour
     public AudioSource evilLaugh;
     public ParticleSystem particleBlast;
     public TextMeshProUGUI dragonStatsText;
+    public GameObject warningCanvas;
 
     // Variable representing children of canvas element
     private GameObject skins;
     private GameObject text;
+    private float timer = 0.0f;
+    private bool messageOn = false;
 
     // Lists of skins for dragons
     public List<Material> dreadMaterials;
     public List<Material> speedMaterials;
 
-    void Start()
+    private void Start()
     {
         user = new UserSave(NameTransfer.theName);
 
@@ -46,6 +49,17 @@ public class StoreScript : MonoBehaviour
         DisplaySkins();
         DisplayUses();
         LoadDragonsSkin();
+    }
+
+    private void FixedUpdate()
+    {
+        if (messageOn == true)
+            timer += Time.deltaTime;
+        if (timer >= 2.0f)
+        {
+            timer = 0;
+            warningCanvas.SetActive(false);
+        }
     }
 
     private void DisplayStats()
@@ -153,7 +167,9 @@ public class StoreScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not enough money!");
+            warningCanvas.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = "You do not have enough trophies!";
+            warningCanvas.SetActive(true);
+            messageOn = true;
         }
     }
 
@@ -211,7 +227,11 @@ public class StoreScript : MonoBehaviour
             coinsAudio.Play();
         }
         else
-            Debug.Log("Not enough money!");
+        {
+            warningCanvas.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = "You do not have enough coins!";
+            warningCanvas.SetActive(true);
+            messageOn = true;
+        }            
     }
 
     public void GoToMainMenu()

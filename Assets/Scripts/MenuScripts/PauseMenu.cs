@@ -8,9 +8,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+
 public class PauseMenu : MonoBehaviour
 {
-
+    private AudioSource[] allAudioSources;
     public GameObject pauseMenu;
     public static bool isPaused = false;
 
