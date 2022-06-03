@@ -85,35 +85,19 @@ public class WaypointTrip : MonoBehaviour
         {
             if (m_CurrentWaypointIndex == waypoints.transform.childCount-1)
             {
-                UserSave usersave = new UserSave(navMeshAgent.name);
                 LeaderboardSave ledsave = new LeaderboardSave();
 
                 string sName = SceneManager.GetActiveScene().name;
                 int levelNum = 0;
                 if (sName == "LevelOne")
-                {
                     levelNum = 1;
-                    if ((time < usersave.levelOneTime) || (usersave.levelOneTime < 0))
-                        usersave.levelOneTime = time;
-                }
                 else if (sName == "LevelTwo")
-                {
                     levelNum = 2;
-                    if ((time < usersave.levelTwoTime) || (usersave.levelTwoTime < 0))
-                        usersave.levelTwoTime = time;
-                }
                 else if (sName == "LevelThree")
-                {
                     levelNum = 3;
-                    if ((time < usersave.levelThreeTime) || (usersave.levelThreeTime < 0))
-                        usersave.levelThreeTime = time;
-                }
                 else
-                {
                     Debug.Log("Scene name unrecognized in player controller!");
-                }
 
-                usersave.SaveUser();
                 ledsave.SaveTime(levelNum, navMeshAgent.name, MathF.Round(time,3));
                 ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = ledsave.GetLeaderboard(levelNum);
 

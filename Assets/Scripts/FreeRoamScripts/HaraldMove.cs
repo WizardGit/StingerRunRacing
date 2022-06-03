@@ -92,8 +92,9 @@ public class HaraldMove : MonoBehaviour
         }
         if (goTime == true)
         {
-            creakyDoor.Play();
-            cageDoor.transform.rotation = Quaternion.RotateTowards(cageDoor.transform.rotation, Quaternion.Euler(new Vector3(0, 270, 0)), 25 * Time.deltaTime);                 
+            if ((creakyDoor.isPlaying == false) && (cageDoor.transform.rotation != Quaternion.Euler(new Vector3(0, 270, 0))))
+                creakyDoor.Play();
+            cageDoor.transform.rotation = Quaternion.RotateTowards(cageDoor.transform.rotation, Quaternion.Euler(new Vector3(0, 270, 0)), 25 * Time.deltaTime);               
         }
     }
 
