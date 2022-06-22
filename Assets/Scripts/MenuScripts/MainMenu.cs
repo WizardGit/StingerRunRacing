@@ -32,7 +32,11 @@ public class MainMenu : MonoBehaviour
             audioS.Stop();
         }
         backgroundMusic.Play();
+        LoadLeaderboards();
+    }
 
+    public void LoadLeaderboards()
+    {
         LeaderboardSave ledsave = new LeaderboardSave();
         level1display.text = ledsave.GetLeaderboard(1);
         level2display.text = ledsave.GetLeaderboard(2);

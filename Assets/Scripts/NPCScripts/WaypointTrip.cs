@@ -1,17 +1,13 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/31/2022
+ * Last Modified: 6/22/2022
  */
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.AI;
-using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -29,6 +25,7 @@ public class WaypointTrip : MonoBehaviour
     private Animation animator;
     private bool start = false;
     private int m_CurrentWaypointIndex = 0;
+    private NavMeshPath path;
 
     // Public game objects that inspector should ignore
     [HideInInspector] public float time = 0.0f;
@@ -38,6 +35,7 @@ public class WaypointTrip : MonoBehaviour
 
     void Start()
     {
+        path = new NavMeshPath();
         animator = GetComponent<Animation>();
         navMeshAgent.SetDestination(waypoints.transform.GetChild(m_CurrentWaypointIndex).transform.position);
         navMeshAgent.isStopped = true;
@@ -81,7 +79,7 @@ public class WaypointTrip : MonoBehaviour
 
     void Move()
     {
-        if ((navMeshAgent.pathPending == false) && (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance))
+        if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance)
         {
             if (m_CurrentWaypointIndex == waypoints.transform.childCount-1)
             {
@@ -104,7 +102,13 @@ public class WaypointTrip : MonoBehaviour
                 navMeshAgent.isStopped = true;
             }
             m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.transform.childCount;
-            navMeshAgent.SetDestination(waypoints.transform.GetChild(m_CurrentWaypointIndex).transform.position);
+            navMeshAgent.SetPath(path);
+        }
+
+        // Calculate the path well ahead of time!
+        if (navMeshAgent.remainingDistance < 20)
+        {
+            navMeshAgent.CalculatePath(waypoints.transform.GetChild((m_CurrentWaypointIndex + 1) % waypoints.transform.childCount).transform.position, path);            
         }
     }
 

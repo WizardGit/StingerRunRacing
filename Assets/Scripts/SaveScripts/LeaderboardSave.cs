@@ -65,12 +65,12 @@ public class LeaderboardSave
 
     public void ResetLeaderboard()
     {
-        level1users = new string[] { "Sofi V.", "Kaiser S.", "Jordan W.", "Sonic", "Eric Wills", "Person6" };
-        level2users = new string[] { "Sofi V.", "Kaiser S.", "Jordan W.", "Sonic", "Eric Wills", "Person6" };
-        level3users = new string[] { "Sofi V.", "Kaiser S.", "Jordan W.", "Sonic", "Eric Wills", "Person6" };
+        level1users = new string[] { "Honey", "Kaizar", "Not Me", "Sonic", "Eric", "Person6" };
+        level2users = new string[] { "Honey", "Kaizar", "Not Me", "Sonic", "Eric", "Person6" };
+        level3users = new string[] { "Honey", "Kaizar", "Not Me", "Sonic", "Eric", "Person6" };
         level1times = new float[] { 90f, 100f, 110f, 120f, 140f, 160f };
         level2times = new float[] { 50f, 60f, 70f,  80f,  90f, 100f };
-        level3times = new float[] { 70f, 80f, 90f, 100f, 140f, -1.0f };
+        level3times = new float[] { 70f, 80f, 90f, 100f, 140f, 160f };
 
         SaveGame();
     }

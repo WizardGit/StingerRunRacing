@@ -16,6 +16,7 @@ public class NameTransfer : MonoBehaviour
 
     //the object we'll display in the game
     public GameObject textDisplay;
+    public GameObject mainmenu;
 
     void Start()
     {
@@ -40,5 +41,8 @@ public class NameTransfer : MonoBehaviour
     {
         LeaderboardSave ledSave = new LeaderboardSave();
         ledSave.ResetLeaderboard();
+
+        MainMenu men = mainmenu.GetComponent<MainMenu>();
+        men.LoadLeaderboards();
     }
 }
