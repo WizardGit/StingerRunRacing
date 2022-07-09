@@ -175,7 +175,7 @@ public class PlayerController : MonoBehaviour
             time += Time.deltaTime;
             float minutes = MathF.Truncate(time / 60);
             float seconds = MathF.Round(time - (minutes * 60),2);
-            timeText.text = "Time: " + minutes + "." + seconds;            
+            timeText.text = "Time: " + minutes + ":" + seconds;            
             Move();
 
             if ((messageText.text == "<size=200%> GO!") && (time > 3))
@@ -272,6 +272,8 @@ public class PlayerController : MonoBehaviour
             animator.Play(animationIdle);
             messageText.text = "";      
             other.gameObject.SetActive(false);
+            speedText.text = "0 mph";
+            speedBar.fillAmount = 0;
 
             string sName = SceneManager.GetActiveScene().name;
             int levelNum = 0;

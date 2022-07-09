@@ -70,7 +70,7 @@ public class LeaderboardSave
         level3users = new string[] { "Honey", "Kaizar", "Not Me", "Sonic", "Eric", "Person6" };
         level1times = new float[] { 90f, 100f, 110f, 120f, 140f, 160f };
         level2times = new float[] { 50f, 60f, 70f,  80f,  90f, 100f };
-        level3times = new float[] { 70f, 80f, 90f, 100f, 140f, 160f };
+        level3times = new float[] { 80f, 90f, 100f, 110f, 130f, 160f };
 
         SaveGame();
     }
