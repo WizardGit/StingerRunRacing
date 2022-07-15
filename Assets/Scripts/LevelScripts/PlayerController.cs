@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/31/2022
+ * Last Modified: 7/14/2022
  */
 
 using System;
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
     // Dictates the name of the player
     [HideInInspector] public string username;
-    [HideInInspector] public float time = 0.0f;
+    private float time = 0.0f;
     // Dictates how many checkpoints the user has hit
     [HideInInspector] public int checkpointsReached = 0;
     [HideInInspector] public float disToCheckpoint = 0.0f;
@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
     private AudioSource audioRoar;
 
     // Text variables
-    public TextMeshProUGUI timeText;
+    //public TextMeshProUGUI timeText;
     public TextMeshProUGUI messageText;    
 
     // Variables for raycasting
@@ -94,8 +94,6 @@ public class PlayerController : MonoBehaviour
 
         // Load/Create a new file for this user!
         usersave = new UserSave(username);
-        ledsave = new LeaderboardSave();
-        ledBoard.SetActive(false);
 
         // Load the correct dragon!
         int modelToUse = 0;
@@ -119,7 +117,7 @@ public class PlayerController : MonoBehaviour
         cf = mainCamera.GetComponent<CameraFollow>();
         audioRoar = GetComponent<AudioSource>();               
 
-        timeText.text = "Time: 0";
+        //timeText.text = "Time: 0";
         speedText.text = "0 mph";
         resetPos = new Vector3(1737f, 107.79f, 1534f);       
 
@@ -136,6 +134,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        time += Time.deltaTime;
         CalcNextCheckpoint();
         // This code is vital for keeping the dragon rotated with the terrain
         RaycastHit hit;        
@@ -159,33 +158,19 @@ public class PlayerController : MonoBehaviour
         {
             countdown += Time.deltaTime;
             messageText.text = (3-MathF.Truncate(countdown)).ToString();
-            if (isPause == false)
-            {
-                isPause = true;
-            }
             if (countdown >= 3f)
             {
                 isStart = false;
-                isPause = false;
                 messageText.text = "<size=200%> GO!";
             }            
         }
         else if (isPause == false)
-        {
-            time += Time.deltaTime;
-            float minutes = MathF.Truncate(time / 60);
-            float seconds = MathF.Round(time - (minutes * 60),2);
-            timeText.text = "Time: " + minutes + ":" + seconds;            
+        {           
             Move();
 
             if ((messageText.text == "<size=200%> GO!") && (time > 3))
                 messageText.text = "";
         }  
-        else if (isPause == true)
-        {
-            if (checkpointsReached < numCheckpoints)
-                isPause = PauseMenu.isPaused;
-        }
     }
 
     private void Move()
@@ -273,39 +258,7 @@ public class PlayerController : MonoBehaviour
             messageText.text = "";      
             other.gameObject.SetActive(false);
             speedText.text = "0 mph";
-            speedBar.fillAmount = 0;
-
-            string sName = SceneManager.GetActiveScene().name;
-            int levelNum = 0;
-            if (sName == "LevelOne")
-            {
-                levelNum = 1;
-                if ((time < usersave.levelOneTime) || (usersave.levelOneTime < 0))
-                    usersave.levelOneTime = time;
-            }
-            else if (sName == "LevelTwo")
-            {
-                levelNum = 2;
-                if ((time < usersave.levelTwoTime) || (usersave.levelTwoTime < 0))
-                    usersave.levelTwoTime = time;
-            }
-            else if (sName == "LevelThree")
-            {
-                levelNum = 3;
-                if ((time < usersave.levelThreeTime) || (usersave.levelThreeTime < 0))
-                    usersave.levelThreeTime = time;
-            }
-            else
-            {
-                Debug.Log("Scene name unrecognized in player controller!");
-            }
-
-            usersave.SaveUser();
-            ledsave.SaveTime(levelNum, username, MathF.Round(time,2));
-            ledBoard.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = username + ": " + MathF.Round(time, 3);
-            ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = ledsave.GetLeaderboard(levelNum); 
-
-            ledBoard.SetActive(true);
+            speedBar.fillAmount = 0;            
         }        
     }
 

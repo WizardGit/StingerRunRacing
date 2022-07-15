@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 6/22/2022
+ * Last Modified: 7/14/2022
  */
 
 using System;
@@ -28,7 +28,7 @@ public class WaypointTrip : MonoBehaviour
     private NavMeshPath path;
 
     // Public game objects that inspector should ignore
-    [HideInInspector] public float time = 0.0f;
+    private float time = 0.0f;
     [HideInInspector] public string username;
     [HideInInspector] public int checkpointsReached = 0;
     [HideInInspector] public float disToCheckpoint = 0.0f;
@@ -83,21 +83,7 @@ public class WaypointTrip : MonoBehaviour
         {
             if (m_CurrentWaypointIndex == waypoints.transform.childCount-1)
             {
-                LeaderboardSave ledsave = new LeaderboardSave();
-
-                string sName = SceneManager.GetActiveScene().name;
-                int levelNum = 0;
-                if (sName == "LevelOne")
-                    levelNum = 1;
-                else if (sName == "LevelTwo")
-                    levelNum = 2;
-                else if (sName == "LevelThree")
-                    levelNum = 3;
-                else
-                    Debug.Log("Scene name unrecognized in player controller!");
-
-                ledsave.SaveTime(levelNum, navMeshAgent.name, MathF.Round(time,3));
-                ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = ledsave.GetLeaderboard(levelNum);
+                
 
                 navMeshAgent.isStopped = true;
             }
