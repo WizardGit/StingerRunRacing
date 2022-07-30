@@ -1,9 +1,9 @@
-# StingerRunRacing
+StingerRunRacing
 Racing Simulation with Speed Stingers!
-This is a 3D Unity project on version 2021.2.14f1 (NOT URP)
+This is a standard 3D Unity project on version 2021.2.14f1
 
 Kaizar The Sneak Unity Play: https://play.unity.com/u/KaizarTheSneak
-Game Link: https://play.unity.com/mg/other/webglbuilds-241
+Game Link: https://play.unity.com/mg/other/webglbuilds-245
 
 TODO:
 Upgrade website for the game!
