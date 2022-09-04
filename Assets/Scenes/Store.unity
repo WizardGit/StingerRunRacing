@@ -1153,11 +1153,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   user:
     coins: 0
-    trophies: 0
+    gems: 0
     achievementSheep: 0
     levelOneTime: 0
     levelTwoTime: 0
     levelThreeTime: 0
+    quests: 
+    gemsList: 
     username: 
     dataFile: 
   coinsField: {fileID: 1324724504}
@@ -3187,7 +3189,7 @@ GameObject:
   - component: {fileID: 1254679906}
   - component: {fileID: 1254679905}
   m_Layer: 5
-  m_Name: Trophies
+  m_Name: Gems
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

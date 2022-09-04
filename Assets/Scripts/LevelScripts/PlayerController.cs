@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 7/14/2022
+ * Last Modified: 9/4/2022
  */
 
 using System;
@@ -96,13 +96,8 @@ public class PlayerController : MonoBehaviour
         usersave = new UserSave(username);
 
         // Load the correct dragon!
-        int modelToUse = 0;
-        for (int i = 0; i < usersave.dragons.Count; i++)
-        {
-            if (usersave.dragons[i].GetName() == gameObject.name)
-                modelToUse = i;            
-        }       
-        
+        int modelToUse = usersave.IndexOfDragonInUse();
+
         // Load the correct skin!
         for (int i = 0; i < usersave.dragons[modelToUse].GetSkinsLength(); i++)
         {

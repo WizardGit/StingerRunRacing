@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 6/2/2022
+ * Last Modified: 9/4/2022
  * Purpose: Saves users' information
  */
 
@@ -14,13 +14,15 @@ using UnityEngine;
 public class UserSave
 {
     public int coins = 0;
-    public int trophies = 0;
+    public int gems = 0;
     public bool achievementSheep = false;
     public float levelOneTime = -1f;
     public float levelTwoTime = -1f;
     public float levelThreeTime = -1f;
 
     public List<Dragon> dragons;
+    public List<bool> quests;
+    public List<bool> gemsList;
 
     public string username = "nouser";
     public string dataFile = "";
@@ -36,23 +38,30 @@ public class UserSave
         }
         else
         {
-            Speedstinger speed = new Speedstinger();
-            Dreadstrider dread = new Dreadstrider();
-            dragons = new List<Dragon>();
-            for (int i = 0; i < 3; i++)
-            {
-                speed.AddSkin("Buy");
-                speed.AddSkinPrice(i * 100);
-                dread.AddSkin("Buy");
-                dread.AddSkinPrice(i * 110);
-            }
-            speed.SetSkin(0, "Using");
-            dread.SetSkin(0, "Using");
-            dragons.Add(speed);
-            dragons.Add(dread);
-
+            CreateUser();
             SaveUser();
         }
+    }
+
+    // Creates a brand new user
+    private void CreateUser()
+    {
+        Speedstinger speed = new Speedstinger();
+        Dreadstrider dread = new Dreadstrider();
+        dragons = new List<Dragon>();
+        quests = new List<bool>();
+        gemsList = new List<bool>();
+        for (int i = 0; i < 3; i++)
+        {
+            speed.AddSkin("Buy");
+            speed.AddSkinPrice(i * 100);
+            dread.AddSkin("Buy");
+            dread.AddSkinPrice(i * 110);
+        }
+        speed.SetSkin(0, "Using");
+        dread.SetSkin(0, "Using");
+        dragons.Add(speed);
+        dragons.Add(dread);
     }
 
     // Saves our class/variables to a local file
@@ -74,13 +83,14 @@ public class UserSave
             file.Close();
             
             coins = user.coins;
-            trophies = user.trophies;
+            gems = user.gems;
             achievementSheep = user.achievementSheep;
             levelOneTime = user.levelOneTime;
             levelTwoTime = user.levelTwoTime;
             levelThreeTime = user.levelThreeTime;
             dragons = user.dragons;
-
+            quests = user.quests;
+            gemsList = user.gemsList;
             username = user.username;
         }
         else

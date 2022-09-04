@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/30/2022
+ * Last Modified: 9/4/2022
  */
 
 using System;
@@ -19,6 +19,7 @@ public class HaraldMove : MonoBehaviour
     public GameObject cageDoor;
     public GameObject yesNoCanvas;
     private bool missionStarted = false;
+    private UserSave theUser;
     public AudioSource creakyDoor;
 
     private int m_CurrentWaypointIndex = 1;
@@ -30,6 +31,17 @@ public class HaraldMove : MonoBehaviour
         navMeshAgent.isStopped = true;
         navMeshAgent.SetDestination(waypoints.transform.GetChild(m_CurrentWaypointIndex).transform.position);
         yesNoCanvas.SetActive(false);
+        theUser = new UserSave(NameTransfer.theName);
+        if (theUser.quests.Count < 1)
+        {
+            theUser.quests.Add(false);
+            theUser.SaveUser();
+        }
+        else if (theUser.quests[0] == true)
+        {
+            goTime = true;
+            missionStarted = true;
+        }
     }
 
     public void HandleYes()
@@ -53,6 +65,8 @@ public class HaraldMove : MonoBehaviour
                 animator.Play("Talk");
                 haraldSpeaks.Play();
                 missionStarted = true;
+                theUser.quests[0] = true;
+                theUser.SaveUser();
                 yesNoCanvas.SetActive(true);
             }
         }

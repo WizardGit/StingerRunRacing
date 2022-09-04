@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/30/2022
+ * Last Modified: 9/4/2022
  */
 
 using System;
@@ -87,12 +87,7 @@ public class PlayerFreeRoamController : MonoBehaviour
         ledsave = new LeaderboardSave();
         ledBoard.SetActive(false);
 
-        int modelToUse = 0;
-        for (int i = 0; i < usersave.dragons.Count; i++)
-        {
-            if (usersave.dragons[i].GetName() == gameObject.name)
-                modelToUse = i;
-        }
+        int modelToUse = usersave.IndexOfDragonInUse();
 
         // Load the correct skin!
         for (int i = 0; i < usersave.dragons[modelToUse].GetSkinsLength(); i++)
@@ -197,12 +192,10 @@ public class PlayerFreeRoamController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("GemPickup"))
         {
-            Debug.Log("Gem picked up!");
             other.gameObject.SetActive(false);
+            other.gameObject.transform.parent.gameObject.GetComponent<GemScript>().UpdateGemCollected();
             gemCollectSound.Play();
-            usersave.trophies += 10;
-            usersave.SaveUser();
-            messageText.text = "You just earned 10 trophies for collecting this gem!";
+            messageText.text = "You just earned 10 gems!";
             gemTimer = time;
         }
     }

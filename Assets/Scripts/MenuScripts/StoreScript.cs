@@ -1,6 +1,6 @@
 /*
  * Authors: Kaiser Slocum, Sofi Vinas
- * Last Modified: 6/2/2022
+ * Last Modified: 9/4/2022
  * Purpose: Allow users to purchase new skins and acquire a different dragon racer
  */
 
@@ -68,8 +68,8 @@ public class StoreScript : MonoBehaviour
         {
             if (text.transform.GetChild(i).gameObject.name == "Coins")
                 text.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = "Coins: " + user.coins.ToString();
-            else if (text.transform.GetChild(i).gameObject.name == "Trophies")
-                text.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = "Trophies: " + user.trophies.ToString();
+            else if (text.transform.GetChild(i).gameObject.name == "Gems")
+                text.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = "Gems: " + user.gems.ToString();
             else if (text.transform.GetChild(i).gameObject.name == "User")
                 text.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = "User: " + user.username.ToString();
             else
@@ -152,11 +152,11 @@ public class StoreScript : MonoBehaviour
     // Buys the dragon (at dragonIndex)
     private void BuyDerg(int dragonIndex)
     {
-        if (user.trophies >= user.dragons[dragonIndex].GetPurchasePrice())
+        if (user.gems >= user.dragons[dragonIndex].GetPurchasePrice())
         {
             user.dragons[dragonIndex].ChangeUse("Switch");
             // Complete the transaction and save what was done!
-            user.trophies -= user.dragons[dragonIndex].GetPurchasePrice();
+            user.gems -= user.dragons[dragonIndex].GetPurchasePrice();
             user.SaveUser();
             // Refresh the screen
             DisplayStats();
@@ -167,7 +167,7 @@ public class StoreScript : MonoBehaviour
         }
         else
         {
-            warningCanvas.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = "You do not have enough trophies!";
+            warningCanvas.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = "You do not have enough gems!";
             warningCanvas.SetActive(true);
             messageOn = true;
         }
@@ -249,9 +249,9 @@ public class StoreScript : MonoBehaviour
             user.SaveUser();
             evilLaugh.Play();
         }
-        else if (s == "trophies")
+        else if (s == "gems")
         {
-            user.trophies += 200;
+            user.gems += 200;
             user.SaveUser();
             evilLaugh.Play();
         }

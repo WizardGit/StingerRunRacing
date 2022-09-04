@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/30/2022
+ * Last Modified: 9/4/2022
  */
 
 using System;
@@ -23,17 +23,23 @@ public class AlphaMove : MonoBehaviour
 
     void Start()
     {
+        //navMeshAgent.updatePosition = false;
         animator = GetComponent<Animation>();
         // Get the correct dragon to follow!
-        UserSave usersave = new UserSave(NameTransfer.theName);
-        for (int i = 0; i < usersave.dragons.Count; i++)
+        UserSave usersave = new UserSave(NameTransfer.theName);        
+        target = models.transform.GetChild(usersave.IndexOfDragonInUse()).gameObject;
+
+        if (usersave.quests[0] == true)
         {
-            if (usersave.dragons[i].GetUse() == "Using")
-                target = models.transform.GetChild(i).gameObject;
+            navMeshAgent.Warp(new Vector3(target.transform.position.x+1, target.transform.position.y, target.transform.position.z));            
+            navMeshAgent.isStopped = false;
         }
-        // Calculate the first place for our dragon to move to
-        navMeshAgent.isStopped = true;
-        navMeshAgent.SetDestination(waypoint.transform.position);
+        else
+        {
+            // Calculate the first place for our dragon to move to
+            navMeshAgent.isStopped = true;
+            navMeshAgent.SetDestination(waypoint.transform.position);
+        }
     }
 
     void FixedUpdate()
