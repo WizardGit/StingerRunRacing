@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/4/2022
+ * Last Modified: 9/5/2022
  */
 
 using System;
@@ -23,13 +23,12 @@ public class AlphaMove : MonoBehaviour
 
     void Start()
     {
-        //navMeshAgent.updatePosition = false;
         animator = GetComponent<Animation>();
         // Get the correct dragon to follow!
         UserSave usersave = new UserSave(NameTransfer.theName);        
         target = models.transform.GetChild(usersave.IndexOfDragonInUse()).gameObject;
 
-        if (usersave.quests[0] == true)
+        if ((usersave.quests.Count > 0) && (usersave.quests[0] == 0))
         {
             navMeshAgent.Warp(new Vector3(target.transform.position.x+1, target.transform.position.y, target.transform.position.z));            
             navMeshAgent.isStopped = false;

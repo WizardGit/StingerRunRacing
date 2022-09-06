@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/4/2022
+ * Last Modified: 9/5/2022
  * Purpose: Saves users' information
  */
 
@@ -21,7 +21,7 @@ public class UserSave
     public float levelThreeTime = -1f;
 
     public List<Dragon> dragons;
-    public List<bool> quests;
+    public List<int> quests;
     public List<bool> gemsList;
 
     public string username = "nouser";
@@ -49,7 +49,7 @@ public class UserSave
         Speedstinger speed = new Speedstinger();
         Dreadstrider dread = new Dreadstrider();
         dragons = new List<Dragon>();
-        quests = new List<bool>();
+        quests = new List<int>();
         gemsList = new List<bool>();
         for (int i = 0; i < 3; i++)
         {

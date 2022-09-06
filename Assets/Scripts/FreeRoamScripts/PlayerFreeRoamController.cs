@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/4/2022
+ * Last Modified: 9/5/2022
  */
 
 using System;
@@ -27,10 +27,9 @@ public class PlayerFreeRoamController : MonoBehaviour
     // Dictates if the player is on the Terrain
     private bool onTerrain = false;
     // Leaderboard parent object
-    public GameObject ledBoard;
     public GameObject pauseMenu;
     // Camera Variables
-    public GameObject mainCamera;
+    public Camera mainCamera;
     private CameraFollow cf;
     // Dictates the name of the player
     private string username;
@@ -84,8 +83,6 @@ public class PlayerFreeRoamController : MonoBehaviour
 
         // Load/Create a new file for this user!
         usersave = new UserSave(username);
-        ledsave = new LeaderboardSave();
-        ledBoard.SetActive(false);
 
         int modelToUse = usersave.IndexOfDragonInUse();
 
@@ -198,6 +195,16 @@ public class PlayerFreeRoamController : MonoBehaviour
             messageText.text = "You just earned 10 gems!";
             gemTimer = time;
         }
+        else if (other.gameObject.CompareTag("SwordPickup"))
+        {
+            other.gameObject.SetActive(false);
+            usersave.LoadUser();
+            usersave.quests[1] = 0;
+            usersave.SaveUser();
+            audioRoar.Play();
+            messageText.text = "You just destroyed the sword! \n Great job.";
+            gemTimer = time;
+        }
     }
 
     // As long as we have a collision, we are "on the terrain"
@@ -263,8 +270,7 @@ public class PlayerFreeRoamController : MonoBehaviour
     {
         // Note sure how to handle when a user releases a key so this is my workaround! User pushes once to get the pause menu, then pushes again to get out of it
         // 
-        if (ledBoard.activeSelf == false)
-        {
+       
             isPause = !isPause;
             animator.Stop();
             PauseMenu men = pauseMenu.GetComponent<PauseMenu>();
@@ -272,7 +278,7 @@ public class PlayerFreeRoamController : MonoBehaviour
                 men.PauseGame();
             else
                 men.ResumeGame();
-        }
+
     }
     private void OnRoar()
     {
@@ -286,5 +292,14 @@ public class PlayerFreeRoamController : MonoBehaviour
             gameObject.transform.GetChild(4).gameObject.GetComponent<ParticleSystem>().Play();
             OnRoar();
         }
+    }
+
+    private void OnClick()
+    {
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        // If the user clicks on Harald, check for the quests
+        if ((Physics.Raycast(ray, out hit) == true) && (hit.transform.CompareTag("Harald")))
+            hit.transform.gameObject.GetComponent<HaraldMove>().HandleQuests();
     }
 }

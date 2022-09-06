@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/4/2022
+ * Last Modified: 9/5/2022
  */
 
 using System;
@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
 
 public class HaraldMove : MonoBehaviour
 {
@@ -18,9 +19,10 @@ public class HaraldMove : MonoBehaviour
     public AudioSource haraldSpeaks;
     public GameObject cageDoor;
     public GameObject yesNoCanvas;
-    private bool missionStarted = false;
     private UserSave theUser;
     public AudioSource creakyDoor;
+    public GameObject questSword;
+    public GameObject questPlane;
 
     private int m_CurrentWaypointIndex = 1;
     [HideInInspector] public bool goTime = false;
@@ -32,45 +34,26 @@ public class HaraldMove : MonoBehaviour
         navMeshAgent.SetDestination(waypoints.transform.GetChild(m_CurrentWaypointIndex).transform.position);
         yesNoCanvas.SetActive(false);
         theUser = new UserSave(NameTransfer.theName);
-        if (theUser.quests.Count < 1)
+        if (theUser.quests.Count < 2)
         {
-            theUser.quests.Add(false);
+            theUser.quests.Add(2);
+            theUser.quests.Add(2);
             theUser.SaveUser();
         }
-        else if (theUser.quests[0] == true)
+        else if (theUser.quests[0] == 0)
         {
-            goTime = true;
-            missionStarted = true;
+            goTime = true;         
         }
-    }
+        if (theUser.quests[1] == 1)
+        {
+            questSword.SetActive(true);
+        }
 
-    public void HandleYes()
-    {
-        yesNoCanvas.SetActive(false);
-        navMeshAgent.isStopped = false;
-    }
-    public void HandleNo()
-    {
-        yesNoCanvas.SetActive(false);
-    }
+        CheckQuestPlane();
+    }    
 
     void FixedUpdate()
     {
-        RaycastHit hit;
-        bool raySuccess = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 5.0f);
-        if (raySuccess == true)
-        {
-            if ((hit.transform.tag == "Player") && (missionStarted == false))
-            {
-                animator.Play("Talk");
-                haraldSpeaks.Play();
-                missionStarted = true;
-                theUser.quests[0] = true;
-                theUser.SaveUser();
-                yesNoCanvas.SetActive(true);
-            }
-        }
-
         if ((navMeshAgent.velocity.x != 0) && (navMeshAgent.isStopped == false))
         {
             animator.Play("Run");
@@ -79,23 +62,92 @@ public class HaraldMove : MonoBehaviour
         }
         else
         {
-            if ((animator.IsPlaying("PickLock") == false) && (animator.IsPlaying("IdleAction") == false) && (haraldSpeaks.isPlaying == false))
-            {
-                // If the player is in front of Harald, Harold is in action stance, otherwise he is just idel
-                if ((raySuccess == false) || (hit.transform.tag != "Player"))
-                    animator.Play("Idle");
-                else
-                    animator.Play("IdleAction");
-            }
+            if (animator.IsPlaying("PickLock") == false)
+                animator.Play("Idle");
             if (audioFootsteps.isPlaying == true)
                 audioFootsteps.Pause();
         }
 
+        if (theUser.quests[0] != 0)
+        {
+            CheckQuestOne();
+        }       
+    }        
+
+    public void HandleQuests()
+    {
+        for (int i = 0; i < theUser.quests.Count; i++)
+        {
+            if (theUser.quests[i] != 0)
+            {                
+                // If Quest 1: Harald Rescues Baby Dragon
+                if ((i == 0) && (theUser.quests[i] == 2))
+                {
+                    animator.Play("Talk");
+                    haraldSpeaks.Play();
+                    yesNoCanvas.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = "Would you like me to rescue your friend?";
+                    yesNoCanvas.SetActive(true);
+
+                }
+                // If Quest 2: Harald tells you to destroy the sword
+                else if ((i == 1) && (theUser.quests[i] == 2))
+                {
+                    if (theUser.quests[i] == 2)
+                    {
+                        yesNoCanvas.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = 
+                            "Astrid has a powerful sword in her possession. \n" +
+                            "You need to find it and destroy it before it falls into the wrong hands!";
+                        yesNoCanvas.SetActive(true);
+                    }
+                }
+                return;
+            }
+        }
+    }
+
+    public void HandleYes()
+    {
+        yesNoCanvas.SetActive(false);
+        for (int i = 0; i < theUser.quests.Count; i++)
+        {
+            if (theUser.quests[i] != 0)
+            {
+                theUser.quests[i] = theUser.quests[i] - 1;
+                theUser.SaveUser();
+                // If Quest 1: Harald Rescues Baby Dragon
+                if (i == 0)
+                {
+                    navMeshAgent.isStopped = false;        
+                }
+                // If Quest 2: Harald tells you to destroy the sword
+                else if (i == 1)
+                {                    
+                    questSword.SetActive(true);
+                }
+
+                CheckQuestPlane();
+                return;
+            }            
+        }
+    }
+
+    public void HandleNo()
+    {
+        yesNoCanvas.SetActive(false);
+    }
+
+    private void CheckQuestOne()
+    {
         if ((navMeshAgent.isStopped == false) && (m_CurrentWaypointIndex != 0))
-            Move();
+            QuestOneMove();
         else if ((navMeshAgent.isStopped == false) && (m_CurrentWaypointIndex == 0))
         {
             gameObject.transform.rotation = Quaternion.RotateTowards(gameObject.transform.rotation, Quaternion.Euler(new Vector3(0, 180, 0)), 100 * Time.deltaTime);
+            if (gameObject.transform.rotation == Quaternion.Euler(new Vector3(0, 180, 0)))
+            {
+                theUser.quests[0] = theUser.quests[0] - 1;
+                theUser.SaveUser();
+            }
         }
         else if ((m_CurrentWaypointIndex == 2) && (animator.IsPlaying("PickLock") == false))
         {
@@ -108,11 +160,10 @@ public class HaraldMove : MonoBehaviour
         {
             if ((creakyDoor.isPlaying == false) && (cageDoor.transform.rotation != Quaternion.Euler(new Vector3(0, 270, 0))))
                 creakyDoor.Play();
-            cageDoor.transform.rotation = Quaternion.RotateTowards(cageDoor.transform.rotation, Quaternion.Euler(new Vector3(0, 270, 0)), 25 * Time.deltaTime);               
+            cageDoor.transform.rotation = Quaternion.RotateTowards(cageDoor.transform.rotation, Quaternion.Euler(new Vector3(0, 270, 0)), 25 * Time.deltaTime);
         }
     }
-
-    void Move()
+    private void QuestOneMove()
     {
         if (m_CurrentWaypointIndex != 0)
         {
@@ -134,6 +185,20 @@ public class HaraldMove : MonoBehaviour
                     navMeshAgent.SetDestination(waypoints.transform.GetChild(m_CurrentWaypointIndex).transform.position);
                 }
             }
-        }        
+        }
+    }
+
+    private void CheckQuestPlane()
+    {
+        for (int i = 0; i < theUser.quests.Count; i++)
+        {
+            if (theUser.quests[i] == 2)
+            {
+                if (questPlane.activeSelf == false)
+                    questPlane.SetActive(true);
+                return;
+            }
+        }
+        questPlane.SetActive(false);
     }
 }
