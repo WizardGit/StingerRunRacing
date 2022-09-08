@@ -1,6 +1,6 @@
 /*
  * Authors: Sofi Vinas, Kaiser Slocum
- * Last Modified: 5/29/2022
+ * Last Modified: 9/7/2022
  */
 
 using System.Collections;
@@ -20,6 +20,7 @@ public class MainMenu : MonoBehaviour
     public TextMeshProUGUI level1display;
     public TextMeshProUGUI level2display;
     public TextMeshProUGUI level3display;
+    public TextMeshProUGUI level4display;
 
     private AudioSource[] allAudioSources;
     public AudioSource backgroundMusic;
@@ -41,6 +42,7 @@ public class MainMenu : MonoBehaviour
         level1display.text = ledsave.GetLeaderboard(1);
         level2display.text = ledsave.GetLeaderboard(2);
         level3display.text = ledsave.GetLeaderboard(3);
+        level4display.text = ledsave.GetLeaderboard(4);
     }
 
     private void FixedUpdate()
@@ -73,7 +75,14 @@ public class MainMenu : MonoBehaviour
         clickSound.Play();
         runTimer = true;
         sceneToLoad = "LevelThree";
-    }    
+    }
+    public void PlayGame4()
+    {
+        loadingSystem.SetActive(true);
+        clickSound.Play();
+        runTimer = true;
+        sceneToLoad = "LevelFour";
+    }
 
     public void PlayStore()
     {

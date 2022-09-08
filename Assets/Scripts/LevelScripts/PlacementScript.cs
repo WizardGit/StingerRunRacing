@@ -140,6 +140,12 @@ public class PlacementScript : MonoBehaviour
             if ((localTime < usersave.levelThreeTime) || (usersave.levelThreeTime < 0))
                 usersave.levelThreeTime = localTime;
         }
+        else if (sName == "LevelFour")
+        {
+            levelNum = 4;
+            if ((localTime < usersave.levelFourTime) || (usersave.levelFourTime < 0))
+                usersave.levelFourTime = localTime;
+        }
         else
         {
             Debug.Log("Scene name unrecognized in player controller!");

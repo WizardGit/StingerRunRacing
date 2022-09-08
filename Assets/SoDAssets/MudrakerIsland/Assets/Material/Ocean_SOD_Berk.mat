@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Ocean_SOD_Berk
   m_Shader: {fileID: 4800000, guid: 1cac2e0bcc34e4b3cbb4bd85982eba83, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
+  m_ShaderKeywords: _EMISSION
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -20,6 +20,22 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -33,6 +49,22 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _LargeWavesTexture:
         m_Texture: {fileID: 2800000, guid: c2a791f6cfdf51547badf90c0a24e64d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ReflectionTex:
@@ -53,11 +85,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _BumpScale: 1
     - _Cutoff: 0.5
     - _Density: 10
     - _DepthTransparency: 0.89
+    - _DetailNormalMapScale: 1
     - _DistanceTilingFade: 1
     - _Distortion: 0.31
+    - _DstBlend: 0
     - _EnableCustomFog: 0
     - _EnableReflections: 0
     - _Fade: 4.14
@@ -72,12 +107,19 @@ Material:
     - _FogDistance: 1000
     - _FogFade: 1
     - _Gloss: 0.21
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
     - _LargeWavesSpeed: 10
     - _LargeWavesTiling: 5000
     - _LightWrapping: -0.47
     - _LongTilingDistance: 200
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
     - _OffsetSmallBigSmall: 1
     - _OffsetSmallBigSmallBig: 0
+    - _Parallax: 0.02
     - _ReflDistort: 0.44
     - _ReflectionIntensity: 0.687
     - _RefrDistort: 0.4
@@ -88,12 +130,18 @@ Material:
     - _ShoreTransparency: 0.5
     - _SmallWavesSpeed: 5
     - _SmallWavesTiling: 5000
+    - _SmoothnessTextureChannel: 0
     - _Specular: 0.78
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
     - _WaveScale: 0.063
+    - _ZWrite: 1
     m_Colors:
     - WaveSpeed: {r: 19, g: 9, b: -16, a: -7}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DeepWaterColor: {r: 0.2831964, g: 0.4285199, b: 0.7132353, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 0.3406142, g: 0.3676471, b: 0.3676471, a: 1}
     - _FogColor: {r: 1, g: 1, b: 1, a: 1}
     - _HorizonColor: {r: 0.172, g: 0.463, b: 0.435, a: 1}

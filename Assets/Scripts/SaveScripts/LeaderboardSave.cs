@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 6/2/2022
+ * Last Modified: 9/7/2022
  * Purpose: Save a copy of best times and users for each level
  */
 
@@ -20,6 +20,8 @@ public class LeaderboardSave
     public float[] level2times;
     public string[] level3users;
     public float[] level3times;
+    public string[] level4users;
+    public float[] level4times;
     private string dataFile = "";
 
     public LeaderboardSave(string altDatapath="")
@@ -53,9 +55,11 @@ public class LeaderboardSave
             level1users = ledsave.level1users;
             level2users = ledsave.level2users;
             level3users = ledsave.level3users;
+            level4users = ledsave.level4users;
             level1times = ledsave.level1times;
             level2times = ledsave.level2times;
             level3times = ledsave.level3times;
+            level4times = ledsave.level4times;
         }
         else
         {
@@ -68,9 +72,11 @@ public class LeaderboardSave
         level1users = new string[] { "Honey", "Kaizar", "Not Me", "Sonic", "Eric", "Person6" };
         level2users = new string[] { "Honey", "Kaizar", "Not Me", "Sonic", "Eric", "Person6" };
         level3users = new string[] { "Honey", "Kaizar", "Not Me", "Sonic", "Eric", "Person6" };
+        level4users = new string[] { "Honey", "Kaizar", "Not Me", "Sonic", "Eric", "Person6" };
         level1times = new float[] { 90f, 100f, 110f, 120f, 140f, 160f };
         level2times = new float[] { 50f, 60f, 70f,  80f,  90f, 100f };
         level3times = new float[] { 80f, 90f, 100f, 110f, 130f, 160f };
+        level4times = new float[] { 80f, 90f, 100f, 110f, 130f, 160f };
 
         SaveGame();
     }
@@ -143,6 +149,11 @@ public class LeaderboardSave
             SaveTimesUsers(ref level3times, ref level3users, time, username);
             SaveGame();
         }
+        else if (level == 4)
+        {
+            SaveTimesUsers(ref level4times, ref level4users, time, username);
+            SaveGame();
+        }
         else
         {
             Debug.Log("ERROR: Invalid Level!");
@@ -170,6 +181,10 @@ public class LeaderboardSave
         else if (level == 3)
         {
             return GetLevelLed(ref level3times, ref level3users);
+        }
+        else if (level == 4)
+        {
+            return GetLevelLed(ref level4times, ref level4users);
         }
         else
         {

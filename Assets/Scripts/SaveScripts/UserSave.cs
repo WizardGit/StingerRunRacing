@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/5/2022
+ * Last Modified: 9/7/2022
  * Purpose: Saves users' information
  */
 
@@ -19,6 +19,7 @@ public class UserSave
     public float levelOneTime = -1f;
     public float levelTwoTime = -1f;
     public float levelThreeTime = -1f;
+    public float levelFourTime = -1f;
 
     public List<Dragon> dragons;
     public List<int> quests;
@@ -88,6 +89,7 @@ public class UserSave
             levelOneTime = user.levelOneTime;
             levelTwoTime = user.levelTwoTime;
             levelThreeTime = user.levelThreeTime;
+            levelFourTime = user.levelFourTime;
             dragons = user.dragons;
             quests = user.quests;
             gemsList = user.gemsList;
