@@ -18,4 +18,8 @@ package srr into a game installer
 Create a dragon flight simulator except you can roll sideways and forward
 if you just keep it open and modify and not reload, other scripts change stuff
 make sure to utilize built-in usersave methods like indexOfDragonInUse
-
+test reset points at start and finish
+add an inventory to freeroam
+add wandering boat in lank to level four
+add wanderin speedstinger pack to freeroam or part of quest?
+put targets on npc dragons and have dragon fireballs hit other npc racers
