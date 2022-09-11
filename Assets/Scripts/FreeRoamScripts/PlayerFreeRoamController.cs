@@ -198,9 +198,6 @@ public class PlayerFreeRoamController : MonoBehaviour
         else if (other.gameObject.CompareTag("SwordPickup"))
         {
             other.gameObject.SetActive(false);
-            usersave.LoadUser();
-            usersave.quests[1] = 0;
-            usersave.SaveUser();
             audioRoar.Play();
             messageText.text = "You just destroyed the sword! \n Great job.";
             gemTimer = time;

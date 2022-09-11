@@ -11,7 +11,6 @@ clean up code!
 Update the code for the quest to be more modular and cleaner
 get zip folders of the game
 update save file, so that if old one is there, it is properly handled
-get warlord island and explore it
 see if you can get trr tracks
 get lava texture from TRR race track for stingerrunracing
 package srr into a game installer
@@ -23,3 +22,8 @@ add an inventory to freeroam
 add wandering boat in lank to level four
 add wanderin speedstinger pack to freeroam or part of quest?
 put targets on npc dragons and have dragon fireballs hit other npc racers
+button to turn on target's target if within range - and button to fire
+fireball frenzy with admin heads on targets
+display big countdown numbers
+slowdown dragons in water
+add human class

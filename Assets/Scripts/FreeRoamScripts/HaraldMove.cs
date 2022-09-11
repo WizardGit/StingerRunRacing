@@ -22,6 +22,8 @@ public class HaraldMove : MonoBehaviour
     private UserSave theUser;
     public AudioSource creakyDoor;
     public GameObject questSword;
+    public Material questExclam;
+    public Material questQuesti;
     public GameObject questPlane;
 
     private int m_CurrentWaypointIndex = 1;
@@ -59,6 +61,8 @@ public class HaraldMove : MonoBehaviour
             animator.Play("Run");
             if (audioFootsteps.isPlaying == false)
                 audioFootsteps.Play();
+            if (questPlane.activeSelf == true)
+                questPlane.SetActive(false);
         }
         else
         {
@@ -66,12 +70,14 @@ public class HaraldMove : MonoBehaviour
                 animator.Play("Idle");
             if (audioFootsteps.isPlaying == true)
                 audioFootsteps.Pause();
+            if (questPlane.activeSelf == false)
+                CheckQuestPlane();
         }
 
         if (theUser.quests[0] != 0)
-        {
             CheckQuestOne();
-        }       
+        else if (theUser.quests[1] != 0)
+            CheckQuestTwo();
     }        
 
     public void HandleQuests()
@@ -90,15 +96,17 @@ public class HaraldMove : MonoBehaviour
 
                 }
                 // If Quest 2: Harald tells you to destroy the sword
-                else if ((i == 1) && (theUser.quests[i] == 2))
+                else if (i == 1)
                 {
                     if (theUser.quests[i] == 2)
                     {
                         yesNoCanvas.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = 
                             "Astrid has a powerful sword in her possession. \n" +
-                            "You need to find it and destroy it before it falls into the wrong hands!";
-                        yesNoCanvas.SetActive(true);
+                            "You need to find it and destroy it before it falls into the wrong hands!"; 
                     }
+                    else
+                        yesNoCanvas.transform.GetChild(3).gameObject.SetActive(false);
+                    yesNoCanvas.SetActive(true);
                 }
                 return;
             }
@@ -112,8 +120,7 @@ public class HaraldMove : MonoBehaviour
         {
             if (theUser.quests[i] != 0)
             {
-                theUser.quests[i] = theUser.quests[i] - 1;
-                theUser.SaveUser();
+                
                 // If Quest 1: Harald Rescues Baby Dragon
                 if (i == 0)
                 {
@@ -124,6 +131,14 @@ public class HaraldMove : MonoBehaviour
                 {                    
                     questSword.SetActive(true);
                 }
+
+                if (theUser.quests[i] == 2)
+                {
+                    theUser.quests[i] = theUser.quests[i] - 1;
+                    theUser.SaveUser();
+                }
+                else
+                    yesNoCanvas.transform.GetChild(3).gameObject.SetActive(true);
 
                 CheckQuestPlane();
                 return;
@@ -147,6 +162,7 @@ public class HaraldMove : MonoBehaviour
             {
                 theUser.quests[0] = theUser.quests[0] - 1;
                 theUser.SaveUser();
+                CheckQuestPlane();
             }
         }
         else if ((m_CurrentWaypointIndex == 2) && (animator.IsPlaying("PickLock") == false))
@@ -188,14 +204,31 @@ public class HaraldMove : MonoBehaviour
         }
     }
 
+    private void CheckQuestTwo()
+    {
+        if ((questSword.activeSelf == false) && (theUser.quests[1] == 1))
+        {
+            theUser.quests[1] = 0;
+            theUser.SaveUser();
+            CheckQuestPlane();
+        }
+    }
+
     private void CheckQuestPlane()
     {
         for (int i = 0; i < theUser.quests.Count; i++)
         {
-            if (theUser.quests[i] == 2)
+            if (theUser.quests[i] != 0)
             {
+                Debug.Log(i);
+                Debug.Log(theUser.quests[i]);
                 if (questPlane.activeSelf == false)
                     questPlane.SetActive(true);
+
+                if ((theUser.quests[i] == 2) && (questPlane.GetComponent<Renderer>().material != questExclam))
+                    questPlane.GetComponent<Renderer>().material = questExclam;
+                else if ((theUser.quests[i] == 1) && (questPlane.GetComponent<Renderer>().material != questQuesti))
+                    questPlane.GetComponent<Renderer>().material = questQuesti;
                 return;
             }
         }

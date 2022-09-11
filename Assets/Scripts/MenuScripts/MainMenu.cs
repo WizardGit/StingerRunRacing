@@ -16,6 +16,7 @@ public class MainMenu : MonoBehaviour
     private float timer = 0.0f;
     private string sceneToLoad = "nothing";
     private bool runTimer = false;
+    public Texture2D cursorArrow;
 
     public TextMeshProUGUI level1display;
     public TextMeshProUGUI level2display;
@@ -34,6 +35,7 @@ public class MainMenu : MonoBehaviour
         }
         backgroundMusic.Play();
         LoadLeaderboards();
+        Cursor.SetCursor(cursorArrow, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     public void LoadLeaderboards()

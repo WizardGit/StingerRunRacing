@@ -6633,7 +6633,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2016003459473344779, guid: 3c175e890b52fec4b91aaf32a0497405, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2016003459473344779, guid: 3c175e890b52fec4b91aaf32a0497405, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14741,12 +14741,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1463629592}
     - target: {fileID: 1541821725, guid: 1dc0bb4a3d1b02246ba1fef52c64d3e4, type: 3}
+      propertyPath: questExclam
+      value: 
+      objectReference: {fileID: 2100000, guid: ab60e256f22607447ac9a395921d575c, type: 2}
+    - target: {fileID: 1541821725, guid: 1dc0bb4a3d1b02246ba1fef52c64d3e4, type: 3}
+      propertyPath: questQuesti
+      value: 
+      objectReference: {fileID: 2100000, guid: a8950df33f6e596458f524338ccb1c71, type: 2}
+    - target: {fileID: 1541821725, guid: 1dc0bb4a3d1b02246ba1fef52c64d3e4, type: 3}
       propertyPath: yesNoCanvas
       value: 
       objectReference: {fileID: 1119261606}
     - target: {fileID: 3559238007039077717, guid: 1dc0bb4a3d1b02246ba1fef52c64d3e4, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3559238007039077717, guid: 1dc0bb4a3d1b02246ba1fef52c64d3e4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14792,9 +14800,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: Harald
       objectReference: {fileID: 0}
+    - target: {fileID: 6701535909997654708, guid: 1dc0bb4a3d1b02246ba1fef52c64d3e4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701535909997654708, guid: 1dc0bb4a3d1b02246ba1fef52c64d3e4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701535909997654708, guid: 1dc0bb4a3d1b02246ba1fef52c64d3e4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701535909997654708, guid: 1dc0bb4a3d1b02246ba1fef52c64d3e4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.179
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931384314241353190, guid: 1dc0bb4a3d1b02246ba1fef52c64d3e4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7a384647230a8954b91464db6fcf498b, type: 2}
     - target: {fileID: 8267240077200094659, guid: 1dc0bb4a3d1b02246ba1fef52c64d3e4, type: 3}
       propertyPath: m_Name
-      value: QuestImage
+      value: QuestPlane
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267240077200094659, guid: 1dc0bb4a3d1b02246ba1fef52c64d3e4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1dc0bb4a3d1b02246ba1fef52c64d3e4, type: 3}
