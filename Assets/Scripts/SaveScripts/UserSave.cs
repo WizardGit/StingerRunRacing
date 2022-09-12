@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/7/2022
+ * Last Modified: 9/11/2022
  * Purpose: Saves users' information
  */
 
@@ -16,14 +16,12 @@ public class UserSave
     public int coins = 0;
     public int gems = 0;
     public bool achievementSheep = false;
-    public float levelOneTime = -1f;
-    public float levelTwoTime = -1f;
-    public float levelThreeTime = -1f;
-    public float levelFourTime = -1f;
 
     public List<Dragon> dragons;
     public List<int> quests;
     public List<bool> gemsList;
+    const int numLevels = 4;
+    public List<float> levelTimes;
 
     public string username = "nouser";
     public string dataFile = "";
@@ -52,6 +50,13 @@ public class UserSave
         dragons = new List<Dragon>();
         quests = new List<int>();
         gemsList = new List<bool>();
+
+        levelTimes = new List<float>();
+        for (int i = 0; i < numLevels; i++)
+        {
+            levelTimes.Add(-1f);
+        }
+
         for (int i = 0; i < 3; i++)
         {
             speed.AddSkin("Buy");
@@ -86,10 +91,7 @@ public class UserSave
             coins = user.coins;
             gems = user.gems;
             achievementSheep = user.achievementSheep;
-            levelOneTime = user.levelOneTime;
-            levelTwoTime = user.levelTwoTime;
-            levelThreeTime = user.levelThreeTime;
-            levelFourTime = user.levelFourTime;
+            levelTimes = user.levelTimes;
             dragons = user.dragons;
             quests = user.quests;
             gemsList = user.gemsList;

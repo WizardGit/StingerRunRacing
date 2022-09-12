@@ -27,3 +27,7 @@ fireball frenzy with admin heads on targets
 display big countdown numbers
 slowdown dragons in water
 add human class
+Add purposes and comments to scripts
+
+Level four is broken - does not know if it reaches finish line
+don't forget to add walls

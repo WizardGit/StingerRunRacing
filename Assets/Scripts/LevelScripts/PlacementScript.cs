@@ -29,17 +29,18 @@ public class PlacementScript : MonoBehaviour
     public TextMeshProUGUI timeText;
     public GameObject pauseMenu;
     public GameObject ledBoard;
+    private SaveGame theSave;
 
     private void Start()
     {
         timeText.text =  "Time: 0:0.0";
-        UserSave usersave = new UserSave(NameTransfer.theName);
+        theSave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
 
         ledBoard.SetActive(false);
         // Get our target
-        for (int i = 0; i < usersave.dragons.Count; i++)
+        for (int i = 0; i < theSave.userSave.dragons.Count; i++)
         {
-            if (usersave.dragons[i].GetUse() == "Using")
+            if (theSave.userSave.dragons[i].GetUse() == "Using")
                 player = dragonPlayers.transform.GetChild(i).gameObject.GetComponent<PlayerController>();
         }
         for (int i = 0; i < npcRacers.transform.childCount; i++)
@@ -111,69 +112,40 @@ public class PlacementScript : MonoBehaviour
 
     void FinishPlayer(float localTime)
     {
-        string theName = NameTransfer.theName;
-        string username = "";
-        if (theName != null)
-            username = theName;
-        else
-            Debug.Log("ERROR: no username!");
-        UserSave usersave = new UserSave(username);
-        LeaderboardSave ledsave = new LeaderboardSave();
-        string sName = SceneManager.GetActiveScene().name;
+        int levelNum = GetLevelNum();
 
-        int levelNum = 0;
-        if (sName == "LevelOne")
-        {
-            levelNum = 1;
-            if ((localTime < usersave.levelOneTime) || (usersave.levelOneTime < 0))
-                usersave.levelOneTime = localTime;
-        }
-        else if (sName == "LevelTwo")
-        {
-            levelNum = 2;
-            if ((localTime < usersave.levelTwoTime) || (usersave.levelTwoTime < 0))
-                usersave.levelTwoTime = localTime;
-        }
-        else if (sName == "LevelThree")
-        {
-            levelNum = 3;
-            if ((localTime < usersave.levelThreeTime) || (usersave.levelThreeTime < 0))
-                usersave.levelThreeTime = localTime;
-        }
-        else if (sName == "LevelFour")
-        {
-            levelNum = 4;
-            if ((localTime < usersave.levelFourTime) || (usersave.levelFourTime < 0))
-                usersave.levelFourTime = localTime;
-        }
-        else
-        {
-            Debug.Log("Scene name unrecognized in player controller!");
-        }
+        if ((localTime < theSave.userSave.levelTimes[levelNum - 1]) || (theSave.userSave.levelTimes[levelNum - 1] < 0))
+            theSave.userSave.levelTimes[levelNum - 1] = localTime;
 
-        usersave.SaveUser();
-        ledsave.SaveTime(levelNum, username, MathF.Round(localTime, 3));
-        ledBoard.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = username + ": " + MathF.Round(localTime, 3);
-        ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = ledsave.GetLeaderboard(levelNum);
+        theSave.userSave.SaveUser();
+        theSave.ledSave.SaveTime(levelNum, NameTransfer.theName, MathF.Round(localTime, 3));
+        ledBoard.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = NameTransfer.theName + ": " + MathF.Round(localTime, 3);
+        ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = theSave.ledSave.GetLeaderboard(levelNum);
 
         ledBoard.SetActive(true);
     }
     void FinishNPC(float localTime, string racerUsername)
     {
-        LeaderboardSave ledsave = new LeaderboardSave();
+        int levelNum = GetLevelNum();
 
-        string sName = SceneManager.GetActiveScene().name;
+        theSave.ledSave.SaveTime(levelNum, racerUsername, MathF.Round(localTime, 3));
+        ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = theSave.ledSave.GetLeaderboard(levelNum);
+    }
+
+    private int GetLevelNum()
+    {
         int levelNum = 0;
+        string sName = SceneManager.GetActiveScene().name;
         if (sName == "LevelOne")
             levelNum = 1;
         else if (sName == "LevelTwo")
             levelNum = 2;
         else if (sName == "LevelThree")
             levelNum = 3;
+        else if (sName == "LevelFour")
+            levelNum = 4;
         else
             Debug.Log("Scene name unrecognized in player controller!");
-
-        ledsave.SaveTime(levelNum, racerUsername, MathF.Round(localTime, 3));
-        ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = ledsave.GetLeaderboard(levelNum);
+        return levelNum;
     }
 }

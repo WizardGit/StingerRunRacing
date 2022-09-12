@@ -9,50 +9,47 @@ using UnityEngine;
 
 public class GemScript : MonoBehaviour
 {
-    UserSave usersave;
+    private SaveGame usersave;
     void Start()
     {
+        usersave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
 
-        usersave = new UserSave(NameTransfer.theName);
-
-        if ((usersave.gemsList.Count == 0) && (transform.childCount > 0))
+        if ((usersave.userSave.gemsList.Count == 0) && (transform.childCount > 0))
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                usersave.gemsList.Add(true);
+                usersave.userSave.gemsList.Add(true);
             }
         }
-        else if (transform.childCount < usersave.gemsList.Count)
+        else if (transform.childCount < usersave.userSave.gemsList.Count)
         {
-            while (transform.childCount < usersave.gemsList.Count)
+            while (transform.childCount < usersave.userSave.gemsList.Count)
             {
-                usersave.gemsList.RemoveAt(0);
+                usersave.userSave.gemsList.RemoveAt(0);
             }
         }
-        else if (transform.childCount > usersave.gemsList.Count)
+        else if (transform.childCount > usersave.userSave.gemsList.Count)
         {
-            while (transform.childCount < usersave.gemsList.Count)
+            while (transform.childCount < usersave.userSave.gemsList.Count)
             {
-                usersave.gemsList.Add(false);
+                usersave.userSave.gemsList.Add(false);
             }
         }
 
-        for (int i = 0; i < usersave.gemsList.Count; i++)
+        for (int i = 0; i < usersave.userSave.gemsList.Count; i++)
         {
-            transform.GetChild(i).gameObject.SetActive(usersave.gemsList[i]);
+            transform.GetChild(i).gameObject.SetActive(usersave.userSave.gemsList[i]);
         }
-        usersave.SaveUser();
-
-        
+        usersave.userSave.SaveUser();        
     }
     public void UpdateGemCollected()
     {
-        usersave.LoadUser();
-        usersave.gems += 10;
-        for (int i = 0; i < usersave.gemsList.Count; i++)
+        usersave.userSave.LoadUser();
+        usersave.userSave.gems += 10;
+        for (int i = 0; i < usersave.userSave.gemsList.Count; i++)
         {
-            usersave.gemsList[i] = transform.GetChild(i).gameObject.activeSelf;
+            usersave.userSave.gemsList[i] = transform.GetChild(i).gameObject.activeSelf;
         }
-        usersave.SaveUser();
+        usersave.userSave.SaveUser();
     }
 }

@@ -52,8 +52,7 @@ public class PlayerFreeRoamController : MonoBehaviour
     private float movementYBefore = 0.0f;
     // Dictates the last checkpoint that the player will reset to if it falls out of the map
     private Vector3 resetPos;
-    private UserSave usersave;
-    private LeaderboardSave ledsave;
+    private SaveGame usersave;
 
     // Object variables
     Animation animator;
@@ -67,9 +66,6 @@ public class PlayerFreeRoamController : MonoBehaviour
     private float maxDistCast = 0.1f;
     private float radius = 0.2f;
 
-    //Gem variables
-    private int gemCount;
-
     void Start()
     {
         string theName = NameTransfer.theName;
@@ -82,17 +78,14 @@ public class PlayerFreeRoamController : MonoBehaviour
             Debug.Log("ERROR: no username!");
 
         // Load/Create a new file for this user!
-        usersave = new UserSave(username);
-
-        int modelToUse = usersave.IndexOfDragonInUse();
+        usersave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
+        int modelToUse = usersave.userSave.IndexOfDragonInUse();
 
         // Load the correct skin!
-        for (int i = 0; i < usersave.dragons[modelToUse].GetSkinsLength(); i++)
+        for (int i = 0; i < usersave.userSave.dragons[modelToUse].GetSkinsLength(); i++)
         {
-            if (usersave.dragons[modelToUse].GetSkin(i) == "Using")
-            {
+            if (usersave.userSave.dragons[modelToUse].GetSkin(i) == "Using")
                 gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().material = materials[i];
-            }
         }
 
         animator = GetComponent<Animation>();
@@ -102,12 +95,12 @@ public class PlayerFreeRoamController : MonoBehaviour
         speedText.text = "0 mph";
         resetPos = new Vector3(572.21f, 8.4f, 190.72f);
 
-        playerRotationSpeed = usersave.dragons[modelToUse].GetTurnSpeed();
-        playerMaxSpeed = usersave.dragons[modelToUse].GetSpeedForce();
-        jumpForce = usersave.dragons[modelToUse].GetJumpForce();
-        maxDistCast = usersave.dragons[modelToUse].GetMaxDistCast();
-        radius = usersave.dragons[modelToUse].GetRadius();
-        playerAcceleration = usersave.dragons[modelToUse].GetAccelForce();
+        playerRotationSpeed = usersave.userSave.dragons[modelToUse].GetTurnSpeed();
+        playerMaxSpeed = usersave.userSave.dragons[modelToUse].GetSpeedForce();
+        jumpForce = usersave.userSave.dragons[modelToUse].GetJumpForce();
+        maxDistCast = usersave.userSave.dragons[modelToUse].GetMaxDistCast();
+        radius = usersave.userSave.dragons[modelToUse].GetRadius();
+        playerAcceleration = usersave.userSave.dragons[modelToUse].GetAccelForce();
 
         speedBar.fillAmount = 0.2f;
     }

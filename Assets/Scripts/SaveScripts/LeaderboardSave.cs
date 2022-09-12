@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/7/2022
+ * Last Modified: 9/11/2022
  * Purpose: Save a copy of best times and users for each level
  */
 
@@ -12,21 +12,76 @@ using System.IO;
 using UnityEngine;
 
 [System.Serializable]
+public class LeaderboardUser
+{
+    private float bestTime;
+    private string userName;
+
+    public LeaderboardUser()
+    {
+        bestTime = 0.0f;
+        userName = "nouser";
+    }
+    public LeaderboardUser(string u, float t)
+    {
+        bestTime = t;
+        userName = u;
+    }
+
+    public void SetTime(float t)
+    {
+        bestTime = t;
+    }
+    public float GetTime() => bestTime;
+    public string GetUser() => userName;
+}
+
+[System.Serializable]
+public class LeaderboardLevel
+{
+    public List<LeaderboardUser> lvlLedBrd;
+    public int maxPlayers;
+
+    public LeaderboardLevel(int mp = 0)
+    {
+        lvlLedBrd = new List<LeaderboardUser>();
+        maxPlayers = mp;
+    }
+    public void Add(string u, float t)
+    {
+        lvlLedBrd.Add(new LeaderboardUser(u, t));
+    }
+    public LeaderboardUser Get(int i)
+    {
+        return lvlLedBrd[i];
+    }
+
+    public void SaveTime(string u, float t)
+    {
+        for (int i = 0; i < maxPlayers; i++)
+        {
+            if (t < lvlLedBrd[i].GetTime())
+            {
+                lvlLedBrd.Insert(i, new LeaderboardUser(u, t));
+                lvlLedBrd.RemoveAt(maxPlayers);
+                return;
+            }
+        }
+        // If we reach this point, then that the time was not good enough to make the leaderboard, so we won't add it.
+    }
+}
+
+[System.Serializable]
 public class LeaderboardSave
 {
-    public string[] level1users;
-    public float[] level1times;
-    public string[] level2users;
-    public float[] level2times;
-    public string[] level3users;
-    public float[] level3times;
-    public string[] level4users;
-    public float[] level4times;
-    private string dataFile = "";
+    public List<LeaderboardLevel> ledBoard;
+    const int numPlayers = 6;
+    const int numLevels = 4;
+    private string dataFile = "";   
 
-    public LeaderboardSave(string altDatapath="")
+    public LeaderboardSave(string happy = "")
     {
-        dataFile = Application.persistentDataPath + "/leaderboard.save";
+        dataFile = Application.persistentDataPath + "/leaderboard.save";        
         if (File.Exists(dataFile))
             LoadGame();
         else
@@ -51,145 +106,53 @@ public class LeaderboardSave
             FileStream file = File.Open(dataFile, FileMode.Open);
             LeaderboardSave ledsave = (LeaderboardSave)bf.Deserialize(file);
             file.Close();
-
-            level1users = ledsave.level1users;
-            level2users = ledsave.level2users;
-            level3users = ledsave.level3users;
-            level4users = ledsave.level4users;
-            level1times = ledsave.level1times;
-            level2times = ledsave.level2times;
-            level3times = ledsave.level3times;
-            level4times = ledsave.level4times;
+            ledBoard = ledsave.ledBoard;
+            Debug.Log("Loaded User!");
         }
         else
-        {
             Debug.Log("No file for this user!");
-        }
     }
 
     public void ResetLeaderboard()
-    {
-        level1users = new string[] { "Honey", "Kaizar", "Not Me", "Sonic", "Eric", "Person6" };
-        level2users = new string[] { "Honey", "Kaizar", "Not Me", "Sonic", "Eric", "Person6" };
-        level3users = new string[] { "Honey", "Kaizar", "Not Me", "Sonic", "Eric", "Person6" };
-        level4users = new string[] { "Honey", "Kaizar", "Not Me", "Sonic", "Eric", "Person6" };
-        level1times = new float[] { 90f, 100f, 110f, 120f, 140f, 160f };
-        level2times = new float[] { 50f, 60f, 70f,  80f,  90f, 100f };
-        level3times = new float[] { 80f, 90f, 100f, 110f, 130f, 160f };
-        level4times = new float[] { 80f, 90f, 100f, 110f, 130f, 160f };
+    {     
+        string[] levelusers = new string[] { "Honey", "Kaizar", "Not Me", "Sonic", "Eric", "Person6" };
+        float[] leveltimes = new float[] { 90f, 100f, 110f, 120f, 140f, 160f };
+        ledBoard = new List<LeaderboardLevel>();
 
+        for (int i = 0; i < numLevels; i++)
+        {
+            ledBoard.Add(new LeaderboardLevel(numPlayers));
+            for (int j = 0; j < numPlayers; j++)
+            {
+                ledBoard[i].Add(levelusers[j], leveltimes[j]);
+            }
+            
+        }
+        Debug.Log(GetLeaderboard(2));
         SaveGame();
-    }
-
-    private void RotateDownUsers(ref string[] users, int index)
-    {
-        for (int i = (users.Length - 1); i > index; i--)
-        {
-            //Swap
-            string temp = users[i];
-            if (i - 1 >= users.Length)
-            {
-                users[i] = users[0];
-                users[0] = temp;
-            }
-            else
-            {
-                users[i] = users[i - 1];
-                users[i - 1] = temp;
-            }
-        }        
-    }
-    private void RotateDownTimes(ref float[] times, int index)
-    {
-        for (int i = (times.Length - 1); i > index; i--)
-        {
-            //Swap
-            float temp = times[i];
-            if (i-1 >= times.Length)
-            {
-                times[i] = times[0];
-                times[0] = temp;
-            }
-            else
-            {
-                times[i] = times[i - 1];
-                times[i - 1] = temp;
-            }            
-        }
-    }
-    private bool SaveTimesUsers(ref float[] times, ref string[] users, float time, string username)
-    {
-        for (int i = 0; i < times.Length; i++)
-        {
-            if ((time < times[i]) || (times[i] < 0))
-            {
-                RotateDownTimes(ref times, i);
-                RotateDownUsers(ref users, i);
-                times[i] = MathF.Round(time,5);
-                users[i] = username;
-                return true;
-            }
-        }
-        return false;
     }
     public void SaveTime(int level, string username, float time)
     {
-        if (level == 1)
-        {
-            SaveTimesUsers(ref level1times, ref level1users, time, username);
-            SaveGame();
-        }
-        else if (level == 2)
-        {
-            SaveTimesUsers(ref level2times, ref level2users, time, username);
-            SaveGame();
-        }
-        else if (level == 3)
-        {
-            SaveTimesUsers(ref level3times, ref level3users, time, username);
-            SaveGame();
-        }
-        else if (level == 4)
-        {
-            SaveTimesUsers(ref level4times, ref level4users, time, username);
-            SaveGame();
-        }
+        if (level > ledBoard.Count)
+            Debug.Log("ERROR: Invalid Level!");
         else
         {
-            Debug.Log("ERROR: Invalid Level!");
-        }      
-    }
-    private string GetLevelLed(ref float[] leveltimes, ref string[] levelusers)
-    {
-        string led = "";
-        for (int i = 0; i < levelusers.Length; i++)
-        {
-            led += (i+1).ToString() + " " + levelusers[i] + ": " + leveltimes[i] + "\n";
-        }
-        return led;
+            ledBoard[level - 1].SaveTime(username, time);
+            SaveGame();
+        }    
     }
     public string GetLeaderboard(int level)
     {
-        if (level == 1)
-        {
-            return GetLevelLed(ref level1times, ref level1users);
-        }
-        else if (level == 2)
-        {
-            return GetLevelLed(ref level2times, ref level2users);
-        }
-        else if (level == 3)
-        {
-            return GetLevelLed(ref level3times, ref level3users);
-        }
-        else if (level == 4)
-        {
-            return GetLevelLed(ref level4times, ref level4users);
-        }
-        else
-        {
+        string led = "";
+        if (level > ledBoard.Count)
             Debug.Log("ERROR: Invalid Level!");
-            return "";
+        else
+        {            
+            for (int i = 0; i < ledBoard[level - 1].maxPlayers; i++)
+            {
+                led += (i + 1).ToString() + " " + ledBoard[level - 1].Get(i).GetUser() + ": " + ledBoard[level - 1].Get(i).GetTime() + "\n";
+            }            
         }
+        return led;
     }    
 }
