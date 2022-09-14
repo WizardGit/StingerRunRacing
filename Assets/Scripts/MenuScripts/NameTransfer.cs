@@ -1,6 +1,6 @@
 /*
- * Authors: Sofi Vinas, Kaiser Slocum
- * Last Modified: 5/28/2022
+ * Authors: Kaiser Slocum, Sofi Vinas
+ * Last Modified: 9/13/2022
  */
 
 using System.Collections;
@@ -41,9 +41,5 @@ public class NameTransfer : MonoBehaviour
     {
         LeaderboardSave ledSave = new LeaderboardSave();
         ledSave.ResetLeaderboard();
-        Debug.Log(ledSave.GetLeaderboard(2));
-
-        MainMenu men = mainmenu.GetComponent<MainMenu>();
-        men.LoadLeaderboards();
     }
 }

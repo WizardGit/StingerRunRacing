@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 7/14/2022
+ * Last Modified: 9/13/2022
  */
 
 using System;
@@ -15,6 +15,7 @@ using UnityEngine.SceneManagement;
 
 public class PlacementScript : MonoBehaviour
 {
+    public int levelNum;
     public GameObject dragonPlayers;
     public GameObject npcRacers;
     private PlayerController player;
@@ -72,20 +73,19 @@ public class PlacementScript : MonoBehaviour
         }
 
         if ((player.checkpointsReached == (checkpoints.transform.childCount + 1)) && (stuff[0] != 1))
-        {
-            
-
+        {   
             float theTheTime = time;
             FinishPlayer(theTheTime);
             raceBoard.text += "\n" + (rankCounter++).ToString() + ". " + player.username + ": " + MathF.Round(theTheTime, 3).ToString();
-            UserSave usersave = new UserSave(NameTransfer.theName);
-            int numCoins = (npcRacers.transform.childCount + 2 - rankCounter) * 10;
-            usersave.coins += numCoins;
+            SaveGame usersave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
+
+            int numCoins = (npcRacers.transform.childCount + 3 - rankCounter) * 10;
+            usersave.userSave.coins += numCoins;
             coinsWin.text = "You just won " + numCoins + " Coins!";
 
             
             stuff[0] = 1;
-            usersave.SaveUser();
+            usersave.userSave.SaveUser();
         }
         else
         {
@@ -112,8 +112,6 @@ public class PlacementScript : MonoBehaviour
 
     void FinishPlayer(float localTime)
     {
-        int levelNum = GetLevelNum();
-
         if ((localTime < theSave.userSave.levelTimes[levelNum - 1]) || (theSave.userSave.levelTimes[levelNum - 1] < 0))
             theSave.userSave.levelTimes[levelNum - 1] = localTime;
 
@@ -126,26 +124,7 @@ public class PlacementScript : MonoBehaviour
     }
     void FinishNPC(float localTime, string racerUsername)
     {
-        int levelNum = GetLevelNum();
-
         theSave.ledSave.SaveTime(levelNum, racerUsername, MathF.Round(localTime, 3));
         ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = theSave.ledSave.GetLeaderboard(levelNum);
-    }
-
-    private int GetLevelNum()
-    {
-        int levelNum = 0;
-        string sName = SceneManager.GetActiveScene().name;
-        if (sName == "LevelOne")
-            levelNum = 1;
-        else if (sName == "LevelTwo")
-            levelNum = 2;
-        else if (sName == "LevelThree")
-            levelNum = 3;
-        else if (sName == "LevelFour")
-            levelNum = 4;
-        else
-            Debug.Log("Scene name unrecognized in player controller!");
-        return levelNum;
     }
 }

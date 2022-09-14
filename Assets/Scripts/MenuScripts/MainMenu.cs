@@ -1,6 +1,6 @@
 /*
  * Authors: Sofi Vinas, Kaiser Slocum
- * Last Modified: 9/7/2022
+ * Last Modified: 9/13/2022
  */
 
 using System.Collections;
@@ -18,11 +18,6 @@ public class MainMenu : MonoBehaviour
     private bool runTimer = false;
     public Texture2D cursorArrow;
 
-    public TextMeshProUGUI level1display;
-    public TextMeshProUGUI level2display;
-    public TextMeshProUGUI level3display;
-    public TextMeshProUGUI level4display;
-
     private AudioSource[] allAudioSources;
     public AudioSource backgroundMusic;
 
@@ -34,17 +29,7 @@ public class MainMenu : MonoBehaviour
             audioS.Stop();
         }
         backgroundMusic.Play();
-        LoadLeaderboards();
         Cursor.SetCursor(cursorArrow, Vector2.zero, CursorMode.ForceSoftware);
-    }
-
-    public void LoadLeaderboards()
-    {
-        LeaderboardSave ledsave = new LeaderboardSave();
-        level1display.text = ledsave.GetLeaderboard(1);
-        level2display.text = ledsave.GetLeaderboard(2);
-        level3display.text = ledsave.GetLeaderboard(3);
-        level4display.text = ledsave.GetLeaderboard(4);
     }
 
     private void FixedUpdate()
@@ -55,35 +40,12 @@ public class MainMenu : MonoBehaviour
             SceneManager.LoadScene(sceneToLoad);
     }
 
-    public void PlayGame()
+    public void PlayGame(string theScene)
     {
         loadingSystem.SetActive(true);
         clickSound.Play();
         runTimer = true;
-        sceneToLoad = "LevelOne";
-    }
-
-    public void PlayGame2()
-    {
-        loadingSystem.SetActive(true);
-        clickSound.Play();
-        runTimer = true;
-        sceneToLoad = "LevelTwo";
-    }
-    
-    public void PlayGame3()
-    {
-        loadingSystem.SetActive(true);
-        clickSound.Play();
-        runTimer = true;
-        sceneToLoad = "LevelThree";
-    }
-    public void PlayGame4()
-    {
-        loadingSystem.SetActive(true);
-        clickSound.Play();
-        runTimer = true;
-        sceneToLoad = "LevelFour";
+        sceneToLoad = theScene;
     }
 
     public void PlayStore()
@@ -95,13 +57,6 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("Credits");
     }
-
-    /*
-    public void PlayTutorial()
-    {
-        SceneManager.LoadScene("Tutorial")
-    }
-    */
 
     public void PlayFreeRoam()
     {

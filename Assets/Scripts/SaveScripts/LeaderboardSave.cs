@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/11/2022
+ * Last Modified: 9/13/2022
  * Purpose: Save a copy of best times and users for each level
  */
 
@@ -76,7 +76,7 @@ public class LeaderboardSave
 {
     public List<LeaderboardLevel> ledBoard;
     const int numPlayers = 6;
-    const int numLevels = 4;
+    const int numLevels = 5;
     private string dataFile = "";   
 
     public LeaderboardSave(string happy = "")
@@ -128,7 +128,6 @@ public class LeaderboardSave
             }
             
         }
-        Debug.Log(GetLeaderboard(2));
         SaveGame();
     }
     public void SaveTime(int level, string username, float time)
@@ -144,7 +143,7 @@ public class LeaderboardSave
     public string GetLeaderboard(int level)
     {
         string led = "";
-        if (level > ledBoard.Count)
+        if ((level > ledBoard.Count) || (level < 1))
             Debug.Log("ERROR: Invalid Level!");
         else
         {            

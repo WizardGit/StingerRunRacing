@@ -20,7 +20,7 @@ public class UserSave
     public List<Dragon> dragons;
     public List<int> quests;
     public List<bool> gemsList;
-    const int numLevels = 4;
+    const int numLevels = 5;
     public List<float> levelTimes;
 
     public string username = "nouser";

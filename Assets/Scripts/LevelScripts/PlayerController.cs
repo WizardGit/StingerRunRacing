@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
 
         //timeText.text = "Time: 0";
         speedText.text = "0 mph";
-        resetPos = new Vector3(1737f, 107.79f, 1534f);       
+        resetPos = transform.position;       
 
         playerRotationSpeed = theSave.userSave.dragons[modelToUse].GetTurnSpeed();
         playerMaxSpeed = theSave.userSave.dragons[modelToUse].GetSpeedForce();
@@ -246,6 +246,7 @@ public class PlayerController : MonoBehaviour
         }
         else if ((other.gameObject.CompareTag("Finish")) && (checkpointsReached == numCheckpoints))
         {
+            resetPos = transform.position;
             checkpointsReached++;
             isPause = true;
             animator.Play(animationIdle);

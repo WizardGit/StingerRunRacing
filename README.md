@@ -28,6 +28,14 @@ display big countdown numbers
 slowdown dragons in water
 add human class
 Add purposes and comments to scripts
-
-Level four is broken - does not know if it reaches finish line
-don't forget to add walls
+new level walls - dreadstrider in water
+button click noises
+add waterfalls
+add trr fortune falls track
+add multiple laps
+on level 2 have swinging gate that opens when players should go to finish
+add bonus level only accessible on far away part of level one (users must go exploring!)
+Add heather on warlord island
+machine with swinging pendulums means you reset when you are hit
+hidden sheep collectibles on all levels
+try and catch block for bad save files so that they can be reset.
