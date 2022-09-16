@@ -32,6 +32,7 @@ new level walls - dreadstrider in water
 button click noises
 add waterfalls
 add trr fortune falls track
+add forbidden ice track
 add multiple laps
 on level 2 have swinging gate that opens when players should go to finish
 add bonus level only accessible on far away part of level one (users must go exploring!)
