@@ -258,8 +258,6 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.CompareTag("CatapultArm"))
         {
             transform.position = resetPos; 
-            messageText.text = "Oops! You were hit!";
-            boostTimer = time;
             audioRoar.Play();
         }
     }

@@ -17,9 +17,8 @@ package srr into a game installer
 Create a dragon flight simulator except you can roll sideways and forward
 if you just keep it open and modify and not reload, other scripts change stuff
 make sure to utilize built-in usersave methods like indexOfDragonInUse
-test reset points at start and finish
 add an inventory to freeroam
-add wandering boat in lank to level four
+add wandering boat in lake to level four
 add wanderin speedstinger pack to freeroam or part of quest?
 put targets on npc dragons and have dragon fireballs hit other npc racers
 button to turn on target's target if within range - and button to fire
@@ -37,6 +36,5 @@ add multiple laps
 on level 2 have swinging gate that opens when players should go to finish
 add bonus level only accessible on far away part of level one (users must go exploring!)
 Add heather on warlord island
-machine with swinging pendulums means you reset when you are hit
 hidden sheep collectibles on all levels
 try and catch block for bad save files so that they can be reset.
