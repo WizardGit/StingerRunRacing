@@ -254,7 +254,14 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
             speedText.text = "0 mph";
             speedBar.fillAmount = 0;            
-        }        
+        }
+        else if (other.gameObject.CompareTag("CatapultArm"))
+        {
+            transform.position = resetPos; 
+            messageText.text = "Oops! You were hit!";
+            boostTimer = time;
+            audioRoar.Play();
+        }
     }
 
     // As long as we have a collision, we are "on the terrain"

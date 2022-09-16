@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 3879128022134668229}
   - component: {fileID: 287027867144697273}
   - component: {fileID: 4472194286660624304}
-  - component: {fileID: 29700080}
+  - component: {fileID: 457193427771893940}
   m_Layer: 0
   m_Name: CatapultArm
-  m_TagString: Untagged
+  m_TagString: CatapultArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,17 +97,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8139e0534deab0e4894e8836e2e4a22c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!64 &29700080
-MeshCollider:
+--- !u!65 &457193427771893940
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4879573789395164946}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 7e8b8984f5008054b9d00b7f365ef837, type: 2}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.3297834, z: 10.927894}
+  m_Center: {x: 0, y: 0.209604, z: -0.9241481}
