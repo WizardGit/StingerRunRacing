@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PARTSwimCamera
+  m_Shader: {fileID: 4800000, guid: 6b774448cac858f499c4b8d8c2291ab3, type: 3}
+  m_ShaderKeywords:
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: a093955994b8cb545830a87f6bfef381, type: 3}
+        m_Scale: {x: 1, y: 5}
+        m_Offset: {x: 1, y: 1}
+    - _SecondaryTex:
+        m_Texture: {fileID: 2800000, guid: a093955994b8cb545830a87f6bfef381, type: 3}
+        m_Scale: {x: 1, y: 4}
+        m_Offset: {x: 1, y: 1}
+    m_Floats:
+    - _Cutoff: 0.5
+    - _FadeIn: 1
+    - _InvFade: 1
+    - _USpeedA: 0
+    - _USpeedB: 0.05
+    - _USpeedG: 0.01
+    - _USpeedMain: 0.03
+    - _USpeedR: -0.025
+    - _USpeedSecondary: 0.006
+    - _USpeedTextureA: 0
+    - _USpeedTextureB: 0
+    - _UTile: 2
+    - _UTileA: 1
+    - _UTileB: 1
+    - _UTileG: 1
+    - _UTileR: 1
+    - _VSpeedA: 0
+    - _VSpeedB: 0
+    - _VSpeedG: 0.01
+    - _VSpeedMain: 0
+    - _VSpeedR: -0.025
+    - _VSpeedSecondary: 0
+    - _VSpeedTextureA: 0
+    - _VSpeedTextureB: 0
+    - _VTile: 2
+    - _VTileA: 1
+    - _VTileB: 1
+    - _VTileG: 1
+    - _VTileR: 1
+    m_Colors:
+    - _Color: {r: 0.1007794, g: 0.2785611, b: 0.5661765, a: 0}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 0.5019608}

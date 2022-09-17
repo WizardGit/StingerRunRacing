@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ocean_SOD_PirateShipScene
+  m_Shader: {fileID: 4800000, guid: 20d294c21af9d784a97619848d3661e7, type: 3}
+  m_ShaderKeywords:
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 2995
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _FoamTexture:
+        m_Texture: {fileID: 2800000, guid: f462bc0f1bce4cf4384b2317995a6efe, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LargeWavesTexture:
+        m_Texture: {fileID: 2800000, guid: 1340453a5d6e3ce42b873be16af4d09e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReflectionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SmallWavesTexture:
+        m_Texture: {fileID: 2800000, guid: 7d8ec79f64906d0418084fb207bbb5ee, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Cutoff: 0.5
+    - _Density: 0.2
+    - _DepthTransparency: 0.83
+    - _DistanceTilingFade: 1
+    - _Distortion: 0.06
+    - _EnableCustomFog: 0
+    - _EnableReflections: 0
+    - _Fade: 1
+    - _FoamBlend: 2.74
+    - _FoamContrast: 0.245
+    - _FoamDistFade: 2.87
+    - _FoamDistFalloff: 20.1
+    - _FoamIntensity: -4.9
+    - _FoamSpeed: -100
+    - _FoamTiling: 300000
+    - _FoamVisibility: 0.246
+    - _FogDistance: 1000
+    - _FogFade: 1
+    - _Gloss: 0.4
+    - _LargeWavesSpeed: 30
+    - _LargeWavesTiling: 300000
+    - _LightWrapping: 2
+    - _LongTilingDistance: 200
+    - _OffsetSmallBigSmall: 1
+    - _OffsetSmallBigSmallBig: 0
+    - _ReflectionIntensity: 0.383
+    - _Refraction: 0.767
+    - _RefractionDistance: 10.18
+    - _RefractionFalloff: 1
+    - _ShoreFade: 0.13
+    - _ShoreTransparency: 0.5
+    - _SmallWavesSpeed: 30
+    - _SmallWavesTiling: 300000
+    - _Specular: 148.7
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DeepWaterColor: {r: 0.07785466, g: 0.1260888, b: 0.2205882, a: 1}
+    - _FoamColor: {r: 0.3803922, g: 0.3882353, b: 0.3882353, a: 1}
+    - _FogColor: {r: 1, g: 1, b: 1, a: 1}
+    - _MainColor: {r: 0.145098, g: 0.1568628, b: 0.4627451, a: 1}
+    - _SpecularColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
