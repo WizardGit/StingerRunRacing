@@ -106,11 +106,24 @@ public class LeaderboardSave
             FileStream file = File.Open(dataFile, FileMode.Open);
             LeaderboardSave ledsave = (LeaderboardSave)bf.Deserialize(file);
             file.Close();
-            ledBoard = ledsave.ledBoard;
-            Debug.Log("Loaded User!");
+            try
+            {
+
+                ledBoard = ledsave.ledBoard;
+                Debug.Log("Loaded User!");
+            }
+            catch
+            {
+                DeleteUser();
+                ResetLeaderboard();
+            }
         }
         else
             Debug.Log("No file for this user!");
+    }
+    public void DeleteUser()
+    {
+        File.Delete(dataFile);
     }
 
     public void ResetLeaderboard()

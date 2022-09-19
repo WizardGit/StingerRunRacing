@@ -15,7 +15,7 @@ public class UserSave
 {
     public int coins = 0;
     public int gems = 0;
-    public bool achievementSheep = false;
+    public int numSheep = 0;
 
     public List<Dragon> dragons;
     public List<int> quests;
@@ -87,15 +87,25 @@ public class UserSave
             FileStream file = File.Open(dataFile, FileMode.Open);
             UserSave user = (UserSave)bf.Deserialize(file);
             file.Close();
-            
-            coins = user.coins;
-            gems = user.gems;
-            achievementSheep = user.achievementSheep;
-            levelTimes = user.levelTimes;
-            dragons = user.dragons;
-            quests = user.quests;
-            gemsList = user.gemsList;
-            username = user.username;
+            try
+            {
+                coins = user.coins;
+                gems = user.gems;
+                numSheep = user.numSheep;
+                levelTimes = user.levelTimes;
+                dragons = user.dragons;
+                quests = user.quests;
+                gemsList = user.gemsList;
+                username = user.username;
+            }
+            catch
+            {
+                DeleteUser();
+                CreateUser();
+                coins = 400;
+                gems = 40;
+                SaveUser();
+            }          
         }
         else
             Debug.Log("No file for this user!");

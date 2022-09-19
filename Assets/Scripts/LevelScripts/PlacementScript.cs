@@ -26,11 +26,14 @@ public class PlacementScript : MonoBehaviour
     private List<int> stuff = new List<int>();
     
     private float time = 0.0f;
-    private float startTime = 3.0f;
+    public float startTime = 5.0f;
     public TextMeshProUGUI timeText;
     public GameObject pauseMenu;
     public GameObject ledBoard;
     private SaveGame theSave;
+    public GameObject cntDwnImg;
+    public AudioSource num;
+    public AudioSource go;
 
     private void Start()
     {
@@ -60,6 +63,44 @@ public class PlacementScript : MonoBehaviour
         if (startTime > 0)
         {
             startTime -= Time.deltaTime;
+            if (startTime < 3)
+            {
+                if (startTime > 2)
+                {
+                    if (cntDwnImg.transform.GetChild(0).transform.gameObject.activeSelf == false)
+                    {
+                        cntDwnImg.transform.GetChild(0).transform.gameObject.SetActive(true);
+                        num.Play();
+                    }
+                }
+                else if (startTime > 1)
+                {
+                    if (cntDwnImg.transform.GetChild(1).transform.gameObject.activeSelf == false)
+                    {
+                        cntDwnImg.transform.GetChild(0).transform.gameObject.SetActive(false);
+                        cntDwnImg.transform.GetChild(1).transform.gameObject.SetActive(true);
+                        num.Play();
+                    }
+                }
+                else if (startTime > 0)
+                {
+                    if (cntDwnImg.transform.GetChild(2).transform.gameObject.activeSelf == false)
+                    {
+                        cntDwnImg.transform.GetChild(1).transform.gameObject.SetActive(false);
+                        cntDwnImg.transform.GetChild(2).transform.gameObject.SetActive(true);
+                        num.Play();
+                    }
+                }
+                else if (startTime <= 0)
+                {
+                    if (cntDwnImg.transform.GetChild(3).transform.gameObject.activeSelf == false)
+                    {
+                        cntDwnImg.transform.GetChild(2).transform.gameObject.SetActive(false);
+                        cntDwnImg.transform.GetChild(3).transform.gameObject.SetActive(true);
+                        go.Play();
+                    }
+                }
+            }           
         }
         if (startTime <= 0)
         {
@@ -69,7 +110,9 @@ public class PlacementScript : MonoBehaviour
                 float minutes = MathF.Truncate(time / 60);
                 float seconds = MathF.Round(time - (minutes * 60), 2);
                 timeText.text = "Time: " + minutes + ":" + seconds;
-            }           
+            }
+            if (time > 3)
+                cntDwnImg.transform.GetChild(3).transform.gameObject.SetActive(false);
         }
 
         if ((player.checkpointsReached == (checkpoints.transform.childCount + 1)) && (stuff[0] != 1))

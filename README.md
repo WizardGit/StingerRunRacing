@@ -23,7 +23,6 @@ add wanderin speedstinger pack to freeroam or part of quest?
 put targets on npc dragons and have dragon fireballs hit other npc racers
 button to turn on target's target if within range - and button to fire
 fireball frenzy with admin heads on targets
-display big countdown numbers
 slowdown dragons in water
 add human class
 Add purposes and comments to scripts
@@ -36,5 +35,5 @@ add multiple laps
 on level 2 have swinging gate that opens when players should go to finish
 add bonus level only accessible on far away part of level one (users must go exploring!)
 Add heather on warlord island
-hidden sheep collectibles on all levels
-try and catch block for bad save files so that they can be reset.
+add more hidden sheep collectibles on all levels
+add purpose for collecting sheep (maybe achievement?)

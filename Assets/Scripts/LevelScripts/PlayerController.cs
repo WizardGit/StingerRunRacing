@@ -17,7 +17,6 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     // Variables for keeping the time
-    private float countdown = 0.0f;
     private float boostTimer = 0.0f;
     public float boostTimeLength = 10f;
     public List<Material> materials;
@@ -25,7 +24,6 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI speedText;
     // Dictates if the player is allowed to move
     private bool isPause = false;
-    private bool isStart = true;
     // Dictates if the player is on the Terrain
     private bool onTerrain = true;
     // Dictates how many checkpoints there are
@@ -81,6 +79,8 @@ public class PlayerController : MonoBehaviour
     private float maxDistCast = 0.1f;
     private float radius = 0.2f;
 
+    private PlacementScript placScript;
+
     void Start()
     {
         numCheckpoints = checkpoints.transform.childCount;
@@ -113,6 +113,7 @@ public class PlayerController : MonoBehaviour
 
         //timeText.text = "Time: 0";
         speedText.text = "0 mph";
+        messageText.text = "";
         resetPos = transform.position;       
 
         playerRotationSpeed = theSave.userSave.dragons[modelToUse].GetTurnSpeed();
@@ -124,6 +125,8 @@ public class PlayerController : MonoBehaviour
         playerAcceleration = theSave.userSave.dragons[modelToUse].GetAccelForce();
 
         speedBar.fillAmount = 0f;
+
+        placScript = GameObject.Find("Placement").GetComponent<PlacementScript>();
     }    
 
     private void FixedUpdate()
@@ -148,22 +151,9 @@ public class PlayerController : MonoBehaviour
             messageText.text = "";
         }
 
-        if (isStart == true)
-        {
-            countdown += Time.deltaTime;
-            messageText.text = (3-MathF.Truncate(countdown)).ToString();
-            if (countdown >= 3f)
-            {
-                isStart = false;
-                messageText.text = "<size=200%> GO!";
-            }            
-        }
-        else if (isPause == false)
+        if ((placScript.startTime <= 0) && (isPause == false))
         {           
             Move();
-
-            if ((messageText.text == "<size=200%> GO!") && (time > 3))
-                messageText.text = "";
         }  
     }
 
@@ -190,22 +180,34 @@ public class PlayerController : MonoBehaviour
         {
             // Check our player speed to see if we can add on more
             if ((playerSpeed + (playerAcceleration * Time.deltaTime)) > playerMaxSpeed)
+            {
                 playerSpeed = playerMaxSpeed;
+                cf.GetComponent<CameraFollow>().isShake = false;
+            }                
             else
+            {
                 playerSpeed += playerAcceleration * Time.deltaTime;
+                cf.GetComponent<CameraFollow>().isShake = true;
+            }                
 
             // If our boost time is done, reset our max speed
             if (((time - boostTimer) > boostTimeLength) && (boostTimer > 0))
             {
                 boostTimer = 0;
                 playerMaxSpeed = playerMaxSpeed / speedBoostMultiplier;
+                cf.GetComponent<CameraFollow>().isShake = false;
             }                
         }
         else if ((Mathf.Approximately(movementY, 0f) && (playerSpeed > 0)) || (playerSpeed > playerMaxSpeed))
         {
+            cf.GetComponent<CameraFollow>().isShake = false;
             playerSpeed -= (playerAcceleration*2) * Time.deltaTime;
             if (playerSpeed < 0)
                 playerSpeed = 0;
+        }
+        else
+        {
+            cf.GetComponent<CameraFollow>().isShake = false;
         }
 
         speedBar.fillAmount = playerSpeed/playerMaxSpeed;
@@ -243,6 +245,11 @@ public class PlayerController : MonoBehaviour
             boostTimer = time;
             playerMaxSpeed = playerMaxSpeed * speedBoostMultiplier;
             audioRoar.Play();
+        }
+        else if (other.gameObject.CompareTag("Sheep"))
+        {
+            other.gameObject.SetActive(false);
+            theSave.userSave.numSheep += 1;
         }
         else if ((other.gameObject.CompareTag("Finish")) && (checkpointsReached == numCheckpoints))
         {
@@ -311,14 +318,18 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(resetPos);
     }
     private void OnLookAt()
-    {       
-        cf.lookAt = !cf.lookAt;
+    {
+       if (placScript.startTime <= 0)
+            cf.lookAt = !cf.lookAt;
     }
     private void OnFrontView()
     {
-        // If we're looking at the object, we need to get in front of it (so we'll reverse our z offset
-        cf.lookForward = !cf.lookForward;
-        cf.offsetPosition.z = cf.offsetPosition.z * -1.0f;
+        if (placScript.startTime <= 0)
+        {
+            // If we're looking at the object, we need to get in front of it (so we'll reverse our z offset
+            cf.lookForward = !cf.lookForward;
+            cf.offsetPosition.z = cf.offsetPosition.z * -1.0f;
+        }        
     }
     private void OnPause()
     {
