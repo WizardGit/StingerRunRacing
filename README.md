@@ -31,9 +31,10 @@ button click noises
 add waterfalls
 add trr fortune falls track
 add forbidden ice track
-add multiple laps
 on level 2 have swinging gate that opens when players should go to finish
 add bonus level only accessible on far away part of level one (users must go exploring!)
 Add heather on warlord island
 add more hidden sheep collectibles on all levels
 add purpose for collecting sheep (maybe achievement?)
+add multiple laps - debug changes
+split scripts into smaller more centralized ones

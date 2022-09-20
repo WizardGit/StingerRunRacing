@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/22/2022
+ * Last Modified: 9/19/2022
  * The Arrow pointing angle code is something I am VERY proud of.
  * Took forever to do!
  */
@@ -26,57 +26,21 @@ public class CheckpointsScript : MonoBehaviour
     private int currentCheckpointIndex = 0;   
     
     private AudioSource audioBleep;
+    private SaveGame theSave;
+
+    public int numLaps = 1;
+    public int onLap = 1;
 
     // Start is called before the first frame update
     void Start()
     {
         audioBleep = gameObject.GetComponent<AudioSource>();
 
-        targets = new List<GameObject>();
-        minimapTargets = new List<GameObject>();
-
-        for (int i = 0; i < gameObject.transform.childCount; i++)
-        {
-            GameObject ring = gameObject.transform.GetChild(i).gameObject;
-            for (int j = 0; j < ring.transform.childCount; j++)
-            {
-                if (ring.transform.GetChild(j).gameObject.name == "GlowingRingTarget")
-                {
-                    targets.Add(ring.transform.GetChild(j).gameObject);
-                }
-                else if (ring.transform.GetChild(j).gameObject.name == "Cube")
-                {
-                    minimapTargets.Add(ring.transform.GetChild(j).gameObject);
-                }
-            }
-        }
-        foreach (GameObject target in targets)
-        {
-            target.GetComponent<MeshRenderer>().material.color = Color.red;
-        }
-        foreach (GameObject minimapTarget in minimapTargets)
-        {
-            minimapTarget.GetComponent<MeshRenderer>().material.color = Color.red;
-        }
-        targets[0].GetComponent<MeshRenderer>().material.color = Color.green;
-        minimapTargets[0].GetComponent<MeshRenderer>().material.color = Color.green;
-        targets.Add(invisibleFinishLineTrigger);
+        ResetCheckpoints();
 
         // Get our player!
-        UserSave usersave = new UserSave(NameTransfer.theName);
-        for (int i = 0; i < usersave.dragons.Count; i++)
-        {
-            if (usersave.dragons[i].GetUse() == "Using")
-            {
-                for (int j = 0; j < models.transform.childCount; j++)
-                {
-                    if (j == i)
-                    {
-                        player = models.transform.GetChild(j).gameObject;
-                    }
-                }
-            }
-        }        
+        theSave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
+        player = models.transform.GetChild(theSave.userSave.IndexOfDragonInUse()).gameObject;
     }
 
     // Update is called once per frame
@@ -126,9 +90,46 @@ public class CheckpointsScript : MonoBehaviour
                 else if (currentCheckpointIndex >= targets.Count)
                 {
                     // We are done with the race
-                    currentCheckpointIndex = 0;
+                    onLap++;
+                    if (onLap <= numLaps)
+                        ResetCheckpoints();
+                    else
+                        currentCheckpointIndex = 0;
                 }
             }
         }
+    }
+
+    void ResetCheckpoints()
+    {
+        targets = new List<GameObject>();
+        minimapTargets = new List<GameObject>();
+
+        for (int i = 0; i < gameObject.transform.childCount; i++)
+        {
+            GameObject ring = gameObject.transform.GetChild(i).gameObject;
+            for (int j = 0; j < ring.transform.childCount; j++)
+            {
+                if (ring.transform.GetChild(j).gameObject.name == "GlowingRingTarget")
+                {
+                    targets.Add(ring.transform.GetChild(j).gameObject);
+                }
+                else if (ring.transform.GetChild(j).gameObject.name == "Cube")
+                {
+                    minimapTargets.Add(ring.transform.GetChild(j).gameObject);
+                }
+            }
+        }
+        foreach (GameObject target in targets)
+        {
+            target.GetComponent<MeshRenderer>().material.color = Color.red;
+        }
+        foreach (GameObject minimapTarget in minimapTargets)
+        {
+            minimapTarget.GetComponent<MeshRenderer>().material.color = Color.red;
+        }
+        targets[0].GetComponent<MeshRenderer>().material.color = Color.green;
+        minimapTargets[0].GetComponent<MeshRenderer>().material.color = Color.green;
+        targets.Add(invisibleFinishLineTrigger);
     }
 }

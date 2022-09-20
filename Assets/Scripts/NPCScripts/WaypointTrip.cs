@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 7/14/2022
+ * Last Modified: 9/19/2022
  */
 
 using System;
@@ -23,13 +23,15 @@ public class WaypointTrip : MonoBehaviour
 
     // Variables needed just for the script
     private Animation animator;
-    private bool start = false;
+    [HideInInspector] public bool start = false;
     private int m_CurrentWaypointIndex = 0;
     private NavMeshPath path;
 
     // Public game objects that inspector should ignore
     private float time = 0.0f;
     [HideInInspector] public string username;
+    public int numLaps = 1;
+    public int onLap = 1;
     [HideInInspector] public int checkpointsReached = 0;
     [HideInInspector] public float disToCheckpoint = 0.0f;
 
@@ -69,11 +71,8 @@ public class WaypointTrip : MonoBehaviour
         }
         else if (navMeshAgent.isStopped == true)
         {
-            if ((time >= 3.0f) && (start == false))
-            {
-                start = true;
+            if (start == true)
                 navMeshAgent.isStopped = false;
-            }
         }        
     }
 
@@ -83,9 +82,9 @@ public class WaypointTrip : MonoBehaviour
         {
             if (m_CurrentWaypointIndex == waypoints.transform.childCount-1)
             {
-                
-
-                navMeshAgent.isStopped = true;
+                onLap++;
+                if (onLap > numLaps)
+                    navMeshAgent.isStopped = true;
             }
             m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.transform.childCount;
             navMeshAgent.SetPath(path);
@@ -100,19 +99,18 @@ public class WaypointTrip : MonoBehaviour
 
     private void CalcNextCheckpoint()
     {
-
-        if (checkpointsReached == checkpoints.transform.childCount)
+        if ((checkpointsReached / onLap) == checkpoints.transform.childCount)
         {
             Vector3 disVec = finishLine.transform.GetChild(3).gameObject.transform.position - gameObject.transform.position;
             disToCheckpoint = MathF.Abs(disVec.x) + MathF.Abs(disVec.y) + MathF.Abs(disVec.z);
         }
-        else if (checkpointsReached < checkpoints.transform.childCount)
+        else if (checkpointsReached < (checkpoints.transform.childCount * numLaps))
         {
             Vector3 disVec = checkpoints.transform.GetChild(checkpointsReached).transform.position - gameObject.transform.position;
             disToCheckpoint = MathF.Abs(disVec.x) + MathF.Abs(disVec.y) + MathF.Abs(disVec.z);
         }           
 
-        if ((checkpointsReached <= checkpoints.transform.childCount) && (disToCheckpoint < 12))
+        if ((checkpointsReached <= (checkpoints.transform.childCount * numLaps)) && (disToCheckpoint < 12))
             checkpointsReached++;
     }    
 }

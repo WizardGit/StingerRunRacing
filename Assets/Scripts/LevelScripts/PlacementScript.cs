@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/13/2022
+ * Last Modified: 9/19/2022
  */
 
 using System;
@@ -34,6 +34,8 @@ public class PlacementScript : MonoBehaviour
     public GameObject cntDwnImg;
     public AudioSource num;
     public AudioSource go;
+    public int numLaps = 1;
+    public int onLap = 1;
 
     private void Start()
     {
@@ -42,11 +44,8 @@ public class PlacementScript : MonoBehaviour
 
         ledBoard.SetActive(false);
         // Get our target
-        for (int i = 0; i < theSave.userSave.dragons.Count; i++)
-        {
-            if (theSave.userSave.dragons[i].GetUse() == "Using")
-                player = dragonPlayers.transform.GetChild(i).gameObject.GetComponent<PlayerController>();
-        }
+        player = dragonPlayers.transform.GetChild(theSave.userSave.IndexOfDragonInUse()).gameObject.GetComponent<PlayerController>();
+
         for (int i = 0; i < npcRacers.transform.childCount; i++)
         {
             stuff.Add(0);
@@ -98,6 +97,12 @@ public class PlacementScript : MonoBehaviour
                         cntDwnImg.transform.GetChild(2).transform.gameObject.SetActive(false);
                         cntDwnImg.transform.GetChild(3).transform.gameObject.SetActive(true);
                         go.Play();
+
+                        for (int i = 0; i < npcRacers.transform.childCount; i++)
+                        {
+                            WaypointTrip racer = npcRacers.transform.GetChild(i).gameObject.GetComponent<WaypointTrip>();
+                            racer.start = true;
+                        }
                     }
                 }
             }           
@@ -115,7 +120,7 @@ public class PlacementScript : MonoBehaviour
                 cntDwnImg.transform.GetChild(3).transform.gameObject.SetActive(false);
         }
 
-        if ((player.checkpointsReached == (checkpoints.transform.childCount + 1)) && (stuff[0] != 1))
+        if ((player.checkpointsReached == ((checkpoints.transform.childCount + 1)*numLaps)) && (stuff[0] != 1))
         {   
             float theTheTime = time;
             FinishPlayer(theTheTime);
@@ -136,7 +141,7 @@ public class PlacementScript : MonoBehaviour
             {
                 WaypointTrip racer = npcRacers.transform.GetChild(i).gameObject.GetComponent<WaypointTrip>();
 
-                if ((racer.checkpointsReached == (checkpoints.transform.childCount + 1)) && (stuff[i + 1] != 1))
+                if ((racer.checkpointsReached == ((checkpoints.transform.childCount + 1) * numLaps)) && (stuff[i + 1] != 1))
                 {
                     FinishNPC(time, racer.username);
                     raceBoard.text += "\n" + (rankCounter++).ToString() + ". " + racer.username + ": " + MathF.Round(time, 3).ToString();
