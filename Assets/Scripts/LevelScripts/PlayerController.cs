@@ -25,16 +25,17 @@ public class PlayerController : MonoBehaviour
     // Dictates if the player is allowed to move
     private bool isPause = false;
     // Dictates if the player is on the Terrain
-    private bool onTerrain = true;
-    // Dictates how many checkpoints there are
-    private int numCheckpoints;
+    private bool onTerrain = true;    
 
     // Dictates the name of the player
     [HideInInspector] public string username;
     private float time = 0.0f;
     // Dictates how many checkpoints the user has hit
     [HideInInspector] public int checkpointsReached = 0;
+    [HideInInspector] public int lapsCompleted = 0;
     [HideInInspector] public float disToCheckpoint = 0.0f;
+    // Dictates how many checkpoints there are
+    private int numCheckpoints;
     public GameObject checkpoints;
     public TextMeshProUGUI distanceText;
     public GameObject finishLine;
@@ -80,6 +81,7 @@ public class PlayerController : MonoBehaviour
     private float radius = 0.2f;
 
     private PlacementScript placScript;
+    private CheckpointsScript checkpointScript;
 
     void Start()
     {
@@ -127,12 +129,12 @@ public class PlayerController : MonoBehaviour
         speedBar.fillAmount = 0f;
 
         placScript = GameObject.Find("Placement").GetComponent<PlacementScript>();
+        checkpointScript = GameObject.Find("Checkpoints").GetComponent<CheckpointsScript>();
     }    
 
     private void FixedUpdate()
     {
         time += Time.deltaTime;
-        CalcNextCheckpoint();
         // This code is vital for keeping the dragon rotated with the terrain
         RaycastHit hit;        
         Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1f);
@@ -154,7 +156,10 @@ public class PlayerController : MonoBehaviour
         if ((placScript.startTime <= 0) && (isPause == false))
         {           
             Move();
-        }  
+            // Don't bother calculating next checkpoint, if we aren't moving, there is nothing to calculate!
+            if (playerSpeed > 0)
+                CalcNextCheckpoint();
+        }
     }
 
     private void Move()
@@ -230,13 +235,13 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if ((other.gameObject.CompareTag("RingTarget")) && (other.gameObject.GetComponent<MeshRenderer>().material.color == Color.green))
+        if (other.gameObject.CompareTag("RingTarget"))
         {
             // Set our reset position to this newest checkpoint
             resetPos = other.gameObject.transform.position;
-            // Get rid of the target
-            other.gameObject.SetActive(false);
-            checkpointsReached++;            
+            // Notify checkpoint script that we hit it! (Make sure to give it the INDEX of the checkpoint
+            if (checkpointScript.HitCheckpoint(checkpointsReached % (numCheckpoints * (lapsCompleted + 1))) == true)
+                checkpointsReached++;
         }
         else if (other.gameObject.CompareTag("FlyingBox"))
         {
@@ -251,16 +256,21 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
             theSave.userSave.numSheep += 1;
         }
-        else if ((other.gameObject.CompareTag("Finish")) && (checkpointsReached == numCheckpoints))
+        else if (other.gameObject.CompareTag("Finish"))
         {
-            resetPos = transform.position;
-            checkpointsReached++;
-            isPause = true;
+            resetPos = other.gameObject.transform.position;
+            if (checkpointScript.HitCheckpoint(checkpointsReached % (numCheckpoints * (lapsCompleted + 1))) == true)
+            {
+                Debug.Log("We hit finish trigger!");
+                checkpointsReached++;
+                lapsCompleted++;
+            }           
+
+            /*isPause = true;
             animator.Play(animationIdle);
             messageText.text = "";      
-            other.gameObject.SetActive(false);
             speedText.text = "0 mph";
-            speedBar.fillAmount = 0;            
+            speedBar.fillAmount = 0;*/
         }
         else if (other.gameObject.CompareTag("CatapultArm"))
         {
@@ -362,27 +372,28 @@ public class PlayerController : MonoBehaviour
 
     private void CalcNextCheckpoint()
     {
-        if ((finishLine.transform.GetChild(3).gameObject.activeSelf == true) && (checkpointsReached == numCheckpoints))
-        {
-            Vector3 disVec = finishLine.transform.GetChild(3).transform.position - gameObject.transform.position;
-            disToCheckpoint = MathF.Abs(disVec.x) + MathF.Abs(disVec.y) + MathF.Abs(disVec.z);
-            distanceText.text = "Next: " + MathF.Round(disToCheckpoint, 2).ToString();
-        }
-        else if ((finishLine.transform.GetChild(3).gameObject.activeSelf == false))
+        if ((finishLine.transform.GetChild(3).gameObject.activeSelf == false))
         {
             distanceText.text = "Next: 0";
         }
         else
         {
-            for (int i = 0; i < checkpoints.transform.childCount; i++)
+            Transform cp = checkpoints.transform.GetChild(checkpointsReached % (numCheckpoints*(lapsCompleted+1))).transform;
+            if (checkpointsReached > checkpoints.transform.childCount)
             {
-                if (checkpoints.transform.GetChild(i).transform.GetChild(4).GetComponent<MeshRenderer>().material.color == Color.green)
-                {
-                    Vector3 disVec = checkpoints.transform.GetChild(i).transform.position - gameObject.transform.position;
-                    disToCheckpoint = MathF.Abs(disVec.x) + MathF.Abs(disVec.y) + MathF.Abs(disVec.z);
-                    distanceText.text = "Next: " + MathF.Round(disToCheckpoint, 2).ToString();
-                }
+                Debug.Log("Player Controller - laps were not updated for CalcNextcheckpoint!");
             }
+            if ((cp.gameObject.tag == "Checkpoint") || (cp.gameObject.tag == "FinishLine"))
+            {
+                Vector3 disVec = cp.position - gameObject.transform.position;
+                disToCheckpoint = MathF.Abs(disVec.x) + MathF.Abs(disVec.y) + MathF.Abs(disVec.z);
+                distanceText.text = "Next: " + MathF.Round(disToCheckpoint, 2).ToString();
+            }
+            else
+            {
+                Debug.Log("PlayerController - Checkpoint Fail!");
+            }
+            // (checkpoints.transform.GetChild(checkpointsReached % (lapsCompleted + 1)).transform.GetChild(4).GetComponent<MeshRenderer>().material.color == Color.green
         }
     }
 }

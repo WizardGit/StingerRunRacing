@@ -36,5 +36,5 @@ add bonus level only accessible on far away part of level one (users must go exp
 Add heather on warlord island
 add more hidden sheep collectibles on all levels
 add purpose for collecting sheep (maybe achievement?)
-add multiple laps - debug changes
 split scripts into smaller more centralized ones
+add multiple laps - game is broken - debug changes - you need to fix placement script and add condition for race ending!

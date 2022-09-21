@@ -1,5 +1,5 @@
 /* Created by Kaiser Slocum
- * Last Edited on 6/1/2022 by Kaiser Slocum
+ * Last Edited on 9/20/2022 by Kaiser Slocum
  * Purpose: To constantly modify the camera's positioning on the object
  */
 
