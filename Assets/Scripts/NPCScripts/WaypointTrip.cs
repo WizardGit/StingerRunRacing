@@ -1,6 +1,7 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/19/2022
+ * Last Modified: 9/23/2022
+ * Script for NPC's
  */
 
 using System;
@@ -8,8 +9,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using TMPro;
-using UnityEngine.SceneManagement;
 
 public class WaypointTrip : MonoBehaviour
 {
@@ -18,38 +17,35 @@ public class WaypointTrip : MonoBehaviour
     public GameObject waypoints;    
     public AudioSource audioFootsteps;
     public GameObject checkpoints;
-    public GameObject finishLine;
-    public GameObject ledBoard;
 
     // Variables needed just for the script
     private Animation animator;
-    [HideInInspector] public bool start = false;
-    private int m_CurrentWaypointIndex = 0;
+    [HideInInspector] public bool doStop = true;
+    private int curWaypointIndex = 0;
     private NavMeshPath path;
 
     // Public game objects that inspector should ignore
-    private float time = 0.0f;
-    [HideInInspector] public string username;
-    public int numLaps = 1;
-    public int onLap = 1;
+    [HideInInspector] public int lapsCompleted = 0;
     [HideInInspector] public int checkpointsReached = 0;
     [HideInInspector] public float disToCheckpoint = 0.0f;
+    private PlacementScript placScript;
+    private int numCheckpoints;
+    public string npcName;
 
     void Start()
     {
         path = new NavMeshPath();
         animator = GetComponent<Animation>();
-        navMeshAgent.SetDestination(waypoints.transform.GetChild(m_CurrentWaypointIndex).transform.position);
+        navMeshAgent.SetDestination(waypoints.transform.GetChild(curWaypointIndex).transform.position);
         navMeshAgent.isStopped = true;
-        username = gameObject.name;
+        npcName = gameObject.name;
+
+        placScript = GameObject.Find("Placement").GetComponent<PlacementScript>();
+        numCheckpoints = checkpoints.transform.childCount;
     }
 
     void FixedUpdate()
     {
-        if (m_CurrentWaypointIndex < waypoints.transform.childCount - 1)
-        {
-            time += Time.deltaTime;
-        }
         CalcNextCheckpoint();
 
         if ((navMeshAgent.velocity.x != 0) && (navMeshAgent.isStopped == false))
@@ -65,52 +61,53 @@ public class WaypointTrip : MonoBehaviour
                 audioFootsteps.Pause();
         }
 
-        if (navMeshAgent.isStopped == false)
+        if (doStop == false)
         {
+            if (navMeshAgent.isStopped == true)
+                navMeshAgent.isStopped = false;
             Move();            
         }
-        else if (navMeshAgent.isStopped == true)
-        {
-            if (start == true)
-                navMeshAgent.isStopped = false;
-        }        
+        else if ((doStop == true) && (navMeshAgent.isStopped == false))
+            navMeshAgent.isStopped = true;
     }
 
     void Move()
     {
         if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance)
-        {
-            if (m_CurrentWaypointIndex == waypoints.transform.childCount-1)
-            {
-                onLap++;
-                if (onLap > numLaps)
-                    navMeshAgent.isStopped = true;
-            }
-            m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.transform.childCount;
+        {            
+            curWaypointIndex = (curWaypointIndex + 1) % waypoints.transform.childCount;
             navMeshAgent.SetPath(path);
         }
 
         // Calculate the path well ahead of time!
         if (navMeshAgent.remainingDistance < 20)
         {
-            navMeshAgent.CalculatePath(waypoints.transform.GetChild((m_CurrentWaypointIndex + 1) % waypoints.transform.childCount).transform.position, path);            
+            navMeshAgent.CalculatePath(waypoints.transform.GetChild((curWaypointIndex + 1) % waypoints.transform.childCount).transform.position, path);            
         }
     }
 
     private void CalcNextCheckpoint()
-    {
-        if ((checkpointsReached / onLap) == checkpoints.transform.childCount)
-        {
-            Vector3 disVec = finishLine.transform.GetChild(3).gameObject.transform.position - gameObject.transform.position;
-            disToCheckpoint = MathF.Abs(disVec.x) + MathF.Abs(disVec.y) + MathF.Abs(disVec.z);
-        }
-        else if (checkpointsReached < (checkpoints.transform.childCount * numLaps))
-        {
-            Vector3 disVec = checkpoints.transform.GetChild(checkpointsReached).transform.position - gameObject.transform.position;
-            disToCheckpoint = MathF.Abs(disVec.x) + MathF.Abs(disVec.y) + MathF.Abs(disVec.z);
-        }           
+    {        
+        Transform cp = checkpoints.transform.GetChild(checkpointsReached - (numCheckpoints * lapsCompleted)).transform;
+        Vector3 disVec = cp.position - gameObject.transform.position;
+        disToCheckpoint = MathF.Abs(disVec.x) + MathF.Abs(disVec.z);
+    }
 
-        if ((checkpointsReached <= (checkpoints.transform.childCount * numLaps)) && (disToCheckpoint < 12))
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("RingTarget") && (other.gameObject.transform.parent.transform.GetSiblingIndex() == (checkpointsReached - (numCheckpoints * lapsCompleted))))
+        {            
             checkpointsReached++;
-    }    
+        }        
+        else if (other.gameObject.CompareTag("Finish") && (other.gameObject.transform.parent.transform.GetSiblingIndex() == (checkpointsReached - (numCheckpoints * lapsCompleted))))
+        {
+            checkpointsReached++;
+            if (checkpointsReached == (numCheckpoints * (lapsCompleted + 1)))
+            {
+                lapsCompleted++;
+                if (lapsCompleted == placScript.numLaps)
+                    navMeshAgent.isStopped = true;
+            }
+        }
+    }
 }

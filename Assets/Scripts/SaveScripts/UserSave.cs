@@ -145,4 +145,14 @@ public class UserSave
         }
         SaveUser();
     }
+
+    public bool SaveTimeToLevel(float time, int level)
+    {
+        if ((time < levelTimes[level- 1]) || (levelTimes[level - 1] < 0))
+        {
+            levelTimes[level - 1] = time;
+            return true;
+        }
+        return false;
+    }
 }

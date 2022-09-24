@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/20/2022
+ * Last Modified: 9/23/2022
  * The Arrow pointing angle code is something I am VERY proud of.
  * Took forever to do!
  */
@@ -33,7 +33,7 @@ public class ArrowScript : MonoBehaviour
     void FixedUpdate()
     {
         // DisVec represents the vector between the player and the next checkpoint
-        Vector3 disVec = checkpoints.transform.GetChild(playerScript.checkpointsReached % (numCheckpoints * (playerScript.lapsCompleted + 1))).transform.position - player.transform.position;
+        Vector3 disVec = checkpoints.transform.GetChild(playerScript.checkpointsReached - (numCheckpoints * playerScript.lapsCompleted)).transform.position - player.transform.position;
         // Look angle will represent the angle that our arrow needs to point to from our objective straight world line
         Vector3 lookAngleVec = Quaternion.LookRotation(disVec).eulerAngles;
         float c = -lookAngleVec.z;

@@ -1,17 +1,14 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/19/2022
+ * Last Modified: 9/23/2022
  */
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class PlacementScript : MonoBehaviour
 {
@@ -23,7 +20,7 @@ public class PlacementScript : MonoBehaviour
     public TextMeshProUGUI coinsWin;
     private int rankCounter = 1;
     public GameObject checkpoints;
-    private List<int> stuff = new List<int>();
+    private List<int> playerFinished = new List<int>();
     
     private float time = 0.0f;
     public float startTime = 5.0f;
@@ -35,7 +32,6 @@ public class PlacementScript : MonoBehaviour
     public AudioSource num;
     public AudioSource go;
     public int numLaps = 1;
-    public int onLap = 1;
 
     private void Start()
     {
@@ -46,94 +42,52 @@ public class PlacementScript : MonoBehaviour
         // Get our target
         player = dragonPlayers.transform.GetChild(theSave.userSave.IndexOfDragonInUse()).gameObject.GetComponent<PlayerController>();
 
-        for (int i = 0; i < npcRacers.transform.childCount; i++)
+        // We're doing <= because we need to add one for the player
+        for (int i = 0; i <= npcRacers.transform.childCount; i++)
         {
-            stuff.Add(0);
+            playerFinished.Add(0);
         }
-        stuff.Add(0);
         raceBoard.text = "";
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        int placement = 1;
+        // Every frame we update the placement value
+        int placement = 1;        
 
         if (startTime > 0)
         {
             startTime -= Time.deltaTime;
-            if (startTime < 3)
-            {
-                if (startTime > 2)
-                {
-                    if (cntDwnImg.transform.GetChild(0).transform.gameObject.activeSelf == false)
-                    {
-                        cntDwnImg.transform.GetChild(0).transform.gameObject.SetActive(true);
-                        num.Play();
-                    }
-                }
-                else if (startTime > 1)
-                {
-                    if (cntDwnImg.transform.GetChild(1).transform.gameObject.activeSelf == false)
-                    {
-                        cntDwnImg.transform.GetChild(0).transform.gameObject.SetActive(false);
-                        cntDwnImg.transform.GetChild(1).transform.gameObject.SetActive(true);
-                        num.Play();
-                    }
-                }
-                else if (startTime > 0)
-                {
-                    if (cntDwnImg.transform.GetChild(2).transform.gameObject.activeSelf == false)
-                    {
-                        cntDwnImg.transform.GetChild(1).transform.gameObject.SetActive(false);
-                        cntDwnImg.transform.GetChild(2).transform.gameObject.SetActive(true);
-                        num.Play();
-                    }
-                }
-                else if (startTime <= 0)
-                {
-                    if (cntDwnImg.transform.GetChild(3).transform.gameObject.activeSelf == false)
-                    {
-                        cntDwnImg.transform.GetChild(2).transform.gameObject.SetActive(false);
-                        cntDwnImg.transform.GetChild(3).transform.gameObject.SetActive(true);
-                        go.Play();
-
-                        for (int i = 0; i < npcRacers.transform.childCount; i++)
-                        {
-                            WaypointTrip racer = npcRacers.transform.GetChild(i).gameObject.GetComponent<WaypointTrip>();
-                            racer.start = true;
-                        }
-                    }
-                }
-            }           
+            OpeningSequence();
         }
-        if (startTime <= 0)
+        else //(startTime <= 0)
         {
             time += Time.deltaTime;
-            if (stuff[0] != 1)
+            if (playerFinished[0] != 1)
             {
                 float minutes = MathF.Truncate(time / 60);
                 float seconds = MathF.Round(time - (minutes * 60), 2);
                 timeText.text = "Time: " + minutes + ":" + seconds;
             }
+            // If it's been three seconds, stop showing "GO"
             if (time > 3)
                 cntDwnImg.transform.GetChild(3).transform.gameObject.SetActive(false);
         }
 
-        if ((player.checkpointsReached == ((checkpoints.transform.childCount + 1)*numLaps)) && (stuff[0] != 1))
-        {   
-            float theTheTime = time;
-            FinishPlayer(theTheTime);
-            raceBoard.text += "\n" + (rankCounter++).ToString() + ". " + player.username + ": " + MathF.Round(theTheTime, 3).ToString();
-            SaveGame usersave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
-
+        if ((player.lapsCompleted == numLaps) && (playerFinished[playerFinished.Count-1] != 1))
+        {
+            playerFinished[playerFinished.Count - 1] = 1;
             int numCoins = (npcRacers.transform.childCount + 3 - rankCounter) * 10;
-            usersave.userSave.coins += numCoins;
-            coinsWin.text = "You just won " + numCoins + " Coins!";
-
+            float theTheTime = time;
+            FinishPlayer(theTheTime);    
             
-            stuff[0] = 1;
+            SaveGame usersave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
+            usersave.userSave.coins += numCoins;
             usersave.userSave.SaveUser();
+
+            raceBoard.text += "\n" + (rankCounter++).ToString() + ". " + player.username + ": " + MathF.Round(theTheTime, 3).ToString();
+            coinsWin.text = "You just won " + numCoins + " Coins!";
         }
         else
         {
@@ -141,11 +95,12 @@ public class PlacementScript : MonoBehaviour
             {
                 WaypointTrip racer = npcRacers.transform.GetChild(i).gameObject.GetComponent<WaypointTrip>();
 
-                if ((racer.checkpointsReached == ((checkpoints.transform.childCount + 1) * numLaps)) && (stuff[i + 1] != 1))
+                if ((racer.lapsCompleted == numLaps) && (playerFinished[i] != 1))
                 {
-                    FinishNPC(time, racer.username);
-                    raceBoard.text += "\n" + (rankCounter++).ToString() + ". " + racer.username + ": " + MathF.Round(time, 3).ToString();
-                    stuff[i + 1] = 1;
+                    FinishNPC(time, racer.npcName);
+                    raceBoard.text += "\n" + (rankCounter++).ToString() + ". " + racer.npcName + ": " + MathF.Round(time, 3).ToString();
+                    playerFinished[i] = 1;
+                    racer.doStop = true;
                 }
 
                 if ((racer.checkpointsReached > player.checkpointsReached)
@@ -158,10 +113,9 @@ public class PlacementScript : MonoBehaviour
         gameObject.GetComponent<TextMeshProUGUI>().text = "Ranking: " + placement.ToString();
     }
 
-    void FinishPlayer(float localTime)
+    private void FinishPlayer(float localTime)
     {
-        if ((localTime < theSave.userSave.levelTimes[levelNum - 1]) || (theSave.userSave.levelTimes[levelNum - 1] < 0))
-            theSave.userSave.levelTimes[levelNum - 1] = localTime;
+        theSave.userSave.SaveTimeToLevel(localTime, levelNum);
 
         theSave.userSave.SaveUser();
         theSave.ledSave.SaveTime(levelNum, NameTransfer.theName, MathF.Round(localTime, 3));
@@ -169,10 +123,60 @@ public class PlacementScript : MonoBehaviour
         ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = theSave.ledSave.GetLeaderboard(levelNum);
 
         ledBoard.SetActive(true);
+        GameObject.Find("FinishLine").GetComponent<FireworkTrigger>().StartFireworks();
+
     }
-    void FinishNPC(float localTime, string racerUsername)
+    private void FinishNPC(float localTime, string racerUsername)
     {
         theSave.ledSave.SaveTime(levelNum, racerUsername, MathF.Round(localTime, 3));
         ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = theSave.ledSave.GetLeaderboard(levelNum);
+    }
+
+    private void OpeningSequence()
+    {
+        if (startTime < 3)
+        {
+            if (startTime > 2)
+            {
+                if (cntDwnImg.transform.GetChild(0).transform.gameObject.activeSelf == false)
+                {
+                    cntDwnImg.transform.GetChild(0).transform.gameObject.SetActive(true);
+                    num.Play();
+                }
+            }
+            else if (startTime > 1)
+            {
+                if (cntDwnImg.transform.GetChild(1).transform.gameObject.activeSelf == false)
+                {
+                    cntDwnImg.transform.GetChild(0).transform.gameObject.SetActive(false);
+                    cntDwnImg.transform.GetChild(1).transform.gameObject.SetActive(true);
+                    num.Play();
+                }
+            }
+            else if (startTime > 0)
+            {
+                if (cntDwnImg.transform.GetChild(2).transform.gameObject.activeSelf == false)
+                {
+                    cntDwnImg.transform.GetChild(1).transform.gameObject.SetActive(false);
+                    cntDwnImg.transform.GetChild(2).transform.gameObject.SetActive(true);
+                    num.Play();
+                }
+            }
+            else if (startTime <= 0)
+            {
+                if (cntDwnImg.transform.GetChild(3).transform.gameObject.activeSelf == false)
+                {
+                    cntDwnImg.transform.GetChild(2).transform.gameObject.SetActive(false);
+                    cntDwnImg.transform.GetChild(3).transform.gameObject.SetActive(true);
+                    go.Play();
+
+                    for (int i = 0; i < npcRacers.transform.childCount; i++)
+                    {
+                        WaypointTrip racer = npcRacers.transform.GetChild(i).gameObject.GetComponent<WaypointTrip>();
+                        racer.doStop = false;
+                    }
+                }
+            }
+        }
     }
 }

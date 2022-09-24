@@ -19,7 +19,7 @@ if you just keep it open and modify and not reload, other scripts change stuff
 make sure to utilize built-in usersave methods like indexOfDragonInUse
 add an inventory to freeroam
 add wandering boat in lake to level four
-add wanderin speedstinger pack to freeroam or part of quest?
+add wandering speedstinger pack to freeroam or part of quest?
 put targets on npc dragons and have dragon fireballs hit other npc racers
 button to turn on target's target if within range - and button to fire
 fireball frenzy with admin heads on targets
@@ -37,4 +37,9 @@ Add heather on warlord island
 add more hidden sheep collectibles on all levels
 add purpose for collecting sheep (maybe achievement?)
 split scripts into smaller more centralized ones
-add multiple laps - game is broken - debug changes - you need to fix placement script and add condition for race ending!
+add placement tags over characters
+fire trail after dragon going fast
+get speed hoop prefabs
+get animations for characters from various folders and put them into the human folders
+fix bug so that you cannot accelerate while in the air
+add multiple laps - game is broken - debug changes (Fix new game object)

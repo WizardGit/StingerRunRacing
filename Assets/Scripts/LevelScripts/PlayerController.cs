@@ -1,18 +1,15 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/4/2022
+ * Last Modified: 9/23/2022
  */
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -239,8 +236,8 @@ public class PlayerController : MonoBehaviour
         {
             // Set our reset position to this newest checkpoint
             resetPos = other.gameObject.transform.position;
-            // Notify checkpoint script that we hit it! (Make sure to give it the INDEX of the checkpoint
-            if (checkpointScript.HitCheckpoint(checkpointsReached % (numCheckpoints * (lapsCompleted + 1))) == true)
+            // Notify checkpoint script that we hit it! (Make sure to give it the INDEX of the checkpoint            
+            if (checkpointScript.HitCheckpoint(other.gameObject.transform.parent.transform.GetSiblingIndex()) == true)
                 checkpointsReached++;
         }
         else if (other.gameObject.CompareTag("FlyingBox"))
@@ -259,18 +256,19 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.CompareTag("Finish"))
         {
             resetPos = other.gameObject.transform.position;
-            if (checkpointScript.HitCheckpoint(checkpointsReached % (numCheckpoints * (lapsCompleted + 1))) == true)
+            if (checkpointScript.HitCheckpoint(other.gameObject.transform.parent.transform.GetSiblingIndex()) == true)
             {
-                Debug.Log("We hit finish trigger!");
                 checkpointsReached++;
                 lapsCompleted++;
-            }           
-
-            /*isPause = true;
-            animator.Play(animationIdle);
-            messageText.text = "";      
-            speedText.text = "0 mph";
-            speedBar.fillAmount = 0;*/
+                if (placScript.numLaps == lapsCompleted)
+                {
+                    isPause = true;
+                    animator.Play(animationIdle);
+                    messageText.text = "";
+                    speedText.text = "0 mph";
+                    speedBar.fillAmount = 0;
+                }                
+            }    
         }
         else if (other.gameObject.CompareTag("CatapultArm"))
         {
@@ -378,11 +376,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            Transform cp = checkpoints.transform.GetChild(checkpointsReached % (numCheckpoints*(lapsCompleted+1))).transform;
-            if (checkpointsReached > checkpoints.transform.childCount)
-            {
-                Debug.Log("Player Controller - laps were not updated for CalcNextcheckpoint!");
-            }
+            Transform cp = checkpoints.transform.GetChild(checkpointsReached - (numCheckpoints*lapsCompleted)).transform;
+
             if ((cp.gameObject.tag == "Checkpoint") || (cp.gameObject.tag == "FinishLine"))
             {
                 Vector3 disVec = cp.position - gameObject.transform.position;
@@ -393,7 +388,6 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("PlayerController - Checkpoint Fail!");
             }
-            // (checkpoints.transform.GetChild(checkpointsReached % (lapsCompleted + 1)).transform.GetChild(4).GetComponent<MeshRenderer>().material.color == Color.green
         }
     }
 }
