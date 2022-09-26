@@ -23,9 +23,9 @@ public class CameraFollow : MonoBehaviour
 
     private float yLookFrom = 0.0f;
     private float zLookFrom = 0.0f;
-    public float slerpNum;
+    public float slerpNum = 1.0f;
     public bool isShake = false;
-    public float shakePower;
+    public float shakePower = 0.2f;
     private void Start()
     {
         UserSave usersave = new UserSave(NameTransfer.theName);

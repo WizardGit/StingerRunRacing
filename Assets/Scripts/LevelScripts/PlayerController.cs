@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/23/2022
+ * Last Modified: 9/25/2022
  */
 
 using System;
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public int lapsCompleted = 0;
     [HideInInspector] public float disToCheckpoint = 0.0f;
     // Dictates how many checkpoints there are
-    private int numCheckpoints;
+    public int numCheckpoints;
     public GameObject checkpoints;
     public TextMeshProUGUI distanceText;
     public GameObject finishLine;
@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour
 
     private PlacementScript placScript;
     private CheckpointsScript checkpointScript;
+    private PowerUpsScript powerUpsScript;
 
     void Start()
     {
@@ -92,6 +93,7 @@ public class PlayerController : MonoBehaviour
 
         // Load/Create a new file for this user!
         theSave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
+        powerUpsScript = GameObject.Find("Powerups").GetComponent<PowerUpsScript>();
 
         // Load the correct dragon!
         int modelToUse = theSave.userSave.IndexOfDragonInUse();
@@ -186,21 +188,30 @@ public class PlayerController : MonoBehaviour
                 playerSpeed = playerMaxSpeed;
                 cf.GetComponent<CameraFollow>().isShake = false;
             }                
-            else
+            else if (onTerrain==true)
             {
-                playerSpeed += playerAcceleration * Time.deltaTime;
-                cf.GetComponent<CameraFollow>().isShake = true;
+                if (onTerrain == true)
+                {
+                    playerSpeed += playerAcceleration * Time.deltaTime;
+                    cf.GetComponent<CameraFollow>().isShake = true;
+                }
             }                
 
             // If our boost time is done, reset our max speed
-            if (((time - boostTimer) > boostTimeLength) && (boostTimer > 0))
+            if (((time - boostTimer) > boostTimeLength) && (boostTimer > 0) && (onTerrain == true))
             {
                 boostTimer = 0;
                 playerMaxSpeed = playerMaxSpeed / speedBoostMultiplier;
+                if (playerMaxSpeed < 0)
+                {
+                    playerMaxSpeed = 0;
+                    Debug.Log("Player Controller: We got curMaxSpeed < 0!");
+                }
+
                 cf.GetComponent<CameraFollow>().isShake = false;
             }                
         }
-        else if ((Mathf.Approximately(movementY, 0f) && (playerSpeed > 0)) || (playerSpeed > playerMaxSpeed))
+        else if (((Mathf.Approximately(movementY, 0f) && (playerSpeed > 0)) || (playerSpeed > playerMaxSpeed)) && (onTerrain == true))
         {
             cf.GetComponent<CameraFollow>().isShake = false;
             playerSpeed -= (playerAcceleration*2) * Time.deltaTime;
@@ -212,7 +223,7 @@ public class PlayerController : MonoBehaviour
             cf.GetComponent<CameraFollow>().isShake = false;
         }
 
-        speedBar.fillAmount = playerSpeed/playerMaxSpeed;
+        speedBar.fillAmount = playerSpeed / playerMaxSpeed;
         speedText.text = MathF.Round(playerSpeed, 2).ToString() + " mph";
 
         // We can use transform instead of rigidbody
@@ -245,7 +256,7 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
             messageText.text = "<size=200%> Double Speed!";
             boostTimer = time;
-            playerMaxSpeed = playerMaxSpeed * speedBoostMultiplier;
+            playerMaxSpeed *= speedBoostMultiplier;
             audioRoar.Play();
         }
         else if (other.gameObject.CompareTag("Sheep"))
@@ -260,6 +271,7 @@ public class PlayerController : MonoBehaviour
             {
                 checkpointsReached++;
                 lapsCompleted++;
+                powerUpsScript.ResetCheckpoints();
                 if (placScript.numLaps == lapsCompleted)
                 {
                     isPause = true;
@@ -267,6 +279,7 @@ public class PlayerController : MonoBehaviour
                     messageText.text = "";
                     speedText.text = "0 mph";
                     speedBar.fillAmount = 0;
+                    distanceText.text = "Next: 0";
                 }                
             }    
         }
@@ -283,6 +296,7 @@ public class PlayerController : MonoBehaviour
         onTerrain = true;
         if (theCollision.gameObject.CompareTag("Water"))
         {
+            playerMaxSpeed /=  2;
             // We are in water, so switch our animations
             animationRun = "Swim";
             animationIdle = "SwimIdle";
@@ -295,6 +309,7 @@ public class PlayerController : MonoBehaviour
     {
         if (theCollision.gameObject.CompareTag("Water"))
         {
+            playerMaxSpeed *= 2;
             // We are exiting the water, so switch our animations
             animationRun = "Run";
             animationIdle = "IdleHappy";

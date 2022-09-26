@@ -40,6 +40,8 @@ split scripts into smaller more centralized ones
 add placement tags over characters
 fire trail after dragon going fast
 get speed hoop prefabs
+add check box for turning on/off screen shake when your dragon is speeding up.
+add check box and feature of camera lag when accelerating
 get animations for characters from various folders and put them into the human folders
-fix bug so that you cannot accelerate while in the air
-add multiple laps - game is broken - debug changes (Fix new game object)
+change arrow to follow camera movements
+bug: npcs keep running after finish

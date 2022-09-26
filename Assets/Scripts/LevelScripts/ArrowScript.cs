@@ -33,6 +33,7 @@ public class ArrowScript : MonoBehaviour
     void FixedUpdate()
     {
         // DisVec represents the vector between the player and the next checkpoint
+        Debug.Log(playerScript.checkpointsReached - (numCheckpoints * playerScript.lapsCompleted));
         Vector3 disVec = checkpoints.transform.GetChild(playerScript.checkpointsReached - (numCheckpoints * playerScript.lapsCompleted)).transform.position - player.transform.position;
         // Look angle will represent the angle that our arrow needs to point to from our objective straight world line
         Vector3 lookAngleVec = Quaternion.LookRotation(disVec).eulerAngles;

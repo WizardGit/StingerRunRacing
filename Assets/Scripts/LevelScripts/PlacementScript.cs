@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/23/2022
+ * Last Modified: 9/25/2022
  */
 
 using System;
@@ -64,7 +64,7 @@ public class PlacementScript : MonoBehaviour
         else //(startTime <= 0)
         {
             time += Time.deltaTime;
-            if (playerFinished[0] != 1)
+            if (playerFinished[playerFinished.Count - 1] != 1)
             {
                 float minutes = MathF.Truncate(time / 60);
                 float seconds = MathF.Round(time - (minutes * 60), 2);
@@ -73,6 +73,11 @@ public class PlacementScript : MonoBehaviour
             // If it's been three seconds, stop showing "GO"
             if (time > 3)
                 cntDwnImg.transform.GetChild(3).transform.gameObject.SetActive(false);
+        }
+        if ((player.lapsCompleted == numLaps - 1) && ((player.checkpointsReached - (player.numCheckpoints * player.lapsCompleted)) == player.numCheckpoints - 1))
+        {
+
+            GameObject.FindWithTag("FinishLine").GetComponent<FireworkTrigger>().StartFireworks();
         }
 
         if ((player.lapsCompleted == numLaps) && (playerFinished[playerFinished.Count-1] != 1))
@@ -123,8 +128,6 @@ public class PlacementScript : MonoBehaviour
         ledBoard.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = theSave.ledSave.GetLeaderboard(levelNum);
 
         ledBoard.SetActive(true);
-        GameObject.Find("FinishLine").GetComponent<FireworkTrigger>().StartFireworks();
-
     }
     private void FinishNPC(float localTime, string racerUsername)
     {
