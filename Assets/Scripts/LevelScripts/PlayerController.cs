@@ -1,6 +1,7 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/25/2022
+ * Last Modified: 10/8/2022
+ * Purpose: Controls player movements
  */
 
 using System;
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour
     // Dictates the name of the player
     [HideInInspector] public string username;
     private float time = 0.0f;
-    // Dictates how many checkpoints the user has hit
+    // Dictates how many checkpoints the theSave has hit
     [HideInInspector] public int checkpointsReached = 0;
     [HideInInspector] public int lapsCompleted = 0;
     [HideInInspector] public float disToCheckpoint = 0.0f;
@@ -52,6 +53,7 @@ public class PlayerController : MonoBehaviour
     private float playerRotationSpeed = 200f;
     private float playerSpeed = 0;
     private float playerAcceleration = 0;
+    public bool isAccelerating = false;
     private float playerMaxSpeed = 0;
     private float speedBoostMultiplier = 1.5f;
     private float jumpForce = 1000;  
@@ -91,7 +93,7 @@ public class PlayerController : MonoBehaviour
         else
             Debug.Log("ERROR: no username!");
 
-        // Load/Create a new file for this user!
+        // Load/Create a new file for this theSave!
         theSave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
         powerUpsScript = GameObject.Find("Powerups").GetComponent<PowerUpsScript>();
 
@@ -127,7 +129,7 @@ public class PlayerController : MonoBehaviour
 
         speedBar.fillAmount = 0f;
 
-        placScript = GameObject.Find("Placement").GetComponent<PlacementScript>();
+        placScript = GameObject.Find("PlacementText").GetComponent<PlacementScript>();
         checkpointScript = GameObject.Find("Checkpoints").GetComponent<CheckpointsScript>();
     }    
 
@@ -186,14 +188,14 @@ public class PlayerController : MonoBehaviour
             if ((playerSpeed + (playerAcceleration * Time.deltaTime)) > playerMaxSpeed)
             {
                 playerSpeed = playerMaxSpeed;
-                cf.GetComponent<CameraFollow>().isShake = false;
+                cf.GetComponent<CameraFollow>().isAccel = false;
             }                
             else if (onTerrain==true)
             {
                 if (onTerrain == true)
                 {
                     playerSpeed += playerAcceleration * Time.deltaTime;
-                    cf.GetComponent<CameraFollow>().isShake = true;
+                    cf.GetComponent<CameraFollow>().isAccel = true;
                 }
             }                
 
@@ -208,19 +210,19 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("Player Controller: We got curMaxSpeed < 0!");
                 }
 
-                cf.GetComponent<CameraFollow>().isShake = false;
+                cf.GetComponent<CameraFollow>().isAccel = false;
             }                
         }
         else if (((Mathf.Approximately(movementY, 0f) && (playerSpeed > 0)) || (playerSpeed > playerMaxSpeed)) && (onTerrain == true))
         {
-            cf.GetComponent<CameraFollow>().isShake = false;
+            cf.GetComponent<CameraFollow>().isAccel = false;
             playerSpeed -= (playerAcceleration*2) * Time.deltaTime;
             if (playerSpeed < 0)
                 playerSpeed = 0;
         }
         else
         {
-            cf.GetComponent<CameraFollow>().isShake = false;
+            cf.GetComponent<CameraFollow>().isAccel = false;
         }
 
         speedBar.fillAmount = playerSpeed / playerMaxSpeed;
@@ -263,6 +265,7 @@ public class PlayerController : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             theSave.userSave.numSheep += 1;
+            theSave.userSave.SaveUser();
         }
         else if (other.gameObject.CompareTag("Finish"))
         {
@@ -356,7 +359,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnPause()
     {
-        // Note sure how to handle when a user releases a key so this is my workaround! User pushes once to get the pause menu, then pushes again to get out of it
+        // Note sure how to handle when a theSave releases a key so this is my workaround! User pushes once to get the pause menu, then pushes again to get out of it
         // 
         if (ledBoard.activeSelf == false)
         {

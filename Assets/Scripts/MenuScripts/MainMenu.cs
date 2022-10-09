@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -20,6 +21,13 @@ public class MainMenu : MonoBehaviour
 
     private AudioSource[] allAudioSources;
     public AudioSource backgroundMusic;
+    public GameObject sndButton;
+
+
+    public GameObject ScreenShakeToggle;
+    public GameObject CameraLagToggle;
+
+    private SaveGame theSave;
 
     private void Start()
     {
@@ -30,6 +38,24 @@ public class MainMenu : MonoBehaviour
         }
         backgroundMusic.Play();
         Cursor.SetCursor(cursorArrow, Vector2.zero, CursorMode.ForceSoftware);
+
+        theSave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
+        if (theSave.userSave.cameraLag == true)
+            CameraLagToggle.GetComponent<Toggle>().isOn = true;
+        else
+            CameraLagToggle.GetComponent<Toggle>().isOn = false;
+        if (theSave.userSave.screenShake == true)
+            ScreenShakeToggle.GetComponent<Toggle>().isOn = true;
+        else
+            ScreenShakeToggle.GetComponent<Toggle>().isOn = false;
+    }
+
+    public void CheckLevelAvailability()
+    {
+        if (theSave.userSave.numSheep >= 10)
+            sndButton.SetActive(true);
+        else
+            sndButton.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -68,5 +94,21 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("QUIT!");
         Application.Quit();
+    }
+    public void ChangeScreenShake()
+    {
+        if (ScreenShakeToggle.GetComponent<Toggle>().isOn != theSave.userSave.screenShake)
+        {
+            theSave.userSave.screenShake = !theSave.userSave.screenShake;
+            theSave.userSave.SaveUser();
+        }
+    }
+    public void ChangeCameraLag()
+    {
+        if (CameraLagToggle.GetComponent<Toggle>().isOn != theSave.userSave.cameraLag)
+        {
+            theSave.userSave.cameraLag = !theSave.userSave.cameraLag;
+            theSave.userSave.SaveUser();
+        }
     }
 }

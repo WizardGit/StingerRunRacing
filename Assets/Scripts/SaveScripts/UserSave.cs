@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/11/2022
+ * Last Modified: 10/8/2022
  * Purpose: Saves users' information
  */
 
@@ -26,6 +26,9 @@ public class UserSave
     public string username = "nouser";
     public string dataFile = "";
 
+    public bool screenShake = false;
+    public bool cameraLag = false;
+
     public UserSave(string user)
     {
         username = user;
@@ -42,7 +45,7 @@ public class UserSave
         }
     }
 
-    // Creates a brand new user
+    // Creates a brand new theSave
     private void CreateUser()
     {
         Speedstinger speed = new Speedstinger();
@@ -97,6 +100,8 @@ public class UserSave
                 quests = user.quests;
                 gemsList = user.gemsList;
                 username = user.username;
+                screenShake = user.screenShake;
+                cameraLag = user.cameraLag;
             }
             catch
             {
@@ -108,7 +113,7 @@ public class UserSave
             }          
         }
         else
-            Debug.Log("No file for this user!");
+            Debug.Log("No file for this theSave!");
     }
     public void DeleteUser()
     {

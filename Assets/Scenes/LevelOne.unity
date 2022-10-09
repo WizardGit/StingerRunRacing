@@ -4300,8 +4300,9 @@ MonoBehaviour:
   lookAt: 1
   lookForward: 1
   slerpNum: 1
-  isShake: 0
   shakePower: 0.2
+  lagPower: 1
+  isAccel: 0
 --- !u!1001 &972389153
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5796,7 +5797,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1181569952}
   m_Layer: 5
-  m_Name: PlacementGroup
+  m_Name: PlacementDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6890,6 +6891,8 @@ MonoBehaviour:
     levelTimes: []
     username: 
     dataFile: 
+    screenShake: 0
+    cameraLag: 0
   ledSave:
     ledBoard: []
 --- !u!4 &1369666452
@@ -10935,7 +10938,7 @@ GameObject:
   - component: {fileID: 2034906933}
   - component: {fileID: 2034906932}
   m_Layer: 5
-  m_Name: Placement
+  m_Name: PlacementText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

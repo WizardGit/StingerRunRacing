@@ -119,7 +119,7 @@ public class LeaderboardSave
             }
         }
         else
-            Debug.Log("No file for this user!");
+            Debug.Log("No file for this theSave!");
     }
     public void DeleteUser()
     {

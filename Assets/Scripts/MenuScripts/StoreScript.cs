@@ -1,6 +1,6 @@
 /*
  * Authors: Kaiser Slocum, Sofi Vinas
- * Last Modified: 9/4/2022
+ * Last Modified: 10/8/2022
  * Purpose: Allow users to purchase new skins and acquire a different dragon racer
  */
 
@@ -70,6 +70,8 @@ public class StoreScript : MonoBehaviour
                 text.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = "Coins: " + user.coins.ToString();
             else if (text.transform.GetChild(i).gameObject.name == "Gems")
                 text.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = "Gems: " + user.gems.ToString();
+            else if (text.transform.GetChild(i).gameObject.name == "Sheep")
+                text.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = "Sheep: " + user.numSheep.ToString();
             else if (text.transform.GetChild(i).gameObject.name == "User")
                 text.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = "User: " + user.username.ToString();
             else
@@ -209,7 +211,7 @@ public class StoreScript : MonoBehaviour
             LoadDragonsSkin();
         }
         else
-            Debug.Log("user is already using or has not acquired this skin!");
+            Debug.Log("theSave is already using or has not acquired this skin!");
     }
     // Buys dragon (at dragonIndex)'s skin at skinIndex
     private void BuySkin(int dragonIndex, int skinIndex)
@@ -252,6 +254,12 @@ public class StoreScript : MonoBehaviour
         else if (s == "gems")
         {
             user.gems += 200;
+            user.SaveUser();
+            evilLaugh.Play();
+        }
+        else if (s == "sheep")
+        {
+            user.numSheep += 5;
             user.SaveUser();
             evilLaugh.Play();
         }

@@ -40,7 +40,7 @@ public class WaypointTrip : MonoBehaviour
         navMeshAgent.isStopped = true;
         npcName = gameObject.name;
 
-        placScript = GameObject.Find("Placement").GetComponent<PlacementScript>();
+        placScript = GameObject.Find("PlacementText").GetComponent<PlacementScript>();
         numCheckpoints = checkpoints.transform.childCount;
     }
 
@@ -101,12 +101,18 @@ public class WaypointTrip : MonoBehaviour
         }        
         else if (other.gameObject.CompareTag("Finish") && (other.gameObject.transform.parent.transform.GetSiblingIndex() == (checkpointsReached - (numCheckpoints * lapsCompleted))))
         {
+            Debug.Log("hit finish");
             checkpointsReached++;
             if (checkpointsReached == (numCheckpoints * (lapsCompleted + 1)))
             {
+                Debug.Log("next lap");
                 lapsCompleted++;
                 if (lapsCompleted == placScript.numLaps)
+                {
+                    Debug.Log("all done");
                     navMeshAgent.isStopped = true;
+                    doStop = true;
+                }
             }
         }
     }

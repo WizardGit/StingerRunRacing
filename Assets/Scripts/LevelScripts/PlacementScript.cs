@@ -33,6 +33,9 @@ public class PlacementScript : MonoBehaviour
     public AudioSource go;
     public int numLaps = 1;
 
+    public GameObject playerTagText;
+    public GameObject playerTagColor;
+
     private void Start()
     {
         timeText.text =  "Time: 0:0.0";
@@ -71,7 +74,7 @@ public class PlacementScript : MonoBehaviour
                 timeText.text = "Time: " + minutes + ":" + seconds;
             }
             // If it's been three seconds, stop showing "GO"
-            if (time > 3)
+            if (time > 1)
                 cntDwnImg.transform.GetChild(3).transform.gameObject.SetActive(false);
         }
         if ((player.lapsCompleted == numLaps - 1) && ((player.checkpointsReached - (player.numCheckpoints * player.lapsCompleted)) == player.numCheckpoints - 1))
@@ -91,7 +94,7 @@ public class PlacementScript : MonoBehaviour
             usersave.userSave.coins += numCoins;
             usersave.userSave.SaveUser();
 
-            raceBoard.text += "\n" + (rankCounter++).ToString() + ". " + player.username + ": " + MathF.Round(theTheTime, 3).ToString();
+            raceBoard.text += (rankCounter++).ToString() + ". " + player.username + ": " + MathF.Round(theTheTime, 3).ToString() + "\n";
             coinsWin.text = "You just won " + numCoins + " Coins!";
         }
         else
@@ -103,7 +106,7 @@ public class PlacementScript : MonoBehaviour
                 if ((racer.lapsCompleted == numLaps) && (playerFinished[i] != 1))
                 {
                     FinishNPC(time, racer.npcName);
-                    raceBoard.text += "\n" + (rankCounter++).ToString() + ". " + racer.npcName + ": " + MathF.Round(time, 3).ToString();
+                    raceBoard.text += (rankCounter++).ToString() + ". " + racer.npcName + ": " + MathF.Round(time, 3).ToString() + "\n";
                     playerFinished[i] = 1;
                     racer.doStop = true;
                 }
@@ -116,6 +119,13 @@ public class PlacementScript : MonoBehaviour
             }
         }        
         gameObject.GetComponent<TextMeshProUGUI>().text = "Ranking: " + placement.ToString();
+        playerTagText.GetComponent<TextMesh>().text = placement.ToString();
+        if (placement == 1)
+            playerTagColor.GetComponent<MeshRenderer>().material.color = Color.green;
+        else if (placement < 4)
+            playerTagColor.GetComponent<MeshRenderer>().material.color = Color.yellow;
+        else
+            playerTagColor.GetComponent<MeshRenderer>().material.color = Color.red;
     }
 
     private void FinishPlayer(float localTime)

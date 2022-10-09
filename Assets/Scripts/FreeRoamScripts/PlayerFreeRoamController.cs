@@ -77,7 +77,7 @@ public class PlayerFreeRoamController : MonoBehaviour
         else
             Debug.Log("ERROR: no username!");
 
-        // Load/Create a new file for this user!
+        // Load/Create a new file for this theSave!
         usersave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
         int modelToUse = usersave.userSave.IndexOfDragonInUse();
 
@@ -258,7 +258,7 @@ public class PlayerFreeRoamController : MonoBehaviour
     }
     private void OnPause()
     {
-        // Note sure how to handle when a user releases a key so this is my workaround! User pushes once to get the pause menu, then pushes again to get out of it
+        // Note sure how to handle when a theSave releases a key so this is my workaround! User pushes once to get the pause menu, then pushes again to get out of it
         // 
        
             isPause = !isPause;
@@ -288,7 +288,7 @@ public class PlayerFreeRoamController : MonoBehaviour
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        // If the user clicks on Harald, check for the quests
+        // If the theSave clicks on Harald, check for the quests
         if ((Physics.Raycast(ray, out hit) == true) && (hit.transform.CompareTag("Harald")))
             hit.transform.gameObject.GetComponent<HaraldMove>().HandleQuests();
     }

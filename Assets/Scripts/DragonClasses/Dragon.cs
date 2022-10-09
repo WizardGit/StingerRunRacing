@@ -26,7 +26,7 @@ public abstract class Dragon
     // Price to buy the dragon
     protected int purchasePrice;
 
-    // Variable for user
+    // Variable for theSave
     protected string inUse;
     protected string name;
 

@@ -1,5 +1,6 @@
-/* Created by Kaiser Slocum
- * Last Edited on 9/20/2022 by Kaiser Slocum
+/*
+ * Author: Kaiser Slocum
+ * Last Modified: 10/8/2022
  * Purpose: To constantly modify the camera's positioning on the object
  */
 
@@ -18,17 +19,25 @@ public class CameraFollow : MonoBehaviour
     public Vector3 tmpOffsetPos2;
     public Vector3 offsetRotation;
 
-    public bool lookAt = true;
-    public bool lookForward = true;
+    [HideInInspector] public bool lookAt = true;
+    [HideInInspector] public bool lookForward = true;
 
     private float yLookFrom = 0.0f;
     private float zLookFrom = 0.0f;
-    public float slerpNum = 1.0f;
-    public bool isShake = false;
+    public float slerpNum = 1.0f;    
+
+    // Variables used for camera affects when theSave is accelerating
     public float shakePower = 0.2f;
+    public float lagPower = 1.0f;
+    [HideInInspector] public bool isAccel = false;
+    private bool canShake = false;
+    private bool canLag = false;
     private void Start()
     {
         UserSave usersave = new UserSave(NameTransfer.theName);
+        canShake = usersave.screenShake;
+        canLag = usersave.cameraLag;
+        Debug.Log(canLag);
         // Get our target
         for (int i = 0; i < usersave.dragons.Count; i++)
         {
@@ -54,20 +63,26 @@ public class CameraFollow : MonoBehaviour
 
     private void FixedUpdate()
     {
-            FollowPlayer();
+        FollowPlayer();
     }
 
     private void FollowPlayer()
     {
-        if (Vector3.Angle(offsetPosition, tmpOffsetPos) < 4)
-            tmpOffsetPos = tmpOffsetPos2;
-        offsetPosition = Vector3.Slerp(offsetPosition, tmpOffsetPos, slerpNum * Time.deltaTime);
+        if (lookForward == true)
+        {
+            if (Vector3.Angle(offsetPosition, tmpOffsetPos) < 4)
+                tmpOffsetPos = tmpOffsetPos2;
+            offsetPosition = Vector3.Slerp(offsetPosition, tmpOffsetPos, slerpNum * Time.deltaTime);
+        }
 
         // If we want to look at our dragon...
         if (lookAt == true)
         {
             // Get where our camera needs to be
-            transform.position = targetObject.transform.TransformPoint(offsetPosition);
+            if ((isAccel == true) && (canLag == true))
+                transform.position = Vector3.Slerp(transform.position, targetObject.transform.TransformPoint(offsetPosition), lagPower * Time.deltaTime);
+            else
+                transform.position = Vector3.Slerp(transform.position, targetObject.transform.TransformPoint(offsetPosition), lagPower * 6 * Time.deltaTime);
 
             // Calculate the angle that our gcamera needs to be at
             Quaternion lookRotation = Quaternion.LookRotation(targetObject.transform.position - transform.position);
@@ -83,17 +98,23 @@ public class CameraFollow : MonoBehaviour
         {
             if (lookForward == true)
             {
-                transform.position = targetObject.transform.TransformPoint(new Vector3(0, yLookFrom, zLookFrom));
+                if ((isAccel == true) && (canLag == true))
+                    transform.position = Vector3.Slerp(transform.position, targetObject.transform.TransformPoint(new Vector3(0, yLookFrom, zLookFrom)), lagPower * Time.deltaTime);
+                else
+                    transform.position = Vector3.Slerp(transform.position, targetObject.transform.TransformPoint(new Vector3(0, yLookFrom, zLookFrom)), lagPower * 6 * Time.deltaTime);
                 transform.rotation = targetObject.transform.rotation;
             }
             else if (lookForward == false)
             {
-                transform.position = targetObject.transform.TransformPoint(new Vector3(0, yLookFrom, -zLookFrom));
+                if ((isAccel == true) && (canLag == true))
+                    transform.position = Vector3.Slerp(transform.position, targetObject.transform.TransformPoint(new Vector3(0, yLookFrom, -zLookFrom)), lagPower * Time.deltaTime);
+                else
+                    transform.position = Vector3.Slerp(transform.position, targetObject.transform.TransformPoint(new Vector3(0, yLookFrom, -zLookFrom)), lagPower * 6 * Time.deltaTime);
                 Vector3 targetRotation = targetObject.transform.rotation.eulerAngles;
                 transform.rotation = Quaternion.Euler(new Vector3(targetRotation.x, targetRotation.y + 180, targetRotation.z));
             }
         }
-        if (isShake == true)
+        if ((isAccel == true) && (canShake == true))
         {
             float xAmount = Random.Range(-1f, 1f) * shakePower;
             float yAmount = Random.Range(-1f, 1f) * shakePower;

@@ -3,7 +3,7 @@
  * Last Modified: 9/11/2022
  * Purpose: Be one spot where everything is saved - that way nothing is being saved over each other
  * For this to work, you have to set Edit > Project Settings > Script Execution Order: SaveGame script to 120 so it is always run first
- * This is so that the user/leaderboard data has always been loaded when the game begins and objects start needing the data
+ * This is so that the theSave/leaderboard data has always been loaded when the game begins and objects start needing the data
  */
 
 using System.Collections;

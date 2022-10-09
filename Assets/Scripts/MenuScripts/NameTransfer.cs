@@ -1,6 +1,7 @@
 /*
  * Authors: Kaiser Slocum, Sofi Vinas
- * Last Modified: 9/13/2022
+ * Last Modified: 10/8/2022
+ * Purpose: Statically store the current theSave's username.  Because it is static, the theSave's username can be access from all other scenes
  */
 
 using System.Collections;
@@ -18,12 +19,15 @@ public class NameTransfer : MonoBehaviour
     public GameObject textDisplay;
     public GameObject mainmenu;
 
+    private SaveGame theSave;
+
     void Start()
     {
+        theSave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Menu"))
         {
             textDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = "Current User: " + theName;
-        }            
+        }
     }
 
     //storing name in a button
@@ -34,12 +38,11 @@ public class NameTransfer : MonoBehaviour
     }
     public void ResetName()
     {
-        UserSave user = new UserSave(theName);
-        user.DeleteUser();
+        theSave.userSave.DeleteUser();
+        mainmenu.GetComponent<MainMenu>().CheckLevelAvailability();
     }
     public void ResetLeaderboard()
     {
-        LeaderboardSave ledSave = new LeaderboardSave();
-        ledSave.ResetLeaderboard();
-    }
+        theSave.ledSave.ResetLeaderboard();
+    }    
 }

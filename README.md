@@ -10,7 +10,6 @@ Upgrade website for the game!
 clean up code!
 Update the code for the quest to be more modular and cleaner
 get zip folders of the game
-update save file, so that if old one is there, it is properly handled
 see if you can get trr tracks
 get lava texture from TRR race track for stingerrunracing
 package srr into a game installer
@@ -23,7 +22,6 @@ add wandering speedstinger pack to freeroam or part of quest?
 put targets on npc dragons and have dragon fireballs hit other npc racers
 button to turn on target's target if within range - and button to fire
 fireball frenzy with admin heads on targets
-slowdown dragons in water
 add human class
 Add purposes and comments to scripts
 new level walls - dreadstrider in water
@@ -32,16 +30,10 @@ add waterfalls
 add trr fortune falls track
 add forbidden ice track
 on level 2 have swinging gate that opens when players should go to finish
-add bonus level only accessible on far away part of level one (users must go exploring!)
 Add heather on warlord island
-add more hidden sheep collectibles on all levels
-add purpose for collecting sheep (maybe achievement?)
 split scripts into smaller more centralized ones
 add placement tags over characters
-fire trail after dragon going fast
 get speed hoop prefabs
-add check box for turning on/off screen shake when your dragon is speeding up.
-add check box and feature of camera lag when accelerating
-get animations for characters from various folders and put them into the human folders
 change arrow to follow camera movements
-bug: npcs keep running after finish
+war simulator with characters - you can set waypoints to be enemies and draw lines or maybe triggers to detect others
+put limits on number of coins/gems/sheep
