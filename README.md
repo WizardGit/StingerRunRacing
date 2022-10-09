@@ -19,8 +19,6 @@ make sure to utilize built-in usersave methods like indexOfDragonInUse
 add an inventory to freeroam
 add wandering boat in lake to level four
 add wandering speedstinger pack to freeroam or part of quest?
-put targets on npc dragons and have dragon fireballs hit other npc racers
-button to turn on target's target if within range - and button to fire
 fireball frenzy with admin heads on targets
 add human class
 Add purposes and comments to scripts
@@ -32,8 +30,11 @@ add forbidden ice track
 on level 2 have swinging gate that opens when players should go to finish
 Add heather on warlord island
 split scripts into smaller more centralized ones
-add placement tags over characters
 get speed hoop prefabs
 change arrow to follow camera movements
 war simulator with characters - you can set waypoints to be enemies and draw lines or maybe triggers to detect others
 put limits on number of coins/gems/sheep
+Debug placement tags over characters - keep or no?
+put targets on npc dragons and have dragon fireballs hit other npc racers
+button to turn on target's target if within range - and button to fire
+allow npcs to get speed boxes!

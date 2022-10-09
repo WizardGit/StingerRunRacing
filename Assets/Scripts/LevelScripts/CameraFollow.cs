@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 10/8/2022
+ * Last Modified: 10/9/2022
  * Purpose: To constantly modify the camera's positioning on the object
  */
 
@@ -134,10 +134,6 @@ public class CameraFollow : MonoBehaviour
                                                 lookRotation.eulerAngles.y - offsetRotation.y,
                                                 lookRotation.eulerAngles.z - offsetRotation.z);
         // 'Smoothly' rotate towards our target camera point
-        transform.rotation = Quaternion.Euler(transformRotation);
-
-        // If we're looking at the object, we need to get in front of it (so we'll reverse our z offset
-        
-
+        transform.rotation = Quaternion.Euler(transformRotation); 
     }
 }

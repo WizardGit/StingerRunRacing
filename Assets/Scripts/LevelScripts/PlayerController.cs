@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 10/8/2022
+ * Last Modified: 10/9/2022
  * Purpose: Controls player movements
  */
 
@@ -83,6 +83,8 @@ public class PlayerController : MonoBehaviour
     private CheckpointsScript checkpointScript;
     private PowerUpsScript powerUpsScript;
 
+    private bool isAiming = false;
+
     void Start()
     {
         numCheckpoints = checkpoints.transform.childCount;
@@ -131,6 +133,7 @@ public class PlayerController : MonoBehaviour
 
         placScript = GameObject.Find("PlacementText").GetComponent<PlacementScript>();
         checkpointScript = GameObject.Find("Checkpoints").GetComponent<CheckpointsScript>();
+        CalcNextCheckpoint();
     }    
 
     private void FixedUpdate()
@@ -376,12 +379,30 @@ public class PlayerController : MonoBehaviour
     {
         audioRoar.Play();
     }
+
+    private void OnAim()
+    {
+        isAiming = !isAiming;
+    }
     private void OnFire()
     {
+        if (isAiming == true)
+        {
+            // DistVec represents the vector between the player and the next checkpoint
+            Vector3 distVec = checkpoints.transform.GetChild(checkpointsReached - (numCheckpoints * lapsCompleted)).transform.position - transform.position;
+            var pshape = transform.GetChild(5).gameObject.GetComponent<ParticleSystem>().shape;
+            pshape.rotation = Quaternion.LookRotation(distVec).eulerAngles - (transform.localRotation.eulerAngles);
+        }
+        else
+        {
+            var pshape = transform.GetChild(5).gameObject.GetComponent<ParticleSystem>().shape;
+            pshape.rotation = new Vector3(0,0,0);
+        }
+            
         if (Mathf.Approximately(movementY, 0f) && Mathf.Approximately(movementX, 0f) && (animator.IsPlaying("FlyAttackAdd") == false))
         {
             animator.Play("FlyAttackAdd");
-            gameObject.transform.GetChild(4).gameObject.GetComponent<ParticleSystem>().Play();
+            gameObject.transform.GetChild(5).gameObject.GetComponent<ParticleSystem>().Play();
             OnRoar();
         }
     }

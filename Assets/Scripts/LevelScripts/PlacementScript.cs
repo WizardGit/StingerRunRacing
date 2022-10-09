@@ -1,6 +1,7 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/25/2022
+ * Last Modified: 10/9/2022
+ * Purpose: Get placements for every racer
  */
 
 using System;
@@ -36,6 +37,8 @@ public class PlacementScript : MonoBehaviour
     public GameObject playerTagText;
     public GameObject playerTagColor;
 
+    public Standings stands;
+
     private void Start()
     {
         timeText.text =  "Time: 0:0.0";
@@ -51,6 +54,7 @@ public class PlacementScript : MonoBehaviour
             playerFinished.Add(0);
         }
         raceBoard.text = "";
+        stands = new Standings(npcRacers, dragonPlayers.transform.GetChild(theSave.userSave.IndexOfDragonInUse()).gameObject);
     }
 
     // Update is called once per frame
@@ -110,22 +114,12 @@ public class PlacementScript : MonoBehaviour
                     playerFinished[i] = 1;
                     racer.doStop = true;
                 }
-
-                if ((racer.checkpointsReached > player.checkpointsReached)
-                || ((racer.checkpointsReached == player.checkpointsReached) && (racer.disToCheckpoint < player.disToCheckpoint)))
-                {
-                    placement++;
-                }
             }
         }        
         gameObject.GetComponent<TextMeshProUGUI>().text = "Ranking: " + placement.ToString();
-        playerTagText.GetComponent<TextMesh>().text = placement.ToString();
-        if (placement == 1)
-            playerTagColor.GetComponent<MeshRenderer>().material.color = Color.green;
-        else if (placement < 4)
-            playerTagColor.GetComponent<MeshRenderer>().material.color = Color.yellow;
-        else
-            playerTagColor.GetComponent<MeshRenderer>().material.color = Color.red;
+        stands.SortStandings();
+        stands.UpdatePTags();
+
     }
 
     private void FinishPlayer(float localTime)
@@ -190,6 +184,96 @@ public class PlacementScript : MonoBehaviour
                     }
                 }
             }
+        }
+    }    
+}
+
+public class Standings
+{
+    List<GameObject> standings;
+    public Standings(GameObject npcRacers, GameObject player)
+    {
+        standings = new List<GameObject>();
+        standings.Add(player);
+        for (int i = 0; i < npcRacers.transform.childCount; i++)
+        {
+            standings.Add(npcRacers.transform.GetChild(i).gameObject);
+        }
+    }
+
+    public void SortStandings()
+    {
+        for (int i = 1; i < standings.Count; i++)
+        {
+            int c = 0;
+            float d = 0.0f;
+            int ac = 0;
+            float ad = 0.0f;
+
+            if (standings[i].CompareTag("Player") == true)
+            {
+                PlayerController racer = standings[i].GetComponent<PlayerController>();
+                c = racer.checkpointsReached;
+                d = racer.disToCheckpoint;
+            }
+            else
+            {
+                WaypointTrip racer = standings[i].GetComponent<WaypointTrip>();
+                c = racer.checkpointsReached;
+                d = racer.disToCheckpoint;
+            }
+
+            int ci = i;
+            do
+            {
+                ci--;
+                if (ci < 0)
+                {
+                    break;
+                }
+
+                if (standings[ci].CompareTag("Player") == true)
+                {
+                    PlayerController aracer = standings[ci].GetComponent<PlayerController>();
+                    ac = aracer.checkpointsReached;
+                    ad = aracer.disToCheckpoint;
+                }
+                else
+                {
+                    WaypointTrip aracer = standings[ci].GetComponent<WaypointTrip>();
+                    ac = aracer.checkpointsReached;
+                    ad = aracer.disToCheckpoint;
+
+                }
+
+            } while (((ac < c) || ((ac == c) && (ad > d))));
+            ci++;
+            if ((ci) != i)
+            {
+                GameObject temp = standings[i];
+                standings.Remove(temp);
+                standings.Insert(ci, temp);
+            }
+        }        
+    }
+
+    public void UpdatePTags()
+    {
+        for (int i = 0; i < standings.Count; i++)
+        {
+            
+            GameObject ptag = standings[i].transform.GetChild(3).gameObject;
+            Material ptagcol = ptag.transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().material;
+            i++;
+            ptag.transform.GetChild(0).transform.GetComponent<TextMesh>().text = i.ToString();
+
+            if (i == 1)
+                ptagcol.color = Color.green;
+            else if (i < 4)
+                ptagcol.color = Color.yellow;
+            else
+                ptagcol.color = Color.red;
+            i--;
         }
     }
 }

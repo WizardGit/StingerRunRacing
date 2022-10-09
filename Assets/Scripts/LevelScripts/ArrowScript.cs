@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/23/2022
+ * Last Modified: 10/9/2022
  * The Arrow pointing angle code is something I am VERY proud of.
  * Took forever to do!
  */
@@ -36,6 +36,7 @@ public class ArrowScript : MonoBehaviour
         Vector3 disVec = checkpoints.transform.GetChild(playerScript.checkpointsReached - (numCheckpoints * playerScript.lapsCompleted)).transform.position - player.transform.position;
         // Look angle will represent the angle that our arrow needs to point to from our objective straight world line
         Vector3 lookAngleVec = Quaternion.LookRotation(disVec).eulerAngles;
+        Vector3 lookAngleVec2 = Quaternion.LookRotation(disVec).eulerAngles;
         float c = -lookAngleVec.z;
         lookAngleVec.z = -lookAngleVec.y;
         lookAngleVec.y = c;
@@ -52,6 +53,6 @@ public class ArrowScript : MonoBehaviour
         Vector3 frontDir = new Vector3(90, yDir, 0);
 
         // Add all these angles together! (Magic!!!)
-        transform.rotation = Quaternion.Euler(playerAngle + frontDir + lookAngleVec);        
+        transform.rotation = Quaternion.Euler(playerAngle + frontDir + lookAngleVec);
     }    
 }
