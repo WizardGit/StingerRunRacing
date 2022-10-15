@@ -83,7 +83,9 @@ public class PlayerController : MonoBehaviour
     private CheckpointsScript checkpointScript;
     private PowerUpsScript powerUpsScript;
 
-    private bool isAiming = false;
+    [HideInInspector] public bool isAiming = false;
+    private int aimTarget = -1;
+    private GameObject npcRacers;
 
     void Start()
     {
@@ -98,6 +100,7 @@ public class PlayerController : MonoBehaviour
         // Load/Create a new file for this theSave!
         theSave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
         powerUpsScript = GameObject.Find("Powerups").GetComponent<PowerUpsScript>();
+        npcRacers = GameObject.Find("NPCs");
 
         // Load the correct dragon!
         int modelToUse = theSave.userSave.IndexOfDragonInUse();
@@ -122,12 +125,14 @@ public class PlayerController : MonoBehaviour
         resetPos = transform.position;       
 
         playerRotationSpeed = theSave.userSave.dragons[modelToUse].GetTurnSpeed();
-        playerMaxSpeed = theSave.userSave.dragons[modelToUse].GetSpeedForce();
+        playerMaxSpeed = theSave.userSave.dragons[modelToUse].GetSpeedForce() * (transform.localScale.x);
         speedBoostMultiplier = 1.5f;
         jumpForce = theSave.userSave.dragons[modelToUse].GetJumpForce();
+        if (transform.localScale.x > 1)
+            jumpForce *= (transform.localScale.x / 3);
         maxDistCast = theSave.userSave.dragons[modelToUse].GetMaxDistCast();
         radius = theSave.userSave.dragons[modelToUse].GetRadius();
-        playerAcceleration = theSave.userSave.dragons[modelToUse].GetAccelForce();
+        playerAcceleration = theSave.userSave.dragons[modelToUse].GetAccelForce() * (transform.localScale.x);
 
         speedBar.fillAmount = 0f;
 
@@ -273,6 +278,7 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.CompareTag("Finish"))
         {
             resetPos = other.gameObject.transform.position;
+            Transform temp = other.gameObject.transform.parent.transform;
             if (checkpointScript.HitCheckpoint(other.gameObject.transform.parent.transform.GetSiblingIndex()) == true)
             {
                 checkpointsReached++;
@@ -384,12 +390,47 @@ public class PlayerController : MonoBehaviour
     {
         isAiming = !isAiming;
     }
+
+    private void OnChooseTarget()
+    {
+        int endpointNum = aimTarget;
+        if (endpointNum == -1)
+            endpointNum = 0;
+        if ((aimTarget != -1) && (npcRacers.transform.GetChild(aimTarget).gameObject.transform.GetChild(4).gameObject.GetComponent<TargetScript>().canAim == false))
+            aimTarget = -1;
+
+        int g = endpointNum + 1;
+        if (g >= npcRacers.transform.childCount)
+            g = 0;
+
+        for (int i = g; i < npcRacers.transform.childCount; i++)
+        {
+            if (i == endpointNum)
+                break;
+
+            if (npcRacers.transform.GetChild(i).gameObject.transform.GetChild(4).gameObject.GetComponent<TargetScript>().canAim == true)
+            {
+                if (aimTarget == -1)    
+                    aimTarget = i;
+                else
+                {
+                    npcRacers.transform.GetChild(aimTarget).gameObject.transform.GetChild(4).gameObject.GetComponent<TargetScript>().setRed = false;
+                    aimTarget = i;
+                    npcRacers.transform.GetChild(i).gameObject.transform.GetChild(4).gameObject.GetComponent<TargetScript>().setRed = true;
+                }
+                break;
+            }
+
+            if (i == npcRacers.transform.childCount - 1)
+                i = -1;
+        }
+    }
     private void OnFire()
     {
         if (isAiming == true)
         {
             // DistVec represents the vector between the player and the next checkpoint
-            Vector3 distVec = checkpoints.transform.GetChild(checkpointsReached - (numCheckpoints * lapsCompleted)).transform.position - transform.position;
+            Vector3 distVec = npcRacers.transform.GetChild(aimTarget).gameObject.transform.position - transform.position;
             var pshape = transform.GetChild(5).gameObject.GetComponent<ParticleSystem>().shape;
             pshape.rotation = Quaternion.LookRotation(distVec).eulerAngles - (transform.localRotation.eulerAngles);
         }
@@ -402,9 +443,9 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Approximately(movementY, 0f) && Mathf.Approximately(movementX, 0f) && (animator.IsPlaying("FlyAttackAdd") == false))
         {
             animator.Play("FlyAttackAdd");
-            gameObject.transform.GetChild(5).gameObject.GetComponent<ParticleSystem>().Play();
-            OnRoar();
         }
+        gameObject.transform.GetChild(5).gameObject.GetComponent<ParticleSystem>().Play();
+        OnRoar();
     }
 
     private void CalcNextCheckpoint()

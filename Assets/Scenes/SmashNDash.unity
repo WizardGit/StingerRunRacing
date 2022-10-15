@@ -2275,10 +2275,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1525924656}
     m_Modifications:
-    - target: {fileID: 698521151, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 640719191}
     - target: {fileID: 546526961447761636, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -2327,30 +2323,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Soto (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 1687328904963720315, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: m_Speed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687328904963720315, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: m_AutoBraking
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687328904963720315, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: ledBoard
-      value: 
-      objectReference: {fileID: 796168112}
     - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
       propertyPath: waypoints
       value: 
       objectReference: {fileID: 1800790756}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: finishLine
-      value: 
-      objectReference: {fileID: 622046247}
     - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
       propertyPath: checkpoints
       value: 
@@ -3361,42 +3337,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 469722208}
     m_Modifications:
-    - target: {fileID: 1368883099, guid: ea2233595f40d404b822b230b318a570, type: 3}
-      propertyPath: fire
-      value: 
-      objectReference: {fileID: 1344549211}
-    - target: {fileID: 1368883099, guid: ea2233595f40d404b822b230b318a570, type: 3}
-      propertyPath: checkpoints
-      value: 
-      objectReference: {fileID: 469722205}
-    - target: {fileID: 1368883099, guid: ea2233595f40d404b822b230b318a570, type: 3}
-      propertyPath: dragonPlayers
-      value: 
-      objectReference: {fileID: 1773091656}
-    - target: {fileID: 4104766758836204153, guid: ea2233595f40d404b822b230b318a570, type: 3}
-      propertyPath: Loop
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4104766758836204153, guid: ea2233595f40d404b822b230b318a570, type: 3}
-      propertyPath: m_Volume
-      value: 0.915
-      objectReference: {fileID: 0}
-    - target: {fileID: 4104766758836204153, guid: ea2233595f40d404b822b230b318a570, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4228155937609581888, guid: ea2233595f40d404b822b230b318a570, type: 3}
-      propertyPath: Loop
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4228155937609581888, guid: ea2233595f40d404b822b230b318a570, type: 3}
-      propertyPath: m_Volume
-      value: 0.903
-      objectReference: {fileID: 0}
-    - target: {fileID: 4228155937609581888, guid: ea2233595f40d404b822b230b318a570, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6565118308283061666, guid: ea2233595f40d404b822b230b318a570, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -3444,18 +3384,6 @@ PrefabInstance:
     - target: {fileID: 6565118308283061667, guid: ea2233595f40d404b822b230b318a570, type: 3}
       propertyPath: m_Name
       value: FinishLine
-      objectReference: {fileID: 0}
-    - target: {fileID: 6565118308283061667, guid: ea2233595f40d404b822b230b318a570, type: 3}
-      propertyPath: m_TagString
-      value: FinishLine
-      objectReference: {fileID: 0}
-    - target: {fileID: 6565118308519520050, guid: ea2233595f40d404b822b230b318a570, type: 3}
-      propertyPath: checkpoints
-      value: 
-      objectReference: {fileID: 469722205}
-    - target: {fileID: 6565118308599700262, guid: ea2233595f40d404b822b230b318a570, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea2233595f40d404b822b230b318a570, type: 3}
@@ -8022,11 +7950,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1338211628}
   m_CullTransparentMesh: 1
---- !u!82 &1344549211 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 4228155937609581888, guid: ea2233595f40d404b822b230b318a570, type: 3}
-  m_PrefabInstance: {fileID: 523980971}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1367140679
 GameObject:
   m_ObjectHideFlags: 0
@@ -8141,15 +8064,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 546526961447761636, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 546526961447761636, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 546526961447761636, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 546526961447761636, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -12080,6 +12003,10 @@ PrefabInstance:
       propertyPath: distanceText
       value: 
       objectReference: {fileID: 1577868211}
+    - target: {fileID: 152845739830481892, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: m_RootOrder
       value: 0

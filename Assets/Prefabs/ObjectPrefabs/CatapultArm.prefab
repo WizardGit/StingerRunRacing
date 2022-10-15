@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 287027867144697273}
   - component: {fileID: 4472194286660624304}
   - component: {fileID: 457193427771893940}
-  - component: {fileID: 5420133891695395278}
+  - component: {fileID: 8472709035656054560}
   m_Layer: 0
   m_Name: CatapultArm
   m_TagString: CatapultArm
@@ -111,7 +111,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.3297834, z: 10.927894}
   m_Center: {x: 0, y: 0.209604, z: -0.9241481}
---- !u!208 &5420133891695395278
+--- !u!208 &8472709035656054560
 NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,9 +121,9 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 2.223, y: 0.665, z: 5.464}
+  m_Extents: {x: 0.5, y: 0.6648915, z: 5.463945}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.21000001, z: -0.924}
+  m_Center: {x: 0, y: 0.209604, z: -0.9241481}
   m_TimeToStationary: 0.5
