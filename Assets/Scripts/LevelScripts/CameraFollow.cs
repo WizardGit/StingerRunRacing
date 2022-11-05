@@ -72,7 +72,10 @@ public class CameraFollow : MonoBehaviour
         {
             if (Vector3.Angle(offsetPosition, tmpOffsetPos) < 4)
                 tmpOffsetPos = tmpOffsetPos2;
-            offsetPosition = Vector3.Slerp(offsetPosition, tmpOffsetPos, slerpNum * Time.deltaTime);
+            if (canLag == true)
+                offsetPosition = Vector3.Slerp(offsetPosition, tmpOffsetPos, slerpNum * Time.deltaTime);
+            else
+                offsetPosition = tmpOffsetPos;
         }
 
         // If we want to look at our dragon...
@@ -81,8 +84,10 @@ public class CameraFollow : MonoBehaviour
             // Get where our camera needs to be
             if ((isAccel == true) && (canLag == true))
                 transform.position = Vector3.Slerp(transform.position, targetObject.transform.TransformPoint(offsetPosition), lagPower * Time.deltaTime);
-            else
+            else if ((isAccel == false) && (canLag == true))
                 transform.position = Vector3.Slerp(transform.position, targetObject.transform.TransformPoint(offsetPosition), lagPower * 6 * Time.deltaTime);
+            else
+                transform.position = targetObject.transform.TransformPoint(offsetPosition);
 
             // Calculate the angle that our gcamera needs to be at
             Quaternion lookRotation = Quaternion.LookRotation(targetObject.transform.position - transform.position);
@@ -100,16 +105,20 @@ public class CameraFollow : MonoBehaviour
             {
                 if ((isAccel == true) && (canLag == true))
                     transform.position = Vector3.Slerp(transform.position, targetObject.transform.TransformPoint(new Vector3(0, yLookFrom, zLookFrom)), lagPower * Time.deltaTime);
-                else
+                else if ((isAccel == false) && (canLag == true))
                     transform.position = Vector3.Slerp(transform.position, targetObject.transform.TransformPoint(new Vector3(0, yLookFrom, zLookFrom)), lagPower * 6 * Time.deltaTime);
+                else
+                    transform.position = targetObject.transform.TransformPoint(new Vector3(0, yLookFrom, zLookFrom));
                 transform.rotation = targetObject.transform.rotation;
             }
             else if (lookForward == false)
             {
                 if ((isAccel == true) && (canLag == true))
                     transform.position = Vector3.Slerp(transform.position, targetObject.transform.TransformPoint(new Vector3(0, yLookFrom, -zLookFrom)), lagPower * Time.deltaTime);
-                else
+                else if ((isAccel == false) && (canLag == true))
                     transform.position = Vector3.Slerp(transform.position, targetObject.transform.TransformPoint(new Vector3(0, yLookFrom, -zLookFrom)), lagPower * 6 * Time.deltaTime);
+                else
+                    transform.position = targetObject.transform.TransformPoint(new Vector3(0, yLookFrom, -zLookFrom));
                 Vector3 targetRotation = targetObject.transform.rotation.eulerAngles;
                 transform.rotation = Quaternion.Euler(new Vector3(targetRotation.x, targetRotation.y + 180, targetRotation.z));
             }

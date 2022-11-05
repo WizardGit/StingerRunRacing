@@ -264,6 +264,18 @@ public class Standings
             
             GameObject ptag = standings[i].transform.GetChild(3).gameObject;
             Material ptagcol = ptag.transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().material;
+            
+
+
+            if (standings[i].CompareTag("Player") == true)
+            {
+                standings[i].GetComponent<PlayerController>().placement = i;
+            }
+            else
+            {
+                standings[i].GetComponent<WaypointTrip>().placement = i;
+            }
+
             i++;
             ptag.transform.GetChild(0).transform.GetComponent<TextMesh>().text = i.ToString();
 

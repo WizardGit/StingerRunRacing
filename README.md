@@ -38,3 +38,4 @@ Debug placement tags over characters - keep or no?
 put targets on npc dragons and have dragon fireballs hit other npc racers
 button to turn on target's target if within range - and button to fire
 allow npcs to get speed boxes!
+add boxes or something to jump on across level 4

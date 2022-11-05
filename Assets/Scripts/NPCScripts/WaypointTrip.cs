@@ -31,6 +31,7 @@ public class WaypointTrip : MonoBehaviour
     private PlacementScript placScript;
     private int numCheckpoints;
     public string npcName;
+    public int placement = -1;
 
     void Start()
     {

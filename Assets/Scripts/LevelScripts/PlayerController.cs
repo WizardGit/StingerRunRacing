@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool isAiming = false;
     private int aimTarget = -1;
     private GameObject npcRacers;
+    public int placement = -1;
 
     void Start()
     {
