@@ -6,36 +6,29 @@ Kaizar The Sneak Unity Play: https://play.unity.com/u/KaizarTheSneak
 Game Link: https://play.unity.com/mg/other/webglbuilds-245
 
 TODO:
-Upgrade website for the game!
-clean up code!
-Update the code for the quest to be more modular and cleaner
-get zip folders of the game
-see if you can get trr tracks
 get lava texture from TRR race track for stingerrunracing
 package srr into a game installer
 Create a dragon flight simulator except you can roll sideways and forward
-if you just keep it open and modify and not reload, other scripts change stuff
-make sure to utilize built-in usersave methods like indexOfDragonInUse
 add an inventory to freeroam
 add wandering boat in lake to level four
 add wandering speedstinger pack to freeroam or part of quest?
 fireball frenzy with admin heads on targets
 add human class
 Add purposes and comments to scripts
-new level walls - dreadstrider in water
+Make sure invisible walls are there!
 button click noises
 add waterfalls
-add trr fortune falls track
-add forbidden ice track
-on level 2 have swinging gate that opens when players should go to finish
+fix forbidden ice track
 Add heather on warlord island
 split scripts into smaller more centralized ones
 get speed hoop prefabs
 change arrow to follow camera movements
 war simulator with characters - you can set waypoints to be enemies and draw lines or maybe triggers to detect others
 put limits on number of coins/gems/sheep
-Debug placement tags over characters - keep or no?
-put targets on npc dragons and have dragon fireballs hit other npc racers
-button to turn on target's target if within range - and button to fire
 allow npcs to get speed boxes!
-add boxes or something to jump on across level 4
+
+
+fix water for dragon
+fix freeroam player controller script
+create some sort of template for the canvas
+fix speedstinger animation controller

@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/23/2022
+ * Last Modified: 11/11/2022
  * Script for NPC's
  */
 
@@ -43,6 +43,11 @@ public class WaypointTrip : MonoBehaviour
 
         placScript = GameObject.Find("PlacementText").GetComponent<PlacementScript>();
         numCheckpoints = checkpoints.transform.childCount;
+
+        SaveGame theSave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
+        if (theSave.userSave.racerTag == true)
+            transform.GetChild(3).gameObject.SetActive(true);
+
     }
 
     void FixedUpdate()

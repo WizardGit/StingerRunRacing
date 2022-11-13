@@ -1,6 +1,6 @@
 /*
  * Authors: Kaiser Slocum, Sofi Vinas
- * Last Modified: 10/8/2022
+ * Last Modified: 11/11/2022
  * Purpose: Statically store the current theSave's username.  Because it is static, the theSave's username can be access from all other scenes
  */
 

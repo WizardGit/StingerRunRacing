@@ -12584,6 +12584,7 @@ MonoBehaviour:
     dataFile: 
     screenShake: 0
     cameraLag: 0
+    racerTag: 0
   ledSave:
     ledBoard: []
 --- !u!4 &1353551445
@@ -13090,6 +13091,8 @@ MonoBehaviour:
   num: {fileID: 1400793269}
   go: {fileID: 1400793268}
   numLaps: 2
+  playerTagText: {fileID: 0}
+  playerTagColor: {fileID: 0}
 --- !u!114 &1400793266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19784,10 +19787,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1724378141}
     m_Modifications:
-    - target: {fileID: 317248499, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 546526961447761636, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -19836,90 +19835,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jeffrey
       objectReference: {fileID: 0}
-    - target: {fileID: 1687328904963720315, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: m_Speed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687328904963720315, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: m_AutoBraking
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687328904963720315, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: ledBoard
-      value: 
-      objectReference: {fileID: 1502264187}
     - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
       propertyPath: waypoints
       value: 
       objectReference: {fileID: 2056572554}
     - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: finishLine
-      value: 
-      objectReference: {fileID: 226627712}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
       propertyPath: checkpoints
       value: 
       objectReference: {fileID: 276398667}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: waypoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 128804660}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: waypoints.Array.data[1]
-      value: 
-      objectReference: {fileID: 1280797792}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: waypoints.Array.data[2]
-      value: 
-      objectReference: {fileID: 1575759952}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: waypoints.Array.data[3]
-      value: 
-      objectReference: {fileID: 1971183888}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: waypoints.Array.data[4]
-      value: 
-      objectReference: {fileID: 845800866}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: waypoints.Array.data[5]
-      value: 
-      objectReference: {fileID: 325786454}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: waypoints.Array.data[6]
-      value: 
-      objectReference: {fileID: 508885248}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: waypoints.Array.data[7]
-      value: 
-      objectReference: {fileID: 149654092}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: waypoints.Array.data[8]
-      value: 
-      objectReference: {fileID: 327221085}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: waypoints.Array.data[9]
-      value: 
-      objectReference: {fileID: 366625075}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: waypoints.Array.data[10]
-      value: 
-      objectReference: {fileID: 1851387719}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: waypoints.Array.data[11]
-      value: 
-      objectReference: {fileID: 925319859}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: waypoints.Array.data[12]
-      value: 
-      objectReference: {fileID: 813137481}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: waypoints.Array.data[13]
-      value: 
-      objectReference: {fileID: 1612934005}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
 --- !u!4 &2055189770 stripped
@@ -20707,10 +20630,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 480989122}
     - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: timeText
-      value: 
-      objectReference: {fileID: 276426215}
-    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 1762761213}
@@ -20785,10 +20704,6 @@ PrefabInstance:
     - target: {fileID: 927310294293949534, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: m_Name
       value: Speedstinger
-      objectReference: {fileID: 0}
-    - target: {fileID: 927310294293949534, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
@@ -21872,6 +21787,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1633267453}
     m_Modifications:
+    - target: {fileID: 632581746, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: ledBoard
       value: 
@@ -21880,10 +21799,6 @@ PrefabInstance:
       propertyPath: speedBar
       value: 
       objectReference: {fileID: 480989122}
-    - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: timeText
-      value: 
-      objectReference: {fileID: 276426215}
     - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: pauseMenu
       value: 
@@ -21959,6 +21874,10 @@ PrefabInstance:
     - target: {fileID: 6688917618666246721, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: m_Name
       value: Dreadstrider
+      objectReference: {fileID: 0}
+    - target: {fileID: 6688917618666246721, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}

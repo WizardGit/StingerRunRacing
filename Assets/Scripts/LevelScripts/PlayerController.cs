@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 10/9/2022
+ * Last Modified: 11/12/2022
  * Purpose: Controls player movements
  */
 
@@ -23,7 +23,9 @@ public class PlayerController : MonoBehaviour
     // Dictates if the player is allowed to move
     private bool isPause = false;
     // Dictates if the player is on the Terrain
-    private bool onTerrain = true;    
+    private bool onTerrain = true;
+    private bool inWater = false;
+    private bool waterBonusApp = false;
 
     // Dictates the name of the player
     [HideInInspector] public string username;
@@ -87,6 +89,8 @@ public class PlayerController : MonoBehaviour
     private int aimTarget = -1;
     private GameObject npcRacers;
     public int placement = -1;
+    public GameObject waterCollider;
+    public Animator anim;
 
     void Start()
     {
@@ -118,7 +122,8 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animation>();
         rb = GetComponent<Rigidbody>();
         cf = mainCamera.GetComponent<CameraFollow>();
-        audioRoar = GetComponent<AudioSource>();               
+        audioRoar = GetComponent<AudioSource>();
+        anim = GetComponent<Animator>();
 
         //timeText.text = "Time: 0";
         speedText.text = "0 mph";
@@ -129,8 +134,6 @@ public class PlayerController : MonoBehaviour
         playerMaxSpeed = theSave.userSave.dragons[modelToUse].GetSpeedForce() * (transform.localScale.x);
         speedBoostMultiplier = 1.5f;
         jumpForce = theSave.userSave.dragons[modelToUse].GetJumpForce();
-        if (transform.localScale.x > 1)
-            jumpForce *= (transform.localScale.x / 3);
         maxDistCast = theSave.userSave.dragons[modelToUse].GetMaxDistCast();
         radius = theSave.userSave.dragons[modelToUse].GetRadius();
         playerAcceleration = theSave.userSave.dragons[modelToUse].GetAccelForce() * (transform.localScale.x);
@@ -140,6 +143,10 @@ public class PlayerController : MonoBehaviour
         placScript = GameObject.Find("PlacementText").GetComponent<PlacementScript>();
         checkpointScript = GameObject.Find("Checkpoints").GetComponent<CheckpointsScript>();
         CalcNextCheckpoint();
+
+        if (theSave.userSave.racerTag == true)
+            transform.GetChild(3).gameObject.SetActive(true);
+        anim.SetBool("isIdleHappy", true);
     }    
 
     private void FixedUpdate()
@@ -170,24 +177,72 @@ public class PlayerController : MonoBehaviour
             if (playerSpeed > 0)
                 CalcNextCheckpoint();
         }
+
+        if ((isAiming == true) && (aimTarget >= 0))
+        {
+            // DistVec represents the vector between the player and the next checkpoint
+            Vector3 distVec = npcRacers.transform.GetChild(aimTarget).gameObject.transform.position + new Vector3(0,1,0) - transform.GetChild(5).gameObject.transform.position;
+            //var pshape = transform.GetChild(5).gameObject.GetComponent<ParticleSystem>().shape;
+            //pshape.rotation = Quaternion.LookRotation(distVec).eulerAngles;
+            //cyl.transform.rotation = Quaternion.Euler(Quaternion.LookRotation(distVec).eulerAngles + new Vector3(90,0,0));
+            transform.GetChild(5).gameObject.transform.rotation = Quaternion.LookRotation(distVec);
+
+        }
+        else
+        {
+            var pshape = transform.GetChild(5).gameObject.GetComponent<ParticleSystem>().shape;
+            pshape.rotation = new Vector3(0, 0, 0);
+        }
+
     }
 
     private void Move()
-    {        
+    {
+        if ((inWater == true) && (playerSpeed < 14) && (waterBonusApp == false))
+        {
+            waterBonusApp = true;
+            MakePlayerSwim();            
+        }
+        else if ((inWater == true) && (playerSpeed > 14) && (waterBonusApp == true))
+        {
+            waterBonusApp = false;
+            MakePlayerRun();
+        }
+
         // Animations - but only play if we're on ground
         if (onTerrain == true)
         {
             if (movementX > 0.0f)
-                animator.Play(animationRight);
+            {
+                //animator.Play(animationRight);
+                anim.SetBool("isIdleHappy", false);
+                anim.SetBool("isTurnLeft", false);
+                anim.SetBool("isTurnRight", true);
+            }
             else if (movementX < 0.0f)
-                animator.Play(animationLeft);
+            {
+                //animator.Play(animationLeft);
+                anim.SetBool("isIdleHappy", false);
+                anim.SetBool("isTurnRight", false);
+                anim.SetBool("isTurnLeft", true);
+            }
             else if ((!Mathf.Approximately(movementY, 0f) || !Mathf.Approximately(movementX, 0f) || (playerSpeed > 0)) && (onTerrain == true))
-                animator.Play(animationRun);
+            {
+                //animator.Play(animationRun);
+                anim.SetBool("isIdleHappy", false);
+                anim.SetBool("isTurnLeft", false);
+                anim.SetBool("isTurnRight", false);
+                anim.SetBool("isRun", true);
+            }                
             else
             {
                 // The shoot-fireball animation should not be interrupted by animationIdle
-                if (animator.IsPlaying("FlyAttackAdd") == false)
+                /*if (animator.IsPlaying("FlyAttackAdd") == false)
+                {
                     animator.Play(animationIdle);
+                }*/
+                anim.SetBool("isRun", false);
+                anim.SetBool("isIdleHappy", true);
             }
         }        
 
@@ -307,14 +362,10 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision theCollision)
     {
         onTerrain = true;
+        anim.SetBool("isJump", false);
         if (theCollision.gameObject.CompareTag("Water"))
         {
-            playerMaxSpeed /=  2;
-            // We are in water, so switch our animations
-            animationRun = "Swim";
-            animationIdle = "SwimIdle";
-            animationLeft = "Swim";
-            animationRight = "Swim";
+            inWater = true;
         }       
     }
     // As long as we have exited a collision, we must be "in the air"
@@ -322,13 +373,34 @@ public class PlayerController : MonoBehaviour
     {
         if (theCollision.gameObject.CompareTag("Water"))
         {
-            playerMaxSpeed *= 2;
-            // We are exiting the water, so switch our animations
-            animationRun = "Run";
-            animationIdle = "IdleHappy";
-            animationLeft = "WalkLeft";
-            animationRight = "WalkRight";
+            inWater = false;
+            if (waterBonusApp == true)
+            {
+                waterBonusApp = false;
+                MakePlayerRun();
+            }
         }
+    }
+
+    private void MakePlayerSwim()
+    {
+        playerMaxSpeed /= 2;
+        // We are in water, so switch our animations
+        //animationRun = "Swim";
+        //animationIdle = "SwimIdle";
+        //animationLeft = "Swim";
+        //animationRight = "Swim";
+        anim.SetBool("isSwim", true);
+    }
+    private void MakePlayerRun()
+    {
+        playerMaxSpeed *= 2;
+        // We are exiting the water, so switch our animations
+        //animationRun = "Run";
+        //animationIdle = "IdleHappy";
+        //animationLeft = "WalkLeft";
+        //animationRight = "WalkRight";
+        anim.SetBool("isRun", true);
     }
     // Some extra Key Bindings
     private void OnMove(InputValue movementValue)
@@ -346,7 +418,8 @@ public class PlayerController : MonoBehaviour
             Vector3 jump = new Vector3(movementX, jumpForce, movementY);
             rb.AddForce(jump);
             onTerrain = false;
-            animator.Play("Jump01");            
+            //animator.Play("Jump01");
+            anim.SetBool("isJump", true);
         }
     }
     private void OnRespawn()
@@ -374,7 +447,7 @@ public class PlayerController : MonoBehaviour
         if (ledBoard.activeSelf == false)
         {
             isPause = !isPause;
-            animator.Stop();
+            //animator.Stop();
             PauseMenu men = pauseMenu.GetComponent<PauseMenu>();
             if (isPause == true)
                 men.PauseGame();
@@ -428,18 +501,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnFire()
     {
-        if (isAiming == true)
-        {
-            // DistVec represents the vector between the player and the next checkpoint
-            Vector3 distVec = npcRacers.transform.GetChild(aimTarget).gameObject.transform.position - transform.position;
-            var pshape = transform.GetChild(5).gameObject.GetComponent<ParticleSystem>().shape;
-            pshape.rotation = Quaternion.LookRotation(distVec).eulerAngles - (transform.localRotation.eulerAngles);
-        }
-        else
-        {
-            var pshape = transform.GetChild(5).gameObject.GetComponent<ParticleSystem>().shape;
-            pshape.rotation = new Vector3(0,0,0);
-        }
+        
             
         if (Mathf.Approximately(movementY, 0f) && Mathf.Approximately(movementX, 0f) && (animator.IsPlaying("FlyAttackAdd") == false))
         {

@@ -1114,6 +1114,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 206169121}
   m_CullTransparentMesh: 1
+--- !u!1 &211975443 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6688917618666246721, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+  m_PrefabInstance: {fileID: 5261898230741865093}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &219651421
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6893,6 +6898,7 @@ MonoBehaviour:
     dataFile: 
     screenShake: 0
     cameraLag: 0
+    racerTag: 0
   ledSave:
     ledBoard: []
 --- !u!4 &1369666452
@@ -8268,6 +8274,26 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6463938099181318433, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
   m_PrefabInstance: {fileID: 5261898230741865093}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1526230192
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211975443}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3c6071c10ff93c54b968a2a831245b0b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1529628740
 GameObject:
   m_ObjectHideFlags: 0
@@ -13065,6 +13091,10 @@ PrefabInstance:
       propertyPath: distanceText
       value: 
       objectReference: {fileID: 227205917}
+    - target: {fileID: 5261898230030023547, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6463938099181318433, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: m_RootOrder
       value: 1

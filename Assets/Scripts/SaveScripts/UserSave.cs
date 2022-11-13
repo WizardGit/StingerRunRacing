@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 10/8/2022
+ * Last Modified: 11/11/2022
  * Purpose: Saves users' information
  */
 
@@ -28,6 +28,7 @@ public class UserSave
 
     public bool screenShake = false;
     public bool cameraLag = false;
+    public bool racerTag = false;
 
     public UserSave(string user)
     {
@@ -94,6 +95,13 @@ public class UserSave
             {
                 coins = user.coins;
                 gems = user.gems;
+            }
+            catch { }
+
+            try
+            {
+                coins = user.coins;
+                gems = user.gems;
                 numSheep = user.numSheep;
                 levelTimes = user.levelTimes;
                 dragons = user.dragons;
@@ -102,13 +110,12 @@ public class UserSave
                 username = user.username;
                 screenShake = user.screenShake;
                 cameraLag = user.cameraLag;
+                racerTag = user.racerTag;
             }
             catch
             {
                 DeleteUser();
                 CreateUser();
-                coins = 400;
-                gems = 40;
                 SaveUser();
             }          
         }

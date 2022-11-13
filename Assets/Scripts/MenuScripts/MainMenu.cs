@@ -1,6 +1,6 @@
 /*
  * Authors: Sofi Vinas, Kaiser Slocum
- * Last Modified: 9/13/2022
+ * Last Modified: 11/11/2022
  */
 
 using System.Collections;
@@ -26,6 +26,7 @@ public class MainMenu : MonoBehaviour
 
     public GameObject ScreenShakeToggle;
     public GameObject CameraLagToggle;
+    public GameObject RacerTagToggle;
 
     private SaveGame theSave;
 
@@ -48,6 +49,11 @@ public class MainMenu : MonoBehaviour
             ScreenShakeToggle.GetComponent<Toggle>().isOn = true;
         else
             ScreenShakeToggle.GetComponent<Toggle>().isOn = false;
+        if (theSave.userSave.racerTag == true)
+            RacerTagToggle.GetComponent<Toggle>().isOn = true;
+        else
+            RacerTagToggle.GetComponent<Toggle>().isOn = false;
+        CheckLevelAvailability();
     }
 
     public void CheckLevelAvailability()
@@ -108,6 +114,14 @@ public class MainMenu : MonoBehaviour
         if (CameraLagToggle.GetComponent<Toggle>().isOn != theSave.userSave.cameraLag)
         {
             theSave.userSave.cameraLag = !theSave.userSave.cameraLag;
+            theSave.userSave.SaveUser();
+        }
+    }
+    public void ChangeRacerTag()
+    {
+        if (RacerTagToggle.GetComponent<Toggle>().isOn != theSave.userSave.racerTag)
+        {
+            theSave.userSave.racerTag = !theSave.userSave.racerTag;
             theSave.userSave.SaveUser();
         }
     }

@@ -1,6 +1,6 @@
 /*
  * Authors: Sofi Vinas, Kaiser Slocum
- * Last Modified: 5/31/2022
+ * Last Modified: 11/11/2022
  */
 
 using System.Collections;
@@ -14,5 +14,9 @@ public class CreditsScript : MonoBehaviour
     {
         GetComponent<AudioSource>().Play();
         SceneManager.LoadScene("Menu");
+    }
+    public void LoadParty()
+    {
+        SceneManager.LoadScene("DanceScene");
     }
 }

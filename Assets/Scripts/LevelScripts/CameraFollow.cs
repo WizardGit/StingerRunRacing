@@ -32,6 +32,7 @@ public class CameraFollow : MonoBehaviour
     [HideInInspector] public bool isAccel = false;
     private bool canShake = false;
     private bool canLag = false;
+    private int count = 0;
     private void Start()
     {
         UserSave usersave = new UserSave(NameTransfer.theName);
@@ -68,15 +69,21 @@ public class CameraFollow : MonoBehaviour
 
     private void FollowPlayer()
     {
-        if (lookForward == true)
+        if ((lookForward == true) && (count < 2))
         {
+
             if (Vector3.Angle(offsetPosition, tmpOffsetPos) < 4)
+            {
+                count++;
                 tmpOffsetPos = tmpOffsetPos2;
-            if (canLag == true)
-                offsetPosition = Vector3.Slerp(offsetPosition, tmpOffsetPos, slerpNum * Time.deltaTime);
-            else
+            }
+
+            offsetPosition = Vector3.Slerp(offsetPosition, tmpOffsetPos, slerpNum * Time.deltaTime);
+
+            if (count >= 2)
                 offsetPosition = tmpOffsetPos;
         }
+        
 
         // If we want to look at our dragon...
         if (lookAt == true)
