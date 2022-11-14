@@ -2739,10 +2739,10 @@ GameObject:
   - component: {fileID: 6463938099181318433}
   - component: {fileID: -3886609801385968105}
   - component: {fileID: -1849046538120446977}
-  - component: {fileID: 5261898230030023547}
   - component: {fileID: 5261898230030022791}
   - component: {fileID: 5261898230030022790}
   - component: {fileID: 406619628293018475}
+  - component: {fileID: 1526230192}
   m_Layer: 0
   m_Name: DreadstriderModelPrefab
   m_TagString: Player
@@ -2801,29 +2801,6 @@ CapsuleCollider:
   m_Height: 4.5
   m_Direction: 2
   m_Center: {x: 0, y: 0.7, z: 0.5}
---- !u!111 &5261898230030023547
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6688917618666246721}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: e8f1c090875c3d247b527a3d602f8163, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: e8f1c090875c3d247b527a3d602f8163, type: 2}
-  - {fileID: 7400000, guid: 391866c8e3c93f64f9cb1c310aed7d9f, type: 2}
-  - {fileID: 7400000, guid: e72607c92c36bb147b0a5a5a5027955a, type: 2}
-  - {fileID: 7400000, guid: 7a55cd1a68a517643bca24150df10d0a, type: 2}
-  - {fileID: 7400000, guid: 283714c12591336419d3d0b9c16246fb, type: 2}
-  - {fileID: 7400000, guid: 8e4bb50881114b34a8c7e2830d41d63b, type: 2}
-  - {fileID: 7400000, guid: a4c5c11a20a200444bb80e6d6a8ef90b, type: 2}
-  - {fileID: 7400000, guid: fb8976ae65dc2394d9de7854738778f7, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &5261898230030022791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2888,6 +2865,8 @@ MonoBehaviour:
   messageText: {fileID: 0}
   isAiming: 0
   placement: -1
+  waterCollider: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!82 &406619628293018475
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2984,6 +2963,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &1526230192
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6688917618666246721}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3c6071c10ff93c54b968a2a831245b0b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6697740451996258100
 GameObject:
   m_ObjectHideFlags: 0

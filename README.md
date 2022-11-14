@@ -31,4 +31,9 @@ allow npcs to get speed boxes!
 fix water for dragon
 fix freeroam player controller script
 create some sort of template for the canvas
-fix speedstinger animation controller
+fix running in air
+fix animation controllers on npcs
+debug levels
+fix waterBox level if dragons go super fast while already sunk in the water if we want to do that
+fix weird switch between running and dragon turning animations
+fix dragon won't slow down on water

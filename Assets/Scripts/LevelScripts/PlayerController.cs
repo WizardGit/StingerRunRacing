@@ -45,11 +45,6 @@ public class PlayerController : MonoBehaviour
     // Camera Variables
     public GameObject mainCamera;
     private CameraFollow cf;    
-    // These variables hold the animation title for the speedstinger
-    private string animationRun = "Run";
-    private string animationIdle = "IdleHappy";
-    private string animationLeft = "WalkLeft";
-    private string animationRight = "WalkRight";
 
     // Movement variables
     private float playerRotationSpeed = 200f;
@@ -91,6 +86,7 @@ public class PlayerController : MonoBehaviour
     public int placement = -1;
     public GameObject waterCollider;
     public Animator anim;
+    public GameObject waterBox;
 
     void Start()
     {
@@ -117,7 +113,12 @@ public class PlayerController : MonoBehaviour
             {
                 gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().material = materials[i];
             }
-        }        
+        }
+
+        if (gameObject.transform.name == "Speedstinger")
+            waterBox.transform.position = new Vector3(waterBox.transform.position.x, waterBox.transform.parent.gameObject.transform.position.y - 2.1f, waterBox.transform.position.z);
+        else if (gameObject.transform.name == "Dreadstrider")
+            waterBox.transform.position = new Vector3(waterBox.transform.position.x, waterBox.transform.parent.gameObject.transform.position.y - 2.1f, waterBox.transform.position.z);
 
         animator = GetComponent<Animation>();
         rb = GetComponent<Rigidbody>();
@@ -180,33 +181,60 @@ public class PlayerController : MonoBehaviour
 
         if ((isAiming == true) && (aimTarget >= 0))
         {
-            // DistVec represents the vector between the player and the next checkpoint
+            // DistVec represents the vector between the player and the next npc racer
             Vector3 distVec = npcRacers.transform.GetChild(aimTarget).gameObject.transform.position + new Vector3(0,1,0) - transform.GetChild(5).gameObject.transform.position;
-            //var pshape = transform.GetChild(5).gameObject.GetComponent<ParticleSystem>().shape;
-            //pshape.rotation = Quaternion.LookRotation(distVec).eulerAngles;
-            //cyl.transform.rotation = Quaternion.Euler(Quaternion.LookRotation(distVec).eulerAngles + new Vector3(90,0,0));
             transform.GetChild(5).gameObject.transform.rotation = Quaternion.LookRotation(distVec);
-
         }
         else
         {
-            var pshape = transform.GetChild(5).gameObject.GetComponent<ParticleSystem>().shape;
-            pshape.rotation = new Vector3(0, 0, 0);
+            transform.GetChild(5).gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         }
-
     }
-
+    
     private void Move()
     {
         if ((inWater == true) && (playerSpeed < 14) && (waterBonusApp == false))
         {
+            if (gameObject.transform.name == "Speedstinger")
+                waterBox.transform.position = new Vector3(waterBox.transform.position.x, waterBox.transform.parent.gameObject.transform.position.y - 2.2f, waterBox.transform.position.z);
+            else if (gameObject.transform.name == "Dreadstrider")
+                waterBox.transform.position = new Vector3(waterBox.transform.position.x, waterBox.transform.parent.gameObject.transform.position.y - 3.0f, waterBox.transform.position.z);
+
             waterBonusApp = true;
-            MakePlayerSwim();            
+            playerMaxSpeed /= 2;
+            anim.SetBool("isRun", false);
+            anim.SetBool("isIdleHappy", false);
+            anim.SetBool("isSwim", true);
+        }
+        else if ((inWater == true) && (playerSpeed < 14))
+        {
+            anim.SetBool("isRun", false);
+            anim.SetBool("isSwimIdle", false);
+            anim.SetBool("isSwim", true);
         }
         else if ((inWater == true) && (playerSpeed > 14) && (waterBonusApp == true))
         {
+            if (gameObject.transform.name == "Speedstinger")
+                waterBox.transform.position = new Vector3(waterBox.transform.position.x, waterBox.transform.parent.gameObject.transform.position.y - 2.1f, waterBox.transform.position.z);
+            else if (gameObject.transform.name == "Dreadstrider")
+                waterBox.transform.position = new Vector3(waterBox.transform.position.x, waterBox.transform.parent.gameObject.transform.position.y - 2.1f, waterBox.transform.position.z);
+
             waterBonusApp = false;
-            MakePlayerRun();
+            playerMaxSpeed *= 2;
+            anim.SetBool("isSwim", false);
+            anim.SetBool("isSwimIdle", false);
+            anim.SetBool("isRun", true);
+        }
+        else if ((inWater == true) && (playerSpeed == 0))
+        {
+            if (gameObject.transform.name == "Speedstinger")
+                waterBox.transform.position = new Vector3(waterBox.transform.position.x, waterBox.transform.parent.gameObject.transform.position.y - 2.2f, waterBox.transform.position.z);
+            else if (gameObject.transform.name == "Dreadstrider")
+                waterBox.transform.position = new Vector3(waterBox.transform.position.x, waterBox.transform.parent.gameObject.transform.position.y - 3.0f, waterBox.transform.position.z);
+
+            anim.SetBool("isRun", false);
+            anim.SetBool("isSwim", false);
+            anim.SetBool("isSwimIdle", true);
         }
 
         // Animations - but only play if we're on ground
@@ -226,7 +254,7 @@ public class PlayerController : MonoBehaviour
                 anim.SetBool("isTurnRight", false);
                 anim.SetBool("isTurnLeft", true);
             }
-            else if ((!Mathf.Approximately(movementY, 0f) || !Mathf.Approximately(movementX, 0f) || (playerSpeed > 0)) && (onTerrain == true))
+            else if (!Mathf.Approximately(movementY, 0f) || !Mathf.Approximately(movementX, 0f) || (playerSpeed > 0))
             {
                 //animator.Play(animationRun);
                 anim.SetBool("isIdleHappy", false);
@@ -242,6 +270,8 @@ public class PlayerController : MonoBehaviour
                     animator.Play(animationIdle);
                 }*/
                 anim.SetBool("isRun", false);
+                anim.SetBool("isTurnLeft", false);
+                anim.SetBool("isTurnRight", false);
                 anim.SetBool("isIdleHappy", true);
             }
         }        
@@ -343,7 +373,8 @@ public class PlayerController : MonoBehaviour
                 if (placScript.numLaps == lapsCompleted)
                 {
                     isPause = true;
-                    animator.Play(animationIdle);
+                    anim.SetBool("isIdleHappy", true);
+                    anim.SetBool("isRun", false);
                     messageText.text = "";
                     speedText.text = "0 mph";
                     speedBar.fillAmount = 0;
@@ -356,52 +387,43 @@ public class PlayerController : MonoBehaviour
             transform.position = resetPos; 
             audioRoar.Play();
         }
+        else if (other.gameObject.CompareTag("Water"))
+        {
+            anim.SetBool("isJump", false);
+            //onTerrain = false;
+            inWater = true;
+        }
     }
 
-    // As long as we have a collision, we are "on the terrain"
-    private void OnCollisionEnter(Collision theCollision)
+    private void OnTriggerExit(Collider triggerObj)
     {
-        onTerrain = true;
-        anim.SetBool("isJump", false);
-        if (theCollision.gameObject.CompareTag("Water"))
-        {
-            inWater = true;
-        }       
-    }
-    // As long as we have exited a collision, we must be "in the air"
-    private void OnCollisionExit(Collision theCollision)
-    {
-        if (theCollision.gameObject.CompareTag("Water"))
+        if (triggerObj.gameObject.CompareTag("Water"))
         {
             inWater = false;
             if (waterBonusApp == true)
             {
+                playerMaxSpeed *= 2;
                 waterBonusApp = false;
-                MakePlayerRun();
+                anim.SetBool("isSwim", false);
+                anim.SetBool("isSwimIdle", false);
             }
+            //onTerrain = true;
         }
     }
 
-    private void MakePlayerSwim()
+    // As long as we have a collision, we are "on the terrain"
+    private void OnCollisionEnter(Collision collidingObj)
     {
-        playerMaxSpeed /= 2;
-        // We are in water, so switch our animations
-        //animationRun = "Swim";
-        //animationIdle = "SwimIdle";
-        //animationLeft = "Swim";
-        //animationRight = "Swim";
-        anim.SetBool("isSwim", true);
+        onTerrain = true;
+        anim.SetBool("isJump", false);
     }
-    private void MakePlayerRun()
+    // As long as we have exited a collision, we must be "in the air"
+    private void OnCollisionExit(Collision collidingObj)
     {
-        playerMaxSpeed *= 2;
-        // We are exiting the water, so switch our animations
-        //animationRun = "Run";
-        //animationIdle = "IdleHappy";
-        //animationLeft = "WalkLeft";
-        //animationRight = "WalkRight";
-        anim.SetBool("isRun", true);
+        onTerrain = false;
     }
+
+    
     // Some extra Key Bindings
     private void OnMove(InputValue movementValue)
     {
