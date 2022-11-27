@@ -1114,11 +1114,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 206169121}
   m_CullTransparentMesh: 1
---- !u!1 &211179347 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 927310294293949534, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-  m_PrefabInstance: {fileID: 8758835120935125}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &219651421
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3191,7 +3186,7 @@ GameObject:
   - component: {fileID: 671837858}
   - component: {fileID: 671837857}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: WaterLvlCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4868,26 +4863,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
   m_PrefabInstance: {fileID: 8758835120935125}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &1098037234
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 211179347}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 038589a785d8b2143978ff02bda90594, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1103989051
 GameObject:
   m_ObjectHideFlags: 0
@@ -6965,11 +6940,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d299ef051d7a624989e05e6854b10ab, type: 3}
---- !u!1 &1368883097 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6565118308283061667, guid: ea2233595f40d404b822b230b318a570, type: 3}
-  m_PrefabInstance: {fileID: 1197173896}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1368883099 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6565118308283061666, guid: ea2233595f40d404b822b230b318a570, type: 3}
@@ -11997,25 +11967,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 1633267453}
     m_Modifications:
     - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: ledBoard
-      value: 
-      objectReference: {fileID: 1502264187}
-    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: speedBar
       value: 
       objectReference: {fileID: 356090727}
     - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: timeText
-      value: 
-      objectReference: {fileID: 276426215}
-    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: waterBox
       value: 
       objectReference: {fileID: 671837855}
-    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: cntDwnImg
-      value: 
-      objectReference: {fileID: 1539594810}
     - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: pauseMenu
       value: 
@@ -12025,25 +11983,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1120517314}
     - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: finishLine
-      value: 
-      objectReference: {fileID: 1368883097}
-    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 963194225}
-    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: checkpoints
-      value: 
-      objectReference: {fileID: 276398667}
+      objectReference: {fileID: 963194227}
     - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: messageText
       value: 
       objectReference: {fileID: 2128861418}
-    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: distanceText
-      value: 
-      objectReference: {fileID: 227205917}
     - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -12092,12 +12038,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: Speedstinger
       objectReference: {fileID: 0}
-    - target: {fileID: 927310294293949534, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1098037230, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: ledBoard
+      value: 
+      objectReference: {fileID: 1502264187}
+    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: checkpoints
+      value: 
+      objectReference: {fileID: 276398667}
+    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: distanceText
+      value: 
+      objectReference: {fileID: 227205917}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
 --- !u!1001 &2547195674283334702
 PrefabInstance:
@@ -13158,10 +13111,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 1633267453}
     m_Modifications:
     - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: ledBoard
-      value: 
-      objectReference: {fileID: 1502264187}
-    - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: speedBar
       value: 
       objectReference: {fileID: 356090727}
@@ -13178,25 +13127,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1120517314}
     - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: finishLine
-      value: 
-      objectReference: {fileID: 1368883097}
-    - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 963194225}
-    - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: checkpoints
-      value: 
-      objectReference: {fileID: 276398667}
+      objectReference: {fileID: 963194227}
     - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: messageText
       value: 
       objectReference: {fileID: 2128861418}
-    - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: distanceText
-      value: 
-      objectReference: {fileID: 227205917}
     - target: {fileID: 6463938099181318433, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -13245,9 +13182,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dreadstrider
       objectReference: {fileID: 0}
-    - target: {fileID: 6688917618666246721, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 7132475290110717110, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: ledBoard
+      value: 
+      objectReference: {fileID: 1502264187}
+    - target: {fileID: 7132475290110717110, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: checkpoints
+      value: 
+      objectReference: {fileID: 276398667}
+    - target: {fileID: 7132475290110717110, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: distanceText
+      value: 
+      objectReference: {fileID: 227205917}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}

@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 10/9/2022
+ * Last Modified:  11/26/2022
  * The Arrow pointing angle code is something I am VERY proud of.
  * Took forever to do!
  */
@@ -12,7 +12,7 @@ using UnityEngine;
 public class ArrowScript : MonoBehaviour
 {
     private GameObject player;
-    private PlayerController playerScript;
+    private PlayerRacingController playerScript;
     private CameraFollow mainCameraScript;
 
     private GameObject checkpoints;
@@ -23,7 +23,7 @@ public class ArrowScript : MonoBehaviour
     {
         // Get our player!
         player = GameObject.Find("DragonPlayers").transform.GetChild(GameObject.Find("SaveGameObject").GetComponent<SaveGame>().userSave.IndexOfDragonInUse()).gameObject;
-        playerScript = player.GetComponent<PlayerController>();
+        playerScript = player.GetComponent<PlayerRacingController>();
         checkpoints = GameObject.Find("Checkpoints").transform.gameObject;
         mainCameraScript = GameObject.Find("Main Camera").GetComponent<Camera>().GetComponent<CameraFollow>();
         numCheckpoints = checkpoints.transform.childCount;

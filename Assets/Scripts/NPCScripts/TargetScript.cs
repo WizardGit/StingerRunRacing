@@ -1,5 +1,5 @@
 /* Author: Kaiser Slocum
- * Last Modified: 10/14/2022
+ * Last Modified: 11/26/2022
  * Purpose: 
  */
 
@@ -42,15 +42,15 @@ public class TargetScript : MonoBehaviour
         //(Mathf.Abs(disVec.x) + Mathf.Abs(disVec.y) + Mathf.Abs(disVec.z)) > 30) || 
 
         if (
-            (gameObject.transform.parent.GetComponent<WaypointTrip>().placement > player.GetComponent<PlayerController>().placement) ||            
-            (player.GetComponent<PlayerController>().isAiming == false)    
+            (gameObject.transform.parent.GetComponent<WaypointTrip>().placement > player.GetComponent<PlayerRacingController>().placement) ||            
+            (player.GetComponent<PlayerRacingController>().isAiming == false)    
             )
         {
             canAim = false;
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(false);
         }
-        else if (player.GetComponent<PlayerController>().isAiming == true)
+        else if (player.GetComponent<PlayerRacingController>().isAiming == true)
         {
             canAim = true;
             if (setRed == true)

@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 10/9/2022
+ * Last Modified:  11/26/2022
  * Purpose: Get placements for every racer
  */
 
@@ -16,7 +16,7 @@ public class PlacementScript : MonoBehaviour
     public int levelNum;
     public GameObject dragonPlayers;
     public GameObject npcRacers;
-    private PlayerController player;
+    private PlayerRacingController player;
     public TextMeshProUGUI raceBoard;
     public TextMeshProUGUI coinsWin;
     private int rankCounter = 1;
@@ -46,7 +46,7 @@ public class PlacementScript : MonoBehaviour
 
         ledBoard.SetActive(false);
         // Get our target
-        player = dragonPlayers.transform.GetChild(theSave.userSave.IndexOfDragonInUse()).gameObject.GetComponent<PlayerController>();
+        player = dragonPlayers.transform.GetChild(theSave.userSave.IndexOfDragonInUse()).gameObject.GetComponent<PlayerRacingController>();
 
         // We're doing <= because we need to add one for the player
         for (int i = 0; i <= npcRacers.transform.childCount; i++)
@@ -98,7 +98,8 @@ public class PlacementScript : MonoBehaviour
             usersave.userSave.coins += numCoins;
             usersave.userSave.SaveUser();
 
-            raceBoard.text += (rankCounter++).ToString() + ". " + player.username + ": " + MathF.Round(theTheTime, 3).ToString() + "\n";
+            PlayerController playerC = dragonPlayers.transform.GetChild(theSave.userSave.IndexOfDragonInUse()).gameObject.GetComponent<PlayerController>();
+            raceBoard.text += (rankCounter++).ToString() + ". " + playerC.username + ": " + MathF.Round(theTheTime, 3).ToString() + "\n";
             coinsWin.text = "You just won " + numCoins + " Coins!";
         }
         else
@@ -212,7 +213,7 @@ public class Standings
 
             if (standings[i].CompareTag("Player") == true)
             {
-                PlayerController racer = standings[i].GetComponent<PlayerController>();
+                PlayerRacingController racer = standings[i].GetComponent<PlayerRacingController>();
                 c = racer.checkpointsReached;
                 d = racer.disToCheckpoint;
             }
@@ -234,7 +235,7 @@ public class Standings
 
                 if (standings[ci].CompareTag("Player") == true)
                 {
-                    PlayerController aracer = standings[ci].GetComponent<PlayerController>();
+                    PlayerRacingController aracer = standings[ci].GetComponent<PlayerRacingController>();
                     ac = aracer.checkpointsReached;
                     ad = aracer.disToCheckpoint;
                 }
@@ -269,7 +270,7 @@ public class Standings
 
             if (standings[i].CompareTag("Player") == true)
             {
-                standings[i].GetComponent<PlayerController>().placement = i;
+                standings[i].GetComponent<PlayerRacingController>().placement = i;
             }
             else
             {

@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/4/2022
+ * Last Modified: 11/26/2022
  */
 
 using System.Collections;
@@ -10,6 +10,8 @@ using UnityEngine;
 public class GemScript : MonoBehaviour
 {
     private SaveGame usersave;
+
+    public AudioSource gemCollectSound;
     void Start()
     {
         usersave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
@@ -44,6 +46,7 @@ public class GemScript : MonoBehaviour
     }
     public void UpdateGemCollected()
     {
+        gemCollectSound.Play();
         usersave.userSave.LoadUser();
         usersave.userSave.gems += 10;
         for (int i = 0; i < usersave.userSave.gemsList.Count; i++)

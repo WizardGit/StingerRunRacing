@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 9/5/2022
+ * Last Modified: 11/26/2022
  */
 
 using System;
@@ -13,7 +13,7 @@ public class AlphaMove : MonoBehaviour
 {
     public UnityEngine.AI.NavMeshAgent navMeshAgent;
     public GameObject waypoint;
-    private Animation animator;
+    private Animator animator;
     public AudioSource audioFootsteps;
     public AudioSource audioRoar;
     public GameObject Harald;
@@ -23,7 +23,7 @@ public class AlphaMove : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animation>();
+        animator = GetComponent<Animator>();
         // Get the correct dragon to follow!
         UserSave usersave = new UserSave(NameTransfer.theName);        
         target = models.transform.GetChild(usersave.IndexOfDragonInUse()).gameObject;
@@ -60,17 +60,19 @@ public class AlphaMove : MonoBehaviour
 
         if (navMeshAgent.velocity.x != 0)
         {
-            animator.Play("Run");
+            animator.SetBool("isIdleHappy", false);
+            animator.SetBool("isRun", true);
             if ((audioFootsteps.isPlaying == false) && (audioRoar.isPlaying == false))
                 audioFootsteps.Play();
         }
         else
         {
             // If we are in the cage, we play the idle sad animation, but if we are out (represented by goTime == true), than we play the happy idle animation
+            animator.SetBool("isRun", false);
             if (Harald.GetComponent<HaraldMove>().goTime == false)
-                animator.Play("IdleSad");
+                animator.SetBool("isIdleHappy", true);
             else
-                animator.Play("IdleHappy");
+                animator.SetBool("isIdleHappy", true);
             if (audioFootsteps.isPlaying == true)
                 audioFootsteps.Pause();
         }

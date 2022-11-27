@@ -4,6 +4,7 @@ This is a standard 3D Unity project on version 2021.2.14f1
 
 Kaizar The Sneak Unity Play: https://play.unity.com/u/KaizarTheSneak
 Game Link: https://play.unity.com/mg/other/webglbuilds-245
+Website Link: https://wizardgit.github.io/StingerRunRacingWebsite/index.html
 
 TODO:
 get lava texture from TRR race track for stingerrunracing
@@ -27,13 +28,16 @@ war simulator with characters - you can set waypoints to be enemies and draw lin
 put limits on number of coins/gems/sheep
 allow npcs to get speed boxes!
 
-
-fix water for dragon
-fix freeroam player controller script
-create some sort of template for the canvas
+test water for dragon
+test weird switch between running and dragon turning animations
+test local vs world simulation space for fireballs
 fix running in air
 fix animation controllers on npcs
+fix messagetext disappearing too quick (noticed in freeroam once you grab a gem)
+fix jump while already in air bug
+fix if time gets too long!
+fix animation from water to land only kicks in when fully on land
 debug levels
-fix waterBox level if dragons go super fast while already sunk in the water if we want to do that
-fix weird switch between running and dragon turning animations
-fix dragon won't slow down on water
+add isIdleSad to animation file and change that for alphamove script 
+create some sort of template for the canvas
+while shoot fireball animation is playing, move particle system

@@ -1,11 +1,10 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 11/12/2022
+ * Last Modified: 11/26/2022
  * Purpose: Controls player movements
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,83 +14,65 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
     // Variables for keeping the time
-    private float boostTimer = 0.0f;
-    public float boostTimeLength = 10f;
+    [HideInInspector] public float boostTimer = 0.0f;
+    [HideInInspector] public float boostTimeLength = 10f;
+    // Objects that need to be assigned in the scene
     public List<Material> materials;
     public Image speedBar;
     public TextMeshProUGUI speedText;
+    public GameObject pauseMenu;
+    public Camera mainCamera;
+    [HideInInspector] public CameraFollow cf;
+    [HideInInspector] public Animator anim;
     // Dictates if the player is allowed to move
-    private bool isPause = false;
-    // Dictates if the player is on the Terrain
-    private bool onTerrain = true;
-    private bool inWater = false;
+    [HideInInspector] public bool isPause = false;
+    // Variables for what kind of material the player is on
+    public bool onTerrain = true;
+    public bool inWater = false;
+    // Describes if the speed reduction for being in water has been applied
     private bool waterBonusApp = false;
 
     // Dictates the name of the player
     [HideInInspector] public string username;
-    private float time = 0.0f;
-    // Dictates how many checkpoints the theSave has hit
-    [HideInInspector] public int checkpointsReached = 0;
-    [HideInInspector] public int lapsCompleted = 0;
-    [HideInInspector] public float disToCheckpoint = 0.0f;
-    // Dictates how many checkpoints there are
-    public int numCheckpoints;
-    public GameObject checkpoints;
-    public TextMeshProUGUI distanceText;
-    public GameObject finishLine;
-    // Leaderboard parent object
-    public GameObject ledBoard;
-    public GameObject pauseMenu;
-    // Camera Variables
-    public GameObject mainCamera;
-    private CameraFollow cf;    
+    [HideInInspector] public float time = 0.0f;   
 
-    // Movement variables
+    // Dragon stat variables that depends on the dragon's class stats
     private float playerRotationSpeed = 200f;
-    private float playerSpeed = 0;
+    [HideInInspector] public float playerSpeed = 0;
     private float playerAcceleration = 0;
-    public bool isAccelerating = false;
-    private float playerMaxSpeed = 0;
-    private float speedBoostMultiplier = 1.5f;
-    private float jumpForce = 1000;  
+    [HideInInspector] public bool isAccelerating = false;
+    [HideInInspector] public float playerMaxSpeed = 0;
+    [HideInInspector] public float playerMinOnWaterSpeed = 14;
+    private float jumpForce = 1000;
 
     // Movement variables
-    private float movementX = 0.0f;
-    private float movementY = 0.0f;
+    [HideInInspector] public float movementX = 0.0f;
+    [HideInInspector] public float movementY = 0.0f;
     private float movementYBefore = 0.0f;
     // Dictates the last checkpoint that the player will reset to if it falls out of the map
-    private Vector3 resetPos;
+    [HideInInspector] public Vector3 resetPos;
+    // The object that holds the save file for the user
     private SaveGame theSave;
 
     // Object variables
-    private Animation animator;
     private Rigidbody rb;
     private AudioSource audioRoar;
 
     // Text variables
-    //public TextMeshProUGUI timeText;
     public TextMeshProUGUI messageText;    
 
     // Variables for raycasting
     private float maxDistCast = 0.1f;
     private float radius = 0.2f;
 
-    private PlacementScript placScript;
-    private CheckpointsScript checkpointScript;
-    private PowerUpsScript powerUpsScript;
-
-    [HideInInspector] public bool isAiming = false;
-    private int aimTarget = -1;
-    private GameObject npcRacers;
-    public int placement = -1;
-    public GameObject waterCollider;
-    public Animator anim;
+    // Water Box variables
     public GameObject waterBox;
+    private float wbPos;
+    private float wbWaterLvl;
+    private float wbDragonSwimLvl;
 
     void Start()
     {
-        numCheckpoints = checkpoints.transform.childCount;
-
         string theName = NameTransfer.theName;
         if (theName != null)
             username = theName;
@@ -100,9 +81,7 @@ public class PlayerController : MonoBehaviour
 
         // Load/Create a new file for this theSave!
         theSave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
-        powerUpsScript = GameObject.Find("Powerups").GetComponent<PowerUpsScript>();
-        npcRacers = GameObject.Find("NPCs");
-
+        
         // Load the correct dragon!
         int modelToUse = theSave.userSave.IndexOfDragonInUse();
 
@@ -115,12 +94,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (gameObject.transform.name == "Speedstinger")
-            waterBox.transform.position = new Vector3(waterBox.transform.position.x, waterBox.transform.parent.gameObject.transform.position.y - 2.1f, waterBox.transform.position.z);
-        else if (gameObject.transform.name == "Dreadstrider")
-            waterBox.transform.position = new Vector3(waterBox.transform.position.x, waterBox.transform.parent.gameObject.transform.position.y - 2.1f, waterBox.transform.position.z);
+        wbPos = waterBox.transform.parent.gameObject.transform.position.y;
+        wbWaterLvl = 2.1f;
+        wbDragonSwimLvl = gameObject.GetComponent<CapsuleCollider>().height - 1.2f;
+        waterBox.transform.position = new Vector3(waterBox.transform.position.x, wbPos - wbWaterLvl, waterBox.transform.position.z);
 
-        animator = GetComponent<Animation>();
         rb = GetComponent<Rigidbody>();
         cf = mainCamera.GetComponent<CameraFollow>();
         audioRoar = GetComponent<AudioSource>();
@@ -128,26 +106,21 @@ public class PlayerController : MonoBehaviour
 
         //timeText.text = "Time: 0";
         speedText.text = "0 mph";
+        speedBar.fillAmount = 0f;
         messageText.text = "";
         resetPos = transform.position;       
 
         playerRotationSpeed = theSave.userSave.dragons[modelToUse].GetTurnSpeed();
         playerMaxSpeed = theSave.userSave.dragons[modelToUse].GetSpeedForce() * (transform.localScale.x);
-        speedBoostMultiplier = 1.5f;
+        
         jumpForce = theSave.userSave.dragons[modelToUse].GetJumpForce();
         maxDistCast = theSave.userSave.dragons[modelToUse].GetMaxDistCast();
         radius = theSave.userSave.dragons[modelToUse].GetRadius();
-        playerAcceleration = theSave.userSave.dragons[modelToUse].GetAccelForce() * (transform.localScale.x);
+        playerAcceleration = theSave.userSave.dragons[modelToUse].GetAccelForce() * (transform.localScale.x);        
 
-        speedBar.fillAmount = 0f;
-
-        placScript = GameObject.Find("PlacementText").GetComponent<PlacementScript>();
-        checkpointScript = GameObject.Find("Checkpoints").GetComponent<CheckpointsScript>();
-        CalcNextCheckpoint();
-
-        if (theSave.userSave.racerTag == true)
-            transform.GetChild(3).gameObject.SetActive(true);
-        anim.SetBool("isIdleHappy", true);
+        SetAnimatorBool("isIdleHappy");
+        // Set the fireball particle system to just go straight forward
+        transform.GetChild(5).gameObject.transform.rotation = gameObject.transform.rotation;
     }    
 
     private void FixedUpdate()
@@ -162,121 +135,60 @@ public class PlayerController : MonoBehaviour
             rb.MoveRotation(Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)), 4 * Time.deltaTime));
         }
 
+        // If the user falls under the map
         if (rb.position.y <= 0)
         {
             OnRespawn();
         }
-        else if (((time - boostTimer) > 2f) && (boostTimer > 0))
-        {
-            messageText.text = "";
-        }
 
-        if ((placScript.startTime <= 0) && (isPause == false))
+        if (isPause == false)
         {           
             Move();
-            // Don't bother calculating next checkpoint, if we aren't moving, there is nothing to calculate!
-            if (playerSpeed > 0)
-                CalcNextCheckpoint();
-        }
-
-        if ((isAiming == true) && (aimTarget >= 0))
-        {
-            // DistVec represents the vector between the player and the next npc racer
-            Vector3 distVec = npcRacers.transform.GetChild(aimTarget).gameObject.transform.position + new Vector3(0,1,0) - transform.GetChild(5).gameObject.transform.position;
-            transform.GetChild(5).gameObject.transform.rotation = Quaternion.LookRotation(distVec);
-        }
-        else
-        {
-            transform.GetChild(5).gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-        }
+        }        
     }
     
     private void Move()
     {
-        if ((inWater == true) && (playerSpeed < 14) && (waterBonusApp == false))
+        if (inWater == true)
         {
-            if (gameObject.transform.name == "Speedstinger")
-                waterBox.transform.position = new Vector3(waterBox.transform.position.x, waterBox.transform.parent.gameObject.transform.position.y - 2.2f, waterBox.transform.position.z);
-            else if (gameObject.transform.name == "Dreadstrider")
-                waterBox.transform.position = new Vector3(waterBox.transform.position.x, waterBox.transform.parent.gameObject.transform.position.y - 3.0f, waterBox.transform.position.z);
-
-            waterBonusApp = true;
-            playerMaxSpeed /= 2;
-            anim.SetBool("isRun", false);
-            anim.SetBool("isIdleHappy", false);
-            anim.SetBool("isSwim", true);
-        }
-        else if ((inWater == true) && (playerSpeed < 14))
-        {
-            anim.SetBool("isRun", false);
-            anim.SetBool("isSwimIdle", false);
-            anim.SetBool("isSwim", true);
-        }
-        else if ((inWater == true) && (playerSpeed > 14) && (waterBonusApp == true))
-        {
-            if (gameObject.transform.name == "Speedstinger")
-                waterBox.transform.position = new Vector3(waterBox.transform.position.x, waterBox.transform.parent.gameObject.transform.position.y - 2.1f, waterBox.transform.position.z);
-            else if (gameObject.transform.name == "Dreadstrider")
-                waterBox.transform.position = new Vector3(waterBox.transform.position.x, waterBox.transform.parent.gameObject.transform.position.y - 2.1f, waterBox.transform.position.z);
-
-            waterBonusApp = false;
-            playerMaxSpeed *= 2;
-            anim.SetBool("isSwim", false);
-            anim.SetBool("isSwimIdle", false);
-            anim.SetBool("isRun", true);
-        }
-        else if ((inWater == true) && (playerSpeed == 0))
-        {
-            if (gameObject.transform.name == "Speedstinger")
-                waterBox.transform.position = new Vector3(waterBox.transform.position.x, waterBox.transform.parent.gameObject.transform.position.y - 2.2f, waterBox.transform.position.z);
-            else if (gameObject.transform.name == "Dreadstrider")
-                waterBox.transform.position = new Vector3(waterBox.transform.position.x, waterBox.transform.parent.gameObject.transform.position.y - 3.0f, waterBox.transform.position.z);
-
-            anim.SetBool("isRun", false);
-            anim.SetBool("isSwim", false);
-            anim.SetBool("isSwimIdle", true);
-        }
+            if (playerSpeed < playerMinOnWaterSpeed)
+            {
+                if (waterBonusApp == false)
+                {
+                    waterBox.transform.position = new Vector3(waterBox.transform.position.x, wbPos - wbDragonSwimLvl, waterBox.transform.position.z);
+                    waterBonusApp = true;
+                    playerMaxSpeed /= 2;
+                }
+                if (playerSpeed > 0)
+                    SetAnimatorBool("isSwim");
+                else
+                    SetAnimatorBool("isSwimIdle");
+            }
+            else if ((playerSpeed >= playerMinOnWaterSpeed) && (waterBonusApp == true))
+            {
+                waterBox.transform.position = new Vector3(waterBox.transform.position.x, wbPos - wbWaterLvl, waterBox.transform.position.z);
+                waterBonusApp = false;
+                playerMaxSpeed *= 2;
+                SetAnimatorBool("isRun");
+            }
+        }     
+        else
+            waterBox.transform.position = new Vector3(waterBox.transform.position.x, wbPos - wbWaterLvl, waterBox.transform.position.z);
 
         // Animations - but only play if we're on ground
-        if (onTerrain == true)
+        if (((onTerrain == true) && (inWater == false)) || ((inWater == true) && (waterBonusApp == false)))
         {
             if (movementX > 0.0f)
-            {
-                //animator.Play(animationRight);
-                anim.SetBool("isIdleHappy", false);
-                anim.SetBool("isTurnLeft", false);
-                anim.SetBool("isTurnRight", true);
-            }
+                SetAnimatorBool("isTurnRight");
             else if (movementX < 0.0f)
-            {
-                //animator.Play(animationLeft);
-                anim.SetBool("isIdleHappy", false);
-                anim.SetBool("isTurnRight", false);
-                anim.SetBool("isTurnLeft", true);
-            }
+                SetAnimatorBool("isTurnLeft");
             else if (!Mathf.Approximately(movementY, 0f) || !Mathf.Approximately(movementX, 0f) || (playerSpeed > 0))
-            {
-                //animator.Play(animationRun);
-                anim.SetBool("isIdleHappy", false);
-                anim.SetBool("isTurnLeft", false);
-                anim.SetBool("isTurnRight", false);
-                anim.SetBool("isRun", true);
-            }                
+                SetAnimatorBool("isRun");
             else
-            {
-                // The shoot-fireball animation should not be interrupted by animationIdle
-                /*if (animator.IsPlaying("FlyAttackAdd") == false)
-                {
-                    animator.Play(animationIdle);
-                }*/
-                anim.SetBool("isRun", false);
-                anim.SetBool("isTurnLeft", false);
-                anim.SetBool("isTurnRight", false);
-                anim.SetBool("isIdleHappy", true);
-            }
+                SetAnimatorBool("isIdleHappy");
         }        
 
-        if (!Mathf.Approximately(movementY, 0f) && (playerSpeed <= playerMaxSpeed))
+        if (!Mathf.Approximately(movementY, 0f) && (playerSpeed <= playerMaxSpeed) && ((onTerrain == true) || (inWater == true)))
         {
             // Check our player speed to see if we can add on more
             if ((playerSpeed + (playerAcceleration * Time.deltaTime)) > playerMaxSpeed)
@@ -284,39 +196,21 @@ public class PlayerController : MonoBehaviour
                 playerSpeed = playerMaxSpeed;
                 cf.GetComponent<CameraFollow>().isAccel = false;
             }                
-            else if (onTerrain==true)
+            else
             {
-                if (onTerrain == true)
-                {
-                    playerSpeed += playerAcceleration * Time.deltaTime;
-                    cf.GetComponent<CameraFollow>().isAccel = true;
-                }
+                playerSpeed += playerAcceleration * Time.deltaTime;
+                cf.GetComponent<CameraFollow>().isAccel = true;
             }                
-
-            // If our boost time is done, reset our max speed
-            if (((time - boostTimer) > boostTimeLength) && (boostTimer > 0) && (onTerrain == true))
-            {
-                boostTimer = 0;
-                playerMaxSpeed = playerMaxSpeed / speedBoostMultiplier;
-                if (playerMaxSpeed < 0)
-                {
-                    playerMaxSpeed = 0;
-                    Debug.Log("Player Controller: We got curMaxSpeed < 0!");
-                }
-
-                cf.GetComponent<CameraFollow>().isAccel = false;
-            }                
-        }
-        else if (((Mathf.Approximately(movementY, 0f) && (playerSpeed > 0)) || (playerSpeed > playerMaxSpeed)) && (onTerrain == true))
-        {
-            cf.GetComponent<CameraFollow>().isAccel = false;
-            playerSpeed -= (playerAcceleration*2) * Time.deltaTime;
-            if (playerSpeed < 0)
-                playerSpeed = 0;
         }
         else
         {
             cf.GetComponent<CameraFollow>().isAccel = false;
+            if (((Mathf.Approximately(movementY, 0f) && (playerSpeed > 0)) || (playerSpeed > playerMaxSpeed)) && ((onTerrain == true) || (inWater == true)))
+            {
+                playerSpeed -= (playerAcceleration * 2) * Time.deltaTime;
+                if (playerSpeed < 0)
+                    playerSpeed = 0;
+            }
         }
 
         speedBar.fillAmount = playerSpeed / playerMaxSpeed;
@@ -327,8 +221,7 @@ public class PlayerController : MonoBehaviour
         //transform.Rotate(0, movementX * playerRotationSpeed * Time.deltaTime, 0);
 
         // Move our rigid body's rotation
-        Vector3 vecRotation = new Vector3(0, playerRotationSpeed, 0);
-        Quaternion deltaRotation = Quaternion.Euler(movementX * vecRotation * Time.deltaTime);
+        Quaternion deltaRotation = Quaternion.Euler(movementX * (new Vector3(0, playerRotationSpeed, 0)) * Time.deltaTime);
         rb.MoveRotation(rb.rotation * deltaRotation);
 
         // If the player is backing up, they shouldn't be able to go all that fast!
@@ -337,60 +230,19 @@ public class PlayerController : MonoBehaviour
         else
             rb.MovePosition(rb.position + transform.forward * playerSpeed * movementYBefore * Time.deltaTime);
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider triggerObj)
     {
-        if (other.gameObject.CompareTag("RingTarget"))
+        anim.SetBool("isJump", false);
+        
+
+        if (triggerObj.gameObject.CompareTag("Sheep"))
         {
-            // Set our reset position to this newest checkpoint
-            resetPos = other.gameObject.transform.position;
-            // Notify checkpoint script that we hit it! (Make sure to give it the INDEX of the checkpoint            
-            if (checkpointScript.HitCheckpoint(other.gameObject.transform.parent.transform.GetSiblingIndex()) == true)
-                checkpointsReached++;
-        }
-        else if (other.gameObject.CompareTag("FlyingBox"))
-        {
-            other.gameObject.SetActive(false);
-            messageText.text = "<size=200%> Double Speed!";
-            boostTimer = time;
-            playerMaxSpeed *= speedBoostMultiplier;
-            audioRoar.Play();
-        }
-        else if (other.gameObject.CompareTag("Sheep"))
-        {
-            other.gameObject.SetActive(false);
+            triggerObj.gameObject.SetActive(false);
             theSave.userSave.numSheep += 1;
             theSave.userSave.SaveUser();
-        }
-        else if (other.gameObject.CompareTag("Finish"))
+        }        
+        else if (triggerObj.gameObject.CompareTag("Water"))
         {
-            resetPos = other.gameObject.transform.position;
-            Transform temp = other.gameObject.transform.parent.transform;
-            if (checkpointScript.HitCheckpoint(other.gameObject.transform.parent.transform.GetSiblingIndex()) == true)
-            {
-                checkpointsReached++;
-                lapsCompleted++;
-                powerUpsScript.ResetCheckpoints();
-                if (placScript.numLaps == lapsCompleted)
-                {
-                    isPause = true;
-                    anim.SetBool("isIdleHappy", true);
-                    anim.SetBool("isRun", false);
-                    messageText.text = "";
-                    speedText.text = "0 mph";
-                    speedBar.fillAmount = 0;
-                    distanceText.text = "Next: 0";
-                }                
-            }    
-        }
-        else if (other.gameObject.CompareTag("CatapultArm"))
-        {
-            transform.position = resetPos; 
-            audioRoar.Play();
-        }
-        else if (other.gameObject.CompareTag("Water"))
-        {
-            anim.SetBool("isJump", false);
-            //onTerrain = false;
             inWater = true;
         }
     }
@@ -407,7 +259,6 @@ public class PlayerController : MonoBehaviour
                 anim.SetBool("isSwim", false);
                 anim.SetBool("isSwimIdle", false);
             }
-            //onTerrain = true;
         }
     }
 
@@ -420,7 +271,7 @@ public class PlayerController : MonoBehaviour
     // As long as we have exited a collision, we must be "in the air"
     private void OnCollisionExit(Collision collidingObj)
     {
-        onTerrain = false;
+        
     }
 
     
@@ -435,13 +286,14 @@ public class PlayerController : MonoBehaviour
     }
     private void OnJump()
     {
+        
         if ((onTerrain == true) && (isPause == false))
         {
             Vector3 jump = new Vector3(movementX, jumpForce, movementY);
             rb.AddForce(jump);
-            onTerrain = false;
-            //animator.Play("Jump01");
+            //onTerrain = false;
             anim.SetBool("isJump", true);
+            onTerrain = false;
         }
     }
     private void OnRespawn()
@@ -450,12 +302,12 @@ public class PlayerController : MonoBehaviour
     }
     private void OnLookAt()
     {
-       if (placScript.startTime <= 0)
+       if (isPause == false)
             cf.lookAt = !cf.lookAt;
     }
     private void OnFrontView()
     {
-        if (placScript.startTime <= 0)
+        if (isPause == false)
         {
             // If we're looking at the object, we need to get in front of it (so we'll reverse our z offset
             cf.lookForward = !cf.lookForward;
@@ -465,94 +317,39 @@ public class PlayerController : MonoBehaviour
     private void OnPause()
     {
         // Note sure how to handle when a theSave releases a key so this is my workaround! User pushes once to get the pause menu, then pushes again to get out of it
-        // 
-        if (ledBoard.activeSelf == false)
-        {
-            isPause = !isPause;
-            //animator.Stop();
-            PauseMenu men = pauseMenu.GetComponent<PauseMenu>();
-            if (isPause == true)
-                men.PauseGame();
-            else
-                men.ResumeGame();
-        }
+        isPause = !isPause;
+        //animator.Stop();
+        PauseMenu men = pauseMenu.GetComponent<PauseMenu>();
+        if (isPause == true)
+            men.PauseGame();
+        else
+            men.ResumeGame();
     }
-    private void OnRoar()
+    public void OnRoar()
     {
         audioRoar.Play();
     }
-
-    private void OnAim()
-    {
-        isAiming = !isAiming;
-    }
-
-    private void OnChooseTarget()
-    {
-        int endpointNum = aimTarget;
-        if (endpointNum == -1)
-            endpointNum = 0;
-        if ((aimTarget != -1) && (npcRacers.transform.GetChild(aimTarget).gameObject.transform.GetChild(4).gameObject.GetComponent<TargetScript>().canAim == false))
-            aimTarget = -1;
-
-        int g = endpointNum + 1;
-        if (g >= npcRacers.transform.childCount)
-            g = 0;
-
-        for (int i = g; i < npcRacers.transform.childCount; i++)
-        {
-            if (i == endpointNum)
-                break;
-
-            if (npcRacers.transform.GetChild(i).gameObject.transform.GetChild(4).gameObject.GetComponent<TargetScript>().canAim == true)
-            {
-                if (aimTarget == -1)    
-                    aimTarget = i;
-                else
-                {
-                    npcRacers.transform.GetChild(aimTarget).gameObject.transform.GetChild(4).gameObject.GetComponent<TargetScript>().setRed = false;
-                    aimTarget = i;
-                    npcRacers.transform.GetChild(i).gameObject.transform.GetChild(4).gameObject.GetComponent<TargetScript>().setRed = true;
-                }
-                break;
-            }
-
-            if (i == npcRacers.transform.childCount - 1)
-                i = -1;
-        }
-    }
+    
     private void OnFire()
     {
-        
-            
-        if (Mathf.Approximately(movementY, 0f) && Mathf.Approximately(movementX, 0f) && (animator.IsPlaying("FlyAttackAdd") == false))
-        {
-            animator.Play("FlyAttackAdd");
-        }
         gameObject.transform.GetChild(5).gameObject.GetComponent<ParticleSystem>().Play();
         OnRoar();
-    }
+    }    
 
-    private void CalcNextCheckpoint()
+    public void SetAnimatorBool(string blnAnim)
     {
-        if ((finishLine.transform.GetChild(3).gameObject.activeSelf == false))
+        // This works assuming that we don't directly set the bools anywhere else in the code...
+        if (anim.GetBool(blnAnim) == false)
         {
-            distanceText.text = "Next: 0";
-        }
-        else
-        {
-            Transform cp = checkpoints.transform.GetChild(checkpointsReached - (numCheckpoints*lapsCompleted)).transform;
-
-            if ((cp.gameObject.tag == "Checkpoint") || (cp.gameObject.tag == "FinishLine"))
-            {
-                Vector3 disVec = cp.position - gameObject.transform.position;
-                disToCheckpoint = MathF.Abs(disVec.x) + MathF.Abs(disVec.y) + MathF.Abs(disVec.z);
-                distanceText.text = "Next: " + MathF.Round(disToCheckpoint, 2).ToString();
-            }
-            else
-            {
-                Debug.Log("PlayerController - Checkpoint Fail!");
-            }
-        }
+            anim.SetBool("isJump", false);
+            anim.SetBool("isSwimIdle", false);
+            anim.SetBool("isSwim", false);
+            anim.SetBool("isRun", false);
+            anim.SetBool("isWalk", false);
+            anim.SetBool("isTurnLeft", false);
+            anim.SetBool("isTurnRight", false);
+            anim.SetBool("isIdleHappy", false);
+            anim.SetBool(blnAnim, true);
+        }        
     }
 }

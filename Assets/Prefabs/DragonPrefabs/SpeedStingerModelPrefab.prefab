@@ -524,15 +524,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -420
+      value: -423.36304
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 51.1
+      value: 50.274628
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 190
+      value: 192.75256
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalRotation.w
@@ -716,7 +716,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_TagString
@@ -921,7 +921,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 2
   m_Constraints: 112
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!136 &1098037231
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1032,29 +1032,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!111 &1098037230
-Animation:
+--- !u!95 &1098037234
+Animator:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927310294293949534}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: b1c7ef03be3b2f84da7ebe3ccec1c0f1, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: b1c7ef03be3b2f84da7ebe3ccec1c0f1, type: 2}
-  - {fileID: 7400000, guid: 6e2d2ae2d6c238b46a99b8c98cecd44a, type: 2}
-  - {fileID: 7400000, guid: 9a15f54e95b35dc40939d3e65671da1b, type: 2}
-  - {fileID: 7400000, guid: 19e94d7a794b3904b880f6701501ebe6, type: 2}
-  - {fileID: 7400000, guid: f4c9c809d1b0f5445b61a7698cca5450, type: 2}
-  - {fileID: 7400000, guid: ccee1f2c436d3004ba56c139d1bfe6b3, type: 2}
-  - {fileID: 7400000, guid: 316cdf7b54009f6469d45258f97e8544, type: 2}
-  - {fileID: 7400000, guid: fb8976ae65dc2394d9de7854738778f7, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 038589a785d8b2143978ff02bda90594, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1098037228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1067,6 +1064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c973c7b68472c884a9a8ded1a2f36569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boostTimer: 0
   boostTimeLength: 10
   materials:
   - {fileID: 2100000, guid: d44ccf3ab12b7f741ab5d04724f0a3de, type: 2}
@@ -1074,21 +1072,24 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 38263236a7fbade4c868631d9f805901, type: 2}
   speedBar: {fileID: 0}
   speedText: {fileID: 0}
-  username: 
-  checkpointsReached: 0
-  lapsCompleted: 0
-  disToCheckpoint: 0
-  numCheckpoints: 0
-  checkpoints: {fileID: 0}
-  distanceText: {fileID: 0}
-  finishLine: {fileID: 0}
-  ledBoard: {fileID: 0}
   pauseMenu: {fileID: 0}
   mainCamera: {fileID: 0}
+  cf: {fileID: 0}
+  anim: {fileID: 0}
+  isPause: 0
+  onTerrain: 1
+  inWater: 0
+  username: 
+  time: 0
+  playerSpeed: 0
   isAccelerating: 0
+  playerMaxSpeed: 0
+  playerMinOnWaterSpeed: 14
+  movementX: 0
+  movementY: 0
+  resetPos: {x: 0, y: 0, z: 0}
   messageText: {fileID: 0}
-  isAiming: 0
-  placement: -1
+  waterBox: {fileID: 0}
 --- !u!114 &1098037229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1175,6 +1176,27 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &4992519353157770452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927310294293949534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d758ccfd966dc884abf7dfb7ae9ea78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numCheckpoints: 0
+  checkpointsReached: 0
+  lapsCompleted: 0
+  disToCheckpoint: 0
+  isAiming: 0
+  placement: -1
+  checkpoints: {fileID: 0}
+  ledBoard: {fileID: 0}
+  distanceText: {fileID: 0}
 --- !u!1001 &7287942420594917630
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1236,7 +1258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1587519481908926965, guid: 1ac54ec6d8dc0b541871f9edcec2f493, type: 3}
       propertyPath: moveWithTransform
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1587519481908926965, guid: 1ac54ec6d8dc0b541871f9edcec2f493, type: 3}
       propertyPath: CollisionModule.type
