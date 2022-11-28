@@ -93,7 +93,6 @@ GameObject:
   m_Component:
   - component: {fileID: 742273968}
   - component: {fileID: 742273970}
-  - component: {fileID: 742273969}
   m_Layer: 0
   m_Name: MinimapCamera
   m_TagString: Untagged
@@ -147,7 +146,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 153
+    m_Bits: 217
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 2a4103229393afb43bcafe72c3795be1, type: 2}
   m_TargetDisplay: 0
@@ -159,14 +158,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &742273969
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 742273967}
-  m_Enabled: 0
 --- !u!1 &823072607084835877
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,15 +515,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -423.36304
+      value: -420
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 50.274628
+      value: 51.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 192.75256
+      value: 190
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35db505b3e2d1634aa3e052822574fed, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1089,7 +1080,6 @@ MonoBehaviour:
   movementY: 0
   resetPos: {x: 0, y: 0, z: 0}
   messageText: {fileID: 0}
-  waterBox: {fileID: 0}
 --- !u!114 &1098037229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1176,6 +1166,18 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &2113502841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927310294293949534}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 560a2016c882d974c9dba3b3c5ddce80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4992519353157770452
 MonoBehaviour:
   m_ObjectHideFlags: 0

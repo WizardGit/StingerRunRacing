@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
     private float radius = 0.2f;
 
     // Water Box variables
-    public GameObject waterBox;
+    private GameObject waterBox;
     private float wbPos;
     private float wbWaterLvl;
     private float wbDragonSwimLvl;
@@ -94,10 +94,14 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        wbPos = waterBox.transform.parent.gameObject.transform.position.y;
-        wbWaterLvl = 2.1f;
-        wbDragonSwimLvl = gameObject.GetComponent<CapsuleCollider>().height - 1.2f;
-        waterBox.transform.position = new Vector3(waterBox.transform.position.x, wbPos - wbWaterLvl, waterBox.transform.position.z);
+        waterBox = GameObject.FindGameObjectWithTag("WaterCube");        
+        if (waterBox != null)
+        {
+            wbPos = waterBox.transform.parent.gameObject.transform.position.y;
+            wbWaterLvl = 2.1f;
+            wbDragonSwimLvl = gameObject.GetComponent<CapsuleCollider>().height - 1.2f;
+            waterBox.transform.position = new Vector3(waterBox.transform.position.x, wbPos - wbWaterLvl, waterBox.transform.position.z);
+        }
 
         rb = GetComponent<Rigidbody>();
         cf = mainCamera.GetComponent<CameraFollow>();
@@ -155,7 +159,8 @@ public class PlayerController : MonoBehaviour
             {
                 if (waterBonusApp == false)
                 {
-                    waterBox.transform.position = new Vector3(waterBox.transform.position.x, wbPos - wbDragonSwimLvl, waterBox.transform.position.z);
+                    if (waterBox != null)
+                        waterBox.transform.position = new Vector3(waterBox.transform.position.x, wbPos - wbDragonSwimLvl, waterBox.transform.position.z);
                     waterBonusApp = true;
                     playerMaxSpeed /= 2;
                 }
@@ -166,13 +171,14 @@ public class PlayerController : MonoBehaviour
             }
             else if ((playerSpeed >= playerMinOnWaterSpeed) && (waterBonusApp == true))
             {
-                waterBox.transform.position = new Vector3(waterBox.transform.position.x, wbPos - wbWaterLvl, waterBox.transform.position.z);
+                if (waterBox != null)
+                    waterBox.transform.position = new Vector3(waterBox.transform.position.x, wbPos - wbWaterLvl, waterBox.transform.position.z);
                 waterBonusApp = false;
                 playerMaxSpeed *= 2;
                 SetAnimatorBool("isRun");
             }
         }     
-        else
+        else if (waterBox != null)
             waterBox.transform.position = new Vector3(waterBox.transform.position.x, wbPos - wbWaterLvl, waterBox.transform.position.z);
 
         // Animations - but only play if we're on ground

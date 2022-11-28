@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 11/11/2022
+ * Last Modified: 11/27/2022
  * Script for NPC's
  */
 
@@ -19,7 +19,7 @@ public class WaypointTrip : MonoBehaviour
     public GameObject checkpoints;
 
     // Variables needed just for the script
-    private Animation animator;
+    private Animator animator;
     [HideInInspector] public bool doStop = true;
     private int curWaypointIndex = 0;
     private NavMeshPath path;
@@ -30,13 +30,13 @@ public class WaypointTrip : MonoBehaviour
     [HideInInspector] public float disToCheckpoint = 0.0f;
     private PlacementScript placScript;
     private int numCheckpoints;
-    public string npcName;
-    public int placement = -1;
+    [HideInInspector] public string npcName;
+    [HideInInspector] public int placement = -1;
 
     void Start()
     {
         path = new NavMeshPath();
-        animator = GetComponent<Animation>();
+        animator = GetComponent<Animator>();
         navMeshAgent.SetDestination(waypoints.transform.GetChild(curWaypointIndex).transform.position);
         navMeshAgent.isStopped = true;
         npcName = gameObject.name;
@@ -56,13 +56,15 @@ public class WaypointTrip : MonoBehaviour
 
         if ((navMeshAgent.velocity.x != 0) && (navMeshAgent.isStopped == false))
         {
-            animator.Play("Run");
+            animator.SetBool("isRun", true);
+            animator.SetBool("isIdleHappy", false);
             if (audioFootsteps.isPlaying == false)
                 audioFootsteps.Play();
         }
         else
         {
-            animator.Play("IdleHappy");
+            animator.SetBool("isIdleHappy", true);
+            animator.SetBool("isRun", false);
             if (audioFootsteps.isPlaying == true)
                 audioFootsteps.Pause();
         }

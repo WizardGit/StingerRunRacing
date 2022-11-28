@@ -3324,6 +3324,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &471487820 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2950699066329857610, guid: 5e3c1fe5d43ff924e96ca79a9d373a38, type: 3}
+  m_PrefabInstance: {fileID: 1489445666}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &485389052 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 751904635914420481, guid: 13c1a1b08cd226244b39b3f21fed4a4a, type: 3}
@@ -6760,6 +6765,7 @@ MonoBehaviour:
     dataFile: 
     screenShake: 0
     cameraLag: 0
+    racerTag: 0
   ledSave:
     ledBoard: []
 --- !u!4 &1090891732
@@ -6897,6 +6903,7 @@ Transform:
   - {fileID: 361109453}
   - {fileID: 528625336}
   - {fileID: 1376669055}
+  - {fileID: 471487820}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7596,8 +7603,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11
-  m_fontSizeBase: 11
+  m_fontSize: 8
+  m_fontSizeBase: 8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -8042,10 +8049,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1525924656}
     m_Modifications:
-    - target: {fileID: 698521151, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 640719191}
     - target: {fileID: 546526961447761636, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -8094,30 +8097,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Soto (4)
       objectReference: {fileID: 0}
-    - target: {fileID: 1687328904963720315, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: m_Speed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687328904963720315, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: m_AutoBraking
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687328904963720315, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: ledBoard
-      value: 
-      objectReference: {fileID: 796168112}
     - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
       propertyPath: waypoints
       value: 
       objectReference: {fileID: 1800790756}
-    - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
-      propertyPath: finishLine
-      value: 
-      objectReference: {fileID: 622046247}
     - target: {fileID: 2434839928324882070, guid: 2787b0a34c1dfca428e3452fbf9368f0, type: 3}
       propertyPath: checkpoints
       value: 
@@ -8486,6 +8469,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1433001332}
   m_CullTransparentMesh: 1
+--- !u!1001 &1489445666
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1160559317}
+    m_Modifications:
+    - target: {fileID: 2947058631821257460, guid: 5e3c1fe5d43ff924e96ca79a9d373a38, type: 3}
+      propertyPath: m_Name
+      value: FlyingBox (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2947058631821257460, guid: 5e3c1fe5d43ff924e96ca79a9d373a38, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950699066329857610, guid: 5e3c1fe5d43ff924e96ca79a9d373a38, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950699066329857610, guid: 5e3c1fe5d43ff924e96ca79a9d373a38, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950699066329857610, guid: 5e3c1fe5d43ff924e96ca79a9d373a38, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950699066329857610, guid: 5e3c1fe5d43ff924e96ca79a9d373a38, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 200.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950699066329857610, guid: 5e3c1fe5d43ff924e96ca79a9d373a38, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950699066329857610, guid: 5e3c1fe5d43ff924e96ca79a9d373a38, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950699066329857610, guid: 5e3c1fe5d43ff924e96ca79a9d373a38, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950699066329857610, guid: 5e3c1fe5d43ff924e96ca79a9d373a38, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950699066329857610, guid: 5e3c1fe5d43ff924e96ca79a9d373a38, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950699066329857610, guid: 5e3c1fe5d43ff924e96ca79a9d373a38, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950699066329857610, guid: 5e3c1fe5d43ff924e96ca79a9d373a38, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5e3c1fe5d43ff924e96ca79a9d373a38, type: 3}
 --- !u!1 &1489957447
 GameObject:
   m_ObjectHideFlags: 0
@@ -11976,6 +12020,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 185340813}
     - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: waterBox
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 98664831}
@@ -11990,7 +12038,7 @@ PrefabInstance:
     - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 640719188}
+      objectReference: {fileID: 640719191}
     - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: checkpoints
       value: 
@@ -12003,6 +12051,10 @@ PrefabInstance:
       propertyPath: distanceText
       value: 
       objectReference: {fileID: 1577868211}
+    - target: {fileID: 2113502841, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -12051,6 +12103,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Speedstinger
       objectReference: {fileID: 0}
+    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: ledBoard
+      value: 
+      objectReference: {fileID: 796168112}
+    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: checkpoints
+      value: 
+      objectReference: {fileID: 469722205}
+    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: distanceText
+      value: 
+      objectReference: {fileID: 1577868211}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
 --- !u!1001 &2081012674
@@ -12100,6 +12168,10 @@ PrefabInstance:
       propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 998186634, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: ledBoard
       value: 
@@ -12108,6 +12180,10 @@ PrefabInstance:
       propertyPath: speedBar
       value: 
       objectReference: {fileID: 185340813}
+    - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: waterBox
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: pauseMenu
       value: 
@@ -12123,7 +12199,7 @@ PrefabInstance:
     - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 640719188}
+      objectReference: {fileID: 640719191}
     - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: checkpoints
       value: 
@@ -12184,6 +12260,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dreadstrider
       objectReference: {fileID: 0}
+    - target: {fileID: 7132475290110717110, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: ledBoard
+      value: 
+      objectReference: {fileID: 796168112}
+    - target: {fileID: 7132475290110717110, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132475290110717110, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: checkpoints
+      value: 
+      objectReference: {fileID: 469722205}
+    - target: {fileID: 7132475290110717110, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: distanceText
+      value: 
+      objectReference: {fileID: 1577868211}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
 --- !u!1 &2099079181

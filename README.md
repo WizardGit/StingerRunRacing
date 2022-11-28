@@ -21,23 +21,19 @@ button click noises
 add waterfalls
 fix forbidden ice track
 Add heather on warlord island
-split scripts into smaller more centralized ones
 get speed hoop prefabs
 change arrow to follow camera movements
 war simulator with characters - you can set waypoints to be enemies and draw lines or maybe triggers to detect others
-put limits on number of coins/gems/sheep
 allow npcs to get speed boxes!
 
-test water for dragon
-test weird switch between running and dragon turning animations
-test local vs world simulation space for fireballs
 fix running in air
-fix animation controllers on npcs
 fix messagetext disappearing too quick (noticed in freeroam once you grab a gem)
 fix jump while already in air bug
-fix if time gets too long!
 fix animation from water to land only kicks in when fully on land
 debug levels
 add isIdleSad to animation file and change that for alphamove script 
 create some sort of template for the canvas
 while shoot fireball animation is playing, move particle system
+fix issues with speed boost multiplies and water slowers
+fix colliders on middle of smashndash track
+fix water not on minimap

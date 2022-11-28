@@ -21,6 +21,7 @@ public class PlayerRacingController : MonoBehaviour
     [HideInInspector] public int placement = -1;
     private int aimTarget = -1;
     private const float speedBoostMultiplier = 1.5f;
+    private int numBoosts = 0;
 
     // Public Game Objects - MUST be assigned to    
     public GameObject checkpoints;
@@ -49,6 +50,8 @@ public class PlayerRacingController : MonoBehaviour
         if (theSave.userSave.racerTag == true)
             transform.GetChild(3).gameObject.SetActive(true);
         CalcNextCheckpoint();
+
+        playerController.isPause = true;
     }
         
     private void FixedUpdate()
@@ -58,32 +61,20 @@ public class PlayerRacingController : MonoBehaviour
             playerController.messageText.text = "";
         }
 
-        if (placScript.startTime <= 0)
-        {
-            playerController.isPause = false;
-        }
-        else
-        {
-            playerController.isPause = true;
-        }
-
         if ((placScript.startTime <= 0) && (playerController.isPause == false))
         {
-            if (!Mathf.Approximately(playerController.movementY, 0f) && (playerController.playerSpeed <= playerController.playerMaxSpeed))
+            // If our boost time is done, reset our max speed
+            if ((numBoosts >= 1) && ((playerController.boostTimer - playerController.time) <= (playerController.boostTimeLength * (numBoosts-1))))
             {
-                // If our boost time is done, reset our max speed
-                if (((playerController.time - playerController.boostTimer) > playerController.boostTimeLength) && (playerController.boostTimer > 0) && (playerController.onTerrain == true))
+                playerController.playerMaxSpeed = playerController.playerMaxSpeed / speedBoostMultiplier;
+                numBoosts--;
+                if (playerController.playerMaxSpeed < 0)
                 {
-                    playerController.boostTimer = 0;
-                    playerController.playerMaxSpeed = playerController.playerMaxSpeed / speedBoostMultiplier;
-                    if (playerController.playerMaxSpeed < 0)
-                    {
-                        playerController.playerMaxSpeed = 0;
-                        Debug.Log("Player Controller: We got curMaxSpeed < 0!");
-                    }
-
-                    playerController.cf.GetComponent<CameraFollow>().isAccel = false;
+                    playerController.playerMaxSpeed = 0;
+                    Debug.Log("Player Controller: We got curMaxSpeed < 0!");
                 }
+
+                playerController.cf.GetComponent<CameraFollow>().isAccel = false;
             }
 
             // Don't bother calculating next checkpoint, if we aren't moving, there is nothing to calculate!
@@ -91,14 +82,14 @@ public class PlayerRacingController : MonoBehaviour
                 CalcNextCheckpoint();
         }
 
-        if ((isAiming == true) && (aimTarget >= 0))
+        if ((isAiming == true) && (aimTarget >= 0) && (transform.GetChild(5).gameObject.GetComponent<ParticleSystem>().isPlaying == true))
         {
             // DistVec represents the vector between the player and the next npc racer
             Vector3 distVec = npcRacers.transform.GetChild(aimTarget).gameObject.transform.position + new Vector3(0, 1, 0) - transform.GetChild(5).gameObject.transform.position;
             transform.GetChild(5).gameObject.transform.rotation = Quaternion.LookRotation(distVec);
 
             var main = transform.GetChild(5).gameObject.GetComponent<ParticleSystem>().main;
-            main.simulationSpace = ParticleSystemSimulationSpace.Local;
+            main.simulationSpace = ParticleSystemSimulationSpace.Local;            
         }
         else
         {
@@ -121,9 +112,14 @@ public class PlayerRacingController : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("FlyingBox"))
         {
+            numBoosts++;
+            if (playerController.boostTimer > playerController.time)
+                playerController.boostTimer += playerController.boostTimeLength;
+            else
+                playerController.boostTimer = playerController.time + playerController.boostTimeLength;
+
             other.gameObject.SetActive(false);
-            playerController.messageText.text = "<size=200%> Double Speed!";
-            playerController.boostTimer = playerController.time;
+            playerController.messageText.text = "<size=200%> Double Speed!";            
             playerController.playerMaxSpeed *= speedBoostMultiplier;
             playerController.OnRoar();
         }
@@ -138,6 +134,7 @@ public class PlayerRacingController : MonoBehaviour
                 powerUpsScript.ResetCheckpoints();
                 if (placScript.numLaps == lapsCompleted)
                 {
+                    Debug.Log("finish");
                     playerController.isPause = true;
                     playerController.SetAnimatorBool("isIdleHappy");
                     playerController.messageText.text = "";
@@ -210,5 +207,10 @@ public class PlayerRacingController : MonoBehaviour
                 Debug.Log("PlayerController - Checkpoint Fail!");
             }
         }
+    }
+
+    public void StartGoing()
+    {
+        playerController.isPause = false;
     }
 }

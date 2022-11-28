@@ -178,6 +178,8 @@ public class PlacementScript : MonoBehaviour
                     cntDwnImg.transform.GetChild(3).transform.gameObject.SetActive(true);
                     go.Play();
 
+                    player.StartGoing();
+
                     for (int i = 0; i < npcRacers.transform.childCount; i++)
                     {
                         WaypointTrip racer = npcRacers.transform.GetChild(i).gameObject.GetComponent<WaypointTrip>();

@@ -1217,7 +1217,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1868728331}
   - component: {fileID: 1868728333}
-  - component: {fileID: 1868728332}
   m_Layer: 0
   m_Name: MinimapCamera
   m_TagString: Untagged
@@ -1283,14 +1282,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1868728332
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1868728330}
-  m_Enabled: 0
 --- !u!1 &254979414914712376
 GameObject:
   m_ObjectHideFlags: 0
@@ -2744,6 +2735,7 @@ GameObject:
   - component: {fileID: 406619628293018475}
   - component: {fileID: 1526230192}
   - component: {fileID: 7132475290110717110}
+  - component: {fileID: 998186634}
   m_Layer: 0
   m_Name: DreadstriderModelPrefab
   m_TagString: Player
@@ -2869,7 +2861,6 @@ MonoBehaviour:
   movementY: 0
   resetPos: {x: 0, y: 0, z: 0}
   messageText: {fileID: 0}
-  waterBox: {fileID: 0}
 --- !u!82 &406619628293018475
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3007,6 +2998,18 @@ MonoBehaviour:
   checkpoints: {fileID: 0}
   ledBoard: {fileID: 0}
   distanceText: {fileID: 0}
+--- !u!114 &998186634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6688917618666246721}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 560a2016c882d974c9dba3b3c5ddce80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6697740451996258100
 GameObject:
   m_ObjectHideFlags: 0
@@ -3524,7 +3527,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8351531718471762866, guid: ed5b8d862f7dd3046b624b1880993bb6, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8351531718471762866, guid: ed5b8d862f7dd3046b624b1880993bb6, type: 3}
       propertyPath: CollisionModule.m_Bounce.scalar

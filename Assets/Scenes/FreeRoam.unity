@@ -665,6 +665,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1138119741}
     m_Modifications:
+    - target: {fileID: 998186634, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: speedBar
       value: 
@@ -737,25 +741,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dreadstrider
       objectReference: {fileID: 0}
-    - target: {fileID: 6688917618666246721, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7132475290110717110, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: ledBoard
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7132475290110717110, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7132475290110717110, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: checkpoints
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7132475290110717110, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: distanceText
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
@@ -1527,11 +1515,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 278905901}
   m_CullTransparentMesh: 1
---- !u!1 &279377660 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 927310294293949534, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-  m_PrefabInstance: {fileID: 2113502832}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &279671891
 GameObject:
   m_ObjectHideFlags: 0
@@ -6534,23 +6517,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c175e890b52fec4b91aaf32a0497405, type: 3}
---- !u!1 &998186626 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6688917618666246721, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-  m_PrefabInstance: {fileID: 177456215}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &998186634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 998186626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 560a2016c882d974c9dba3b3c5ddce80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1003539693
 GameObject:
   m_ObjectHideFlags: 0
@@ -14008,6 +13974,10 @@ PrefabInstance:
       propertyPath: messageText
       value: 
       objectReference: {fileID: 1392517251}
+    - target: {fileID: 2113502841, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -14056,25 +14026,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Speedstinger
       objectReference: {fileID: 0}
-    - target: {fileID: 927310294293949534, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: ledBoard
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: checkpoints
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: distanceText
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
@@ -14083,18 +14037,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
   m_PrefabInstance: {fileID: 2113502832}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2113502841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 279377660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 560a2016c882d974c9dba3b3c5ddce80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2116708027
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 317248499}
   - component: {fileID: 317248501}
   - component: {fileID: 317248500}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1188,28 +1188,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!111 &1098037230
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927310294293949534}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: b1c7ef03be3b2f84da7ebe3ccec1c0f1, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: b1c7ef03be3b2f84da7ebe3ccec1c0f1, type: 2}
-  - {fileID: 7400000, guid: 6e2d2ae2d6c238b46a99b8c98cecd44a, type: 2}
-  - {fileID: 7400000, guid: 9a15f54e95b35dc40939d3e65671da1b, type: 2}
-  - {fileID: 7400000, guid: 19e94d7a794b3904b880f6701501ebe6, type: 2}
-  - {fileID: 7400000, guid: f4c9c809d1b0f5445b61a7698cca5450, type: 2}
-  - {fileID: 7400000, guid: ccee1f2c436d3004ba56c139d1bfe6b3, type: 2}
-  - {fileID: 7400000, guid: 316cdf7b54009f6469d45258f97e8544, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!82 &3444559102631008500
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1306,6 +1284,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &5750037936226353092
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927310294293949534}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 038589a785d8b2143978ff02bda90594, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!195 &1687328904963720315
 NavMeshAgent:
   m_ObjectHideFlags: 0
