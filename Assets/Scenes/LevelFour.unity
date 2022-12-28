@@ -3033,6 +3033,7 @@ MonoBehaviour:
     dataFile: 
     screenShake: 0
     cameraLag: 0
+    racerTag: 0
   ledSave:
     ledBoard: []
 --- !u!4 &210822058
@@ -13682,7 +13683,7 @@ PrefabInstance:
     - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 313571378}
+      objectReference: {fileID: 313571381}
     - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: checkpoints
       value: 
@@ -13747,6 +13748,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: ledBoard
+      value: 
+      objectReference: {fileID: 1616145338}
+    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: checkpoints
+      value: 
+      objectReference: {fileID: 2020410368}
+    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: distanceText
+      value: 
+      objectReference: {fileID: 71862446}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
 --- !u!1 &1108795508
@@ -22039,6 +22052,8 @@ MonoBehaviour:
   num: {fileID: 1671535451}
   go: {fileID: 1671535450}
   numLaps: 1
+  playerTagText: {fileID: 0}
+  playerTagColor: {fileID: 0}
 --- !u!114 &1671535448
 MonoBehaviour:
   m_ObjectHideFlags: 0

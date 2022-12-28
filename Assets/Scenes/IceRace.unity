@@ -12086,26 +12086,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1268254819}
     m_Modifications:
-    - target: {fileID: 1406186511454114692, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 1406186511454114692, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: ledBoard
-      value: 
-      objectReference: {fileID: 1895529495}
     - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: speedBar
       value: 
       objectReference: {fileID: 1465543621}
-    - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: timeText
-      value: 
-      objectReference: {fileID: 1468519098}
     - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: pauseMenu
       value: 
@@ -12115,40 +12099,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 524355384}
     - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: finishLine
-      value: 
-      objectReference: {fileID: 469821235}
-    - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 515223210}
-    - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: checkpoints
-      value: 
-      objectReference: {fileID: 1111825888}
+      objectReference: {fileID: 515223213}
     - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: messageText
       value: 
       objectReference: {fileID: 1502756510}
-    - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: distanceText
-      value: 
-      objectReference: {fileID: 1162374047}
     - target: {fileID: 6463938099181318433, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6463938099181318433, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6463938099181318433, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6463938099181318433, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6463938099181318433, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12194,14 +12154,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dreadstrider
       objectReference: {fileID: 0}
-    - target: {fileID: 6688917618666246721, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8657261711314350052, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
-      propertyPath: mainCamera
+    - target: {fileID: 7132475290110717110, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: ledBoard
       value: 
-      objectReference: {fileID: 515223213}
+      objectReference: {fileID: 1895529495}
+    - target: {fileID: 7132475290110717110, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: checkpoints
+      value: 
+      objectReference: {fileID: 1111825888}
+    - target: {fileID: 7132475290110717110, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: distanceText
+      value: 
+      objectReference: {fileID: 1162374047}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
 --- !u!4 &1162785042 stripped
@@ -15439,23 +15403,6 @@ Transform:
   m_Father: {fileID: 481113601}
   m_RootOrder: 41
   m_LocalEulerAnglesHint: {x: 180, y: 18.13304, z: 180}
---- !u!1 &1431129128 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 927310294293949534, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-  m_PrefabInstance: {fileID: 1555779213}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1431129129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1431129128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e48fca1149ab4174091a81ea7d7e2809, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1431631703
 GameObject:
   m_ObjectHideFlags: 0
@@ -16739,7 +16686,7 @@ PrefabInstance:
     - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 515223210}
+      objectReference: {fileID: 515223213}
     - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: checkpoints
       value: 
@@ -16758,7 +16705,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: m_LocalScale.x
@@ -16820,6 +16767,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: ledBoard
+      value: 
+      objectReference: {fileID: 1895529495}
+    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: checkpoints
+      value: 
+      objectReference: {fileID: 1111825888}
+    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: distanceText
+      value: 
+      objectReference: {fileID: 1162374047}
     - target: {fileID: 7805320638345532471, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: mainCamera
       value: 
@@ -17263,25 +17222,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1098037232, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_Mass
-      value: 2
-      objectReference: {fileID: 0}
+    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: speedBar
+      value: 
+      objectReference: {fileID: 1465543621}
+    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 1695521555}
+    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: speedText
+      value: 
+      objectReference: {fileID: 524355384}
+    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 515223213}
+    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: messageText
+      value: 
+      objectReference: {fileID: 1502756510}
     - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: m_RootOrder
       value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17327,12 +17290,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpeedStinger
       objectReference: {fileID: 0}
-    - target: {fileID: 927310294293949534, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: ledBoard
+      value: 
+      objectReference: {fileID: 1895529495}
+    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: checkpoints
+      value: 
+      objectReference: {fileID: 1111825888}
+    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: distanceText
+      value: 
+      objectReference: {fileID: 1162374047}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
 --- !u!1 &1559812743
 GameObject:

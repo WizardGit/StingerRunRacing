@@ -27,7 +27,6 @@ war simulator with characters - you can set waypoints to be enemies and draw lin
 allow npcs to get speed boxes!
 
 fix running in air
-fix messagetext disappearing too quick (noticed in freeroam once you grab a gem)
 fix jump while already in air bug
 fix animation from water to land only kicks in when fully on land
 debug levels
@@ -37,3 +36,6 @@ while shoot fireball animation is playing, move particle system
 fix issues with speed boost multiplies and water slowers
 fix colliders on middle of smashndash track
 fix water not on minimap
+fix dragon not sinking into water far enough
+fix dragon getting too much speed while swimming
+fix missing back button on party
