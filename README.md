@@ -38,4 +38,4 @@ fix colliders on middle of smashndash track
 fix water not on minimap
 fix dragon not sinking into water far enough
 fix dragon getting too much speed while swimming
-fix missing back button on party
+fix missing back button on party - fixed?

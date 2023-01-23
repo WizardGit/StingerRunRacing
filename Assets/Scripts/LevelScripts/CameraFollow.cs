@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 10/9/2022
+ * Last Modified: 1/5/2023
  * Purpose: To constantly modify the camera's positioning on the object
  */
 

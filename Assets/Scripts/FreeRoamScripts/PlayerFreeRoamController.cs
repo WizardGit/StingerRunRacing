@@ -13,6 +13,7 @@ public class PlayerFreeRoamController : MonoBehaviour
 {
     private float gemTimer = 0.0f;
     private PlayerController playerController;
+    public Camera mainCamera;
 
     private void Start()
     {
@@ -47,7 +48,7 @@ public class PlayerFreeRoamController : MonoBehaviour
 
     private void OnClick()
     {
-        Ray ray = playerController.mainCamera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         // If the theSave clicks on Harald, check for the quests
         if ((Physics.Raycast(ray, out hit) == true) && (hit.transform.CompareTag("Harald")))
