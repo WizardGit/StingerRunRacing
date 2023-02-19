@@ -24,9 +24,9 @@ public class PlayerRacingController : MonoBehaviour
     private int numBoosts = 0;
 
     // Public Game Objects - MUST be assigned to    
-    public GameObject checkpoints;
-    public GameObject ledBoard;
-    public TextMeshProUGUI distanceText;
+    [HideInInspector] public GameObject checkpoints;
+    [HideInInspector] public GameObject ledBoard;
+    [HideInInspector] public TextMeshProUGUI distanceText;
 
     // Private Game objects
     private PlacementScript placScript;
@@ -44,7 +44,10 @@ public class PlayerRacingController : MonoBehaviour
         npcRacers = GameObject.Find("NPCs");
         placScript = GameObject.Find("PlacementText").GetComponent<PlacementScript>();
         checkpointScript = GameObject.Find("Checkpoints").GetComponent<CheckpointsScript>();
-        playerController = gameObject.GetComponent<PlayerController>();        
+        playerController = gameObject.GetComponent<PlayerController>();
+        checkpoints = GameObject.FindGameObjectWithTag("Checkpoints");
+        distanceText = GameObject.FindGameObjectWithTag("NextCheckpoint").GetComponent<TextMeshProUGUI>();
+        ledBoard = GameObject.FindGameObjectWithTag("Leaderboard");
 
         numCheckpoints = checkpoints.transform.childCount;
         if (theSave.userSave.racerTag == true)
@@ -66,7 +69,7 @@ public class PlayerRacingController : MonoBehaviour
             // If our boost time is done, reset our max speed
             if ((numBoosts >= 1) && ((playerController.boostTimer - playerController.time) <= (playerController.boostTimeLength * (numBoosts-1))))
             {
-                playerController.playerMaxSpeed = playerController.playerMaxSpeed / speedBoostMultiplier;
+                playerController.playerMaxSpeed /= speedBoostMultiplier;
                 numBoosts--;
                 if (playerController.playerMaxSpeed < 0)
                 {
@@ -126,7 +129,7 @@ public class PlayerRacingController : MonoBehaviour
         else if (other.gameObject.CompareTag("Finish"))
         {
             playerController.resetPos = other.gameObject.transform.position;
-            Transform temp = other.gameObject.transform.parent.transform;
+            //Transform temp = other.gameObject.transform.parent.transform;
             if (checkpointScript.HitCheckpoint(other.gameObject.transform.parent.transform.GetSiblingIndex()) == true)
             {
                 checkpointsReached++;
@@ -134,7 +137,7 @@ public class PlayerRacingController : MonoBehaviour
                 powerUpsScript.ResetCheckpoints();
                 if (placScript.numLaps == lapsCompleted)
                 {
-                    Debug.Log("finish");
+                    //Debug.Log("finish");
                     playerController.isPause = true;
                     playerController.SetAnimatorBool("isIdleHappy");
                     playerController.messageText.text = "";
@@ -196,7 +199,7 @@ public class PlayerRacingController : MonoBehaviour
         {
             Transform cp = checkpoints.transform.GetChild(checkpointsReached - (numCheckpoints * lapsCompleted)).transform;
 
-            if ((cp.gameObject.tag == "Checkpoint") || (cp.gameObject.tag == "FinishLine"))
+            if (cp.gameObject.CompareTag("Checkpoint") || cp.gameObject.CompareTag("FinishLine"))
             {
                 Vector3 disVec = cp.position - gameObject.transform.position;
                 disToCheckpoint = MathF.Abs(disVec.x) + MathF.Abs(disVec.y) + MathF.Abs(disVec.z);

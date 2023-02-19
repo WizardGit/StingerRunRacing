@@ -26,24 +26,22 @@ change arrow to follow camera movements
 war simulator with characters - you can set waypoints to be enemies and draw lines or maybe triggers to detect others
 allow npcs to get speed boxes!
 
-fix running in air
-fix jump while already in air bug
-fix animation from water to land only kicks in when fully on land
 debug levels
 add isIdleSad to animation file and change that for alphamove script 
 create some sort of template for the canvas
 while shoot fireball animation is playing, move particle system
-fix issues with speed boost multiplies and water slowers
 fix colliders on middle of smashndash track
 fix water not on minimap
 fix missing back button on party - fixed?
 fix fps issue
+fix ranking issue
 
-fix dragon not sinking into water far enough
-fix dragon getting too much speed while swimming
-working on water rn
+fix pause menu issues, you have to click pause twice at opening
 
-put the dreadstrider swimming animations on speedstinger
+fix jump while already in air bug
+fix issues with speed boost multiplies and water slowers
+
+* I put the dreadstrider swimming animations on speedstinger
 
 
 

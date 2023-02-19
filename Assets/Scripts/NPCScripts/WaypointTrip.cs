@@ -1,7 +1,7 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 11/27/2022
- * Script for NPC's
+ * Last Modified: 2/19/2023
+ * Purpose: Script for NPC's
  */
 
 using System;
@@ -14,9 +14,9 @@ public class WaypointTrip : MonoBehaviour
 {
     // Game Objects needed from inspector
     public NavMeshAgent navMeshAgent;
-    public GameObject waypoints;    
+    [HideInInspector] public GameObject waypoints;    
     public AudioSource audioFootsteps;
-    public GameObject checkpoints;
+    [HideInInspector] public GameObject checkpoints;
 
     // Variables needed just for the script
     private Animator animator;
@@ -35,6 +35,8 @@ public class WaypointTrip : MonoBehaviour
 
     void Start()
     {
+        checkpoints = GameObject.FindGameObjectWithTag("Checkpoints");
+        waypoints = GameObject.FindGameObjectWithTag("Waypoints");
         path = new NavMeshPath();
         animator = GetComponent<Animator>();
         navMeshAgent.SetDestination(waypoints.transform.GetChild(curWaypointIndex).transform.position);
@@ -47,6 +49,7 @@ public class WaypointTrip : MonoBehaviour
         SaveGame theSave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
         if (theSave.userSave.racerTag == true)
             transform.GetChild(3).gameObject.SetActive(true);
+
 
     }
 

@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified:  11/26/2022
+ * Last Modified:  2/19/2023
  * Purpose: Get placements for every racer
  */
 
@@ -12,37 +12,42 @@ using UnityEngine.UI;
 using TMPro;
 
 public class PlacementScript : MonoBehaviour
-{
-    public int levelNum;
-    public GameObject dragonPlayers;
-    public GameObject npcRacers;
-    private PlayerRacingController player;
-    public TextMeshProUGUI raceBoard;
-    public TextMeshProUGUI coinsWin;
-    private int rankCounter = 1;
-    public GameObject checkpoints;
-    private List<int> playerFinished = new List<int>();
-    
-    private float time = 0.0f;
-    public float startTime = 5.0f;
-    public TextMeshProUGUI timeText;
-    public GameObject pauseMenu;
-    public GameObject ledBoard;
+{    
+    private GameObject dragonPlayers;
+    private GameObject cntDwnImg;
+    private GameObject npcRacers;    
+    private GameObject ledBoard;       
     private SaveGame theSave;
-    public GameObject cntDwnImg;
+    private TextMeshProUGUI timeText;
+    private PlayerRacingController player;
+    private List<int> playerFinished = new();
+    private TextMeshProUGUI raceNames;
+    private TextMeshProUGUI coinsWin;
+    private int rankCounter = 1;
+    private float time = 0.0f;
+    private FireworkTrigger finishline;
+    
     public AudioSource num;
     public AudioSource go;
-    public int numLaps = 1;
-
-    public GameObject playerTagText;
-    public GameObject playerTagColor;
-
     public Standings stands;
+    public float startTime = 5.0f;
+    public int numLaps = 1;
+    public int levelNum;
 
     private void Start()
-    {
-        timeText.text =  "Time: 0:0.0";
+    {        
         theSave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
+        timeText = GameObject.FindGameObjectWithTag("Time").GetComponent<TextMeshProUGUI>();
+        raceNames = GameObject.FindGameObjectWithTag("RaceNames").GetComponent<TextMeshProUGUI>();
+        coinsWin = GameObject.FindGameObjectWithTag("CoinsWin").GetComponent<TextMeshProUGUI>();
+        npcRacers = GameObject.FindGameObjectWithTag("NPCs");
+        dragonPlayers = GameObject.FindGameObjectWithTag("DragonPlayers");
+        ledBoard = GameObject.FindGameObjectWithTag("Leaderboard");
+        cntDwnImg = GameObject.FindGameObjectWithTag("CntDwnImgs");
+        finishline = GameObject.FindWithTag("FinishLine").GetComponent<FireworkTrigger>();
+
+        timeText.text = "Time: 0:0.0";
+        raceNames.text = "";
 
         ledBoard.SetActive(false);
         // Get our target
@@ -53,11 +58,10 @@ public class PlacementScript : MonoBehaviour
         {
             playerFinished.Add(0);
         }
-        raceBoard.text = "";
+        
         stands = new Standings(npcRacers, dragonPlayers.transform.GetChild(theSave.userSave.IndexOfDragonInUse()).gameObject);
     }
-
-    // Update is called once per frame
+        
     void FixedUpdate()
     {
         // Every frame we update the placement value
@@ -71,7 +75,7 @@ public class PlacementScript : MonoBehaviour
         else //(startTime <= 0)
         {
             time += Time.deltaTime;
-            if (playerFinished[playerFinished.Count - 1] != 1)
+            if (playerFinished[^1] != 1)
             {
                 float minutes = MathF.Truncate(time / 60);
                 float seconds = MathF.Round(time - (minutes * 60), 2);
@@ -82,24 +86,17 @@ public class PlacementScript : MonoBehaviour
                 cntDwnImg.transform.GetChild(3).transform.gameObject.SetActive(false);
         }
         if ((player.lapsCompleted == numLaps - 1) && ((player.checkpointsReached - (player.numCheckpoints * player.lapsCompleted)) == player.numCheckpoints - 1))
-        {
+            finishline.StartFireworks();
 
-            GameObject.FindWithTag("FinishLine").GetComponent<FireworkTrigger>().StartFireworks();
-        }
-
-        if ((player.lapsCompleted == numLaps) && (playerFinished[playerFinished.Count-1] != 1))
+        if ((player.lapsCompleted == numLaps) && (playerFinished[^1] != 1))
         {
-            playerFinished[playerFinished.Count - 1] = 1;
+            playerFinished[^1] = 1;
             int numCoins = (npcRacers.transform.childCount + 3 - rankCounter) * 10;
             float theTheTime = time;
-            FinishPlayer(theTheTime);    
-            
-            SaveGame usersave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
-            usersave.userSave.coins += numCoins;
-            usersave.userSave.SaveUser();
+            FinishPlayer(theTheTime, numCoins);  
 
             PlayerController playerC = dragonPlayers.transform.GetChild(theSave.userSave.IndexOfDragonInUse()).gameObject.GetComponent<PlayerController>();
-            raceBoard.text += (rankCounter++).ToString() + ". " + playerC.username + ": " + MathF.Round(theTheTime, 3).ToString() + "\n";
+            raceNames.text += (rankCounter++).ToString() + ". " + playerC.username + ": " + MathF.Round(theTheTime, 3).ToString() + "\n";
             coinsWin.text = "You just won " + numCoins + " Coins!";
         }
         else
@@ -111,7 +108,7 @@ public class PlacementScript : MonoBehaviour
                 if ((racer.lapsCompleted == numLaps) && (playerFinished[i] != 1))
                 {
                     FinishNPC(time, racer.npcName);
-                    raceBoard.text += (rankCounter++).ToString() + ". " + racer.npcName + ": " + MathF.Round(time, 3).ToString() + "\n";
+                    raceNames.text += (rankCounter++).ToString() + ". " + racer.npcName + ": " + MathF.Round(time, 3).ToString() + "\n";
                     playerFinished[i] = 1;
                     racer.doStop = true;
                 }
@@ -123,9 +120,10 @@ public class PlacementScript : MonoBehaviour
 
     }
 
-    private void FinishPlayer(float localTime)
+    private void FinishPlayer(float localTime, int numCoins)
     {
         theSave.userSave.SaveTimeToLevel(localTime, levelNum);
+        theSave.userSave.coins += numCoins;
 
         theSave.userSave.SaveUser();
         theSave.ledSave.SaveTime(levelNum, NameTransfer.theName, MathF.Round(localTime, 3));
@@ -196,8 +194,8 @@ public class Standings
     List<GameObject> standings;
     public Standings(GameObject npcRacers, GameObject player)
     {
-        standings = new List<GameObject>();
-        standings.Add(player);
+        standings = new List<GameObject> { player };
+
         for (int i = 0; i < npcRacers.transform.childCount; i++)
         {
             standings.Add(npcRacers.transform.GetChild(i).gameObject);
@@ -208,10 +206,10 @@ public class Standings
     {
         for (int i = 1; i < standings.Count; i++)
         {
-            int c = 0;
-            float d = 0.0f;
-            int ac = 0;
-            float ad = 0.0f;
+            int c;
+            float d;
+            int ac;
+            float ad;
 
             if (standings[i].CompareTag("Player") == true)
             {
@@ -266,9 +264,7 @@ public class Standings
         {
             
             GameObject ptag = standings[i].transform.GetChild(3).gameObject;
-            Material ptagcol = ptag.transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().material;
-            
-
+            Material ptagcol = ptag.transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().material;  
 
             if (standings[i].CompareTag("Player") == true)
             {

@@ -1,17 +1,16 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 1/5/2023
+ * Last Modified: 2/19/2023
  * Purpose: To constantly modify the camera's positioning on the object
  */
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class CameraFollow : MonoBehaviour
 {
-    public GameObject models;
+    [HideInInspector] public GameObject models;
     private GameObject targetObject;
 
     public Vector3 offsetPosition;
@@ -35,7 +34,8 @@ public class CameraFollow : MonoBehaviour
     private int count = 0;
     private void Start()
     {
-        UserSave usersave = new UserSave(NameTransfer.theName);
+        models = GameObject.FindGameObjectWithTag("DragonPlayers");
+        UserSave usersave = new(NameTransfer.theName);
         canShake = usersave.screenShake;
         canLag = usersave.cameraLag;
         Debug.Log(canLag);
@@ -55,9 +55,9 @@ public class CameraFollow : MonoBehaviour
         tmpOffsetPos2 = offsetPosition;
         tmpOffsetPos.x = 7;
         tmpOffsetPos.z = 0;
-        tmpOffsetPos.y = tmpOffsetPos.y + 10f;
-        offsetPosition.y = offsetPosition.y + 20f;
-        offsetPosition.z = offsetPosition.z + 10f;        
+        tmpOffsetPos.y += 10f;
+        offsetPosition.y += 20f;
+        offsetPosition.z += 10f;        
         
         StartSwerve();
     }
@@ -99,9 +99,9 @@ public class CameraFollow : MonoBehaviour
             // Calculate the angle that our gcamera needs to be at
             Quaternion lookRotation = Quaternion.LookRotation(targetObject.transform.position - transform.position);
             // Add in our offset values
-            Vector3 transformRotation = new Vector3(lookRotation.eulerAngles.x - offsetRotation.x,
-                                                    lookRotation.eulerAngles.y - offsetRotation.y,
-                                                    lookRotation.eulerAngles.z - offsetRotation.z);
+            Vector3 transformRotation = new(lookRotation.eulerAngles.x - offsetRotation.x,
+                                            lookRotation.eulerAngles.y - offsetRotation.y,
+                                            lookRotation.eulerAngles.z - offsetRotation.z);
             // 'Smoothly' rotate towards our target camera point
             transform.rotation = Quaternion.Euler(transformRotation);
         }
@@ -146,7 +146,7 @@ public class CameraFollow : MonoBehaviour
         // Calculate the angle that our gcamera needs to be at
         Quaternion lookRotation = Quaternion.LookRotation(targetObject.transform.position - transform.position);
         // Add in our offset values
-        Vector3 transformRotation = new Vector3(lookRotation.eulerAngles.x - offsetRotation.x,
+        Vector3 transformRotation = new(lookRotation.eulerAngles.x - offsetRotation.x,
                                                 lookRotation.eulerAngles.y - offsetRotation.y,
                                                 lookRotation.eulerAngles.z - offsetRotation.z);
         // 'Smoothly' rotate towards our target camera point

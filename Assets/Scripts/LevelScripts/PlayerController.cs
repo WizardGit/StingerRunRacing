@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 2/18/2023
+ * Last Modified: 2/19/2023
  * Purpose: Controls player movements
  */
 
@@ -19,9 +19,9 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public float boostTimeLength = 10f;
     // Objects that need to be assigned in the scene
     public List<Material> materials;
-    public Image speedBar;
-    public TextMeshProUGUI speedText;
-    public GameObject pauseMenu;
+    [HideInInspector] public Image speedBar;
+    [HideInInspector] public TextMeshProUGUI speedText;
+    [HideInInspector] public PauseMenu pauseMenu;
     [HideInInspector] public Camera mainCamera;
     [HideInInspector] public CameraFollow cf;
     [HideInInspector] public Animator anim;
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
     private AudioSource audioRoar;
 
     // Text variables
-    public TextMeshProUGUI messageText;    
+    [HideInInspector] public TextMeshProUGUI messageText;    
 
     // Variables for raycasting
     private float maxDistCast = 0.1f;
@@ -72,7 +72,6 @@ public class PlayerController : MonoBehaviour
     private float wbPos;
     private float wbWaterLvl;
     private float wbDragonSwimLvl;
-    private float dergColliderHeight;
 
     void Start()
     {
@@ -113,7 +112,12 @@ public class PlayerController : MonoBehaviour
         audioRoar = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        dergColliderHeight = GetComponent<Collider>().transform.position.y;
+        speedBar = GameObject.FindGameObjectWithTag("SpeedBar").GetComponent<Image>();
+        speedText = GameObject.FindGameObjectWithTag("SpeedText").GetComponent<TextMeshProUGUI>();
+        pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>();
+        messageText = GameObject.FindGameObjectWithTag("MessageText").GetComponent<TextMeshProUGUI>();
+
+        
 
         //timeText.text = "Time: 0";
         speedText.text = "0 mph";
@@ -138,10 +142,9 @@ public class PlayerController : MonoBehaviour
     {
         time += Time.deltaTime;
         // This code is vital for keeping the dragon rotated with the terrain
-        RaycastHit hit;        
-        Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1f);
+        //Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1f);
 
-        if (Physics.SphereCast(transform.position, radius, -(transform.up), out hit, maxDistCast))
+        if (Physics.SphereCast(transform.position, radius, -(transform.up), out RaycastHit hit, maxDistCast))
         {
             rb.MoveRotation(Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.Cross(transform.right, hit.normal)), 4 * Time.deltaTime));
         }
@@ -165,12 +168,7 @@ public class PlayerController : MonoBehaviour
             if (playerSpeed < playerMinOnWaterSpeed)
             {
                 if (waterBox != null)
-                    waterBox.transform.position = new Vector3(waterBox.transform.position.x, wbDragonSwimLvl, waterBox.transform.position.z);
-
-                Debug.Log("dragon1: " + transform.position.y);
-                Debug.Log("dragon2: " + rb.transform.position.y);
-                Debug.Log("dragon3: " + GetComponent<Collider>().transform.position.y);
-                Debug.Log("water: " + wbPos);
+                    waterBox.transform.position = new Vector3(waterBox.transform.position.x, wbDragonSwimLvl, waterBox.transform.position.z);                
 
                 if (transform.position.y + (gameObject.GetComponent<CapsuleCollider>().radius / 2) <= wbPos)
                 {
@@ -244,14 +242,14 @@ public class PlayerController : MonoBehaviour
         //transform.Rotate(0, movementX * playerRotationSpeed * Time.deltaTime, 0);
 
         // Move our rigid body's rotation
-        Quaternion deltaRotation = Quaternion.Euler(movementX * (new Vector3(0, playerRotationSpeed, 0)) * Time.deltaTime);
+        Quaternion deltaRotation = Quaternion.Euler(movementX * Time.deltaTime * (new Vector3(0, playerRotationSpeed, 0)));
         rb.MoveRotation(rb.rotation * deltaRotation);
 
         // If the player is backing up, they shouldn't be able to go all that fast!
         if (movementY < 0)
-            rb.MovePosition(rb.position + transform.forward * (playerSpeed/2) * movementYBefore * Time.deltaTime);
+            rb.MovePosition(rb.position + (playerSpeed/2) * movementYBefore * Time.deltaTime * transform.forward);
         else
-            rb.MovePosition(rb.position + transform.forward * playerSpeed * movementYBefore * Time.deltaTime);
+            rb.MovePosition(rb.position + movementYBefore * playerSpeed * Time.deltaTime * transform.forward);
     }
     private void OnTriggerEnter(Collider triggerObj)
     {
@@ -330,7 +328,7 @@ public class PlayerController : MonoBehaviour
         if ((onTerrain == true) && (isPause == false))
         {
             onTerrain = false;
-            Vector3 jump = new Vector3(movementX, jumpForce, movementY);
+            Vector3 jump = new(movementX, jumpForce, movementY);
             rb.AddForce(jump);            
             SetAnimatorBool("isJump");            
         }
@@ -350,19 +348,19 @@ public class PlayerController : MonoBehaviour
         {
             // If we're looking at the object, we need to get in front of it (so we'll reverse our z offset
             cf.lookForward = !cf.lookForward;
-            cf.offsetPosition.z = cf.offsetPosition.z * -1.0f;
+            cf.offsetPosition.z *= -1.0f;
         }        
     }
     private void OnPause()
     {
         // Note sure how to handle when a theSave releases a key so this is my workaround! User pushes once to get the pause menu, then pushes again to get out of it
+        Debug.Log("Ha0: " + isPause);
         isPause = !isPause;
-        //animator.Stop();
-        PauseMenu men = pauseMenu.GetComponent<PauseMenu>();
+        Debug.Log("Ha1: " + isPause);
         if (isPause == true)
-            men.PauseGame();
+            pauseMenu.PauseGame();
         else
-            men.ResumeGame();
+            pauseMenu.ResumeGame();
     }
     public void OnRoar()
     {
