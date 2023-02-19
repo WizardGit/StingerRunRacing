@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 11/26/2022
+ * Last Modified: 2/18/2023
  * Purpose: Controls player movements
  */
 
@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public Image speedBar;
     public TextMeshProUGUI speedText;
     public GameObject pauseMenu;
-    public Camera mainCamera;
+    [HideInInspector] public Camera mainCamera;
     [HideInInspector] public CameraFollow cf;
     [HideInInspector] public Animator anim;
     // Dictates if the player is allowed to move
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
     // Variables for what kind of material the player is on
     public bool onTerrain = true;
     public bool inWater = false;
+    public bool onWaterCube = false;
     // Describes if the speed reduction for being in water has been applied
     private bool waterBonusApp = false;
 
@@ -70,6 +72,7 @@ public class PlayerController : MonoBehaviour
     private float wbPos;
     private float wbWaterLvl;
     private float wbDragonSwimLvl;
+    private float dergColliderHeight;
 
     void Start()
     {
@@ -109,6 +112,8 @@ public class PlayerController : MonoBehaviour
         cf = mainCamera.GetComponent<CameraFollow>();
         audioRoar = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        dergColliderHeight = GetComponent<Collider>().transform.position.y;
 
         //timeText.text = "Time: 0";
         speedText.text = "0 mph";
@@ -159,33 +164,43 @@ public class PlayerController : MonoBehaviour
         {
             if (playerSpeed < playerMinOnWaterSpeed)
             {
-                if (waterBonusApp == false)
-                {
-                    if (waterBox != null)
-                        waterBox.transform.position = new Vector3(waterBox.transform.position.x, wbDragonSwimLvl, waterBox.transform.position.z);
-                    waterBonusApp = true;
-                    playerMaxSpeed /= 2;
-                }
-                if (playerSpeed > 0)
-                    SetAnimatorBool("isSwim");
-                else
-                    SetAnimatorBool("isSwimIdle");
-            }
-            else if ((playerSpeed >= playerMinOnWaterSpeed) && (waterBonusApp == true))
-            {
                 if (waterBox != null)
-                    waterBox.transform.position = new Vector3(waterBox.transform.position.x, wbWaterLvl, waterBox.transform.position.z);
-                waterBonusApp = false;
-                playerMaxSpeed *= 2;
-                SetAnimatorBool("isRun");
+                    waterBox.transform.position = new Vector3(waterBox.transform.position.x, wbDragonSwimLvl, waterBox.transform.position.z);
+
+                Debug.Log("dragon1: " + transform.position.y);
+                Debug.Log("dragon2: " + rb.transform.position.y);
+                Debug.Log("dragon3: " + GetComponent<Collider>().transform.position.y);
+                Debug.Log("water: " + wbPos);
+
+                if (transform.position.y + (gameObject.GetComponent<CapsuleCollider>().radius / 2) <= wbPos)
+                {
+                    if (waterBonusApp == false)
+                    {
+                        waterBonusApp = true;
+                        playerMaxSpeed /= 2;
+                    }
+                    if (playerSpeed > 0)
+                        SetAnimatorBool("isSwim");
+                    else
+                        SetAnimatorBool("isSwimIdle");
+                }                
+            }
+            else if (playerSpeed >= playerMinOnWaterSpeed)
+            {
+                if (waterBonusApp == true)
+                {
+                    waterBonusApp = false;
+                    playerMaxSpeed *= 2;
+                    SetAnimatorBool("isRun");
+                }  
             }
         }     
         else if (waterBox != null)
             waterBox.transform.position = new Vector3(waterBox.transform.position.x, wbWaterLvl, waterBox.transform.position.z);
 
         // Animations - but only play if we're on ground
-        if (((onTerrain == true) && (inWater == false)) || ((inWater == true) && (waterBonusApp == false)))
-        {
+        if (((onTerrain == true) && (inWater == false)) || ((inWater == true) && (transform.position.y + (gameObject.GetComponent<CapsuleCollider>().radius/2) > wbPos)))
+        {    
             if (movementX > 0.0f)
                 SetAnimatorBool("isTurnRight");
             else if (movementX < 0.0f)
@@ -241,7 +256,8 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider triggerObj)
     {
         anim.SetBool("isJump", false);
-        
+        onTerrain = true;
+
 
         if (triggerObj.gameObject.CompareTag("Sheep"))
         {
@@ -259,27 +275,43 @@ public class PlayerController : MonoBehaviour
     {
         if (triggerObj.gameObject.CompareTag("Water"))
         {
-            inWater = false;
-            if (waterBonusApp == true)
-            {
-                playerMaxSpeed *= 2;
-                waterBonusApp = false;
-                anim.SetBool("isSwim", false);
-                anim.SetBool("isSwimIdle", false);
-            }
+            LeaveWater();
         }
     }
 
     // As long as we have a collision, we are "on the terrain"
     private void OnCollisionEnter(Collision collidingObj)
     {
-        onTerrain = true;
         anim.SetBool("isJump", false);
+        onTerrain = true;
+
+        if (collidingObj.gameObject.CompareTag("WaterCube"))
+        {
+            onWaterCube = true;
+        }
+
     }
     // As long as we have exited a collision, we must be "in the air"
     private void OnCollisionExit(Collision collidingObj)
     {
-        
+        if (collidingObj.gameObject.CompareTag("WaterCube"))
+        {
+            onWaterCube = false;
+        }
+    }
+
+    private void LeaveWater()
+    {
+        inWater = false;
+        if (waterBonusApp == true)
+        {
+            playerMaxSpeed *= 2;
+            waterBonusApp = false;
+            anim.SetBool("isSwim", false);
+            anim.SetBool("isSwimIdle", false);
+            if (waterBox != null)
+                waterBox.transform.position = new Vector3(waterBox.transform.position.x, wbWaterLvl, waterBox.transform.position.z);
+        }
     }
 
     
@@ -297,11 +329,10 @@ public class PlayerController : MonoBehaviour
         
         if ((onTerrain == true) && (isPause == false))
         {
-            Vector3 jump = new Vector3(movementX, jumpForce, movementY);
-            rb.AddForce(jump);
-            //onTerrain = false;
-            anim.SetBool("isJump", true);
             onTerrain = false;
+            Vector3 jump = new Vector3(movementX, jumpForce, movementY);
+            rb.AddForce(jump);            
+            SetAnimatorBool("isJump");            
         }
     }
     private void OnRespawn()

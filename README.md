@@ -36,6 +36,15 @@ while shoot fireball animation is playing, move particle system
 fix issues with speed boost multiplies and water slowers
 fix colliders on middle of smashndash track
 fix water not on minimap
+fix missing back button on party - fixed?
+fix fps issue
+
 fix dragon not sinking into water far enough
 fix dragon getting too much speed while swimming
-fix missing back button on party - fixed?
+working on water rn
+
+put the dreadstrider swimming animations on speedstinger
+
+
+
+

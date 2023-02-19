@@ -1,6 +1,7 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 11/26/2022
+ * Last Modified: 2/18/2023
+ * Purpose: Controls player movement in free roam environments
  */
 
 using System;
@@ -13,11 +14,12 @@ public class PlayerFreeRoamController : MonoBehaviour
 {
     private float gemTimer = 0.0f;
     private PlayerController playerController;
-    public Camera mainCamera;
+    [HideInInspector] public Camera mainCamera;
 
     private void Start()
     {
         playerController = gameObject.GetComponent<PlayerController>();
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     private void FixedUpdate()
