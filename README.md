@@ -27,21 +27,21 @@ war simulator with characters - you can set waypoints to be enemies and draw lin
 allow npcs to get speed boxes!
 
 debug levels
-add isIdleSad to animation file and change that for alphamove script 
 create some sort of template for the canvas
 while shoot fireball animation is playing, move particle system
 fix colliders on middle of smashndash track
 fix water not on minimap
 fix missing back button on party - fixed?
 fix fps issue
-fix ranking issue
-
 fix pause menu issues, you have to click pause twice at opening
-
 fix jump while already in air bug
-fix issues with speed boost multiplies and water slowers
+
+fix the inefficient code for placement script
 
 * I put the dreadstrider swimming animations on speedstinger
+* you could do an astrid is going to attack quest, or something stupid like that
+* fix issue with npc dragon being in water!
+* fix having to load all the dragon skin materials
 
 
 

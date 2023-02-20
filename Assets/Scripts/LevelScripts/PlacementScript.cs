@@ -63,10 +63,7 @@ public class PlacementScript : MonoBehaviour
     }
         
     void FixedUpdate()
-    {
-        // Every frame we update the placement value
-        int placement = 1;        
-
+    {   
         if (startTime > 0)
         {
             startTime -= Time.deltaTime;
@@ -114,10 +111,10 @@ public class PlacementScript : MonoBehaviour
                 }
             }
         }        
-        gameObject.GetComponent<TextMeshProUGUI>().text = "Ranking: " + placement.ToString();
+        
         stands.SortStandings();
         stands.UpdatePTags();
-
+        gameObject.GetComponent<TextMeshProUGUI>().text = "Ranking: " + (player.placement + 1).ToString();
     }
 
     private void FinishPlayer(float localTime, int numCoins)

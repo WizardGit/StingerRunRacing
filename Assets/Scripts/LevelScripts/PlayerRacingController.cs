@@ -69,7 +69,7 @@ public class PlayerRacingController : MonoBehaviour
             // If our boost time is done, reset our max speed
             if ((numBoosts >= 1) && ((playerController.boostTimer - playerController.time) <= (playerController.boostTimeLength * (numBoosts-1))))
             {
-                playerController.playerMaxSpeed /= speedBoostMultiplier;
+                playerController.playerMaxSpeed -= (speedBoostMultiplier * playerController.origPlayerMaxSpeed / 2);
                 numBoosts--;
                 if (playerController.playerMaxSpeed < 0)
                 {
@@ -123,7 +123,7 @@ public class PlayerRacingController : MonoBehaviour
 
             other.gameObject.SetActive(false);
             playerController.messageText.text = "<size=200%> Double Speed!";            
-            playerController.playerMaxSpeed *= speedBoostMultiplier;
+            playerController.playerMaxSpeed += (speedBoostMultiplier * playerController.origPlayerMaxSpeed / 2);
             playerController.OnRoar();
         }
         else if (other.gameObject.CompareTag("Finish"))
