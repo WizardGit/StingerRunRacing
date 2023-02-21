@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified:  2/19/2023
+ * Last Modified:  2/20/2023
  * Purpose: Get placements for every racer
  */
 
@@ -8,7 +8,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class PlacementScript : MonoBehaviour
@@ -45,6 +45,8 @@ public class PlacementScript : MonoBehaviour
         ledBoard = GameObject.FindGameObjectWithTag("Leaderboard");
         cntDwnImg = GameObject.FindGameObjectWithTag("CntDwnImgs");
         finishline = GameObject.FindWithTag("FinishLine").GetComponent<FireworkTrigger>();
+        
+        GameObject.FindWithTag("LevelName").GetComponent<TextMeshProUGUI>().text = SceneManager.GetActiveScene().name;
 
         timeText.text = "Time: 0:0.0";
         raceNames.text = "";

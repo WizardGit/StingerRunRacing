@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 11/26/2022
+ * Last Modified: 2/20/2023
  * Purpose: Controls player movements
  */
 
@@ -20,7 +20,7 @@ public class PlayerRacingController : MonoBehaviour
     [HideInInspector] public bool isAiming = false;
     [HideInInspector] public int placement = -1;
     private int aimTarget = -1;
-    private const float speedBoostMultiplier = 1.5f;
+    private const float speedBoostMultiplier = 0.5f;
     private int numBoosts = 0;
 
     // Public Game Objects - MUST be assigned to    
@@ -59,7 +59,7 @@ public class PlayerRacingController : MonoBehaviour
         
     private void FixedUpdate()
     {
-        if (((playerController.time - playerController.boostTimer) > 2f) && (playerController.boostTimer > 0))
+        if (((playerController.boostTimer - playerController.time) <= 8f) && (playerController.boostTimer > 0))
         {
             playerController.messageText.text = "";
         }
@@ -122,7 +122,7 @@ public class PlayerRacingController : MonoBehaviour
                 playerController.boostTimer = playerController.time + playerController.boostTimeLength;
 
             other.gameObject.SetActive(false);
-            playerController.messageText.text = "<size=200%> Double Speed!";            
+            playerController.messageText.text = "<size=150%>Speed Boost!";            
             playerController.playerMaxSpeed += (speedBoostMultiplier * playerController.origPlayerMaxSpeed / 2);
             playerController.OnRoar();
         }

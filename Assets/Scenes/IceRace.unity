@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: eb7b63f077eb51048870c8c34762fad7, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -3600,7 +3600,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5936049901438456345, guid: 5d1105aacc71d564e9e82275f6357d56, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5936049901438456345, guid: 5d1105aacc71d564e9e82275f6357d56, type: 3}
       propertyPath: m_AnchorMax.x
@@ -7575,7 +7575,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 780611a67e8e941a2b3aa96e5915a793, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 780611a67e8e941a2b3aa96e5915a793, type: 3}
       propertyPath: m_LocalScale.x
@@ -9096,6 +9096,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1268254819}
     m_Modifications:
+    - target: {fileID: -3059188068038029138, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -3059188068038029138, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -3059188068038029138, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: speedBar
       value: 
@@ -9119,6 +9131,18 @@ PrefabInstance:
     - target: {fileID: 6463938099181318433, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6463938099181318433, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6463938099181318433, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6463938099181318433, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6463938099181318433, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9164,6 +9188,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dreadstrider
       objectReference: {fileID: 0}
+    - target: {fileID: 6688917618666246721, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7132475290110717110, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: ledBoard
       value: 
@@ -9176,7 +9204,8 @@ PrefabInstance:
       propertyPath: distanceText
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 998186634, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
 --- !u!4 &1162785042 stripped
 Transform:
@@ -12136,7 +12165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 927310294293949534, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: ledBoard
@@ -12154,7 +12183,8 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 515223213}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2113502841, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
 --- !u!4 &1504771693 stripped
 Transform:
@@ -12375,96 +12405,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1543109577}
   m_Mesh: {fileID: 4300000, guid: 729de9d0537a18a46920e9a2fa417685, type: 2}
---- !u!1001 &1555779213
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: speedBar
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: pauseMenu
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: speedText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 515223213}
-    - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: messageText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_RootOrder
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -146.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.66
-      objectReference: {fileID: 0}
-    - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 658.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 546526961447761636, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 927310294293949534, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: m_Name
-      value: SpeedStinger
-      objectReference: {fileID: 0}
-    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: ledBoard
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: checkpoints
-      value: 
-      objectReference: {fileID: 1111825888}
-    - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-      propertyPath: distanceText
-      value: 
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2113502841, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
-  m_SourcePrefab: {fileID: 100100000, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
 --- !u!1 &1562523593
 GameObject:
   m_ObjectHideFlags: 0
@@ -16467,7 +16407,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 103559779094534328, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 103559779094534328, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
       propertyPath: m_AnchorMax.x

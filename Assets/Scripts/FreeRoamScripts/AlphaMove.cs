@@ -1,6 +1,7 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 11/26/2022
+ * Last Modified: 2/20/2023
+ * Purpose: Trapped baby dragon script in free roam
  */
 
 using System;

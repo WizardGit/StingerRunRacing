@@ -4835,12 +4835,12 @@ Terrain:
   m_Enabled: 1
   serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: 566ac57af5d17fa4fa1a50a75d261f56, type: 2}
-  m_TreeDistance: 2023
-  m_TreeBillboardDistance: 98
-  m_TreeCrossFadeLength: 5
+  m_TreeDistance: 300
+  m_TreeBillboardDistance: 50
+  m_TreeCrossFadeLength: 50
   m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 119
-  m_DetailObjectDensity: 0.5
+  m_DetailObjectDistance: 0
+  m_DetailObjectDensity: 0
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
   m_HeightmapMaximumLOD: 0
@@ -9476,38 +9476,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 103559779094536003, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
-      propertyPath: m_TagString
-      value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 103559779585115101, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
-      propertyPath: npcRacers
-      value: 
-      objectReference: {fileID: 843809575}
-    - target: {fileID: 103559779585115101, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
-      propertyPath: pauseMenu
-      value: 
-      objectReference: {fileID: 1054733057}
-    - target: {fileID: 103559779585115101, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
-      propertyPath: checkpoints
-      value: 
-      objectReference: {fileID: 1414149162}
-    - target: {fileID: 103559779585115101, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
-      propertyPath: dragonPlayers
-      value: 
-      objectReference: {fileID: 232174648}
-    - target: {fileID: 103559779895114563, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 103559779895114563, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 103559779895114563, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -21.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
 --- !u!4 &543450651749463273 stripped
@@ -9635,18 +9603,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5936049900911206678, guid: 5d1105aacc71d564e9e82275f6357d56, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5936049900911206678, guid: 5d1105aacc71d564e9e82275f6357d56, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5936049900911206678, guid: 5d1105aacc71d564e9e82275f6357d56, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5936049901438456345, guid: 5d1105aacc71d564e9e82275f6357d56, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -9734,14 +9690,6 @@ PrefabInstance:
     - target: {fileID: 5936049901438456346, guid: 5d1105aacc71d564e9e82275f6357d56, type: 3}
       propertyPath: m_Name
       value: PauseMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 5936049901880579858, guid: 5d1105aacc71d564e9e82275f6357d56, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5936049902221896227, guid: 5d1105aacc71d564e9e82275f6357d56, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d1105aacc71d564e9e82275f6357d56, type: 3}

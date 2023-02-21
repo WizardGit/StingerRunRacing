@@ -1,6 +1,6 @@
 /*
  * Authors: Sofi Vinas, Kaiser Slocum
- * Last Modified: 2/19/2023
+ * Last Modified: 2/20/2023
  * Purpose: Control for buttons on the Pause Menu
  */
 
@@ -13,15 +13,12 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool isPaused = false;
     public GameObject miniP;
-    public GameObject miniO;
 
     // Start is called before the first frame update
     void Start()
     {
         miniP = gameObject.transform.GetChild(0).gameObject;
-        miniO = gameObject.transform.GetChild(1).gameObject;
         miniP.SetActive(false);
-        miniO.SetActive(false);
     }
 
     public void PauseGame()
@@ -33,7 +30,6 @@ public class PauseMenu : MonoBehaviour
 
     public void ResumeGame()
     {
-        Debug.Log("ha2");
         miniP.SetActive(false);
         isPaused = false;
         Time.timeScale = 1f;

@@ -37,6 +37,10 @@ fix pause menu issues, you have to click pause twice at opening
 fix jump while already in air bug
 
 fix the inefficient code for placement script
+boost timer is doing most of the stuff in playercontroller instead of playerracingcontroller
+when resetting user, the link to smash n' dash is still there, until you come  back from another scene
+
+user can press teh pause key and unpause the end
 
 * I put the dreadstrider swimming animations on speedstinger
 * you could do an astrid is going to attack quest, or something stupid like that

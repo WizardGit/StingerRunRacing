@@ -336,9 +336,8 @@ public class PlayerController : MonoBehaviour
     private void OnPause()
     {
         // Note sure how to handle when a theSave releases a key so this is my workaround! User pushes once to get the pause menu, then pushes again to get out of it
-        Debug.Log("Ha0: " + isPause);
+        
         isPause = !isPause;
-        Debug.Log("Ha1: " + isPause);
         if (isPause == true)
             pauseMenu.PauseGame();
         else
