@@ -1,0 +1,22 @@
+VertexlitGeneric
+{
+	$basetexture models/metssfm/Overwatch/Tracer/Sport/Tracer_Sport_D
+	$bumpmap models/metssfm/Overwatch/Tracer/Sport/Tracer_Sport_NS
+
+	$halflambert 1
+
+	$nocull 1
+
+	$phong	1
+	$phongboost	2
+	$phongexponent	100
+	$phongfresnelranges	"[1 1 1]"
+
+	$envmap models\Logan_McCloud_Models/softsilver.hdr
+	$normalmapalphaenvmapmask "1"
+	$envmaptint "[1 1 1]"
+
+	$rimlight 1
+	$rimlightexponent 30	
+	$rimlightboost .5
+}
