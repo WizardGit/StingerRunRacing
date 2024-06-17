@@ -48,6 +48,11 @@ user can press teh pause key and unpause the end
 * fix issue with npc dragon being in water!
 * fix having to load all the dragon skin materials
 
+https://play.unity.com/u/KaizarTheSneak
+https://answers.unity.com/questions/1725269/how-to-rename-a-script.html
+https://stackoverflow.com/questions/63036126/floating-objects-in-unity
+https://nerd-breached-containment.tumblr.com/post/617212697336020992/how-to-export-sod-models-into-blender
+https://nerd-breached-containment.tumblr.com/post/617222478324006912/how-to-add-a-color-mask-to-the-sod-dragons
 
 
 

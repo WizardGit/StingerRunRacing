@@ -1,0 +1,23 @@
+VertexlitGeneric
+{
+	$basetexture models/metssfm/Overwatch/Tracer/1kmspaint/Tracer_1kmspaint_D
+	$bumpmap models/metssfm/Overwatch/Tracer/Tracer_N
+
+	$halflambert 1
+
+	$nocull 1
+
+	$phong	1
+	$phongboost	.05
+	$phongexponent	25
+	$phongtint	"[.2 .3 .7]"
+	$phongfresnelranges	"[1 1 1]"
+
+	//"$lightwarptexture" "models/metssfm/Overwatch/Shared/Lightwarps/Simple"
+	"$detail" "models/metssfm/DoA/SHARED/Detail_skin"
+
+	$detailscale 10
+	$detailblendfactor 5
+	$detailblendmode 0
+
+}
