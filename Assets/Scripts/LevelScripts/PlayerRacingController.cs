@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 2/20/2023
+ * Last Modified: 5/8/2025
  * Purpose: Controls player movements
  */
 
@@ -54,7 +54,7 @@ public class PlayerRacingController : MonoBehaviour
             transform.GetChild(3).gameObject.SetActive(true);
         CalcNextCheckpoint();
 
-        playerController.isPause = true;
+        playerController.CanStart(false);
     }
         
     private void FixedUpdate()
@@ -214,6 +214,6 @@ public class PlayerRacingController : MonoBehaviour
 
     public void StartGoing()
     {
-        playerController.isPause = false;
+        playerController.CanStart(true);
     }
 }

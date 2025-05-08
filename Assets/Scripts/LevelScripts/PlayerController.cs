@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 2/19/2023
+ * Last Modified: 5/8/2025
  * Purpose: Controls player movements
  */
 
@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public Animator anim;
     // Dictates if the player is allowed to move
     [HideInInspector] public bool isPause = false;
+    [HideInInspector] public bool canRun = false;
     // Variables for what kind of material the player is on
     public bool onTerrain = true;
     public bool inWater = false;
@@ -333,12 +334,25 @@ public class PlayerController : MonoBehaviour
             cf.offsetPosition.z *= -1.0f;
         }        
     }
+    public void CanStart(bool canStart)
+    {
+        canRun = canStart;
+        if (canStart == true)
+            isPause = false;
+        else
+            isPause = true;
+    }
     private void OnPause()
     {
         // Note sure how to handle when a theSave releases a key so this is my workaround! User pushes once to get the pause menu, then pushes again to get out of it
-        
-        isPause = !isPause;
-        if (isPause == true)
+        //If canRun is false that means the race has not started so certain action should not be run
+        if (canRun == false)
+            isPause = true;  
+        else
+            isPause = !isPause;
+        //By directly referencing the pause menu's isPaused variable, I am decoupling if the pause menu is shown or not from the local isPause variable
+        //Any time OnPause() is called we should always be toggling between the pause menu and no pause menu
+        if (PauseMenu.isPaused == false)
             pauseMenu.PauseGame();
         else
             pauseMenu.ResumeGame();
