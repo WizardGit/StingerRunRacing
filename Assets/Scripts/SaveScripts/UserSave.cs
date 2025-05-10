@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 11/11/2022
+ * Last Modified: 5/9/2025
  * Purpose: Saves users' information
  */
 
@@ -60,8 +60,8 @@ public class UserSave
         {
             levelTimes.Add(-1f);
         }
-
-        for (int i = 0; i < 3; i++)
+        //Needs to get Updated if you want more skins!
+        for (int i = 0; i < 6; i++)
         {
             speed.AddSkin("Buy");
             speed.AddSkinPrice(i * 100);

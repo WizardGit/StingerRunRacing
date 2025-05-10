@@ -32,6 +32,7 @@ public class CameraFollow : MonoBehaviour
     private bool canShake = false;
     private bool canLag = false;
     private int count = 0;
+
     private void Start()
     {
         models = GameObject.FindGameObjectWithTag("DragonPlayers");

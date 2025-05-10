@@ -1,6 +1,6 @@
 /*
  * Authors: Kaiser Slocum, Sofi Vinas
- * Last Modified: 10/8/2022
+ * Last Modified: 5/9/2025
  * Purpose: Allow users to purchase new skins and acquire a different dragon racer
  */
 
@@ -17,7 +17,7 @@ public class StoreScript : MonoBehaviour
 {
     // Various objects needed for canvas
     public UserSave user;
-    public InputField coinsField;
+    public TMP_InputField cheatCodeInput;
     public AudioSource coinsAudio;
     public AudioSource evilLaugh;
     public ParticleSystem particleBlast;
@@ -244,7 +244,7 @@ public class StoreScript : MonoBehaviour
     // Handles the cheat codes
     public void HandleGreed()
     {        
-        string s = coinsField.text;
+        string s = cheatCodeInput.text;
         if (s == "coins")
         {
             user.coins += 200;

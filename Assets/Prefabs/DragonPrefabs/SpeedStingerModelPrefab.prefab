@@ -174,7 +174,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5545949784628861042
 Transform:
   m_ObjectHideFlags: 0
@@ -1061,6 +1061,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: d44ccf3ab12b7f741ab5d04724f0a3de, type: 2}
   - {fileID: 2100000, guid: db8ac3a1036038e43921c91c5a2bd9f8, type: 2}
   - {fileID: 2100000, guid: 38263236a7fbade4c868631d9f805901, type: 2}
+  - {fileID: 2100000, guid: 0b293d5e8994cb0498226ddb483400af, type: 2}
   speedBar: {fileID: 0}
   speedText: {fileID: 0}
   pauseMenu: {fileID: 0}
@@ -1068,6 +1069,7 @@ MonoBehaviour:
   cf: {fileID: 0}
   anim: {fileID: 0}
   isPause: 0
+  canRun: 0
   onTerrain: 1
   inWater: 0
   onWaterCube: 0
@@ -1254,6 +1256,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1587519481908926965, guid: 1ac54ec6d8dc0b541871f9edcec2f493, type: 3}
+      propertyPath: lengthInSec
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587519481908926965, guid: 1ac54ec6d8dc0b541871f9edcec2f493, type: 3}
       propertyPath: ShapeModule.type
       value: 5
       objectReference: {fileID: 0}
@@ -1310,8 +1316,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1587519481908926965, guid: 1ac54ec6d8dc0b541871f9edcec2f493, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587519481908926965, guid: 1ac54ec6d8dc0b541871f9edcec2f493, type: 3}
       propertyPath: CollisionModule.collidesWith.m_Bits
-      value: 3737
+      value: 3736
       objectReference: {fileID: 0}
     - target: {fileID: 1587519481908926965, guid: 1ac54ec6d8dc0b541871f9edcec2f493, type: 3}
       propertyPath: TrailModule.colorOverTrail.maxColor.b
@@ -1340,6 +1350,14 @@ PrefabInstance:
     - target: {fileID: 2944481224024409543, guid: 1ac54ec6d8dc0b541871f9edcec2f493, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801251698377079961, guid: 1ac54ec6d8dc0b541871f9edcec2f493, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 4801251698377079961, guid: 1ac54ec6d8dc0b541871f9edcec2f493, type: 3}
+      propertyPath: m_RenderMode
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4801251698377079961, guid: 1ac54ec6d8dc0b541871f9edcec2f493, type: 3}
       propertyPath: m_MaxParticleSize

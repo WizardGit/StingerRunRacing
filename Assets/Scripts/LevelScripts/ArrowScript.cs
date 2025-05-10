@@ -1,13 +1,14 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified:  11/26/2022
+ * Last Modified:  5/9/2025
  * The Arrow pointing angle code is something I am VERY proud of.
- * Took forever to do!
+ * Took forever to do! Still is goofed :(
  */
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class ArrowScript : MonoBehaviour
 {
@@ -33,26 +34,25 @@ public class ArrowScript : MonoBehaviour
     void FixedUpdate()
     {
         // DisVec represents the vector between the player and the next checkpoint
-        Vector3 disVec = checkpoints.transform.GetChild(playerScript.checkpointsReached - (numCheckpoints * playerScript.lapsCompleted)).transform.position - player.transform.position;
+        Vector3 checkPointVec = checkpoints.transform.GetChild(playerScript.checkpointsReached - (numCheckpoints * playerScript.lapsCompleted)).transform.position;
+        checkPointVec.y += 4;
+        Vector3 disVec = checkPointVec - player.transform.position;
         // Look angle will represent the angle that our arrow needs to point to from our objective straight world line
         Vector3 lookAngleVec = Quaternion.LookRotation(disVec).eulerAngles;
-        Vector3 lookAngleVec2 = Quaternion.LookRotation(disVec).eulerAngles;
-        float c = -lookAngleVec.z;
-        lookAngleVec.z = -lookAngleVec.y;
-        lookAngleVec.y = c;
+        //lookAngleVec = new Vector3(lookAngleVec.x, -lookAngleVec.z, -lookAngleVec.y);
 
         // We want to cancel the angle that our player dragon is facing
         // This will mean our arrow is always pointing the same direction according to the world 
         Vector3 playerAngle = -(player.transform.localRotation.eulerAngles);
 
         // If our camera turns around, we need our arrow to also turn around
-        float yDir = 0;
+        float zDir = 0;
         if (mainCameraScript.lookForward == false)
-            yDir = 180;
+            zDir = 180;
 
-        Vector3 frontDir = new Vector3(90, yDir, 0);
+        Vector3 frontDir = new Vector3(90, 0, zDir);
+        //Vector3 frontDir = new Vector3(270, 180, zDir);
 
-        // Add all these angles together! (Magic!!!)
-        transform.rotation = Quaternion.Euler(playerAngle + frontDir + lookAngleVec);
-    }    
+        transform.rotation = Quaternion.Euler(frontDir + playerAngle + lookAngleVec);
+    }
 }
