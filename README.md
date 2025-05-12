@@ -30,9 +30,7 @@ you could do an astrid is going to attack quest, or something stupid like that
 Debuggin:
 fix dance scene cutoff
 fix menus/stores/canvas - they should be 1920 by 1080
-fix fireballs being so slow and spamming fireball button and nothing happens
 create some sort of template for the canvas
-while shoot fireball animation is playing, move particle system
 fix water not on minimap
 fix fps issue
 fix jump while already in air bug
@@ -43,6 +41,9 @@ fix how ice level is saved!
 I put the dreadstrider swimming animations on speedstinger
 fix issue with npc dragon being in water!
 fix having to load all the dragon skin materials
+fix trees being all billboards
+fix arrow being weird
+add some effect when fireball hits a dragon
 
 https://play.unity.com/u/KaizarTheSneak
 https://answers.unity.com/questions/1725269/how-to-rename-a-script.html
