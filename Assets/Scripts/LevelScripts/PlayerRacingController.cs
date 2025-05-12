@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/8/2025
+ * Last Modified: 5/12/2025
  * Purpose: Controls player movements
  */
 
@@ -85,14 +85,14 @@ public class PlayerRacingController : MonoBehaviour
                 CalcNextCheckpoint();
         }
 
-        if ((isAiming == true) && (aimTarget >= 0) && (transform.GetChild(5).gameObject.GetComponent<ParticleSystem>().isPlaying == true))
+        if ((isAiming == true) && (aimTarget >= 0) /*&& (transform.GetChild(5).gameObject.GetComponent<ParticleSystem>().isPlaying == true)*/)
         {
             // DistVec represents the vector between the player and the next npc racer
             Vector3 distVec = npcRacers.transform.GetChild(aimTarget).gameObject.transform.position + new Vector3(0, 1, 0) - transform.GetChild(5).gameObject.transform.position;
             transform.GetChild(5).gameObject.transform.rotation = Quaternion.LookRotation(distVec);
 
             var main = transform.GetChild(5).gameObject.GetComponent<ParticleSystem>().main;
-            main.simulationSpace = ParticleSystemSimulationSpace.Local;            
+            main.simulationSpace = ParticleSystemSimulationSpace.Local;
         }
         else
         {
@@ -163,9 +163,17 @@ public class PlayerRacingController : MonoBehaviour
     {
         int endpointNum = aimTarget;
         if (endpointNum == -1)
+        {
             endpointNum = 0;
-        if ((aimTarget != -1) && (npcRacers.transform.GetChild(aimTarget).gameObject.transform.GetChild(4).gameObject.GetComponent<TargetScript>().canAim == false))
-            aimTarget = -1;
+            aimTarget = 0;
+            npcRacers.transform.GetChild(0).gameObject.transform.GetChild(4).gameObject.GetComponent<TargetScript>().setRed = true;
+        }
+        else
+        {
+            if ((aimTarget != -1) && (npcRacers.transform.GetChild(aimTarget).gameObject.transform.GetChild(4).gameObject.GetComponent<TargetScript>().canAim == false))
+                aimTarget = -1;
+        }
+        
 
         int g = endpointNum + 1;
         if (g >= npcRacers.transform.childCount)

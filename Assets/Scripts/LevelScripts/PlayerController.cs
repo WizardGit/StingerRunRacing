@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/8/2025
+ * Last Modified: 5/12/2025
  * Purpose: Controls player movements
  */
 
@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public float origPlayerMaxSpeed = 0;
     [HideInInspector] public float playerMinOnWaterSpeed = 14;
     private float jumpForce = 1000;
+    public int fireBallSpeed = 20;
 
     // Movement variables
     [HideInInspector] public float movementX = 0.0f;
@@ -358,14 +359,21 @@ public class PlayerController : MonoBehaviour
             pauseMenu.ResumeGame();
     }
     public void OnRoar()
-    {
-        audioRoar.Play();
+    {        
+        if (audioRoar.isPlaying == false)
+            audioRoar.Play();
     }
     
     private void OnFire()
     {
-        gameObject.transform.GetChild(5).gameObject.GetComponent<ParticleSystem>().Play();
-        OnRoar();
+        if (audioRoar.isPlaying == false)
+        {
+            ParticleSystem fireBall = gameObject.transform.GetChild(5).gameObject.GetComponent<ParticleSystem>();
+            ParticleSystem.MainModule fbMain = fireBall.main;
+            fbMain.startSpeed = playerSpeed + fireBallSpeed;
+            fireBall.Play();
+            audioRoar.Play();
+        }        
     }    
 
     public void SetAnimatorBool(string blnAnim)

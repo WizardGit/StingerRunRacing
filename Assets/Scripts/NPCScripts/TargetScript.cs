@@ -41,10 +41,8 @@ public class TargetScript : MonoBehaviour
         //||         ((lookAngleVec.y < 270) && (lookAngleVec.y > 90))
         //(Mathf.Abs(disVec.x) + Mathf.Abs(disVec.y) + Mathf.Abs(disVec.z)) > 30) || 
 
-        if (
-            (gameObject.transform.parent.GetComponent<WaypointTrip>().placement > player.GetComponent<PlayerRacingController>().placement) ||            
-            (player.GetComponent<PlayerRacingController>().isAiming == false)    
-            )
+        //(gameObject.transform.parent.GetComponent<WaypointTrip>().placement > player.GetComponent<PlayerRacingController>().placement)
+        if (player.GetComponent<PlayerRacingController>().isAiming == false)
         {
             canAim = false;
             transform.GetChild(0).gameObject.SetActive(false);
