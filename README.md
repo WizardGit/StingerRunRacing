@@ -33,7 +33,6 @@ fix menus/stores/canvas - they should be 1920 by 1080
 fix fireballs being so slow and spamming fireball button and nothing happens
 create some sort of template for the canvas
 while shoot fireball animation is playing, move particle system
-fix colliders on middle of smashndash track
 fix water not on minimap
 fix fps issue
 fix jump while already in air bug
@@ -50,3 +49,10 @@ https://answers.unity.com/questions/1725269/how-to-rename-a-script.html
 https://stackoverflow.com/questions/63036126/floating-objects-in-unity
 https://nerd-breached-containment.tumblr.com/post/617212697336020992/how-to-export-sod-models-into-blender
 https://nerd-breached-containment.tumblr.com/post/617222478324006912/how-to-add-a-color-mask-to-the-sod-dragons
+
+For adding a new skin:
+Update UserSave.CreateUser() update the for loop for more skins
+Add skin materials to canvas (StoreScript) list for ss and ds
+Add skim materials to prefab model (player controller) materials list
+Saves are here:
+C:\Users\USERNAME\AppData\LocalLow\DragonClub\StingerRunRacing
