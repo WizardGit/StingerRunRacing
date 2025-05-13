@@ -18,6 +18,7 @@ public class CameraZoom : MonoBehaviour
     void Start()
     {
         cam = GetComponent<Camera>();
+
         UpdateCameraViewport();
     }
 

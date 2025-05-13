@@ -38,7 +38,6 @@ public class MainMenu : MonoBehaviour
             audioS.Stop();
         }
         backgroundMusic.Play();
-        Cursor.SetCursor(cursorArrow, Vector2.zero, CursorMode.ForceSoftware);
 
         theSave = GameObject.Find("SaveGameObject").GetComponent<SaveGame>();
         if (theSave.userSave.cameraLag == true)
@@ -54,6 +53,13 @@ public class MainMenu : MonoBehaviour
         else
             RacerTagToggle.GetComponent<Toggle>().isOn = false;
         CheckLevelAvailability();
+
+
+        Debug.Log("Active Scene: " + SceneManager.GetActiveScene().name);
+        foreach (var scene in SceneManager.GetAllScenes())
+        {
+            Debug.Log("Loaded Scene: " + scene.name + ", IsLoaded: " + scene.isLoaded);
+        }
     }
 
     public void CheckLevelAvailability()
