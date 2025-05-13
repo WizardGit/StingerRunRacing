@@ -1,6 +1,6 @@
 /*
  * Authors: Kaiser Slocum
- * Last Modified: 11/11/2022
+ * Last Modified: 5/13/2025
  */
 
 using System.Collections;
@@ -21,7 +21,6 @@ public class PartyScript : MonoBehaviour
     // Start is called before the first frame update
     public void GoBack()
     {
-        Debug.Log("HIT");
         SceneManager.LoadScene("Credits");
     }
 }

@@ -20,6 +20,7 @@ Add heather on warlord island
 get speed hoop prefabs
 change arrow to follow camera movements (like if you turn backwards)
 allow npcs to get speed boxes!
+commented out showing player tags on actual player since it's annoying and there already is a thing at the top that shows your place, you can remove that and the other code later if you want
 
 Other (Future) Ideas:
 Create a dragon flight simulator except you can roll sideways and forward
@@ -37,12 +38,9 @@ fix the inefficient code for placement script
 boost timer is doing most of the stuff in playercontroller instead of playerracingcontroller
 when resetting user, the link to smash n' dash is still there, until you come  back from another scene
 fix how ice level is saved!
-I put the dreadstrider swimming animations on speedstinger
 fix issue with npc dragon being in water!
 fix having to load all the dragon skin materials
-fix trees being all billboards
 fix arrow being weird
-add some effect when fireball hits a dragon
 
 https://play.unity.com/u/KaizarTheSneak
 https://answers.unity.com/questions/1725269/how-to-rename-a-script.html

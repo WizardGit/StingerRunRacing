@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1845504559022656
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4667751268519761}
+  - component: {fileID: 114823408901629126}
+  m_Layer: 0
+  m_Name: PfDWFlightstingerThawfest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4667751268519761
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845504559022656}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+--- !u!114 &114823408901629126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845504559022656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82d857e89c2c7d1aee5d68a7f6826270, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  _Materials:
+  - {fileID: 2100000, guid: 25b3d3e3df5890346afd00c21cb29632, type: 2}
+  - {fileID: 2100000, guid: f681532b202535942949641c45d93fe3, type: 2}
+  _Particles: []
+  _LODMaterials: []
+  _LODParticles: []
+  _BabyMaterials:
+  - {fileID: 2100000, guid: 25b3d3e3df5890346afd00c21cb29632, type: 2}
+  - {fileID: 2100000, guid: f681532b202535942949641c45d93fe3, type: 2}
+  _BabyParticles: []
+  _TeenMaterials: []
+  _TeenParticles: []
+  _TeenLODMaterials: []
+  _TeenLODParticles: []
+  _TitanMaterials:
+  - {fileID: 0}
+  - {fileID: 0}
+  _TitanParticles: []
+  _TitanLODMaterials: []
+  _TitanLODParticles: []
+  _Mesh: {fileID: 0}
+  _BabyMesh: {fileID: 0}
+  _TeenMesh: {fileID: 0}
+  _TitanMesh: {fileID: 0}
+  _RenderersToChange:
+  - DWFlightStinger
+  _Weapon:
+    name:

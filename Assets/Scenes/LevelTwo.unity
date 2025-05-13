@@ -1956,7 +1956,7 @@ GameObject:
   - component: {fileID: 300952068}
   - component: {fileID: 300952070}
   - component: {fileID: 300952069}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LakeTerrain
   m_TagString: GroundTerrain
   m_Icon: {fileID: 0}
@@ -14077,6 +14077,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1633267453}
     m_Modifications:
+    - target: {fileID: 317248498, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: speedBar
       value: 
@@ -14235,6 +14239,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1633267453}
     m_Modifications:
+    - target: {fileID: 270209816, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 998186634, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: mainCamera
       value: 

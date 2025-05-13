@@ -50,8 +50,8 @@ public class PlayerRacingController : MonoBehaviour
         ledBoard = GameObject.FindGameObjectWithTag("Leaderboard");
 
         numCheckpoints = checkpoints.transform.childCount;
-        if (theSave.userSave.racerTag == true)
-            transform.GetChild(3).gameObject.SetActive(true);
+        //if (theSave.userSave.racerTag == true)
+        //    transform.GetChild(3).gameObject.SetActive(true);
         CalcNextCheckpoint();
 
         playerController.CanStart(false);
