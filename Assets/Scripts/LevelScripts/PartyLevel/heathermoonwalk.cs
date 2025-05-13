@@ -30,7 +30,7 @@ public class heathermoonwalk : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(rb.position + transform.forward * speed * 1 * Time.deltaTime);
+        //Debug.Log(rb.position + transform.forward * speed * 1 * Time.deltaTime);
         if (rotating == false)
             rb.MovePosition(rb.position + transform.forward * speed * -1 * Time.deltaTime);
         else

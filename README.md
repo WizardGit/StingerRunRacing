@@ -29,10 +29,9 @@ you could do an astrid is going to attack quest, or something stupid like that
 
 Debuggin:
 fix dance scene cutoff
-fix menus/stores/canvas - they should be 1920 by 1080
+fix old scene image behind canvas
 create some sort of template for the canvas
 fix water not on minimap
-fix fps issue
 fix jump while already in air bug
 fix the inefficient code for placement script
 boost timer is doing most of the stuff in playercontroller instead of playerracingcontroller

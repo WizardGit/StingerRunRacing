@@ -10,9 +10,18 @@ using UnityEngine.SceneManagement;
 
 public class PartyScript : MonoBehaviour
 {
+    private void Start()
+    {
+
+    }
+    private void FixedUpdate()
+    {
+        
+    }
     // Start is called before the first frame update
     public void GoBack()
     {
+        Debug.Log("HIT");
         SceneManager.LoadScene("Credits");
     }
 }

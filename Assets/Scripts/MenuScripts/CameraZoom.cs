@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/9/2025
+ * Last Modified: 5/12/2025
  * Purpose: Prevent players from weirdly resizing the screen
  */
 
@@ -18,12 +18,11 @@ public class CameraZoom : MonoBehaviour
     void Start()
     {
         cam = GetComponent<Camera>();
-
         UpdateCameraViewport();
     }
 
     // Update is called once per frame
-    private void FixedUpdate()
+    private void Update()
     {
         // Optionally check if screen resized, then update again
         if (Mathf.Abs(((float)Screen.width / Screen.height) - targetAspectRatio) > 0.01f)
@@ -36,6 +35,7 @@ public class CameraZoom : MonoBehaviour
     {
         float windowAspect = (float)Screen.width / Screen.height;
         float scaleHeight = windowAspect / targetAspectRatio;
+
 
         if (scaleHeight < 1.0f)
         {

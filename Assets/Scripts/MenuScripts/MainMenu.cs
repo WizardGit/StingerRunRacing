@@ -53,13 +53,6 @@ public class MainMenu : MonoBehaviour
         else
             RacerTagToggle.GetComponent<Toggle>().isOn = false;
         CheckLevelAvailability();
-
-
-        Debug.Log("Active Scene: " + SceneManager.GetActiveScene().name);
-        foreach (var scene in SceneManager.GetAllScenes())
-        {
-            Debug.Log("Loaded Scene: " + scene.name + ", IsLoaded: " + scene.isLoaded);
-        }
     }
 
     public void CheckLevelAvailability()
@@ -88,11 +81,13 @@ public class MainMenu : MonoBehaviour
 
     public void PlayStore()
     {
+        clickSound.Play();
         SceneManager.LoadScene("Store");
     }
 
     public void Credits()
     {
+        clickSound.Play();
         SceneManager.LoadScene("Credits");
     }
 
@@ -104,6 +99,7 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame()
     {
+        clickSound.Play();
         Debug.Log("QUIT!");
         Application.Quit();
     }
