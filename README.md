@@ -9,16 +9,11 @@ Website Link: https://wizardgit.github.io/StingerRunRacingWebsite/index.html
 TODO:
 package srr into a game installer
 add an inventory to freeroam
-add wandering boat in lake to level four
 add wandering speedstinger pack to freeroam or part of quest?
 add human class
 Add purposes and comments to scripts
-Make sure invisible walls are there!
 button click noises
 fix forbidden ice track
-Add heather on warlord island
-get speed hoop prefabs
-change arrow to follow camera movements (like if you turn backwards)
 allow npcs to get speed boxes!
 commented out showing player tags on actual player since it's annoying and there already is a thing at the top that shows your place, you can remove that and the other code later if you want
 
