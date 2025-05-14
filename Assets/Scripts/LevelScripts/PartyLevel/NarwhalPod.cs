@@ -1,3 +1,10 @@
+/*
+ * Author: Kaiser Slocum
+ * Last Modified: 5/14/2025
+ * Script for moving a narwhal pod from one waypoint/cube to another
+ */
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

@@ -19,11 +19,11 @@ commented out showing player tags on actual player since it's annoying and there
 
 Other (Future) Ideas:
 Create a dragon flight simulator except you can roll sideways and forward
-fireball frenzy with admin heads on targets
+How does fireballs work?
 war simulator with characters - you can set waypoints to be enemies and draw lines or maybe triggers to detect others
-you could do an astrid is going to attack quest, or something stupid like that
+How does color mask work?
 
-Debuggin:
+Debugging:
 fix dance scene cutoff
 fix old scene image behind canvas
 create some sort of template for the canvas

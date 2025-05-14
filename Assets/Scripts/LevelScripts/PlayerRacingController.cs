@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/12/2025
+ * Last Modified: 5/14/2025
  * Purpose: Controls player movements
  */
 
@@ -60,9 +60,7 @@ public class PlayerRacingController : MonoBehaviour
     private void FixedUpdate()
     {
         if (((playerController.boostTimer - playerController.time) <= 8f) && (playerController.boostTimer > 0))
-        {
             playerController.messageText.text = "";
-        }
 
         if ((placScript.startTime <= 0) && (playerController.isPause == false))
         {

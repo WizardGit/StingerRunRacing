@@ -1,7 +1,7 @@
 /*
  * Author: Kaiser Slocum
  * Last Modified: 5/14/2025
- * Script for 
+ * Script for moving a narwhal within their pod
  */
 
 using System;
@@ -10,17 +10,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NarwhalSwim : MonoBehaviour
-{  
-    private Transform groupTransform;         // Reference to the group (parent object)
+{
+    // Reference to the group (parent object)
+    private Transform groupTransform;         
 
     // Variables needed just for the script
     private Rigidbody rb;
     public int narwhalSpeed = 4;
     public int rotateSpeed = 2;
-
-    public float followStrength = 1f;        // How tightly it follows its target spot
-
-    private Vector3 localOffset;             // Initial local position relative to group
+    // How tightly it follows its target spot
+    public float followStrength = 1f;
+    // Initial local position relative to group
+    private Vector3 localOffset;             
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +34,6 @@ public class NarwhalSwim : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
         Vector3 targetWorldPos = groupTransform.TransformPoint(localOffset);
 
         Vector3 direction = (targetWorldPos - transform.position);

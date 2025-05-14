@@ -1,6 +1,6 @@
 /*
  * Authors: Kaiser Slocum
- * Last Modified: 5/13/2025
+ * Last Modified: 5/14/2025
  */
 
 using System.Collections;
@@ -47,8 +47,6 @@ public class FireballCollision : MonoBehaviour
             explosionEffect.Play();
             explosionAudio.Play();
 
-            // Collision stuff here. 
-            // You can access the CollisionEvent[i] to obtaion point of intersection, normals that kind of thing
             // You can simply use "other" GameObject to access it's rigidbody to apply force, or check if it implements a class that takes damage or whatever
         }
     }

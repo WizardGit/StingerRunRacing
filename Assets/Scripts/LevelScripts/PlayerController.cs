@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/12/2025
+ * Last Modified: 5/14/2025
  * Purpose: Controls player movements
  */
 
@@ -265,9 +265,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerExit(Collider triggerObj)
     {
         if (triggerObj.gameObject.CompareTag("Water"))
-        {
             LeaveWater();
-        }
     }
 
     // As long as we have a collision, we are "on the terrain"

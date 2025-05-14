@@ -1,5 +1,5 @@
 /* Author: Kaiser Slocum
- * Last Modified: 5/12/2025
+ * Last Modified: 5/14/2025
  * Purpose: 
  */
 
@@ -36,12 +36,7 @@ public class TargetScript : MonoBehaviour
     {    
         Vector3 disVec = transform.position - player.transform.position;
         Vector3 lookAngleVec = Quaternion.LookRotation(disVec).eulerAngles;
-        //Debug.Log(lookAngleVec.y);
 
-        //||         ((lookAngleVec.y < 270) && (lookAngleVec.y > 90))
-        //(Mathf.Abs(disVec.x) + Mathf.Abs(disVec.y) + Mathf.Abs(disVec.z)) > 30) || 
-
-        //(gameObject.transform.parent.GetComponent<WaypointTrip>().placement > player.GetComponent<PlayerRacingController>().placement)
         if (player.GetComponent<PlayerRacingController>().isAiming == false)
         {
             canAim = false;
