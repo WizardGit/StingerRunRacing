@@ -279,7 +279,9 @@ public class PlayerController : MonoBehaviour
     // As long as we have exited a collision, we must be "in the air"
     private void OnCollisionExit(Collision collidingObj)
     {
-
+        //Debug.Log(collidingObj.gameObject.name);
+        if (collidingObj.gameObject.tag == "GroundTerrain")
+            onTerrain = false;
     }
 
     private void LeaveWater()

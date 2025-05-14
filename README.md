@@ -32,11 +32,7 @@ Debuggin:
 fix dance scene cutoff
 fix old scene image behind canvas
 create some sort of template for the canvas
-fix water not on minimap
-fix jump while already in air bug
 fix the inefficient code for placement script
-boost timer is doing most of the stuff in playercontroller instead of playerracingcontroller
-when resetting user, the link to smash n' dash is still there, until you come  back from another scene
 fix how ice level is saved!
 fix issue with npc dragon being in water!
 fix having to load all the dragon skin materials

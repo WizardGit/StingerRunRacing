@@ -1,6 +1,6 @@
 /*
  * Authors: Kaiser Slocum, Sofi Vinas
- * Last Modified: 11/11/2022
+ * Last Modified: 5/14/2025
  * Purpose: Statically store the current theSave's username.  Because it is static, the theSave's username can be access from all other scenes
  */
 
@@ -38,7 +38,7 @@ public class NameTransfer : MonoBehaviour
     }
     public void ResetName()
     {
-        theSave.userSave.DeleteUser();
+        theSave.ResetUser();
         mainmenu.GetComponent<MainMenu>().CheckLevelAvailability();
     }
     public void ResetLeaderboard()
