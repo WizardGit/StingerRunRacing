@@ -13820,19 +13820,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 103559779094536007, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 915122006}
+    - target: {fileID: 103559779094536007, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
---- !u!114 &141509251 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 103559781036411727, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
-  m_PrefabInstance: {fileID: 141509250}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &141509252 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6027139302414150910, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
@@ -13844,31 +13841,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &141509253 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 103559779456107697, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
-  m_PrefabInstance: {fileID: 141509250}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &141509254 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 103559781138281318, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
-  m_PrefabInstance: {fileID: 141509250}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &141509255 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 103559780248213190, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
   m_PrefabInstance: {fileID: 141509250}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -14462,7 +14437,7 @@ PrefabInstance:
     - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: timeText
       value: 
-      objectReference: {fileID: 141509255}
+      objectReference: {fileID: 0}
     - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: pauseMenu
       value: 
@@ -14470,7 +14445,7 @@ PrefabInstance:
     - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: speedText
       value: 
-      objectReference: {fileID: 141509253}
+      objectReference: {fileID: 0}
     - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: finishLine
       value: 
@@ -14490,7 +14465,7 @@ PrefabInstance:
     - target: {fileID: 1098037228, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: distanceText
       value: 
-      objectReference: {fileID: 141509251}
+      objectReference: {fileID: 0}
     - target: {fileID: 2113502841, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -14562,7 +14537,7 @@ PrefabInstance:
     - target: {fileID: 4992519353157770452, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
       propertyPath: distanceText
       value: 
-      objectReference: {fileID: 141509251}
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2113502841, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 35d9d2978af652040b63d0b55eac6620, type: 3}
@@ -15453,7 +15428,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 3743
+    m_Bits: 3775
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -17501,7 +17476,7 @@ PrefabInstance:
     - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: speedText
       value: 
-      objectReference: {fileID: 141509253}
+      objectReference: {fileID: 0}
     - target: {fileID: 5261898230030022790, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: mainCamera
       value: 
@@ -17573,7 +17548,7 @@ PrefabInstance:
     - target: {fileID: 7132475290110717110, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
       propertyPath: distanceText
       value: 
-      objectReference: {fileID: 141509251}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07a7450949f99114d9281bf6d4cddad6, type: 3}
 --- !u!4 &2031572576 stripped

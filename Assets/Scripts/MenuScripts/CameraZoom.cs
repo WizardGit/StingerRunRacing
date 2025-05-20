@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/12/2025
+ * Last Modified: 5/20/2025
  * Purpose: Prevent players from weirdly resizing the screen
  */
 

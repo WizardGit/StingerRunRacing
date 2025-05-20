@@ -1,4 +1,4 @@
-StingerRunRacing
+2121StingerRunRacing
 Racing Simulation with Speed Stingers!
 This is a standard 3D Unity project on version 2021.2.14f1
 
@@ -24,14 +24,12 @@ war simulator with characters - you can set waypoints to be enemies and draw lin
 How does color mask work?
 
 Debugging:
-fix dance scene cutoff
-fix old scene image behind canvas
-create some sort of template for the canvas
+Canvas touch-ups
 fix the inefficient code for placement script
-fix how ice level is saved!
-fix issue with npc dragon being in water!
+Ice Level touch-up
 fix having to load all the dragon skin materials
 fix arrow being weird
+create way that npc dragon can be in water!
 
 https://play.unity.com/u/KaizarTheSneak
 https://answers.unity.com/questions/1725269/how-to-rename-a-script.html

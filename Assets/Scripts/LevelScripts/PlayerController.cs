@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 5/14/2025
+ * Last Modified: 5/20/2025
  * Purpose: Controls player movements
  */
 
@@ -201,9 +201,9 @@ public class PlayerController : MonoBehaviour
                 SetAnimatorBool("isRun");
             else
                 SetAnimatorBool("isIdleHappy");
-        }        
+        }
 
-        if (!Mathf.Approximately(movementY, 0f) && (playerSpeed <= playerMaxSpeed) && ((onTerrain == true) || (inWater == true)))
+        if (!Mathf.Approximately(movementY, 0f) && (playerSpeed <= playerMaxSpeed) )
         {
             // Check our player speed to see if we can add on more
             if ((playerSpeed + (playerAcceleration * Time.deltaTime)) > playerMaxSpeed)
@@ -220,7 +220,8 @@ public class PlayerController : MonoBehaviour
         else
         {
             cf.GetComponent<CameraFollow>().isAccel = false;
-            if (((Mathf.Approximately(movementY, 0f) && (playerSpeed > 0)) || (playerSpeed > playerMaxSpeed)) && ((onTerrain == true) || (inWater == true)))
+
+            if (((Mathf.Approximately(movementY, 0f) && (playerSpeed > 0)) || (playerSpeed > playerMaxSpeed)))
             {
                 playerSpeed -= (playerAcceleration * 2) * Time.deltaTime;
                 if (playerSpeed < 0)

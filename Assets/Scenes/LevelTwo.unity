@@ -6289,7 +6289,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 3743
+    m_Bits: 3775
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -12339,8 +12339,8 @@ Transform:
   - {fileID: 958974460}
   - {fileID: 1426140937}
   - {fileID: 1668574890}
-  - {fileID: 1107614576}
   - {fileID: 2122525911}
+  - {fileID: 1107614576}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14027,7 +14027,7 @@ Transform:
   - {fileID: 712849363}
   - {fileID: 1688090623}
   m_Father: {fileID: 1834318223}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2130885566 stripped
 Transform:
@@ -14568,6 +14568,14 @@ PrefabInstance:
     - target: {fileID: 103559779094536003, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 103559779094536007, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 963194227}
+    - target: {fileID: 103559779094536007, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0255aacaaf523c4a98215d97a622f53, type: 3}
