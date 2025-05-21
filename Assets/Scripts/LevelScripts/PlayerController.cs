@@ -202,8 +202,8 @@ public class PlayerController : MonoBehaviour
             else
                 SetAnimatorBool("isIdleHappy");
         }
-
-        if (!Mathf.Approximately(movementY, 0f) && (playerSpeed <= playerMaxSpeed) )
+        // &&((onTerrain==true) || (inWater==true))
+        if (!Mathf.Approximately(movementY, 0f) && (playerSpeed <= playerMaxSpeed))
         {
             // Check our player speed to see if we can add on more
             if ((playerSpeed + (playerAcceleration * Time.deltaTime)) > playerMaxSpeed)
@@ -221,7 +221,7 @@ public class PlayerController : MonoBehaviour
         {
             cf.GetComponent<CameraFollow>().isAccel = false;
 
-            if (((Mathf.Approximately(movementY, 0f) && (playerSpeed > 0)) || (playerSpeed > playerMaxSpeed)))
+            if (((Mathf.Approximately(movementY, 0f) && (playerSpeed > 0)) || (playerSpeed > playerMaxSpeed)) )
             {
                 playerSpeed -= (playerAcceleration * 2) * Time.deltaTime;
                 if (playerSpeed < 0)
@@ -272,14 +272,17 @@ public class PlayerController : MonoBehaviour
     // As long as we have a collision, we are "on the terrain"
     private void OnCollisionEnter(Collision collidingObj)
     {
-        anim.SetBool("isJump", false);
-        onTerrain = true;
+        if ((collidingObj.gameObject.tag == "GroundTerrain") || (collidingObj.gameObject.layer == 3))
+        {
+            onTerrain = true;
+            anim.SetBool("isJump", false);
+        }
     }
     // As long as we have exited a collision, we must be "in the air"
     private void OnCollisionExit(Collision collidingObj)
     {
         //Debug.Log(collidingObj.gameObject.name);
-        if (collidingObj.gameObject.tag == "GroundTerrain")
+        if ((collidingObj.gameObject.tag == "GroundTerrain") || (collidingObj.gameObject.layer == 3))
             onTerrain = false;
     }
 
