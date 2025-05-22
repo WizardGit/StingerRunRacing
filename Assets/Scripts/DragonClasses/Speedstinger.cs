@@ -1,5 +1,5 @@
 /* Author: Kaiser Slocum
- * Last Modified: 6/2/2022
+ * Last Modified: 5/22/2025
  * Purpose: Changes main attributes of the dragon class to describe the specifics of a speedstinger
  */
 
@@ -12,6 +12,7 @@ public class Speedstinger : Dragon
         speedForce = 18f;
         turnSpeed = 200f;
         accelForce = 17f;
+        waterHeight = 0f;
 
         inUse = "Using";
         name = "Speedstinger";

@@ -1,5 +1,5 @@
 /* Author: Kaiser Slocum
- * Last Modified: 6/1/2022
+ * Last Modified: 5/22/2025
  * Purpose: Describes main attributes of the titan speedstinger class of dragon
  */
 
@@ -12,6 +12,7 @@ public class SpeedstingerTitan : Speedstinger
         speedForce = 25f;
         turnSpeed = 200f;
         accelForce = 12f;
+        waterHeight = 0f;
 
         inUse = "Buy";
         name = "SpeedstingerTitan";

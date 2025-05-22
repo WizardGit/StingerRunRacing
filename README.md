@@ -24,7 +24,6 @@ war simulator with characters - you can set waypoints to be enemies and draw lin
 How does color mask work?
 
 Debugging:
-Canvas touch-ups
 fix the inefficient code for placement script
 Ice Level touch-up
 fix having to load all the dragon skin materials
@@ -40,5 +39,6 @@ For adding a new skin:
 Update UserSave.CreateUser() update the for loop for more skins
 Add skin materials to canvas (StoreScript) list for ss and ds
 Add skim materials to prefab model (player controller) materials list
+the code finds the water based on the water tag, all other water should just have the layer of water
 Saves are here:
 C:\Users\USERNAME\AppData\LocalLow\DragonClub\StingerRunRacing

@@ -1,5 +1,5 @@
 /* Author: Kaiser Slocum
- * Last Modified: 6/2/2022
+ * Last Modified: 5/22/2025
  * Purpose: Changes main attributes of the dragon class to describe the specifics of a dreadstrider
  */
 
@@ -12,6 +12,7 @@ public class Dreadstrider : Dragon
         speedForce = 20f;
         turnSpeed = 180f;
         accelForce = 13f;
+        waterHeight = 0.8f;
 
         inUse = "Buy";
         name = "Dreadstrider";

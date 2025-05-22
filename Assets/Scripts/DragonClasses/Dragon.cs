@@ -1,13 +1,11 @@
 /* Author: Kaiser Slocum
- * Last Modified: 6/1/2022
+ * Last Modified: 5/22/2025
  * Purpose: Describes attributes of the dragon class
  */
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
 using UnityEngine;
 
 [System.Serializable]
@@ -18,6 +16,7 @@ public abstract class Dragon
     protected float speedForce;
     protected float turnSpeed;
     protected float accelForce;
+    protected float waterHeight;
 
     // Lists of skins available
     protected List<string> skins;
@@ -45,6 +44,7 @@ public abstract class Dragon
         speedForce = 10f;
         turnSpeed = 200f;
         accelForce = 5f;
+        waterHeight = 0.6f;
 
         name = "Dragon";
 
@@ -63,6 +63,7 @@ public abstract class Dragon
     public float GetJumpForce() => jumpForce;
     public float GetTurnSpeed() => turnSpeed;
     public float GetAccelForce() => accelForce;
+    public float GetWaterHeight() => waterHeight;
 
     public float GetYLookFrom() => yLookFrom;
     public float GetZLookFrom() => zLookFrom;
