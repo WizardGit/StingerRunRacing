@@ -28,7 +28,6 @@ Canvas touch-ups
 fix the inefficient code for placement script
 Ice Level touch-up
 fix having to load all the dragon skin materials
-fix arrow being weird
 create way that npc dragon can be in water!
 
 https://play.unity.com/u/KaizarTheSneak

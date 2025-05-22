@@ -1,6 +1,6 @@
 /*
  * Author: Kaiser Slocum
- * Last Modified: 2/19/2023
+ * Last Modified: 5/21/2025
  * Purpose: To constantly modify the camera's positioning on the object
  */
 
@@ -63,7 +63,8 @@ public class CameraFollow : MonoBehaviour
         StartSwerve();
     }
 
-    private void FixedUpdate()
+    // Using Update - called once per frame
+    private void Update()
     {
         FollowPlayer();
     }
