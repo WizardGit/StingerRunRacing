@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1531026501439931
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4688201027571360}
+  - component: {fileID: 114916981390241837}
+  m_Layer: 0
+  m_Name: PfYaknogPowerUp
+  m_TagString: unknown_20025
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4688201027571360
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531026501439931}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+--- !u!114 &114916981390241837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531026501439931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f40a50d02f9ce83ee31133b66ac27b1, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  _Type: Yaknog
+  _Duration: 3
+  _InvulnerableDuration: 3
+  _SndActivate: {fileID: 8300000, guid: 8d8a328d12d2a7f4eaa8e763aa58ee4a, type: 3}
+  _SndSettings:
+    _Channel:
+    _Pool:
+    _Priority: 0
+    _Volume: 1
+    _Pitch: 1
+    _MinVolume: 0
+    _MaxVolume: 1
+    _RolloffFactor: 0.1
+    _RolloffBegin: 0
+    _RolloffEnd: Infinity
+    _UseRolloffDistance: 0
+    _Loop: 0
+    _ReleaseOnStop: 1
+    _FollowListener: 0
+    _EventTarget: {fileID: 0}
+  _Particle: {fileID: 0}
+  _ParticlePos:
+    x: 0
+    y: 0
+    z: 0
+  _ParticleRot:
+    x: 0
+    y: 0
+    z: 0
+  _IsSingleInstance: 1
+  _LiquidEffect: {fileID: 1508808751974000, guid: 34b3d8e06f9b7fb4b9cf9c85f9db2633, type: 2}

@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1843175735042704
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4601801015905513}
+  - component: {fileID: 114620614136471438}
+  - component: {fileID: 135110043269641626}
+  m_Layer: 0
+  m_Name: PfGasCloudPowerUp
+  m_TagString: unknown_20025
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4601801015905513
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843175735042704}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+--- !u!114 &114620614136471438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843175735042704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d47530be5066ec6c809e9ffb4a740ede, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  _Type: GAS_CLOUD
+  _Duration: 30
+  _InvulnerableDuration: 3
+  _SndActivate: {fileID: 8300000, guid: 576fb86a1f21de7459b0b9c85b48fe03, type: 3}
+  _SndSettings:
+    _Channel:
+    _Pool: SFX_Pool
+    _Priority: 0
+    _Volume: 1
+    _Pitch: 1
+    _MinVolume: 0
+    _MaxVolume: 1
+    _RolloffFactor: 0.1
+    _RolloffBegin: 0
+    _RolloffEnd: Infinity
+    _UseRolloffDistance: 0
+    _Loop: 0
+    _ReleaseOnStop: 1
+    _FollowListener: 0
+    _EventTarget: {fileID: 0}
+  _Particle: {fileID: 1698322474248921, guid: 9cd1b03c64563ee48b7dc1ac58c38c23, type: 2}
+  _ParticlePos:
+    x: 0
+    y: 0
+    z: 0
+  _ParticleRot:
+    x: 0
+    y: 0
+    z: 0
+  _IsSingleInstance: 0
+  _FieldEffectOffsetDist: 0
+  _FieldRadius: 10
+  _HitScreenEffect: {fileID: 0}
+  _HitFlyingSlowDownFactor: 2.5
+  _HitFlyingMaxSpeedFactor: 0.7
+  _BuffDurationOnFieldExit: 4
+  _GasHitAudioClip: {fileID: 8300000, guid: b7477d841d0b51444b0334474af9f61c, type: 3}
+--- !u!135 &135110043269641626
+SphereCollider:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843175735042704}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1E-05
+  m_Center: {x: 0, y: 0, z: 0}

@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1721365690073556
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4045811557475452}
+  - component: {fileID: 114330795897142752}
+  m_Layer: 0
+  m_Name: PfShieldPowerUp
+  m_TagString: unknown_20025
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4045811557475452
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721365690073556}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+--- !u!114 &114330795897142752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721365690073556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b914c20423cbeee9b0d1a9c5af87ed09, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  _Type: SHIELD
+  _Duration: 7
+  _InvulnerableDuration: -1
+  _SndActivate: {fileID: 8300000, guid: 812bd71366f201247bd3588ae12feff8, type: 3}
+  _SndSettings:
+    _Channel:
+    _Pool: SFX_Pool
+    _Priority: 0
+    _Volume: 1
+    _Pitch: 1
+    _MinVolume: 0
+    _MaxVolume: 1
+    _RolloffFactor: 0.1
+    _RolloffBegin: 0
+    _RolloffEnd: Infinity
+    _UseRolloffDistance: 0
+    _Loop: 0
+    _ReleaseOnStop: 1
+    _FollowListener: 0
+    _EventTarget: {fileID: 0}
+  _Particle: {fileID: 0}
+  _ParticlePos:
+    x: 0
+    y: 0
+    z: 0
+  _ParticleRot:
+    x: 0
+    y: 0
+    z: 0
+  _IsSingleInstance: 1
+  _MaxHitSustain: 100
+  _ShieldObject: {fileID: 1284514940393725, guid: 31bd93877eba6174dbaa530a3812e60c, type: 2}

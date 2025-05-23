@@ -15,6 +15,8 @@ Add purposes and comments to scripts
 button click noises
 fix forbidden ice track
 allow npcs to get speed boxes!
+fix having to load all the dragon skin materials
+create way that npc dragon can be in water!
 commented out showing player tags on actual player since it's annoying and there already is a thing at the top that shows your place, you can remove that and the other code later if you want
 
 Other (Future) Ideas:
@@ -22,12 +24,6 @@ Create a dragon flight simulator except you can roll sideways and forward
 How does fireballs work?
 war simulator with characters - you can set waypoints to be enemies and draw lines or maybe triggers to detect others
 How does color mask work?
-
-Debugging:
-fix the inefficient code for placement script
-Ice Level touch-up
-fix having to load all the dragon skin materials
-create way that npc dragon can be in water!
 
 https://play.unity.com/u/KaizarTheSneak
 https://answers.unity.com/questions/1725269/how-to-rename-a-script.html

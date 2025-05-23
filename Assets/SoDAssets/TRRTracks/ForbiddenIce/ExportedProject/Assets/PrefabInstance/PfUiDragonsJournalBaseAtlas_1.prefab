@@ -1,0 +1,1026 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1859894556563551
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4486393015613471}
+  - component: {fileID: 114131100222526817}
+  m_Layer: 0
+  m_Name: PfUiDragonsJournalBaseAtlas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4486393015613471
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859894556563551}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+--- !u!114 &114131100222526817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859894556563551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea9f040b2b6bd4bf069e31e0ace12f73, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  material: {fileID: 2100000, guid: be3da0e216aeaa14b9bafb45d014d7af, type: 2}
+  mSprites:
+  - name: AniDWDragonsBaseMeterIconHPLrg
+    x: 0
+    y: 354
+    width: 52
+    height: 45
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: AniDWDragonsBaseParchmentBoxDouble
+    x: 0
+    y: 761
+    width: 267
+    height: 263
+    borderLeft: 29
+    borderRight: 32
+    borderTop: 25
+    borderBottom: 41
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: AniDWDragonsSTLvlBack
+    x: 884
+    y: 562
+    width: 122
+    height: 66
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: AniDWDragonsSTUnitSkillContainer
+    x: 745
+    y: 370
+    width: 44
+    height: 47
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: BtnDWDragonsBasesBffHighlight
+    x: 584
+    y: 430
+    width: 55
+    height: 64
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: BtnDWDragonsBasesBffUp
+    x: 641
+    y: 408
+    width: 55
+    height: 64
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: IcoDWDragonsAdd
+    x: 698
+    y: 807
+    width: 107
+    height: 107
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 10
+    paddingRight: 11
+    paddingTop: 13
+    paddingBottom: 8
+  - name: IcoDWDragonsBaseAlert
+    x: 0
+    y: 210
+    width: 31
+    height: 92
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: IcoDWDragonsBaseSearch
+    x: 244
+    y: 476
+    width: 58
+    height: 92
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: IcoDWDragonsBlacksmithDismantle
+    x: 465
+    y: 900
+    width: 123
+    height: 124
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 4
+    paddingTop: 0
+    paddingBottom: 4
+  - name: IcoDWDragonsBtnCheck
+    x: 376
+    y: 433
+    width: 65
+    height: 56
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 13
+    paddingRight: 14
+    paddingTop: 20
+    paddingBottom: 16
+  - name: IcoDWDragonsClanRewardsEventView
+    x: 59
+    y: 348
+    width: 72
+    height: 68
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 15
+    paddingRight: 5
+    paddingTop: 1
+    paddingBottom: 23
+  - name: IcoDWDragonsClanRewardsMedals
+    x: 0
+    y: 401
+    width: 57
+    height: 89
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 16
+    paddingRight: 19
+    paddingTop: 3
+    paddingBottom: 0
+  - name: IcoDWDragonsClanRewardsMedalsEarned
+    x: 0
+    y: 492
+    width: 69
+    height: 89
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 15
+    paddingRight: 8
+    paddingTop: 3
+    paddingBottom: 0
+  - name: IcoDWDragonsClanRewardsSeasonView
+    x: 0
+    y: 668
+    width: 83
+    height: 91
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 4
+    paddingRight: 5
+    paddingTop: 1
+    paddingBottom: 0
+  - name: IcoDWDragonsClans
+    x: 929
+    y: 915
+    width: 86
+    height: 109
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: IcoDWDragonsDelete
+    x: 897
+    y: 473
+    width: 88
+    height: 87
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: IcoDWDragonsFieldGuideEarthSci
+    x: 791
+    y: 368
+    width: 40
+    height: 49
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 12
+    paddingRight: 12
+    paddingTop: 8
+    paddingBottom: 7
+  - name: IcoDWDragonsFieldGuideLifeSci
+    x: 473
+    y: 501
+    width: 55
+    height: 30
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 6
+    paddingTop: 18
+    paddingBottom: 16
+  - name: IcoDWDragonsFieldGuidePhysSci
+    x: 698
+    y: 423
+    width: 47
+    height: 49
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 7
+    paddingRight: 10
+    paddingTop: 7
+    paddingBottom: 8
+  - name: IcoDWDragonsFieldGuideSciInv
+    x: 698
+    y: 371
+    width: 45
+    height: 50
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 8
+    paddingRight: 11
+    paddingTop: 7
+    paddingBottom: 7
+  - name: IcoDWDragonsFieldGuideTech
+    x: 788
+    y: 569
+    width: 57
+    height: 36
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 4
+    paddingTop: 15
+    paddingBottom: 13
+  - name: IcoDWDragonsGenderFemale
+    x: 172
+    y: 549
+    width: 70
+    height: 100
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 29
+    paddingRight: 29
+    paddingTop: 18
+    paddingBottom: 10
+  - name: IcoDWDragonsGenderMale
+    x: 85
+    y: 590
+    width: 85
+    height: 86
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 22
+    paddingRight: 21
+    paddingTop: 24
+    paddingBottom: 18
+  - name: IcoDWDragonsHome
+    x: 479
+    y: 533
+    width: 91
+    height: 76
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: IcoDWDragonsHUDStore
+    x: 698
+    y: 916
+    width: 116
+    height: 108
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 6
+    paddingRight: 6
+    paddingTop: 8
+    paddingBottom: 12
+  - name: IcoDWDragonsIgnore
+    x: 698
+    y: 542
+    width: 88
+    height: 88
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: IcoDWDragonsInvite
+    x: 807
+    y: 713
+    width: 105
+    height: 101
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: IcoDWDragonsJournalActiveQuest
+    x: 33
+    y: 213
+    width: 30
+    height: 89
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 48
+    paddingRight: 50
+    paddingTop: 24
+    paddingBottom: 15
+  - name: IcoDWDragonsJournalAll
+    x: 0
+    y: 304
+    width: 95
+    height: 42
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 16
+    paddingRight: 17
+    paddingTop: 43
+    paddingBottom: 43
+  - name: IcoDWDragonsJournalArmWrap
+    x: 688
+    y: 632
+    width: 112
+    height: 84
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 10
+    paddingRight: 6
+    paddingTop: 26
+    paddingBottom: 18
+  - name: IcoDWDragonsJournalBattleReady
+    x: 914
+    y: 702
+    width: 91
+    height: 112
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 19
+    paddingRight: 18
+    paddingTop: 8
+    paddingBottom: 8
+  - name: IcoDWDragonsJournalBlacksmith
+    x: 816
+    y: 914
+    width: 111
+    height: 110
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 8
+    paddingRight: 9
+    paddingTop: 12
+    paddingBottom: 6
+  - name: IcoDWDragonsJournalBottoms
+    x: 403
+    y: 491
+    width: 68
+    height: 79
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 32
+    paddingRight: 28
+    paddingTop: 29
+    paddingBottom: 20
+  - name: IcoDWDragonsJournalConclusion
+    x: 465
+    y: 716
+    width: 112
+    height: 88
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 8
+    paddingRight: 8
+    paddingTop: 20
+    paddingBottom: 20
+  - name: IcoDWDragonsJournalCustomizeDragon
+    x: 269
+    y: 788
+    width: 194
+    height: 236
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 30
+    paddingRight: 32
+    paddingTop: 7
+    paddingBottom: 13
+  - name: IcoDWDragonsJournalDecals
+    x: 244
+    y: 570
+    width: 84
+    height: 65
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 24
+    paddingRight: 20
+    paddingTop: 36
+    paddingBottom: 27
+  - name: IcoDWDragonsJournalEquipAvatar
+    x: 590
+    y: 900
+    width: 106
+    height: 124
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 11
+    paddingRight: 11
+    paddingTop: 1
+    paddingBottom: 3
+  - name: IcoDWDragonsJournalEquipDragon
+    x: 921
+    y: 820
+    width: 100
+    height: 92
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 16
+    paddingRight: 12
+    paddingTop: 22
+    paddingBottom: 14
+  - name: IcoDWDragonsJournalEquipStoker
+    x: 269
+    y: 702
+    width: 112
+    height: 84
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 9
+    paddingRight: 7
+    paddingTop: 26
+    paddingBottom: 18
+  - name: IcoDWDragonsJournalExperiment
+    x: 501
+    y: 611
+    width: 80
+    height: 100
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 24
+    paddingRight: 24
+    paddingTop: 12
+    paddingBottom: 16
+  - name: IcoDWDragonsJournalEyeClosed
+    x: 473
+    y: 450
+    width: 109
+    height: 44
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 11
+    paddingRight: 8
+    paddingTop: 55
+    paddingBottom: 29
+  - name: IcoDWDragonsJournalEyes
+    x: 572
+    y: 496
+    width: 107
+    height: 63
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 12
+    paddingRight: 9
+    paddingTop: 37
+    paddingBottom: 28
+  - name: IcoDWDragonsJournalGloves
+    x: 681
+    y: 474
+    width: 91
+    height: 66
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 19
+    paddingRight: 18
+    paddingTop: 34
+    paddingBottom: 28
+  - name: IcoDWDragonsJournalHair
+    x: 383
+    y: 717
+    width: 72
+    height: 69
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 29
+    paddingRight: 27
+    paddingTop: 33
+    paddingBottom: 26
+  - name: IcoDWDragonsJournalHelmet
+    x: 583
+    y: 632
+    width: 101
+    height: 79
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 14
+    paddingRight: 13
+    paddingTop: 28
+    paddingBottom: 21
+  - name: IcoDWDragonsJournalHypothesis
+    x: 97
+    y: 251
+    width: 32
+    height: 95
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 48
+    paddingRight: 48
+    paddingTop: 16
+    paddingBottom: 17
+  - name: IcoDWDragonsJournalMakeUp
+    x: 925
+    y: 410
+    width: 91
+    height: 61
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 20
+    paddingRight: 17
+    paddingTop: 37
+    paddingBottom: 30
+  - name: IcoDWDragonsJournalMask
+    x: 581
+    y: 713
+    width: 105
+    height: 95
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 13
+    paddingRight: 10
+    paddingTop: 22
+    paddingBottom: 11
+  - name: IcoDWDragonsJournalPaintKit
+    x: 884
+    y: 630
+    width: 116
+    height: 70
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 7
+    paddingRight: 5
+    paddingTop: 37
+    paddingBottom: 21
+  - name: IcoDWDragonsJournalPattern
+    x: 366
+    y: 572
+    width: 111
+    height: 65
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 9
+    paddingRight: 8
+    paddingTop: 36
+    paddingBottom: 27
+  - name: IcoDWDragonsJournalQuestion
+    x: 178
+    y: 651
+    width: 68
+    height: 108
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 29
+    paddingRight: 31
+    paddingTop: 8
+    paddingBottom: 12
+  - name: IcoDWDragonsJournalRemove
+    x: 165
+    y: 463
+    width: 63
+    height: 84
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 17
+    paddingRight: 16
+    paddingTop: 8
+    paddingBottom: 4
+  - name: IcoDWDragonsJournalResearch
+    x: 802
+    y: 607
+    width: 80
+    height: 104
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 24
+    paddingRight: 24
+    paddingTop: 12
+    paddingBottom: 12
+  - name: IcoDWDragonsJournalSaddle
+    x: 248
+    y: 637
+    width: 116
+    height: 63
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 7
+    paddingRight: 5
+    paddingTop: 37
+    paddingBottom: 28
+  - name: IcoDWDragonsJournalSciQuest
+    x: 465
+    y: 806
+    width: 114
+    height: 92
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 10
+    paddingRight: 4
+    paddingTop: 21
+    paddingBottom: 15
+  - name: IcoDWDragonsJournalShields
+    x: 0
+    y: 583
+    width: 83
+    height: 83
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 23
+    paddingRight: 22
+    paddingTop: 27
+    paddingBottom: 18
+  - name: IcoDWDragonsJournalShoes
+    x: 583
+    y: 561
+    width: 113
+    height: 69
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 9
+    paddingRight: 6
+    paddingTop: 34
+    paddingBottom: 25
+  - name: IcoDWDragonsJournalShoulderPads
+    x: 383
+    y: 639
+    width: 116
+    height: 75
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 7
+    paddingRight: 5
+    paddingTop: 30
+    paddingBottom: 23
+  - name: IcoDWDragonsJournalSkin
+    x: 688
+    y: 718
+    width: 110
+    height: 87
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 10
+    paddingRight: 8
+    paddingTop: 24
+    paddingBottom: 17
+  - name: IcoDWDragonsJournalTabAchievements
+    x: 330
+    y: 494
+    width: 71
+    height: 76
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 13
+    paddingRight: 12
+    paddingTop: 12
+    paddingBottom: 8
+  - name: IcoDWDragonsJournalTabEquip
+    x: 85
+    y: 678
+    width: 91
+    height: 81
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 2
+    paddingRight: 3
+    paddingTop: 8
+    paddingBottom: 7
+  - name: IcoDWDragonsJournalTabFieldGuide
+    x: 925
+    y: 332
+    width: 73
+    height: 76
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 11
+    paddingRight: 12
+    paddingTop: 12
+    paddingBottom: 8
+  - name: IcoDWDragonsJournalTabMessages
+    x: 304
+    y: 419
+    width: 70
+    height: 73
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 12
+    paddingRight: 14
+    paddingTop: 12
+    paddingBottom: 11
+  - name: IcoDWDragonsJournalTabNews
+    x: 133
+    y: 333
+    width: 64
+    height: 64
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 16
+    paddingRight: 16
+    paddingTop: 20
+    paddingBottom: 12
+  - name: IcoDWDragonsJournalTabPotion
+    x: 860
+    y: 382
+    width: 63
+    height: 89
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 16
+    paddingRight: 17
+    paddingTop: 4
+    paddingBottom: 3
+  - name: IcoDWDragonsJournalTabProfile
+    x: 230
+    y: 393
+    width: 62
+    height: 81
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 16
+    paddingRight: 18
+    paddingTop: 11
+    paddingBottom: 4
+  - name: IcoDWDragonsJournalTabQuest
+    x: 137
+    y: 399
+    width: 79
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 9
+    paddingRight: 8
+    paddingTop: 20
+    paddingBottom: 14
+  - name: IcoDWDragonsJournalTabUDT
+    x: 71
+    y: 418
+    width: 64
+    height: 80
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 16
+    paddingRight: 16
+    paddingTop: 8
+    paddingBottom: 8
+  - name: IcoDWDragonsJournalTops
+    x: 788
+    y: 488
+    width: 107
+    height: 72
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 11
+    paddingRight: 10
+    paddingTop: 32
+    paddingBottom: 24
+  - name: IcoDWDragonsJournalWarPaint
+    x: 774
+    y: 419
+    width: 84
+    height: 67
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 24
+    paddingRight: 20
+    paddingTop: 34
+    paddingBottom: 27
+  - name: IcoDWDragonsJournalWeapons
+    x: 581
+    y: 810
+    width: 114
+    height: 88
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 7
+    paddingRight: 7
+    paddingTop: 24
+    paddingBottom: 16
+  - name: IcoDWDragonsVisit
+    x: 85
+    y: 500
+    width: 78
+    height: 88
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: IcoDWDragonsVisitFarm
+    x: 807
+    y: 816
+    width: 112
+    height: 96
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: IconDWDragonsBuddyLoggedIn
+    x: 137
+    y: 465
+    width: 21
+    height: 33
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  mPixelSize: 1
+  mReplacement: {fileID: 0}
+  mCoordinates: 0
+  sprites: []
