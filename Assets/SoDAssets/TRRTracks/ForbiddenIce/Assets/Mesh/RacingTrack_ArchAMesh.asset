@@ -2,11 +2,12 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!43 &4300000
 Mesh:
+  serializedVersion: 10
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: RacingTrack_ArchAMesh
-  serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
     firstByte: 0
@@ -16,8 +17,8 @@ Mesh:
     firstVertex: 0
     vertexCount: 134
     localAABB:
-      m_Center: {x: -0.07945251, y: 93.92491, z: -2.195313}
-      m_Extent: {x: 94.0871, y: 88.86694, z: 105.0403}
+      m_Center: {x: -0.079452515, y: 93.92491, z: -2.1953125}
+      m_Extent: {x: 94.087105, y: 88.86694, z: 105.04031}
   - serializedVersion: 2
     firstByte: 600
     indexCount: 1152
@@ -26,19 +27,19 @@ Mesh:
     firstVertex: 134
     vertexCount: 498
     localAABB:
-      m_Center: {x: 1.907349E-05, y: 80.16161, z: 0}
-      m_Extent: {x: 98.76779, y: 86.88609, z: 107.2964}
+      m_Center: {x: 1.9073486E-05, y: 80.16161, z: 0}
+      m_Extent: {x: 98.76779, y: 86.886086, z: 107.2964}
   m_Shapes:
     vertices: []
     shapes: []
     channels: []
     fullWeights: []
   m_BindPose: []
-  m_BoneNameHashes:
+  m_BoneNameHashes: []
   m_RootBoneNameHash: 0
   m_BonesAABB: []
   m_VariableBoneCountWeights:
-    m_Data:
+    m_Data: []
   m_MeshCompression: 0
   m_IsReadable: 1
   m_KeepVertices: 0
@@ -160,7 +161,7 @@ Mesh:
       m_BitSize: 0
     m_UVInfo: 0
   m_LocalAABB:
-    m_Center: {x: 1.907349E-05, y: 88.03369, z: 0}
+    m_Center: {x: 1.9073486E-05, y: 88.03369, z: 0}
     m_Extent: {x: 98.76779, y: 94.75816, z: 107.2964}
   m_MeshUsageFlags: 16
   m_BakedConvexCollisionMesh:

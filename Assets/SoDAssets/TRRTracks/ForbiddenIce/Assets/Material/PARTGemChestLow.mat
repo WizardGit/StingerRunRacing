@@ -3,11 +3,12 @@
 --- !u!21 &2100000
 Material:
   serializedVersion: 6
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PARTGemChestLow
-  m_Shader: {fileID: 4800000, guid: 2460e642bdbe0f54194f74c4df8fbf44, type: 3}
+  m_Shader: {fileID: 4800000, guid: 284d1177702a9964c84f99564d1f0cc4, type: 3}
   m_ShaderKeywords:
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
@@ -19,15 +20,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AlphaA:
-        m_Texture: {fileID: 2800000, guid: 28cb04357a3b1814198e446f6638f5d6, type: 3}
+        m_Texture: {fileID: 2800000, guid: 643515093564b5c479c2dad50a092a4f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlphaB:
-        m_Texture: {fileID: 2800000, guid: 6807c13eab91ac948ab9b9a6bd07138c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8c3c336cf979ea6418f1dfa75db95b85, type: 3}
         m_Scale: {x: 0.5, y: 0.5}
         m_Offset: {x: 0, y: 0}
     - _AlphaC:
-        m_Texture: {fileID: 2800000, guid: a91a4610ecf0a6c43b650b27b460029c, type: 3}
+        m_Texture: {fileID: 2800000, guid: dc6f8a62093977a418b16815b4b605ec, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -39,4 +40,4 @@ Material:
     - _VSpeedTextureB: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _TintColor: {r: 0.6538461, g: 0.6538461, b: 0.6538461, a: 0.4980392}
+    - _TintColor: {r: 0.65384614, g: 0.65384614, b: 0.65384614, a: 0.49803922}

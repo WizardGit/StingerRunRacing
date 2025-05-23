@@ -3,11 +3,12 @@
 --- !u!21 &2100000
 Material:
   serializedVersion: 6
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Snow_Tex
-  m_Shader: {fileID: 4800000, guid: 8a791f85662bdd345addf7c03a1d9288, type: 3}
+  m_Shader: {fileID: 4800000, guid: f151f1408e8b3b3429e521aeb78ba61d, type: 3}
   m_ShaderKeywords: _DETAIL_MULX2 _NORMALMAP
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
@@ -19,11 +20,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: cbf44d2621d09f04cb21d6dee018a79e, type: 3}
+        m_Texture: {fileID: 2800000, guid: adad04c25c529e34293d354034b66620, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 6efa343f44a55ca47b8dc5f054a5b7d3, type: 3}
+        m_Texture: {fileID: 2800000, guid: 069e67d6737f7794fb18c7a9d9ea4936, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -43,5 +44,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.6404544, g: 0.6997485, b: 0.9328358, a: 1}
+    - _Color: {r: 0.6404544, g: 0.69974846, b: 0.9328358, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
