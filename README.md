@@ -7,6 +7,9 @@ Game Link: https://play.unity.com/mg/other/webglbuilds-245
 Website Link: https://wizardgit.github.io/StingerRunRacingWebsite/index.html
 
 TODO:
+
+Use Animator Triggers for stuff instead of my clumsy true/false state stuffs - i think this would be for jump/attack but maybe others are for run/swim
+
 package srr into a game installer
 add an inventory to freeroam
 add wandering speedstinger pack to freeroam or part of quest?
