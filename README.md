@@ -13,10 +13,8 @@ Use Animator Triggers for stuff instead of my clumsy true/false state stuffs - i
 package srr into a game installer
 add an inventory to freeroam
 add wandering speedstinger pack to freeroam or part of quest?
-add human class
 Add purposes and comments to scripts
 button click noises
-fix forbidden ice track
 allow npcs to get speed boxes!
 fix having to load all the dragon skin materials
 create way that npc dragon can be in water!
@@ -39,5 +37,6 @@ Update UserSave.CreateUser() update the for loop for more skins
 Add skin materials to canvas (StoreScript) list for ss and ds
 Add skim materials to prefab model (player controller) materials list
 the code finds the water based on the water tag, all other water should just have the layer of water
+
 Saves are here:
 C:\Users\USERNAME\AppData\LocalLow\DragonClub\StingerRunRacing

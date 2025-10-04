@@ -897,6 +897,14 @@ PrefabInstance:
       propertyPath: m_Animation
       value: 
       objectReference: {fileID: 7400000, guid: c1375364a2aeb7e4ca0448a536605d2a, type: 2}
+    - target: {fileID: 1643953578, guid: bb97ef1215ea0e54aae219de199f5652, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1643953579, guid: bb97ef1215ea0e54aae219de199f5652, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 305497871974354362, guid: bb97ef1215ea0e54aae219de199f5652, type: 3}
       propertyPath: m_Name
       value: HeatherHooded
@@ -947,6 +955,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5078634830203654194, guid: bb97ef1215ea0e54aae219de199f5652, type: 3}
+    - {fileID: 1643953577, guid: bb97ef1215ea0e54aae219de199f5652, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bb97ef1215ea0e54aae219de199f5652, type: 3}
 --- !u!4 &490339035 stripped
 Transform:
@@ -1003,6 +1012,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 92
   m_CollisionDetection: 0
+--- !u!111 &490339045
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490339036}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: c1375364a2aeb7e4ca0448a536605d2a, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: c1375364a2aeb7e4ca0448a536605d2a, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1001 &612450744
 PrefabInstance:
   m_ObjectHideFlags: 0
