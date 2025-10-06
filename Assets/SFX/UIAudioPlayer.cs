@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 /// Description:
 /// Simple reusable component to play UI click sounds.
-/// Attach this to a GameObject in the scene (for example an "Audio" or "Managers" object)
+/// Attach this to a GameObject in the scene 
 /// and assign an AudioSource plus one or more AudioClips. Call PlayClick() from
 /// UI Button OnClick() or wire it up from code.
 

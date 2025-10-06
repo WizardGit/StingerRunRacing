@@ -1,6 +1,6 @@
 /*
  * Authors: Sofi Vinas, Kaiser Slocum
- * Last Modified: 5/14/2025
+ * Last Modified: 10/6/2025
  */
 
 using System.Collections;
@@ -12,7 +12,11 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+    [Header("Button Click Sound")]
+    [Tooltip("AudioSource used to play button click sounds")] 
     public AudioSource clickSound;
+    [Tooltip("The sound to play for every button click")] 
+    public AudioClip buttonClickClip;
     public GameObject loadingSystem;
     private float timer = 0.0f;
     private string sceneToLoad = "nothing";
@@ -71,37 +75,46 @@ public class MainMenu : MonoBehaviour
             SceneManager.LoadScene(sceneToLoad);
     }
 
+
     public void PlayGame(string theScene)
     {
+        PlayButtonClick();
         loadingSystem.SetActive(true);
-        clickSound.Play();
         runTimer = true;
         sceneToLoad = theScene;
     }
 
     public void PlayStore()
     {
-        clickSound.Play();
+        PlayButtonClick();
         SceneManager.LoadScene("Store");
     }
 
     public void Credits()
     {
-        clickSound.Play();
+        PlayButtonClick();
         SceneManager.LoadScene("Credits");
     }
 
     public void PlayFreeRoam()
     {
-        clickSound.Play();
+        PlayButtonClick();
         SceneManager.LoadScene("FreeRoam");
     }
 
     public void QuitGame()
     {
-        clickSound.Play();
+        PlayButtonClick();
         Debug.Log("QUIT!");
         Application.Quit();
+    }
+    // Helper to play the button click sound
+    private void PlayButtonClick()
+    {
+        if (clickSound != null && buttonClickClip != null)
+        {
+            clickSound.PlayOneShot(buttonClickClip);
+        }
     }
     public void ChangeScreenShake()
     {
