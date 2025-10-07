@@ -13,9 +13,10 @@ Use Animator Triggers for stuff instead of my clumsy true/false state stuffs - i
 add an inventory to freeroam
 add wandering speedstinger pack to freeroam or part of quest?
 Add purposes and comments to scripts
-button click noises
+button click noises - currently getting worked on
 allow npcs to get speed boxes!
 fix having to load all the dragon skin materials
+tank controls/character turning
 
 Other (Future) Ideas:
 Create a dragon flight simulator except you can roll sideways and forward
