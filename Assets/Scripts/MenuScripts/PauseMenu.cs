@@ -14,6 +14,11 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool isPaused = false;
     public GameObject miniP;
+    [Header("Button Click Sound")]
+    [Tooltip("AudioSource used to play button click sounds")] 
+    public AudioSource clickSound;
+    [Tooltip("The sound to play for every button click")] 
+    public AudioClip buttonClickClip;
 
     // miniP is our GameObject for the Pause Menu UI
     // Start is called before the first frame update
@@ -33,6 +38,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ResumeGame()
     {
+        PlayButtonClick();
         miniP.SetActive(false);
         isPaused = false;
         Time.timeScale = 1f;
@@ -40,6 +46,7 @@ public class PauseMenu : MonoBehaviour
 
     public void GoToMainMenu()
     {
+        PlayButtonClick();
         Time.timeScale = 1;
         SceneManager.LoadScene("Menu");
         isPaused = false;
@@ -47,21 +54,37 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
+        PlayButtonClick();
         Application.Quit();
     }
 
     public void GoToStore()
     {
+        PlayButtonClick();
         SceneManager.LoadScene("Store");
     }
 
     public void SetFullscreen(bool isFullscreen)
     {
+        PlayButtonClick();
         Screen.fullScreen = isFullscreen;
     }
 
     public void SetQuality(int qualityIndex)
     {
+        PlayButtonClick();
         QualitySettings.SetQualityLevel(qualityIndex);
     }
+
+    // Helper to play the button click sound
+    private void PlayButtonClick()
+    {
+        if (clickSound != null && buttonClickClip != null)
+        {
+            clickSound.PlayOneShot(buttonClickClip);
+        }
+    }
+
 }
+
+

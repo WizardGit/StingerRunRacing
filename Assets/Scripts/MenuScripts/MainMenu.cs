@@ -76,6 +76,7 @@ public class MainMenu : MonoBehaviour
     }
 
 
+    // button click sounds start here
     public void PlayGame(string theScene)
     {
         PlayButtonClick();
