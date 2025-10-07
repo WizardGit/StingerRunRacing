@@ -112,6 +112,7 @@ public class MainMenu : MonoBehaviour
     // Helper to play the button click sound
     private void PlayButtonClick()
     {
+        //clickSound is the object, buttonClickClip is the sound
         if (clickSound != null && buttonClickClip != null)
         {
             clickSound.PlayOneShot(buttonClickClip);

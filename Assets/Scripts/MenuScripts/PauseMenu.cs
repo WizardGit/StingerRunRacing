@@ -36,6 +36,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
     }
 
+    // button clicks play sound from here
     public void ResumeGame()
     {
         PlayButtonClick();
@@ -81,6 +82,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (clickSound != null && buttonClickClip != null)
         {
+            //clickSound is the object, buttonClickClip is the sound
             clickSound.PlayOneShot(buttonClickClip);
         }
     }
