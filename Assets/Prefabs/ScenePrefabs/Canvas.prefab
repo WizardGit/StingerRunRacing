@@ -137,6 +137,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -855,8 +856,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 903642a6c2515b24b831c193dabfacb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  num: {fileID: 103559779585115088}
-  go: {fileID: 103559779585115089}
+  num: {fileID: 103559779585115089}
+  go: {fileID: 103559779585115088}
   startTime: 5
   numLaps: 1
   levelNum: 2
@@ -870,7 +871,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 02196f40780e9e0499a6d351ec1fbdc5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 794cfdce34fbb464ab8858a21e3979af, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -966,7 +967,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: dacd80cd34ec02f4b86759d5245d57c8, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 18bb634759325ce49b5402efc36ded79, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2901,7 +2902,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 24.099998, y: 32.7}
+  m_AnchoredPosition: {x: 24.099998, y: 29.7}
   m_SizeDelta: {x: 100, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &86264877854705790
@@ -2959,8 +2960,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17
-  m_fontSizeBase: 17
+  m_fontSize: 15
+  m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3251,7 +3252,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 73, y: 31.2}
+  m_AnchoredPosition: {x: 73, y: 29.2}
   m_SizeDelta: {x: 200, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2352081095662319594
@@ -3291,8 +3292,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280075227
-  m_fontColor: {r: 0.8584906, g: 0.7651437, b: 0.10933607, a: 1}
+    rgba: 4279477974
+  m_fontColor: {r: 0.8392157, g: 0.6509804, b: 0.07450981, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3309,8 +3310,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17
-  m_fontSizeBase: 17
+  m_fontSize: 15
+  m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

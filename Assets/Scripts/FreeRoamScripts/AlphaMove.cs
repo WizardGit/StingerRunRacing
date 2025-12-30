@@ -22,6 +22,8 @@ public class AlphaMove : MonoBehaviour
     private GameObject models;
     private bool getOut = false;
 
+    public int followDistance = 3;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -58,7 +60,7 @@ public class AlphaMove : MonoBehaviour
         }
         // From now on, we'll just set the waypoint to the player dragon
         if (getOut == true)
-            navMeshAgent.SetDestination(target.transform.position + new Vector3(3, 0, 0));
+            navMeshAgent.SetDestination(target.transform.position + new Vector3(followDistance, 0, 0));
 
         if (navMeshAgent.velocity.x != 0)
         {

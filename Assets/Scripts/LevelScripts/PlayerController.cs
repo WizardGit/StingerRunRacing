@@ -71,6 +71,10 @@ public class PlayerController : MonoBehaviour
     private float waterPos;
     public float dragonWaterHeight;
 
+    //Test stuffs
+    private HashSet<Collider> groundContacts = new HashSet<Collider>();
+
+
     void Start()
     {
         string theName = NameTransfer.theName;
@@ -124,7 +128,7 @@ public class PlayerController : MonoBehaviour
         SetAnimatorBool("isIdleHappy");
         // Set the fireball particle system to just go straight forward
         transform.GetChild(5).gameObject.transform.rotation = gameObject.transform.rotation;
-    }    
+    }
 
     private void FixedUpdate()
     {
@@ -164,11 +168,11 @@ public class PlayerController : MonoBehaviour
                 ClampVelocity(waterPos);
                 SetAnimatorBool("isRun");
             }
-        }     
+        }
 
         // Animations - but only play if we're on ground
         if (((onTerrain == true) && (inWater == false)) || ((inWater == true) && (playerSpeed >= playerMinOnWaterSpeed)))
-        {    
+        {
             if (movementX > 0.0f)
                 SetAnimatorBool("isTurnRight");
             else if (movementX < 0.0f)
@@ -178,6 +182,7 @@ public class PlayerController : MonoBehaviour
             else
                 SetAnimatorBool("isIdleHappy");
         }
+
         // &&((onTerrain==true) || (inWater==true))
         if (!Mathf.Approximately(movementY, 0f) && (playerSpeed <= playerMaxSpeed))
         {
@@ -286,21 +291,34 @@ public class PlayerController : MonoBehaviour
     // As long as we have a collision, we are "on the terrain"
     private void OnCollisionEnter(Collision collidingObj)
     {
+        Debug.Log("collision with: " + collidingObj.gameObject.name);
         if ((collidingObj.gameObject.tag == "GroundTerrain") || (collidingObj.gameObject.layer == 3))
         {
+            //Debug.Log("SetOnterrain");
             onTerrain = true;
-            anim.SetBool("isJump", false);
+
+            foreach (var contact in collidingObj.contacts)
+                groundContacts.Add(contact.otherCollider);
         }
     }
     // As long as we have exited a collision, we must be "in the air"
     private void OnCollisionExit(Collision collidingObj)
     {
-        Debug.Log(collidingObj.gameObject.name);
+        Debug.Log("collision exit: " + collidingObj.gameObject.name);
         if ((collidingObj.gameObject.tag == "GroundTerrain") || (collidingObj.gameObject.layer == 3))
-            onTerrain = false;
+        {
+            foreach (var contact in collidingObj.contacts)
+                groundContacts.Remove(contact.otherCollider);
+
+            if (groundContacts.Count == 0)
+            {
+                onTerrain = false;
+            }
+        }            
     }
     
     // Some extra Key Bindings
+    //This actually moves the character and then the moving of the object happens in the fixed update
     private void OnMove(InputValue movementValue)
     {
         Vector2 movementXY = movementValue.Get<Vector2>().normalized;
@@ -311,7 +329,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnJump()
     {
-        Debug.Log("OnTerrain: " + onTerrain);
+        Debug.Log("jumping now  but OnTerrain: " + onTerrain);
         if ((onTerrain == true) && (isPause == false))
         {
             onTerrain = false;
