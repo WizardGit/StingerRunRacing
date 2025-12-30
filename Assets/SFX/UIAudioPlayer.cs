@@ -41,6 +41,40 @@ public class UIAudioPlayer : MonoBehaviour
         audioSource.rolloffMode = AudioRolloffMode.Linear;
     }
 
+    void Awake()
+    {
+        // ensure AudioSource exists and has UI-friendly defaults
+        if (audioSource == null)
+        {
+            audioSource = gameObject.GetComponent<AudioSource>();
+            if (audioSource == null) audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 0f;
+        audioSource.rolloffMode = AudioRolloffMode.Linear;
+
+        // Attempt to auto-load a default click clip if none assigned
+        if (defaultClick == null)
+        {
+            defaultClick = Resources.Load<AudioClip>("Audio/old-radio-button-click");
+            if (defaultClick == null)
+                defaultClick = Resources.Load<AudioClip>("old-radio-button-click");
+
+#if UNITY_EDITOR
+            if (defaultClick == null)
+            {
+                try
+                {
+                    var editorClip = UnityEditor.AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/Audio/old-radio-button-click.mp3");
+                    if (editorClip != null) defaultClick = editorClip;
+                }
+                catch { }
+            }
+#endif
+        }
+    }
+
     /// Description:
     /// Play the default click sound (if assigned).
     /// Hook this method to a UI Button OnClick() via the inspector.

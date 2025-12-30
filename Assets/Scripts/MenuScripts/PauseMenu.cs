@@ -14,11 +14,7 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool isPaused = false;
     public GameObject miniP;
-    [Header("Button Click Sound")]
-    [Tooltip("AudioSource used to play button click sounds")] 
-    public AudioSource clickSound;
-    [Tooltip("The sound to play for every button click")] 
-    public AudioClip buttonClickClip;
+    
 
     // miniP is our GameObject for the Pause Menu UI
     // Start is called before the first frame update
@@ -80,11 +76,14 @@ public class PauseMenu : MonoBehaviour
     // Helper to play the button click sound
     private void PlayButtonClick()
     {
-        if (clickSound != null && buttonClickClip != null)
+        var uiPlayer = FindObjectOfType<UIAudioPlayer>();
+        if (uiPlayer != null)
         {
-            //clickSound is the object, buttonClickClip is the sound
-            clickSound.PlayOneShot(buttonClickClip);
+            uiPlayer.PlayClick();
+            return;
         }
+
+        Debug.LogWarning("No UIAudioPlayer found to play pause menu click. Add a UIAudioPlayer to the scene or assign sounds on the PauseMenu.", this);
     }
 
 }
