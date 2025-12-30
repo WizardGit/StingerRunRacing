@@ -112,11 +112,37 @@ public class MainMenu : MonoBehaviour
     // Helper to play the button click sound
     private void PlayButtonClick()
     {
-        //clickSound is the object, buttonClickClip is the sound
+        // Preferred: use assigned AudioSource + clip
         if (clickSound != null && buttonClickClip != null)
         {
             clickSound.PlayOneShot(buttonClickClip);
+            return;
         }
+
+        // Fallback: if there's a UIAudioPlayer in the scene, use it
+        var uiPlayer = FindObjectOfType<UIAudioPlayer>();
+        if (uiPlayer != null)
+        {
+            if (buttonClickClip != null)
+            {
+                uiPlayer.PlayClip(buttonClickClip);
+            }
+            else
+            {
+                uiPlayer.PlayClick();
+            }
+            return;
+        }
+
+        // If an AudioSource exists but clip is missing, try Play() on the source
+        if (clickSound != null && buttonClickClip == null)
+        {
+            clickSound.Play();
+            return;
+        }
+
+        // Nothing available to play — helpful warning for editor
+        Debug.LogWarning("Button click sound not played: assign MainMenu.clickSound and buttonClickClip, or add a UIAudioPlayer with a defaultClick.", this);
     }
     public void ChangeScreenShake()
     {
